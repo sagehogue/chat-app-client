@@ -17,7 +17,10 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
+  // PROD
+  // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
+  // TESTING
+  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -36,6 +39,7 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on("message", message => {
+      console.log(message);
       setMessages(messages => [...messages, message]);
     });
 
@@ -48,7 +52,7 @@ const Chat = ({ location }) => {
     event.preventDefault();
 
     if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
+      socket.emit("sendMessage", { message, room }, () => setMessage(""));
     }
   };
 
