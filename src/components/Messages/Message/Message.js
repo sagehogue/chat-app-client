@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-import './Message.css';
-
-import ReactEmoji from 'react-emoji';
-
-=======
 import React from "react";
 import styled from "styled-components";
 
@@ -30,40 +22,11 @@ const SentText = styled.p`
   ${props => (props.pl10 ? "padding-left: 10px;" : null)}
   ${props => (props.pr10 ? "padding-right: 10px;" : null)}
 `;
->>>>>>> dec9935a3327f276187cd033f7010dcf570db7fb
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
 
   const trimmedName = name.trim().toLowerCase();
 
-<<<<<<< HEAD
-  if(user === trimmedName) {
-    isSentByCurrentUser = true;
-  }
-
-  return (
-    isSentByCurrentUser
-      ? (
-        <div className="messageContainer justifyEnd">
-          <p className="sentText pr-10">{trimmedName}</p>
-          <div className="messageBox backgroundBlue">
-            <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
-          </div>
-        </div>
-        )
-        : (
-          <div className="messageContainer justifyStart">
-            <div className="messageBox backgroundLight">
-              <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
-            </div>
-            <p className="sentText pl-10 ">{user}</p>
-          </div>
-        )
-  );
-}
-
-export default Message;
-=======
   if (user === trimmedName) {
     isSentByCurrentUser = true;
   }
@@ -88,4 +51,3 @@ export default Message;
 };
 
 export default Message;
->>>>>>> dec9935a3327f276187cd033f7010dcf570db7fb
