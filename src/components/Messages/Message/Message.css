@@ -1,5 +1,9 @@
 .messageBox {
+<<<<<<< HEAD
   background: #F3F3F3;
+=======
+  background: #f3f3f3;
+>>>>>>> dec9935a3327f276187cd033f7010dcf570db7fb
   border-radius: 20px;
   padding: 5px 20px;
   color: white;
@@ -15,6 +19,17 @@
   word-wrap: break-word;
 }
 
+<<<<<<< HEAD
+=======
+.colorWhite {
+  color: white;
+}
+
+.colorDark {
+  color: #353535;
+}
+
+>>>>>>> dec9935a3327f276187cd033f7010dcf570db7fb
 .messageText img {
   vertical-align: middle;
 }
@@ -50,6 +65,7 @@
   justify-content: flex-end;
 }
 
+<<<<<<< HEAD
 .colorWhite {
   color: white;
 }
@@ -64,4 +80,12 @@
 
 .backgroundLight {
   background: #F3F3F3;
+=======
+.backgroundBlue {
+  background: #2979ff;
+}
+
+.backgroundLight {
+  background: #f3f3f3;
+>>>>>>> dec9935a3327f276187cd033f7010dcf570db7fb
 }
