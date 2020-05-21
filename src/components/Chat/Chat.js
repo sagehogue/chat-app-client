@@ -20,7 +20,8 @@ const Chat = ({ location }) => {
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
-  const ENDPOINT = "localhost:5000";
+  // Will uses 5000 so I'm using 8k
+  const ENDPOINT = "localhost:8000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
