@@ -8,6 +8,7 @@ import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 
+<<<<<<< HEAD
 const OuterContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -40,6 +41,9 @@ const Container = styled.div`
         width: 60%;
       }
 `;
+=======
+import "./Chat.css";
+>>>>>>> master
 
 let socket;
 
@@ -52,7 +56,12 @@ const Chat = ({ location }) => {
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
+<<<<<<< HEAD
   const ENDPOINT = "localhost:5000";
+=======
+  // Will uses 5000 so I'm using 8k
+  const ENDPOINT = "localhost:8000";
+>>>>>>> master
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -62,7 +71,7 @@ const Chat = ({ location }) => {
     setRoom(room);
     setName(name);
 
-    socket.emit("join", { name, room }, error => {
+    socket.emit("join", { name, room }, (error) => {
       if (error) {
         alert(error);
       }
@@ -70,9 +79,9 @@ const Chat = ({ location }) => {
   }, [ENDPOINT, location.search]);
 
   useEffect(() => {
-    socket.on("message", message => {
+    socket.on("message", (message) => {
       console.log(message);
-      setMessages(messages => [...messages, message]);
+      setMessages((messages) => [...messages, message]);
     });
 
     socket.on("messageHistory", message => {
@@ -86,7 +95,7 @@ const Chat = ({ location }) => {
     });
   }, []);
 
-  const sendMessage = event => {
+  const sendMessage = (event) => {
     event.preventDefault();
 
     if (message) {
@@ -95,8 +104,13 @@ const Chat = ({ location }) => {
   };
 
   return (
+<<<<<<< HEAD
     <OuterContainer>
       <Container>
+=======
+    <div className="outerContainer">
+      <div className="container">
+>>>>>>> master
         <InfoBar room={room} />
         <Messages messages={messages} name={name} />
         <Input

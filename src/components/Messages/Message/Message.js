@@ -9,7 +9,7 @@ const MessageText = styled.p`
   float: left;
   font-size: 1.1em;
   word-wrap: break-word;
-  color: ${props => (props.dark ? "#353535" : "#f2f2f2")};
+  color: ${(props) => (props.dark ? "#353535" : "#f2f2f2")};
 `;
 
 const MessageBox = styled.div`
@@ -28,9 +28,10 @@ const SentText = styled.p`
   font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
-  ${props => (props.pl10 ? "padding-left: 10px;" : null)}
-  ${props => (props.pr10 ? "padding-right: 10px;" : null)}
+  ${(props) => (props.pl10 ? "padding-left: 10px;" : null)}
+  ${(props) => (props.pr10 ? "padding-right: 10px;" : null)}
 `;
+<<<<<<< HEAD
 
 const MessageContainerJE = styled.div`
   display: flex;
@@ -45,6 +46,8 @@ const MessageContainerJS = styled.div`
   margin-top: 3px;
 `;
 
+=======
+>>>>>>> master
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
 
