@@ -8,7 +8,6 @@ import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 
-<<<<<<< HEAD
 const OuterContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -41,9 +40,6 @@ const Container = styled.div`
         width: 60%;
       }
 `;
-=======
-import "./Chat.css";
->>>>>>> master
 
 let socket;
 
@@ -56,12 +52,8 @@ const Chat = ({ location }) => {
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
-<<<<<<< HEAD
-  const ENDPOINT = "localhost:5000";
-=======
   // Will uses 5000 so I'm using 8k
   const ENDPOINT = "localhost:8000";
->>>>>>> master
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -104,13 +96,8 @@ const Chat = ({ location }) => {
   };
 
   return (
-<<<<<<< HEAD
     <OuterContainer>
       <Container>
-=======
-    <div className="outerContainer">
-      <div className="container">
->>>>>>> master
         <InfoBar room={room} />
         <Messages messages={messages} name={name} />
         <Input

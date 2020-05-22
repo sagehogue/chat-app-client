@@ -31,7 +31,6 @@ const SentText = styled.p`
   ${(props) => (props.pl10 ? "padding-left: 10px;" : null)}
   ${(props) => (props.pr10 ? "padding-right: 10px;" : null)}
 `;
-<<<<<<< HEAD
 
 const MessageContainerJE = styled.div`
   display: flex;
@@ -46,8 +45,6 @@ const MessageContainerJS = styled.div`
   margin-top: 3px;
 `;
 
-=======
->>>>>>> master
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
 
@@ -67,13 +64,13 @@ const Message = ({ message: { text, user }, name }) => {
       </MessageBox>
     </MessageContainerJE>
   ) : (
-    <MessageContainerJS>
-      <MessageBox>
-        <MessageText dark>{ReactEmoji.emojify(text)}</MessageText>
-      </MessageBox>
-      <SentText pl10>{user}</SentText>
-    </MessageContainerJS>
-  );
+      <MessageContainerJS>
+        <MessageBox>
+          <MessageText dark>{ReactEmoji.emojify(text)}</MessageText>
+        </MessageBox>
+        <SentText pl10>{user}</SentText>
+      </MessageContainerJS>
+    );
 };
 
 export default Message;
