@@ -47,6 +47,7 @@ const MessageContainerJS = styled.div`
 
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
+  console.log(text, user, name);
 
   const trimmedName = name.trim().toLowerCase();
 
@@ -54,19 +55,18 @@ const Message = ({ message: { text, user }, name }) => {
     isSentByCurrentUser = true;
   }
 
-  console.log(text, user, name);
 
   return isSentByCurrentUser ? (
     <MessageContainerJE>
       <SentText pr10>{trimmedName}</SentText>
       <MessageBox blue>
-        <MessageText>{ReactEmoji.emojify(text)}</MessageText>
+        <MessageText>{ReactEmoji.emojify(text + '')}</MessageText>
       </MessageBox>
     </MessageContainerJE>
   ) : (
       <MessageContainerJS>
         <MessageBox>
-          <MessageText dark>{ReactEmoji.emojify(text)}</MessageText>
+          <MessageText dark>{ReactEmoji.emojify(text + '')}</MessageText>
         </MessageBox>
         <SentText pl10>{user}</SentText>
       </MessageContainerJS>
