@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+
+const AuthButtons = styled.div`
+  // transform: translateY(20vh);
+`;
 
 const JoinOuterContainer = styled.div`
   display: flex;
@@ -29,12 +35,12 @@ const Heading = styled.h1`
   border-bottom: 2px solid white;
 `;
 
-const JoinInput = styled.input`
+const UserInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
 `;
-const JoinInputMt20 = styled.input`
+const PasswordInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
@@ -44,13 +50,19 @@ const SignInButton = styled.button`
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #2979ff;
-  padding: 20px;
+  background: rgba(41, 121, 255, 0.75);
+  padding: 1.25rem;
   border-radius: 5px;
   display: inline-block;
   border: none;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 1.5rem;
+  transition: all 0.15s;
+  &:hover {
+    transform: scale(1.1) translateY(-0.5rem);
+    box-shadow: 0rem 0.15rem #333;
+    background: rgba(41, 121, 255, 1);
+  }
   & :focus {
     outline: 0;
   }
@@ -59,31 +71,35 @@ const SignInButton = styled.button`
 export default function SignIn() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [heading, setHeading] = useState("Chatter");
 
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
-        <Heading>Join</Heading>
+        <Heading>{`${heading}`}</Heading>
         <div>
-          <JoinInput
-            placeholder="Name"
+          <UserInput
+            placeholder="Username"
             type="text"
             onChange={event => setName(event.target.value)}
           />
         </div>
         <div>
-          <JoinInputMt20
-            placeholder="Room"
+          <PasswordInput
+            placeholder="Password"
             type="text"
             onChange={event => setRoom(event.target.value)}
           />
         </div>
-        <Link
-          onClick={e => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}
-        >
-          <SignInButton type="submit">Sign In</SignInButton>
-        </Link>
+        <AuthButtons>
+          <Link
+            onClick={e => (!name || !room ? e.preventDefault() : null)}
+            to={`/chat?name=${name}&room=${room}`}
+          >
+            <SignInButton type="submit">Sign In</SignInButton>
+          </Link>
+          <Register />
+        </AuthButtons>
       </JoinInnerContainer>
     </JoinOuterContainer>
   );
