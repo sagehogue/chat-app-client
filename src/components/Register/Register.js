@@ -12,13 +12,13 @@ const RegisterButton = styled.button`
   border-radius: 0.275rem;
   font-size: 1rem;
   transition: all 0.15s;
+  outline: none;
   &:hover {
     transform: scale(1.1) translateY(-0.5rem);
     box-shadow: 0rem 0.15rem #333;
-    background-image: linear-gradient(#c62d2d, #4c1818);
   }
 `;
 
-export default function Register() {
-  return <RegisterButton>Register</RegisterButton>;
+export default function Register({ clickHandler }) {
+  return <RegisterButton onClick={clickHandler}>Register</RegisterButton>;
 }
