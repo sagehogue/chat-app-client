@@ -11,16 +11,18 @@ const MessagesStyle = styled.div`
   overflow: auto;
   flex: auto;
 `;
-const Messages = ({ messages, name }) => (
-  <MessagesStyle>
-    <ScrollToBottom>
-      {messages.map((message, i) => (
-        <div key={i}>
-          <Message message={message} name={name} />
-        </div>
-      ))}
-    </ScrollToBottom>
-  </MessagesStyle>
-);
+const Messages = ({ messages, name }) => {
+  return (
+    < MessagesStyle >
+      <ScrollToBottom>
+        {messages.map((message, i) => (
+          <div key={i}>
+            <Message message={message} name={name} />
+          </div>
+        ))}
+      </ScrollToBottom>
+    </MessagesStyle >
+  )
+};
 
 export default Messages;

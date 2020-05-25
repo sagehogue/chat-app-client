@@ -8,6 +8,8 @@ import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 
+import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
+
 const OuterContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -52,8 +54,7 @@ const Chat = ({ location }) => {
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
-  // Will uses 5000 so I'm using 8k
-  const ENDPOINT = "localhost:8000";
+  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -72,14 +73,20 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on("message", (message) => {
-      console.log(message);
       setMessages((messages) => [...messages, message]);
     });
 
-    socket.on("messageHistory", message => {
-      console.log(message);
-      // TODO: Sort messages by send date
-      setMessages(messages => [...messages, message]);
+
+
+    socket.on("messageHistory", messageHistory => {
+      if (messageHistory) {
+        sortByDate(messageHistory)
+        messageHistory.forEach(msg => {
+          if (msg.time) {
+            setMessages(messages => [...messages, msg])
+          }
+        })
+      }
     });
 
     socket.on("roomData", ({ users }) => {
@@ -91,7 +98,7 @@ const Chat = ({ location }) => {
     event.preventDefault();
 
     if (message) {
-      socket.emit("sendMessage", { message, room }, () => setMessage(""));
+      socket.emit("sendMessage", { content: { text: message, user: name, time: getCurrentTime(), room: room } }, () => setMessage(""));
     }
   };
 
