@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import globalStyles from "../GlobalStyles/GlobalStyles";
+// Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
+import * as firebase from "firebase/app";
+// Add the Firebase services that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+
 import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -41,7 +47,7 @@ const InnerFormContainer = styled.div`
   }
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -81,7 +87,7 @@ const PasswordInput = styled.input`
   outline: none;
   border: none;
 `;
-const SignInButton = styled.button`
+const SignInButton = styled.input`
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -108,15 +114,164 @@ const SignInButton = styled.button`
   }
 `;
 
-export default function SignIn() {
+const LogOutButton = styled.input`
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgba(41, 121, 255, 0.75);
+  padding: 1.25rem;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  width: 100%;
+  margin-top: 1.5rem;
+  transition: all 0.15s;
+
+  &:hover {
+    transform: scale(1.1) translateY(-0.5rem);
+    box-shadow: 0rem 0.15rem #333;
+    background: rgba(41, 121, 255, 1);
+  }
+  & :focus {
+    outline: none;
+    border: none;
+  }
+  & :active {
+    outline: none;
+    border: none;
+  }
+`;
+
+export default function LoginPage() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [heading, setHeading] = useState("Chatter");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
-  const RegisterHandler = () => {
+  useEffect(() => {
+    // Firebase account settings info
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGGPrP9z87mezp2ctPzDMHSVdO-Sl2c3c",
+      authDomain: "chat-app-c2d82.firebaseapp.com",
+      databaseURL: "https://chat-app-c2d82.firebaseio.com",
+      projectId: "chat-app-c2d82",
+      storageBucket: "chat-app-c2d82.appspot.com",
+      messagingSenderId: "773697802163",
+      appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
+      measurementId: "G-VHVQ28NBE7"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // Event listener for auth status.
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log(user);
+        setAuthenticated(true);
+        // example data
+        // var displayName = user.displayName;
+        // var email = user.email;
+        // var emailVerified = user.emailVerified;
+        // var photoURL = user.photoURL;
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        // var providerData = user.providerData;
+        // ...
+      } else {
+        // User is signed out.
+        setAuthenticated(false);
+        // ...
+      }
+    });
+    return () => {
+      // cleanup
+    };
+  }, []);
+
+  const handleDisplayRegisterForm = () => {
+    // changes the variable that controls which form is displayed
     setShowRegisterForm(true);
+    setHeading("Registration");
+  };
+
+  const handleLoginSubmit = e => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(`
+    Login Submit Successful!\n
+    email: ${email}
+    \n password: ${password}
+    `);
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      });
+  };
+
+  const handleLogOut = e => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function() {
+        // Sign-out successful.
+      })
+      .catch(function(error) {
+        // An error happened
+      });
+  };
+
+  const handleRegisterSubmit = e => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const username = form.username.value;
+    const password = form.password.value;
+    console.log(
+      `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
+    );
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(res => {
+        const user = firebase.auth().currentUser;
+
+        // This is how you update properties on the profile.
+        user
+          .updateProfile({
+            displayName: username
+          })
+          .then(function() {
+            // Update successful.
+            // Code to prepare the room join screen goes here.
+          })
+          .catch(function(error) {
+            return console.log(
+              "Error! Account failed to update. Error: " + error
+            );
+          });
+        setHeading("Chatter");
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert(
+          `ERROR ${errorCode}\n
+        ${error.message}`
+        );
+        // ...
+      });
+    // Create new account
   };
 
   return (
@@ -124,35 +279,45 @@ export default function SignIn() {
       <GlobalStyle />
       <FormStyleContainer>
         <InnerFormContainer>
-          <LoginForm showRegisterForm={showRegisterForm}>
+          <LoginForm
+            showRegisterForm={showRegisterForm}
+            onSubmit={handleLoginSubmit}
+          >
             <Heading>{`${heading}`}</Heading>
             <div>
               <EmailInput
+                required
                 placeholder="Email"
+                name="email"
                 type="text"
                 onChange={event => setEmail(event.target.value)}
               />
             </div>
             <div>
               <PasswordInput
+                required
                 placeholder="Password"
-                type="text"
-                onChange={event => setRoom(event.target.value)}
+                name="password"
+                type="password"
+                onChange={event => setPassword(event.target.value)}
               />
             </div>
             <AuthButtons>
-              <Link
-                onClick={e => (!name || !room ? e.preventDefault() : null)}
-                to={`/chat?name=${name}&room=${room}`}
-              >
-                <SignInButton type="submit">Sign In</SignInButton>
-              </Link>
-              <Register clickHandler={() => RegisterHandler()} />
+              {/* <Link
+              onClick={e => (!name || !room ? e.preventDefault() : null)}
+              to={`/chat?name=${name}&room=${room}`}
+            >
+            </Link>  This is from the room link component*/}
+              <SignInButton type="submit" value="Sign In" />
+              <Register clickHandler={() => handleDisplayRegisterForm()} />
+              <LogOutButton onClick={() => handleLogOut()} value="Logout" />
             </AuthButtons>
           </LoginForm>
-          <RegisterForm heading={heading} showRegisterForm={showRegisterForm}>
-            {/* code */}
-          </RegisterForm>
+          <RegisterForm
+            heading={heading}
+            showRegisterForm={showRegisterForm}
+            handleSubmit={handleRegisterSubmit}
+          />
         </InnerFormContainer>
       </FormStyleContainer>
     </OuterFormContainer>

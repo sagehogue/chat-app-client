@@ -86,36 +86,51 @@ const CreateButton = styled.input`
     background: #1fd131;
   }
 `;
-export default function RegisterForm({ showRegisterForm, heading }) {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
+export default function RegisterForm({ showRegisterForm, heading, handleSubmit }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [email, setEmail] = useState("");
 
+  const handlePasswordConfirmation = (event) => {
+    // Implement this logic
+    setPasswordConfirm(event.target.value)
+  }
   return (
-    <RegisterFormStyle showRegisterForm={showRegisterForm}>
-      <Heading>{`${heading}`}</Heading>
+    <RegisterFormStyle showRegisterForm={showRegisterForm} onSubmit={handleSubmit}>
+      <Heading>
+        {`${heading}`}
+      </Heading>
       <EmailInput
+        required
         placeholder="Email"
+        name="email"
         type="text"
         onChange={event => setEmail(event.target.value)}
       />
 
       <UserInput
+
         placeholder="Username"
+        name="username"
         type="text"
-        onChange={event => setName(event.target.value)}
+        onChange={event => setUsername(event.target.value)}
       />
 
       <PasswordInput
+        required
         placeholder="Password"
-        type="text"
-        onChange={event => setRoom(event.target.value)}
+        name="password"
+        type="password"
+        onChange={event => setPassword(event.target.value)}
       />
+
       <PasswordInputConfirm
         placeholder="Confirm Password"
         type="text"
-        onChange={event => setRoom(event.target.value)}
+        onChange={event => handlePasswordConfirmation(event)}
       />
+
       <CreateButton type="submit" value="Create" />
     </RegisterFormStyle>
   );
