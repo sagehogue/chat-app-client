@@ -19,7 +19,7 @@ const OuterFormContainer = styled.div`
   align-items: center;
   background: url(${background});
   background-size: cover;
-  background-color: rgba(51, 51, 51, 1);
+
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
@@ -58,7 +58,7 @@ const LoginForm = styled.div`
 
 const Heading = styled.h1`
   color: white;
-  font-size: 2.9em;
+  font-size: 3.1em;
   font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
@@ -85,7 +85,7 @@ const SignInButton = styled.button`
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: rgba(41, 121, 255, 0.75);
+  background-image: linear-gradient(#0090c1, #4099b7);
   padding: 1.25rem;
   border-radius: 5px;
   display: inline-block;
@@ -97,7 +97,6 @@ const SignInButton = styled.button`
   &:hover {
     transform: scale(1.1) translateY(-0.5rem);
     box-shadow: 0rem 0.15rem #333;
-    background: rgba(41, 121, 255, 1);
   }
   & :focus {
     outline: none;

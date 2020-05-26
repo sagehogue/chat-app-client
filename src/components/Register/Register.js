@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const RegisterButton = styled.button`
-  margin-top: 5rem;
+  margin-top: 2.5rem;
   padding: 1.25rem;
   width: 100%;
   background-image: linear-gradient(#e55e5e, #d62828);
