@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import globalStyles from "../GlobalStyles/GlobalStyles";
 import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
-
+import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import background from "../Images/background.jpg";
 const AuthButtons = styled.div`
   // transform: translateY(20vh);
 `;
@@ -16,17 +17,25 @@ const OuterFormContainer = styled.div`
   text-align: center;
   height: 100vh;
   align-items: center;
-  background-color: #1a1a1d;
+  background: url(${background});
+  background-size: cover;
+  background-color: rgba(51, 51, 51, 1);
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
 `;
-
+const FormStyleContainer = styled.div`
+  height: 55%;
+  width: 22.5%;
+  background-color: rgba(51, 51, 51, 0.75);
+  border-radius: 2%;
+`;
 const InnerFormContainer = styled.div`
+  margin: auto;
+  justify-content: center;
   position: relative;
-  height: 50%;
-
-  width: 20%;
+  height: 600px;
+  width: 250px;
   @media (min-width: 320px) and (max-width: 480px) {
     width: 90%;
   }
@@ -49,7 +58,8 @@ const LoginForm = styled.div`
 
 const Heading = styled.h1`
   color: white;
-  font-size: 2.5em;
+  font-size: 2.9em;
+  font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
 `;
@@ -112,37 +122,40 @@ export default function SignIn() {
 
   return (
     <OuterFormContainer>
-      <InnerFormContainer>
-        <LoginForm showRegisterForm={showRegisterForm}>
-          <Heading>{`${heading}`}</Heading>
-          <div>
-            <EmailInput
-              placeholder="Email"
-              type="text"
-              onChange={event => setEmail(event.target.value)}
-            />
-          </div>
-          <div>
-            <PasswordInput
-              placeholder="Password"
-              type="text"
-              onChange={event => setRoom(event.target.value)}
-            />
-          </div>
-          <AuthButtons>
-            <Link
-              onClick={e => (!name || !room ? e.preventDefault() : null)}
-              to={`/chat?name=${name}&room=${room}`}
-            >
-              <SignInButton type="submit">Sign In</SignInButton>
-            </Link>
-            <Register clickHandler={() => RegisterHandler()} />
-          </AuthButtons>
-        </LoginForm>
-        <RegisterForm heading={heading} showRegisterForm={showRegisterForm}>
-          {/* code */}
-        </RegisterForm>
-      </InnerFormContainer>
+      <GlobalStyle />
+      <FormStyleContainer>
+        <InnerFormContainer>
+          <LoginForm showRegisterForm={showRegisterForm}>
+            <Heading>{`${heading}`}</Heading>
+            <div>
+              <EmailInput
+                placeholder="Email"
+                type="text"
+                onChange={event => setEmail(event.target.value)}
+              />
+            </div>
+            <div>
+              <PasswordInput
+                placeholder="Password"
+                type="text"
+                onChange={event => setRoom(event.target.value)}
+              />
+            </div>
+            <AuthButtons>
+              <Link
+                onClick={e => (!name || !room ? e.preventDefault() : null)}
+                to={`/chat?name=${name}&room=${room}`}
+              >
+                <SignInButton type="submit">Sign In</SignInButton>
+              </Link>
+              <Register clickHandler={() => RegisterHandler()} />
+            </AuthButtons>
+          </LoginForm>
+          <RegisterForm heading={heading} showRegisterForm={showRegisterForm}>
+            {/* code */}
+          </RegisterForm>
+        </InnerFormContainer>
+      </FormStyleContainer>
     </OuterFormContainer>
   );
 }
