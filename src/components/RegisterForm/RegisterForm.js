@@ -17,7 +17,8 @@ const RegisterFormStyle = styled.form`
 
 const Heading = styled.h1`
   color: white;
-  font-size: 2.5em;
+  font-size: 3.1rem;
+  font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
 `;

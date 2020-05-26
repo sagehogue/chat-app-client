@@ -10,7 +10,8 @@ import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
-
+import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import background from "../Images/background.jpg";
 const AuthButtons = styled.div`
   // transform: translateY(20vh);
 `;
@@ -21,17 +22,25 @@ const OuterFormContainer = styled.div`
   text-align: center;
   height: 100vh;
   align-items: center;
-  background-color: #1a1a1d;
+  background: url(${background});
+  background-size: cover;
+
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
 `;
-
+const FormStyleContainer = styled.div`
+  height: 55%;
+  width: 22.5%;
+  background-color: rgba(51, 51, 51, 0.75);
+  border-radius: 2%;
+`;
 const InnerFormContainer = styled.div`
+  margin: auto;
+  justify-content: center;
   position: relative;
-  height: 50%;
-
-  width: 20%;
+  height: 600px;
+  width: 250px;
   @media (min-width: 320px) and (max-width: 480px) {
     width: 90%;
   }
@@ -54,7 +63,8 @@ const LoginForm = styled.form`
 
 const Heading = styled.h1`
   color: white;
-  font-size: 2.5em;
+  font-size: 3.1em;
+  font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
 `;
@@ -80,7 +90,7 @@ const SignInButton = styled.input`
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: rgba(41, 121, 255, 0.75);
+  background-image: linear-gradient(#0090c1, #4099b7);
   padding: 1.25rem;
   border-radius: 5px;
   display: inline-block;
@@ -92,7 +102,6 @@ const SignInButton = styled.input`
   &:hover {
     transform: scale(1.1) translateY(-0.5rem);
     box-shadow: 0rem 0.15rem #333;
-    background: rgba(41, 121, 255, 1);
   }
   & :focus {
     outline: none;
