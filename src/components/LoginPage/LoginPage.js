@@ -7,6 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+
 import { SubmitButton } from '../UI/Button/Button'
 import styled from "styled-components";
 import Login from "../Login/Login";
@@ -153,22 +154,19 @@ export default function LoginPage() {
       appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
       measurementId: "G-VHVQ28NBE7"
     };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    let firebaseDoesNotExist
+    // Check if firebase instance exists
+    firebaseDoesNotExist = !firebase.apps.length
+    if (firebaseDoesNotExist) {
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
+    }
     // Event listener for auth status.
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
         console.log(user);
         setAuthenticated(true);
-        // example data
-        // var displayName = user.displayName;
-        // var email = user.email;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        // var providerData = user.providerData;
         // ...
       } else {
         // User is signed out.
@@ -302,7 +300,6 @@ export default function LoginPage() {
             </Link>  This is from the room link component*/}
               <SignInButton type="submit" value="Sign In" />
               <Register clickHandler={() => handleDisplayRegisterForm()} />
-              <LogOutButton onClick={() => handleLogOut()} value="Logout" />
             </AuthButtons>
           </LoginForm>
           <RegisterForm

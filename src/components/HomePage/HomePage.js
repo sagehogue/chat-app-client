@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import * as firebase from "firebase/app";
+// Add the Firebase services that you want to use
+import "firebase/auth";
+import "firebase/firestore";
 
 import { Redirect } from "react-router";
 
@@ -44,21 +48,74 @@ const HomePageChatContainer = styled.div`
   background: #55d2fc;
 `;
 
-export default function HomePage() {
-  let redirect;
-  if (redirect) {
-    return <Redirect to="/login" />;
-  }
-  return (
-    <div>
-      <GlobalStyle />
 
-      <HomePageBackground>
-        <LogOutButton>Log Out</LogOutButton>
-        <HomePageSelectorContainer>
-          <HomePageChatContainer></HomePageChatContainer>
-        </HomePageSelectorContainer>
-      </HomePageBackground>
-    </div>
-  );
+export default function HomePage() {
+    const [redirect, setRedirect] = useState(false)
+    useEffect(() => {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGGPrP9z87mezp2ctPzDMHSVdO-Sl2c3c",
+            authDomain: "chat-app-c2d82.firebaseapp.com",
+            databaseURL: "https://chat-app-c2d82.firebaseio.com",
+            projectId: "chat-app-c2d82",
+            storageBucket: "chat-app-c2d82.appspot.com",
+            messagingSenderId: "773697802163",
+            appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
+            measurementId: "G-VHVQ28NBE7"
+        };
+        let firebaseDoesNotExist, db
+        // Check if firebase instance exists
+        firebaseDoesNotExist = !firebase.apps.length
+        if (firebaseDoesNotExist) {
+            // Initialize Firebase
+            db = firebase.initializeApp(firebaseConfig).firestore()
+        } else {
+            db = firebase.app().firestore()
+        }
+        // Event listener for auth status.
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // User is signed in.
+                const displayName = user.displayName;
+                const email = user.email;
+                const emailVerified = user.emailVerified;
+                const photoURL = user.photoURL;
+                const isAnonymous = user.isAnonymous;
+                const uid = user.uid;
+                // ...
+            } else {
+                // User is signed out.
+                setRedirect(true);
+                // ...
+            }
+        });
+        return () => {
+            // cleanup
+        }
+    }, [])
+    if (redirect) {
+        return <Redirect to="/login" />;
+    }
+    const handleLogOut = e => {
+        firebase
+            .auth()
+            .signOut()
+            .then(function () {
+                // Sign-out successful.
+            })
+            .catch(function (error) {
+                // An error happened
+            });
+    };
+    return (
+        <div>
+            <GlobalStyle />
+
+            <HomePageBackground>
+                <LogOutButton onClick={handleLogOut}>Log Out</LogOutButton>
+                <HomePageSelectorContainer>
+                    <HomePageChatContainer></HomePageChatContainer>
+                </HomePageSelectorContainer>
+            </HomePageBackground>
+        </div>
+    );
 }
