@@ -7,14 +7,23 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+import { SubmitButton } from '../UI/Button/Button'
 import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 import background from "../Images/background.jpg";
+
+import { Redirect } from 'react-router'
+
+
+
 const AuthButtons = styled.div`
   // transform: translateY(20vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const OuterFormContainer = styled.div`
@@ -87,32 +96,13 @@ const PasswordInput = styled.input`
   outline: none;
   border: none;
 `;
-const SignInButton = styled.input`
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background-image: linear-gradient(#0090c1, #4099b7);
-  padding: 1.25rem;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
-  width: 100%;
-  margin-top: 1.5rem;
-  transition: all 0.15s;
+const SignInButton = styled(SubmitButton)`
+background-image: linear-gradient(#0090c1, #4099b7);
+width: 50%;
+margin-top: 1.5rem;
+border: none;
+`
 
-  &:hover {
-    transform: scale(1.1) translateY(-0.5rem);
-    box-shadow: 0rem 0.15rem #333;
-  }
-  & :focus {
-    outline: none;
-    border: none;
-  }
-  & :active {
-    outline: none;
-    border: none;
-  }
-`;
 
 const LogOutButton = styled.input`
   color: #fff !important;
@@ -166,7 +156,7 @@ export default function LoginPage() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
         console.log(user);
@@ -210,7 +200,7 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -222,10 +212,10 @@ export default function LoginPage() {
     firebase
       .auth()
       .signOut()
-      .then(function() {
+      .then(function () {
         // Sign-out successful.
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // An error happened
       });
   };
@@ -250,18 +240,18 @@ export default function LoginPage() {
           .updateProfile({
             displayName: username
           })
-          .then(function() {
+          .then(function () {
             // Update successful.
             // Code to prepare the room join screen goes here.
           })
-          .catch(function(error) {
+          .catch(function (error) {
             return console.log(
               "Error! Account failed to update. Error: " + error
             );
           });
         setHeading("Chatter");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -273,7 +263,9 @@ export default function LoginPage() {
       });
     // Create new account
   };
-
+  if (authenticated) {
+    return <Redirect to='/' />;
+  }
   return (
     <OuterFormContainer>
       <GlobalStyle />
