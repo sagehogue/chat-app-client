@@ -57,19 +57,19 @@ const EmailInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: none;
 `;
 
-const UserInput = styled.input`
-  border-radius: 0;
-  margin-top: 20px;
-  padding: 15px 20px;
-  width: 100%;
-`;
 const PasswordInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
   margin-top: 20px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
 `;
 const SignInButton = styled.button`
   color: #fff !important;
@@ -121,12 +121,6 @@ export default function SignIn() {
               type="text"
               onChange={event => setEmail(event.target.value)}
             />
-
-            {/* <UserInput
-          // placeholder="Username"
-          // type="text"
-          // onChange={event => setName(event.target.value)}
-          /> */}
           </div>
           <div>
             <PasswordInput

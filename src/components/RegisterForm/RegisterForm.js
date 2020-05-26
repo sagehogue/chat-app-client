@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 
-const RegisterFormStyle = styled.div`
+const RegisterFormStyle = styled.form`
   position: absolute;
   top: 0;
   left: 0;
@@ -25,6 +25,9 @@ const EmailInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
 `;
 
 const UserInput = styled.input`
@@ -32,21 +35,30 @@ const UserInput = styled.input`
   margin-top: 20px;
   padding: 15px 20px;
   width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
 `;
 const PasswordInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
   margin-top: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
 `;
 const PasswordInputConfirm = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
   margin-top: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
 `;
 
-const CreateButton = styled.button`
+const CreateButton = styled.input`
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -103,7 +115,7 @@ export default function RegisterForm({ showRegisterForm, heading }) {
         type="text"
         onChange={event => setRoom(event.target.value)}
       />
-      <CreateButton>Create</CreateButton>
+      <CreateButton type="submit" value="Create" />
     </RegisterFormStyle>
   );
 }
