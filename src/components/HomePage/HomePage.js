@@ -45,6 +45,7 @@ const HomePageChatContainer = styled.div`
 `;
 
 export default function HomePage() {
+  let redirect;
   if (redirect) {
     return <Redirect to="/login" />;
   }
