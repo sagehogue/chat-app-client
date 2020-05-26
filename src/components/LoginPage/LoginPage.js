@@ -156,7 +156,7 @@ export default function LoginPage() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
         console.log(user);
@@ -200,13 +200,23 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
       });
   };
+
+  const handleLogOut = e => {
+    firebase.auth().signOut()
+      .then(function () {
+        // Sign-out successful.
+      })
+      .catch(function (error) {
+        // An error happened
+      });
+  }
 
   const handleRegisterSubmit = e => {
     e.preventDefault();
@@ -228,18 +238,18 @@ export default function LoginPage() {
           .updateProfile({
             displayName: username
           })
-          .then(function() {
+          .then(function () {
             // Update successful.
             // Code to prepare the room join screen goes here.
           })
-          .catch(function(error) {
+          .catch(function (error) {
             return console.log(
               "Error! Account failed to update. Error: " + error
             );
           });
         setHeading("Chatter");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -282,7 +292,7 @@ export default function LoginPage() {
             </Link>  This is from the room link component*/}
             <SignInButton type="submit" value="Sign In" />
             <Register clickHandler={() => handleDisplayRegisterForm()} />
-            <LogOutButton type="submit" value="Logout" />
+            <LogOutButton onClick={() => handleLogOut()} value="Logout" />
           </AuthButtons>
         </LoginForm>
         <RegisterForm
