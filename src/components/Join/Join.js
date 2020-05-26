@@ -82,9 +82,7 @@ export default function SignIn() {
           onClick={e => (!name || !room ? e.preventDefault() : null)}
           to={`/chat?name=${name}&room=${room}`}
         >
-          <SignInButton className={"button mt-20"} type="submit">
-            Sign In
-          </SignInButton>
+          <SignInButton type="submit">Sign In</SignInButton>
         </Link>
       </JoinInnerContainer>
     </JoinOuterContainer>
