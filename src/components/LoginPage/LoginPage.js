@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import globalStyles from "../GlobalStyles/GlobalStyles";
 // Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
@@ -217,6 +218,18 @@ export default function LoginPage() {
       });
   };
 
+  const handleLogOut = e => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function() {
+        // Sign-out successful.
+      })
+      .catch(function(error) {
+        // An error happened
+      });
+  };
+
   const handleRegisterSubmit = e => {
     e.preventDefault();
     const form = e.target;
@@ -263,43 +276,50 @@ export default function LoginPage() {
 
   return (
     <OuterFormContainer>
-      <InnerFormContainer>
-        <LoginForm
-          showRegisterForm={showRegisterForm}
-          onSubmit={handleLoginSubmit}
-        >
-          <Heading>{`${heading}`}</Heading>
-          <EmailInput
-            required
-            placeholder="Email"
-            name="email"
-            type="text"
-            onChange={event => setEmail(event.target.value)}
-          />
-          <PasswordInput
-            required
-            placeholder="Password"
-            name="password"
-            type="password"
-            onChange={event => setPassword(event.target.value)}
-          />
-          <AuthButtons>
-            {/* <Link
+      <GlobalStyle />
+      <FormStyleContainer>
+        <InnerFormContainer>
+          <LoginForm
+            showRegisterForm={showRegisterForm}
+            onSubmit={handleLoginSubmit}
+          >
+            <Heading>{`${heading}`}</Heading>
+            <div>
+              <EmailInput
+                required
+                placeholder="Email"
+                name="email"
+                type="text"
+                onChange={event => setEmail(event.target.value)}
+              />
+            </div>
+            <div>
+              <PasswordInput
+                required
+                placeholder="Password"
+                name="password"
+                type="password"
+                onChange={event => setPassword(event.target.value)}
+              />
+            </div>
+            <AuthButtons>
+              {/* <Link
               onClick={e => (!name || !room ? e.preventDefault() : null)}
               to={`/chat?name=${name}&room=${room}`}
             >
             </Link>  This is from the room link component*/}
-            <SignInButton type="submit" value="Sign In" />
-            <Register clickHandler={() => handleDisplayRegisterForm()} />
-            <LogOutButton type="submit" value="Logout" />
-          </AuthButtons>
-        </LoginForm>
-        <RegisterForm
-          heading={heading}
-          showRegisterForm={showRegisterForm}
-          handleSubmit={handleRegisterSubmit}
-        />
-      </InnerFormContainer>
+              <SignInButton type="submit" value="Sign In" />
+              <Register clickHandler={() => handleDisplayRegisterForm()} />
+              <LogOutButton onClick={() => handleLogOut()} value="Logout" />
+            </AuthButtons>
+          </LoginForm>
+          <RegisterForm
+            heading={heading}
+            showRegisterForm={showRegisterForm}
+            handleSubmit={handleRegisterSubmit}
+          />
+        </InnerFormContainer>
+      </FormStyleContainer>
     </OuterFormContainer>
   );
 }
