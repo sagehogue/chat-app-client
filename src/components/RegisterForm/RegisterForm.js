@@ -1,10 +1,42 @@
 import React, { useState } from "react";
 
-import styled from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 
 import { SubmitButton } from '../UI/Button/Button'
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+
+const fadeOutKey = keyframes`
+0% {
+  opacity: 1;
+}
+50% {
+    opacity: 1;
+  }
+100% {
+  opacity: 0;
+}`
+
+const fadeInKey = keyframes`
+0% {
+  opacity: 0;
+}
+50% {
+    opacity: 0;
+  }
+100% {
+  opacity: 1;
+}`
+
+const fadeIn = props =>
+  css`
+    ${fadeInKey} 1s;
+  `
+
+const fadeOut = props =>
+  css`
+    ${fadeOutKey} 1s;
+  `
 
 // TODOS
 // 1. Implement password verification - 2 fields must match, 
@@ -16,8 +48,11 @@ const RegisterFormStyle = styled.form`
   position: absolute;
   top: 0;
   left: 0;
+  animation-fill-mode: forwards;
   margin: auto;
   transition: all 0.5s ease-in;
+  animation: ${props => (props.animateLoginForm ? `${fadeOut}` : 'none')};
+  animation: ${props => (props.showRegisterForm ? `${fadeIn}` : 'none')};
   opacity: ${props => (props.showRegisterForm ? 1 : 0)};
   z-index: ${props => (props.showRegisterForm ? 10 : 0)};
   pointer-events: ${props => (props.showRegisterForm ? "auto" : "none")};

@@ -6,18 +6,31 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
-
+import * as EmailValidator from 'email-validator';
 
 import { SubmitButton } from '../UI/Button/Button'
-import styled from "styled-components";
+import styled, { keyframes } from 'styled-components'
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import LoginForm from '../LoginForm/LoginForm'
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 import background from "../Images/background.jpg";
 
 import { Redirect } from 'react-router'
 
+// TODOS
+// 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in. 
+// 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are. 
+
+
+const fadeIn = keyframes`
+0% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}`
 
 
 const AuthButtons = styled.div`
@@ -57,20 +70,19 @@ const InnerFormContainer = styled.div`
   }
 `;
 
-const LoginForm = styled.form`
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-
-  transition: all 0.5s;
-  opacity: ${props => (props.showRegisterForm ? 0 : 1)};
-  z-index: ${props => (props.showRegisterForm ? 0 : 10)};
-  pointer-events: ${props => (props.showRegisterForm ? "none" : "auto")};
-`;
+// const LoginForm = styled.form`
+//   position: absolute;
+//   margin-left: auto;
+//   margin-right: auto;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   text-align: center;
+//   transition: all 0.5s;
+//   opacity: ${props => (props.showRegisterForm ? 0 : 1)};
+//   z-index: ${props => (props.showRegisterForm ? 0 : 10)};
+//   pointer-events: ${props => (props.showRegisterForm ? "none" : "auto")};
+// `;
 
 const Heading = styled.h1`
   color: white;
@@ -103,36 +115,6 @@ width: 50%;
 margin-top: 1.5rem;
 border: none;
 `
-
-
-const LogOutButton = styled.input`
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: rgba(41, 121, 255, 0.75);
-  padding: 1.25rem;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
-  width: 100%;
-  margin-top: 1.5rem;
-  transition: all 0.15s;
-
-  &:hover {
-    transform: scale(1.1) translateY(-0.5rem);
-    box-shadow: 0rem 0.15rem #333;
-    background: rgba(41, 121, 255, 1);
-  }
-  & :focus {
-    outline: none;
-    border: none;
-  }
-  & :active {
-    outline: none;
-    border: none;
-  }
-`;
-
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -224,42 +206,47 @@ export default function LoginPage() {
     const email = form.email.value;
     const username = form.username.value;
     const password = form.password.value;
-    console.log(
-      `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
-    );
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        const user = firebase.auth().currentUser;
+    const validEmail = EmailValidator.validate(email)
+    if (validEmail) {
+      console.log(
+        `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
+      );
+      // Create new account
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          const user = firebase.auth().currentUser;
 
-        // This is how you update properties on the profile.
-        user
-          .updateProfile({
-            displayName: username
-          })
-          .then(function () {
-            // Update successful.
-            // Code to prepare the room join screen goes here.
-          })
-          .catch(function (error) {
-            return console.log(
-              "Error! Account failed to update. Error: " + error
-            );
-          });
-        setHeading("Chatter");
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert(
-          `ERROR ${errorCode}\n
-        ${error.message}`
-        );
-        // ...
-      });
-    // Create new account
+          // This is how you update properties on the profile.
+          user
+            .updateProfile({
+              displayName: username
+            })
+            .then(function () {
+              // Update successful.
+              // Code to prepare the room join screen goes here.
+            })
+            .catch(function (error) {
+              return console.log(
+                "Error! Account failed to update. Error: " + error
+              );
+            });
+          setHeading("Chatter");
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(
+            `ERROR ${errorCode}\n
+          ${error.message}`
+          );
+          // ...
+        });
+    } else {
+      // handle invalid email
+    }
   };
   if (authenticated) {
     return <Redirect to='/' />;
@@ -299,6 +286,7 @@ export default function LoginPage() {
             >
             </Link>  This is from the room link component*/}
               <SignInButton type="submit" value="Sign In" />
+
               <Register clickHandler={() => handleDisplayRegisterForm()} />
             </AuthButtons>
           </LoginForm>
