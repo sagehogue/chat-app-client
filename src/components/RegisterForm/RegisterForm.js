@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+
+import { SubmitButton } from '../UI/Button/Button'
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+
+// TODOS
+// 1. Implement password verification - 2 fields must match, 
+// be of appropriate length + complexity
+// 2. Email must be appropriately formatted and available.
+// 3. Username must be of appropriate length, comprised of allowable chars, available.
 
 const RegisterFormStyle = styled.form`
   position: absolute;
@@ -59,32 +67,11 @@ const PasswordInputConfirm = styled.input`
   border-radius: 5px;
 `;
 
-const CreateButton = styled.input`
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
+const CreateButton = styled(SubmitButton)`
   background: #157f1f;
-  padding: 1.25rem;
-  border-radius: 5px;
-  display: inline-block;
   border: none;
-  width: 100%;
+  width: 75%;
   margin-top: 1.5rem;
-  transition: all 0.15s;
-
-  &:hover {
-    transform: scale(1.1) translateY(-0.5rem);
-    box-shadow: 0rem 0.15rem #333;
-  }
-  &:focus {
-    outline: none;
-    border: none;
-  }
-  &:active {
-    outline: none;
-    border: none;
-    background: #1fd131;
-  }
 `;
 export default function RegisterForm({ showRegisterForm, heading, handleSubmit }) {
   const [username, setUsername] = useState("");
