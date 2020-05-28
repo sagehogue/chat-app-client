@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import globalStyles from "../GlobalStyles/GlobalStyles";
 // Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
@@ -6,8 +6,11 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import firebaseConfig from '../../firebaseConfig';
+import { AuthContext, firebaseController } from '../../App'
 import * as EmailValidator from 'email-validator';
 
+import { fadeIn } from '../UI/Animations/Animations'
 import { SubmitButton } from '../UI/Button/Button'
 import styled, { keyframes } from 'styled-components'
 import Login from "../Login/Login";
@@ -22,15 +25,6 @@ import { Redirect } from 'react-router'
 // TODOS
 // 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in. 
 // 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are. 
-
-
-const fadeIn = keyframes`
-0% {
-  opacity: 0;
-}
-100% {
-  opacity: 1;
-}`
 
 
 const AuthButtons = styled.div`
@@ -115,6 +109,8 @@ width: 50%;
 margin-top: 1.5rem;
 border: none;
 `
+
+
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -123,43 +119,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
-
-  useEffect(() => {
-    // Firebase account settings info
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGGPrP9z87mezp2ctPzDMHSVdO-Sl2c3c",
-      authDomain: "chat-app-c2d82.firebaseapp.com",
-      databaseURL: "https://chat-app-c2d82.firebaseio.com",
-      projectId: "chat-app-c2d82",
-      storageBucket: "chat-app-c2d82.appspot.com",
-      messagingSenderId: "773697802163",
-      appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
-      measurementId: "G-VHVQ28NBE7"
-    };
-    let firebaseDoesNotExist
-    // Check if firebase instance exists
-    firebaseDoesNotExist = !firebase.apps.length
-    if (firebaseDoesNotExist) {
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig)
-    }
-    // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // User is signed in.
-        console.log(user);
-        setAuthenticated(true);
-        // ...
-      } else {
-        // User is signed out.
-        setAuthenticated(false);
-        // ...
-      }
-    });
-    return () => {
-      // cleanup
-    };
-  }, []);
+  let userAuth = useContext(AuthContext)
+  if (userAuth.loggedIn) {
+    return <Redirect to="/" />;
+  }
 
   const handleDisplayRegisterForm = () => {
     // changes the variable that controls which form is displayed
@@ -172,11 +135,6 @@ export default function LoginPage() {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(`
-    Login Submit Successful!\n
-    email: ${email}
-    \n password: ${password}
-    `);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -202,6 +160,7 @@ export default function LoginPage() {
 
   const handleRegisterSubmit = e => {
     e.preventDefault();
+    e.stopPropagation();
     const form = e.target;
     const email = form.email.value;
     const username = form.username.value;
@@ -248,9 +207,7 @@ export default function LoginPage() {
       // handle invalid email
     }
   };
-  if (authenticated) {
-    return <Redirect to='/' />;
-  }
+
   return (
     <OuterFormContainer>
       <GlobalStyle />
