@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { SubmitButton } from "../UI/Button/Button";
 
-const RegisterButton = styled.button`
-  margin-top: 2.5rem;
+const RegisterButton = styled(SubmitButton)`
+  margin-top: 2rem;
   padding: 1.25rem;
   width: 50%;
   background-image: linear-gradient(#e55e5e, #d62828);
@@ -15,10 +16,9 @@ const RegisterButton = styled.button`
   outline: none;
   &:hover {
     transform: scale(1.1) translateY(-0.5rem);
-    box-shadow: 0rem 0.15rem #333;
   }
 `;
 
 export default function Register({ clickHandler }) {
-  return <RegisterButton onClick={clickHandler}>Register</RegisterButton>;
+  return <RegisterButton onClick={clickHandler} value="register" />;
 }

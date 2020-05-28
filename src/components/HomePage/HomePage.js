@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import {
+  FaUserFriends,
+  FaRegComments,
+  FaHome,
+  FaPortrait
+} from "react-icons/fa";
 import styled from "styled-components";
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
@@ -13,38 +19,95 @@ import GlobalStyle from "../GlobalStyles/GlobalStyles";
 const HomePageBackground = styled.div`
   position: relative;
   display: flex;
+  justify-content: flex-end;
   align-items: flex-end;
-  justify-content: center;
+
   height: 100vh;
   width: 100vw;
   background: #016789;
 `;
-const LogOutButton = styled(button)`
+
+const FriendsIcon = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  padding-left: 5rem;
+  font-size: 5rem;
+  color: #fff;
+  &:hover {
+    color: green;
+  }
+`;
+
+// const FriendsProfiles = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   position: absolute;
+
+//   top: 0;
+//   left: 0;
+//   margin: auto;
+//   padding-left: 5rem;
+//   font-size: 5rem;
+//   color: #fff;
+// `;
+
+const RoomsIcon = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 3rem;
-  margin-right: 3rem;
-  color: black;
+  padding: 2rem;
+  padding-right: 5rem;
+  font-size: 5rem;
+  color: #fff;
 `;
 
-const HomeNavBar = styled.nav`
+const HomeIcon = styled.div`
+  display: flex;
   justify-content: center;
-  align-items: flex-end;
-  width: 100vw;
-  height: 15vh;
-  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: 2rem;
+
+  font-size: 5rem;
+  color: #fff;
 `;
+
+const LogOutButton = styled(button)`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 3rem;
+  margin-right: 30rem;
+
+  color: #fff;
+  border: 1px #fff solid;
+  background-color: transparent;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
 const HomePageSelectorContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
   height: 85vh;
-  width: 80vw;
+  width: 85vw;
   background: #0090c1;
 `;
 
 const HomePageChatContainer = styled.div`
-  margin: auto;
+  display: flex;
+  justify-content: center;
+
   height: 85vh;
-  width: 60vw;
+  width: 70vw;
   background: #55d2fc;
 `;
 
@@ -111,6 +174,22 @@ export default function HomePage() {
       <GlobalStyle />
 
       <HomePageBackground>
+        <FriendsIcon>
+          <FaUserFriends />
+        </FriendsIcon>
+        {/* <FriendsProfiles>
+          <FaPortrait />
+          <FaPortrait />
+          <FaPortrait />
+          <FaPortrait />
+          <FaPortrait />
+        </FriendsProfiles> */}
+        <HomeIcon>
+          <FaHome />
+        </HomeIcon>
+        <RoomsIcon>
+          <FaRegComments />
+        </RoomsIcon>
         <LogOutButton onClick={handleLogOut}>Log Out</LogOutButton>
         <HomePageSelectorContainer>
           <HomePageChatContainer></HomePageChatContainer>

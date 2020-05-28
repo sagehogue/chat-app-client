@@ -7,8 +7,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-
-import { SubmitButton } from '../UI/Button/Button'
+import { SubmitButton } from "../UI/Button/Button";
 import styled from "styled-components";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -16,9 +15,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 import background from "../Images/background.jpg";
 
-import { Redirect } from 'react-router'
-
-
+import { Redirect } from "react-router";
 
 const AuthButtons = styled.div`
   // transform: translateY(20vh);
@@ -98,12 +95,11 @@ const PasswordInput = styled.input`
   border: none;
 `;
 const SignInButton = styled(SubmitButton)`
-background-image: linear-gradient(#0090c1, #4099b7);
-width: 50%;
-margin-top: 1.5rem;
-border: none;
-`
-
+  background-image: linear-gradient(#0090c1, #4099b7);
+  width: 50%;
+  margin-top: 2rem;
+  border: none;
+`;
 
 const LogOutButton = styled.input`
   color: #fff !important;
@@ -154,15 +150,15 @@ export default function LoginPage() {
       appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
       measurementId: "G-VHVQ28NBE7"
     };
-    let firebaseDoesNotExist
+    let firebaseDoesNotExist;
     // Check if firebase instance exists
-    firebaseDoesNotExist = !firebase.apps.length
+    firebaseDoesNotExist = !firebase.apps.length;
     if (firebaseDoesNotExist) {
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig)
+      firebase.initializeApp(firebaseConfig);
     }
     // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
         console.log(user);
@@ -198,7 +194,7 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -210,10 +206,10 @@ export default function LoginPage() {
     firebase
       .auth()
       .signOut()
-      .then(function () {
+      .then(function() {
         // Sign-out successful.
       })
-      .catch(function (error) {
+      .catch(function(error) {
         // An error happened
       });
   };
@@ -238,18 +234,18 @@ export default function LoginPage() {
           .updateProfile({
             displayName: username
           })
-          .then(function () {
+          .then(function() {
             // Update successful.
             // Code to prepare the room join screen goes here.
           })
-          .catch(function (error) {
+          .catch(function(error) {
             return console.log(
               "Error! Account failed to update. Error: " + error
             );
           });
         setHeading("Chatter");
       })
-      .catch(function (error) {
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -262,7 +258,7 @@ export default function LoginPage() {
     // Create new account
   };
   if (authenticated) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
   return (
     <OuterFormContainer>
