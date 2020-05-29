@@ -53,7 +53,6 @@ const HomePageChatContainer = styled.div`
   background: #55d2fc;
 `;
 
-
 export default function HomePage() {
     let userAuth = useContext(AuthContext)
     let firebaseDoesNotExist, db
@@ -65,24 +64,6 @@ export default function HomePage() {
     } else {
         db = firebase.app().firestore()
     }
-    // let [redirect, setRedirect] = useState(true)
-    // Event listener for auth status.
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //         // User is signed in.
-    //         const displayName = user.displayName;
-    //         const email = user.email;
-    //         const emailVerified = user.emailVerified;
-    //         const photoURL = user.photoURL;
-    //         const isAnonymous = user.isAnonymous;
-    //         const uid = user.uid;
-    //         // ...
-    //         // setRedirect(false);
-    //     } else {
-    //         // User is signed out.
-    //         // ...
-    //     }
-    // });
     if (!userAuth.loggedIn) {
         return <Redirect to="/login" />;
     }

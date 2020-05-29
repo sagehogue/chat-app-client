@@ -10,15 +10,15 @@ import firebaseConfig from '../../firebaseConfig';
 import { AuthContext, firebaseController } from '../../App'
 import * as EmailValidator from 'email-validator';
 
-import { fadeIn } from '../UI/Animations/Animations'
+import background from "../Images/background.jpg";
+import styled from 'styled-components'
 import { SubmitButton } from '../UI/Button/Button'
-import styled, { keyframes } from 'styled-components'
 import Login from "../Login/Login";
+import LoginForm from '../LoginForm/LoginForm'
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
-import LoginForm from '../LoginForm/LoginForm'
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
-import background from "../Images/background.jpg";
+import { fadeIn } from '../UI/Animations/Animations'
 
 import { Redirect } from 'react-router'
 
@@ -28,7 +28,6 @@ import { Redirect } from 'react-router'
 
 
 const AuthButtons = styled.div`
-  // transform: translateY(20vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +41,6 @@ const OuterFormContainer = styled.div`
   align-items: center;
   background: url(${background});
   background-size: cover;
-
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
@@ -63,20 +61,6 @@ const InnerFormContainer = styled.div`
     width: 90%;
   }
 `;
-
-// const LoginForm = styled.form`
-//   position: absolute;
-//   margin-left: auto;
-//   margin-right: auto;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   text-align: center;
-//   transition: all 0.5s;
-//   opacity: ${props => (props.showRegisterForm ? 0 : 1)};
-//   z-index: ${props => (props.showRegisterForm ? 0 : 10)};
-//   pointer-events: ${props => (props.showRegisterForm ? "none" : "auto")};
-// `;
 
 const Heading = styled.h1`
   color: white;
@@ -143,18 +127,6 @@ export default function LoginPage() {
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
-      });
-  };
-
-  const handleLogOut = e => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function () {
-        // Sign-out successful.
-      })
-      .catch(function (error) {
-        // An error happened
       });
   };
 
