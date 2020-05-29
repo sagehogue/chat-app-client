@@ -10,14 +10,9 @@ import firebaseConfig from '../../firebaseConfig';
 import { AuthContext, firebaseController } from '../../App'
 import * as EmailValidator from 'email-validator';
 
-<<<<<<< HEAD
-import { SubmitButton } from "../UI/Button/Button";
-import styled from "styled-components";
-=======
 import background from "../Images/background.jpg";
 import styled from 'styled-components'
 import { SubmitButton } from '../UI/Button/Button'
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 import Login from "../Login/Login";
 import LoginForm from '../LoginForm/LoginForm'
 import Register from "../Register/Register";
@@ -25,16 +20,12 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 import { fadeIn } from '../UI/Animations/Animations'
 
-<<<<<<< HEAD
-import { Redirect } from "react-router";
-=======
 import { Redirect } from 'react-router'
 
 // TODOS
 // 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in. 
 // 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are. 
 
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 
 const AuthButtons = styled.div`
   display: flex;
@@ -111,50 +102,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
-<<<<<<< HEAD
-
-  useEffect(() => {
-    // Firebase account settings info
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGGPrP9z87mezp2ctPzDMHSVdO-Sl2c3c",
-      authDomain: "chat-app-c2d82.firebaseapp.com",
-      databaseURL: "https://chat-app-c2d82.firebaseio.com",
-      projectId: "chat-app-c2d82",
-      storageBucket: "chat-app-c2d82.appspot.com",
-      messagingSenderId: "773697802163",
-      appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
-      measurementId: "G-VHVQ28NBE7"
-    };
-    let firebaseDoesNotExist;
-    // Check if firebase instance exists
-    firebaseDoesNotExist = !firebase.apps.length;
-    if (firebaseDoesNotExist) {
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    }
-    // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log(user);
-        setAuthenticated(true);
-        // ...
-      } else {
-        // User is signed out.
-        setAuthenticated(false);
-        // ...
-      }
-    });
-    return () => {
-      // cleanup
-    };
-  }, []);
-=======
   let userAuth = useContext(AuthContext)
   if (userAuth.loggedIn) {
     return <Redirect to="/" />;
   }
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 
   const handleDisplayRegisterForm = () => {
     // changes the variable that controls which form is displayed
@@ -170,7 +121,7 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -178,21 +129,6 @@ export default function LoginPage() {
       });
   };
 
-<<<<<<< HEAD
-  const handleLogOut = e => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function() {
-        // Sign-out successful.
-      })
-      .catch(function(error) {
-        // An error happened
-      });
-  };
-
-=======
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
   const handleRegisterSubmit = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -200,48 +136,6 @@ export default function LoginPage() {
     const email = form.email.value;
     const username = form.username.value;
     const password = form.password.value;
-<<<<<<< HEAD
-    console.log(
-      `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
-    );
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        const user = firebase.auth().currentUser;
-
-        // This is how you update properties on the profile.
-        user
-          .updateProfile({
-            displayName: username
-          })
-          .then(function() {
-            // Update successful.
-            // Code to prepare the room join screen goes here.
-          })
-          .catch(function(error) {
-            return console.log(
-              "Error! Account failed to update. Error: " + error
-            );
-          });
-        setHeading("Chatter");
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert(
-          `ERROR ${errorCode}\n
-        ${error.message}`
-        );
-        // ...
-      });
-    // Create new account
-  };
-  if (authenticated) {
-    return <Redirect to="/" />;
-  }
-=======
     const validEmail = EmailValidator.validate(email)
     if (validEmail) {
       // Create new account
@@ -282,7 +176,6 @@ export default function LoginPage() {
     }
   };
 
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
   return (
     <OuterFormContainer>
       <GlobalStyle />
