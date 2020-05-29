@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import {
   FaUserFriends,
@@ -5,16 +6,24 @@ import {
   FaHome,
   FaPortrait
 } from "react-icons/fa";
+=======
+import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 import styled from "styled-components";
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import firebaseConfig from '../../firebaseConfig';
+import { firebaseController } from '../../App';
 
 import { Redirect } from "react-router";
-
+import { AuthContext } from '../../App';
 import button from "../UI/Button/Button";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
+
+// TODO
+// Implement loading screen while authentication happens (if it looks like the background of the login screen it'll look subtle), redirect.
 
 const HomePageBackground = styled.div`
   position: relative;
@@ -112,67 +121,24 @@ const HomePageChatContainer = styled.div`
 `;
 
 export default function HomePage() {
-  const [redirect, setRedirect] = useState(false);
-  useEffect(() => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyCGGPrP9z87mezp2ctPzDMHSVdO-Sl2c3c",
-      authDomain: "chat-app-c2d82.firebaseapp.com",
-      databaseURL: "https://chat-app-c2d82.firebaseio.com",
-      projectId: "chat-app-c2d82",
-      storageBucket: "chat-app-c2d82.appspot.com",
-      messagingSenderId: "773697802163",
-      appId: "1:773697802163:web:e7627c57705dd86ebd45c6",
-      measurementId: "G-VHVQ28NBE7"
-    };
-    let firebaseDoesNotExist, db;
+    let userAuth = useContext(AuthContext)
+    let firebaseDoesNotExist, db
     // Check if firebase instance exists
-    firebaseDoesNotExist = !firebase.apps.length;
+    firebaseDoesNotExist = !firebase.apps.length
     if (firebaseDoesNotExist) {
-      // Initialize Firebase
-      db = firebase.initializeApp(firebaseConfig).firestore();
+        // Initialize Firebase
+        db = firebase.initializeApp(firebaseConfig).firestore()
     } else {
-      db = firebase.app().firestore();
+        db = firebase.app().firestore()
     }
-    // Event listener for auth status.
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log(user);
-        // User is signed in.
-        const displayName = user.displayName;
-        const email = user.email;
-        const emailVerified = user.emailVerified;
-        const photoURL = user.photoURL;
-        const isAnonymous = user.isAnonymous;
-        const uid = user.uid;
-        // ...
-      } else {
-        // User is signed out.
-        setRedirect(true);
-        // ...
-      }
-    });
-    return () => {
-      // cleanup
-    };
-  }, []);
-  if (redirect) {
-    return <Redirect to="/login" />;
-  }
-  const handleLogOut = e => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function() {
-        // Sign-out successful.
-      })
-      .catch(function(error) {
-        // An error happened
-      });
-  };
-  return (
-    <div>
-      <GlobalStyle />
+    if (!userAuth.loggedIn) {
+        return <Redirect to="/login" />;
+    }
+    return (
+        <div>
+            <GlobalStyle />
 
+<<<<<<< HEAD
       <HomePageBackground>
         <FriendsIcon>
           <FaUserFriends />
@@ -197,4 +163,14 @@ export default function HomePage() {
       </HomePageBackground>
     </div>
   );
+=======
+            <HomePageBackground>
+                <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
+                <HomePageSelectorContainer>
+                    <HomePageChatContainer></HomePageChatContainer>
+                </HomePageSelectorContainer>
+            </HomePageBackground>
+        </div>
+    );
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 }

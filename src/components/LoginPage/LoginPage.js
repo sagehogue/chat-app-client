@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import globalStyles from "../GlobalStyles/GlobalStyles";
 // Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
@@ -6,19 +6,37 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import firebaseConfig from '../../firebaseConfig';
+import { AuthContext, firebaseController } from '../../App'
+import * as EmailValidator from 'email-validator';
 
+<<<<<<< HEAD
 import { SubmitButton } from "../UI/Button/Button";
 import styled from "styled-components";
+=======
+import background from "../Images/background.jpg";
+import styled from 'styled-components'
+import { SubmitButton } from '../UI/Button/Button'
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 import Login from "../Login/Login";
+import LoginForm from '../LoginForm/LoginForm'
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
-import background from "../Images/background.jpg";
+import { fadeIn } from '../UI/Animations/Animations'
 
+<<<<<<< HEAD
 import { Redirect } from "react-router";
+=======
+import { Redirect } from 'react-router'
+
+// TODOS
+// 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in. 
+// 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are. 
+
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 
 const AuthButtons = styled.div`
-  // transform: translateY(20vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +50,6 @@ const OuterFormContainer = styled.div`
   align-items: center;
   background: url(${background});
   background-size: cover;
-
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
@@ -52,21 +69,6 @@ const InnerFormContainer = styled.div`
   @media (min-width: 320px) and (max-width: 480px) {
     width: 90%;
   }
-`;
-
-const LoginForm = styled.form`
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-
-  transition: all 0.5s;
-  opacity: ${props => (props.showRegisterForm ? 0 : 1)};
-  z-index: ${props => (props.showRegisterForm ? 0 : 10)};
-  pointer-events: ${props => (props.showRegisterForm ? "none" : "auto")};
 `;
 
 const Heading = styled.h1`
@@ -101,34 +103,6 @@ const SignInButton = styled(SubmitButton)`
   border: none;
 `;
 
-const LogOutButton = styled.input`
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: rgba(41, 121, 255, 0.75);
-  padding: 1.25rem;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
-  width: 100%;
-  margin-top: 1.5rem;
-  transition: all 0.15s;
-
-  &:hover {
-    transform: scale(1.1) translateY(-0.5rem);
-    box-shadow: 0rem 0.15rem #333;
-    background: rgba(41, 121, 255, 1);
-  }
-  & :focus {
-    outline: none;
-    border: none;
-  }
-  & :active {
-    outline: none;
-    border: none;
-  }
-`;
-
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -137,6 +111,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+<<<<<<< HEAD
 
   useEffect(() => {
     // Firebase account settings info
@@ -174,6 +149,12 @@ export default function LoginPage() {
       // cleanup
     };
   }, []);
+=======
+  let userAuth = useContext(AuthContext)
+  if (userAuth.loggedIn) {
+    return <Redirect to="/" />;
+  }
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 
   const handleDisplayRegisterForm = () => {
     // changes the variable that controls which form is displayed
@@ -186,11 +167,6 @@ export default function LoginPage() {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(`
-    Login Submit Successful!\n
-    email: ${email}
-    \n password: ${password}
-    `);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -202,6 +178,7 @@ export default function LoginPage() {
       });
   };
 
+<<<<<<< HEAD
   const handleLogOut = e => {
     firebase
       .auth()
@@ -214,12 +191,16 @@ export default function LoginPage() {
       });
   };
 
+=======
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
   const handleRegisterSubmit = e => {
     e.preventDefault();
+    e.stopPropagation();
     const form = e.target;
     const email = form.email.value;
     const username = form.username.value;
     const password = form.password.value;
+<<<<<<< HEAD
     console.log(
       `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
     );
@@ -260,6 +241,48 @@ export default function LoginPage() {
   if (authenticated) {
     return <Redirect to="/" />;
   }
+=======
+    const validEmail = EmailValidator.validate(email)
+    if (validEmail) {
+      // Create new account
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(res => {
+          const user = firebase.auth().currentUser;
+
+          // This is how you update properties on the profile.
+          user
+            .updateProfile({
+              displayName: username
+            })
+            .then(function () {
+              // Update successful.
+              // Code to prepare the room join screen goes here.
+            })
+            .catch(function (error) {
+              return alert(
+                "Error! Account failed to update. Error: " + error
+              );
+            });
+          setHeading("Chatter");
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(
+            `ERROR ${errorCode}\n
+          ${error.message}`
+          );
+          // ...
+        });
+    } else {
+      alert('ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>')
+    }
+  };
+
+>>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
   return (
     <OuterFormContainer>
       <GlobalStyle />
@@ -295,6 +318,7 @@ export default function LoginPage() {
             >
             </Link>  This is from the room link component*/}
               <SignInButton type="submit" value="Sign In" />
+
               <Register clickHandler={() => handleDisplayRegisterForm()} />
             </AuthButtons>
           </LoginForm>
