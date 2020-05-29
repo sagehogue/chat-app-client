@@ -167,9 +167,6 @@ export default function LoginPage() {
     const password = form.password.value;
     const validEmail = EmailValidator.validate(email)
     if (validEmail) {
-      console.log(
-        `Form submit successful!\n username: ${username}\npassword: ${password}\nemail: ${email}`
-      );
       // Create new account
       firebase
         .auth()
@@ -187,7 +184,7 @@ export default function LoginPage() {
               // Code to prepare the room join screen goes here.
             })
             .catch(function (error) {
-              return console.log(
+              return alert(
                 "Error! Account failed to update. Error: " + error
               );
             });
@@ -204,7 +201,7 @@ export default function LoginPage() {
           // ...
         });
     } else {
-      // handle invalid email
+      alert('ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>')
     }
   };
 
