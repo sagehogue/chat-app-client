@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import {
-  FaUserFriends,
-  FaRegComments,
-  FaHome,
-  FaPortrait
-} from "react-icons/fa";
-=======
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
+import {
+    FaUserFriends,
+    FaRegComments,
+    FaHome,
+    FaPortrait
+} from "react-icons/fa";
 import styled from "styled-components";
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
@@ -138,33 +134,23 @@ export default function HomePage() {
         <div>
             <GlobalStyle />
 
-<<<<<<< HEAD
-      <HomePageBackground>
-        <FriendsIcon>
-          <FaUserFriends />
-        </FriendsIcon>
-        {/* <FriendsProfiles>
+            <HomePageBackground>
+                <FriendsIcon>
+                    <FaUserFriends />
+                </FriendsIcon>
+                {/* <FriendsProfiles>
           <FaPortrait />
           <FaPortrait />
           <FaPortrait />
           <FaPortrait />
           <FaPortrait />
         </FriendsProfiles> */}
-        <HomeIcon>
-          <FaHome />
-        </HomeIcon>
-        <RoomsIcon>
-          <FaRegComments />
-        </RoomsIcon>
-        <LogOutButton onClick={handleLogOut}>Log Out</LogOutButton>
-        <HomePageSelectorContainer>
-          <HomePageChatContainer></HomePageChatContainer>
-        </HomePageSelectorContainer>
-      </HomePageBackground>
-    </div>
-  );
-=======
-            <HomePageBackground>
+                <HomeIcon>
+                    <FaHome />
+                </HomeIcon>
+                <RoomsIcon>
+                    <FaRegComments />
+                </RoomsIcon>
                 <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
                 <HomePageSelectorContainer>
                     <HomePageChatContainer></HomePageChatContainer>
@@ -172,5 +158,4 @@ export default function HomePage() {
             </HomePageBackground>
         </div>
     );
->>>>>>> 87298f7176a4b352441bf9995078e2486b6f7abc
 }
