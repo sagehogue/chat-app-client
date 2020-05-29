@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
 import {
-    FaUserFriends,
-    FaRegComments,
-    FaHome,
-    FaPortrait
+  FaUserFriends,
+  FaRegComments,
+  FaHome,
+  FaPortrait
 } from "react-icons/fa";
 import styled from "styled-components";
 import * as firebase from "firebase/app";
@@ -19,8 +19,31 @@ import button from "../UI/Button/Button";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 
 // TODO
-// Implement loading screen while authentication happens (if it looks like the background of the login screen it'll look subtle), redirect.
+// Implement a method to display only one side menu at a time.
+// Display a user greeting somewhere
+// Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
+// adjust proportions of menus - they take up too much space.
+// Integrate chat component.
 
+/* Description of implementation of this component:
+
+3 states
+1.) display no side bars, only main conversation
+2.) show left sidebar
+3.) show right sidebar
+
+We should seek to adjust the whitespace around the main component so it never shifts the content. I'm thinking a system like this will work:
+<main>
+  <leftsidebar />
+    <content-wrapper>
+      <chat />
+    </content-wrapper>
+  <rightsidebar />
+</main>
+
+the main will be a grid. the main will have state that controls the display, and the grid css will correspond to the state to render the screen how we want.
+i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
+*/
 const HomePageBackground = styled.div`
   position: relative;
   display: flex;
@@ -58,6 +81,10 @@ const FriendsIcon = styled.div`
 //   font-size: 5rem;
 //   color: #fff;
 // `;
+
+const Navigation = styled.nav`
+display: flex;
+`
 
 const RoomsIcon = styled.div`
   position: absolute;
@@ -117,45 +144,41 @@ const HomePageChatContainer = styled.div`
 `;
 
 export default function HomePage() {
-    let userAuth = useContext(AuthContext)
-    let firebaseDoesNotExist, db
-    // Check if firebase instance exists
-    firebaseDoesNotExist = !firebase.apps.length
-    if (firebaseDoesNotExist) {
-        // Initialize Firebase
-        db = firebase.initializeApp(firebaseConfig).firestore()
-    } else {
-        db = firebase.app().firestore()
-    }
-    if (!userAuth.loggedIn) {
-        return <Redirect to="/login" />;
-    }
-    return (
-        <div>
-            <GlobalStyle />
+  let userAuth = useContext(AuthContext)
+  let firebaseDoesNotExist, db
+  // Check if firebase instance exists
+  firebaseDoesNotExist = !firebase.apps.length
+  if (firebaseDoesNotExist) {
+    // Initialize Firebase
+    db = firebase.initializeApp(firebaseConfig).firestore()
+  } else {
+    db = firebase.app().firestore()
+  }
+  if (!userAuth.loggedIn) {
+    return <Redirect to="/login" />;
+  }
+  return (
+    <div>
 
-            <HomePageBackground>
-                <FriendsIcon>
-                    <FaUserFriends />
-                </FriendsIcon>
-                {/* <FriendsProfiles>
-          <FaPortrait />
-          <FaPortrait />
-          <FaPortrait />
-          <FaPortrait />
-          <FaPortrait />
-        </FriendsProfiles> */}
-                <HomeIcon>
-                    <FaHome />
-                </HomeIcon>
-                <RoomsIcon>
-                    <FaRegComments />
-                </RoomsIcon>
-                <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
-                <HomePageSelectorContainer>
-                    <HomePageChatContainer></HomePageChatContainer>
-                </HomePageSelectorContainer>
-            </HomePageBackground>
-        </div>
-    );
+      <HomePageBackground>
+        <FriendsIcon>
+          <FaUserFriends />
+        </FriendsIcon>
+        {/* Implement friends component */}
+        <HomeIcon>
+          {/* Link to homepage */}
+          <FaHome />
+        </HomeIcon>
+        <RoomsIcon>
+          <FaRegComments />
+        </RoomsIcon>
+        <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
+        <HomePageSelectorContainer>
+          <HomePageChatContainer>
+            {/* Implement chat component here */}
+          </HomePageChatContainer>
+        </HomePageSelectorContainer>
+      </HomePageBackground>
+    </div>
+  );
 }
