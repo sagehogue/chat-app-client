@@ -12,5 +12,5 @@ const RegisterButton = styled(Button)`
 `;
 
 export default function Register({ clickHandler }) {
-  return <RegisterButton onClick={clickHandler} value="register" />;
+  return <RegisterButton onClick={clickHandler}>Register</RegisterButton>;
 }
