@@ -10,12 +10,13 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
-import firebaseConfig from '../../firebaseConfig';
-import { firebaseController } from '../../App';
+import firebaseConfig from "../../firebaseConfig";
+import { firebaseController } from "../../App";
 
 import { Redirect } from "react-router";
-import { AuthContext } from '../../App';
+import { AuthContext } from "../../App";
 import button from "../UI/Button/Button";
+import Theme from "../UI/Theme/Theme";
 import GlobalStyle from "../GlobalStyles/GlobalStyles";
 
 // TODO
@@ -44,29 +45,6 @@ We should seek to adjust the whitespace around the main component so it never sh
 the main will be a grid. the main will have state that controls the display, and the grid css will correspond to the state to render the screen how we want.
 i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
 */
-const HomePageBackground = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-
-  height: 100vh;
-  width: 100vw;
-  background: #016789;
-`;
-
-const FriendsIcon = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 2rem;
-  padding-left: 5rem;
-  font-size: 5rem;
-  color: #fff;
-  &:hover {
-    color: green;
-  }
-`;
 
 // const FriendsProfiles = styled.div`
 //   display: flex;
@@ -82,18 +60,77 @@ const FriendsIcon = styled.div`
 //   color: #fff;
 // `;
 
-const Navigation = styled.nav`
-display: flex;
-`
-
-const RoomsIcon = styled.div`
+const FriendsIcon = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   padding: 2rem;
-  padding-right: 5rem;
+  padding-left: 5rem;
   font-size: 5rem;
   color: #fff;
+  &:hover {
+    color: green;
+  }
+`;
+
+const HomePageGrid = styled.main`
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: repeat(10, 1fr);
+  height: 100vh;
+  width: 100vw;
+  background: #016789;
+`;
+
+const Navigation = styled.nav`
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  grid-row: 1 / 2;
+  width: 100%;
+  grid-column: 1 / -1;
+  padding-top: 1rem;
+  & svg {
+    transition: all ${Theme.navTransitionDuration};
+  }
+  & svg:first-child {
+    margin-left: 1rem;
+    color: ${props =>
+      props.pageOnDisplay == "friends"
+        ? `${Theme.navColorActive}`
+        : `${Theme.navColorInactive}`};
+  }
+  & svg:last-child {
+    margin-right: 1rem;
+    color: ${props =>
+      props.pageOnDisplay == "rooms"
+        ? `${Theme.navColorActive}`
+        : `${Theme.navColorInactive}`};
+  }
+`;
+
+const FriendsTab = styled.section`
+  grid-row: 1 / -1;
+  grid-column: 1 / 2;
+  width: 100%;
+  height: 100%;
+  background-color: cyan;
+  transition: all ${Theme.navTransitionDuration} ease-in-out;
+  transform: translateX(
+    ${props => (props.pageOnDisplay == "friends" ? `0` : `-5rem`)}
+  );
+`;
+
+const RoomTab = styled.section`
+  grid-row: 1 / -1;
+  grid-column: 3 / 4;
+  width: 100%;
+  height: 100%;
+  background-color: cyan;
+  transition: all ${Theme.navTransitionDuration} ease-in;
+  transform: translateX(
+    ${props => (props.pageOnDisplay == "rooms" ? `0` : `5rem`)}
+  );
 `;
 
 const HomeIcon = styled.div`
@@ -137,48 +174,48 @@ const HomePageSelectorContainer = styled.div`
 const HomePageChatContainer = styled.div`
   display: flex;
   justify-content: center;
-
   height: 85vh;
   width: 70vw;
   background: #55d2fc;
 `;
 
 export default function HomePage() {
-  let userAuth = useContext(AuthContext)
-  let firebaseDoesNotExist, db
+  let [display, setDisplay] = useState("initial");
+  let userAuth = useContext(AuthContext);
+  let firebaseDoesNotExist, db;
   // Check if firebase instance exists
-  firebaseDoesNotExist = !firebase.apps.length
+  firebaseDoesNotExist = !firebase.apps.length;
   if (firebaseDoesNotExist) {
     // Initialize Firebase
-    db = firebase.initializeApp(firebaseConfig).firestore()
+    db = firebase.initializeApp(firebaseConfig).firestore();
   } else {
-    db = firebase.app().firestore()
+    db = firebase.app().firestore();
   }
   if (!userAuth.loggedIn) {
     return <Redirect to="/login" />;
   }
+  const handleDisplayFriends = () => {
+    setDisplay("friends");
+  };
+  const handleDisplayRooms = () => {
+    setDisplay("rooms");
+  };
+  const handleRevertDefault = () => {
+    setDisplay("initial");
+  };
   return (
-    <div>
-
-      <HomePageBackground>
-        <FriendsIcon>
-          <FaUserFriends />
-        </FriendsIcon>
-        {/* Implement friends component */}
-        <HomeIcon>
-          {/* Link to homepage */}
-          <FaHome />
-        </HomeIcon>
-        <RoomsIcon>
-          <FaRegComments />
-        </RoomsIcon>
-        <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
-        <HomePageSelectorContainer>
-          <HomePageChatContainer>
-            {/* Implement chat component here */}
-          </HomePageChatContainer>
-        </HomePageSelectorContainer>
-      </HomePageBackground>
-    </div>
+    <HomePageGrid>
+      <Navigation pageOnDisplay={display}>
+        <FaUserFriends onClick={handleDisplayFriends} />
+        <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+        <FaRegComments onClick={handleDisplayRooms} />
+      </Navigation>
+      <FriendsTab pageOnDisplay={display}></FriendsTab>
+      {/* Implement friends component */}
+      {/* Implement Chat component */}
+      <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
+      {/* Implement room component */}
+      <RoomTab pageOnDisplay={display}></RoomTab>
+    </HomePageGrid>
   );
 }
