@@ -17,7 +17,7 @@ import { Redirect } from "react-router";
 import { AuthContext } from "../../App";
 import button from "../UI/Button/Button";
 import Theme from "../UI/Theme/Theme";
-// import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
 
 // TODO
 // Implement a method to display only one side menu at a time.
@@ -205,6 +205,7 @@ export default function HomePage() {
   };
   return (
     <HomePageGrid>
+      <GlobalStyle />
       <Navigation pageOnDisplay={display}>
         <FaUserFriends onClick={handleDisplayFriends} />
         <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}

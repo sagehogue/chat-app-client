@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import globalStyles from "../GlobalStyles/GlobalStyles";
+
 // Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
@@ -17,7 +17,7 @@ import Login from "../Login/Login";
 import LoginForm from "../LoginForm/LoginForm";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
-// import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
 import { fadeIn } from "../UI/Animations/Animations";
 
 import { Redirect } from "react-router";
@@ -177,7 +177,7 @@ export default function LoginPage() {
 
   return (
     <OuterFormContainer>
-      {/* <GlobalStyle /> */}
+      <GlobalStyle />
       <FormStyleContainer>
         <InnerFormContainer>
           <LoginForm
