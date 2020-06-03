@@ -46,33 +46,6 @@ the main will be a grid. the main will have state that controls the display, and
 i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
 */
 
-// const FriendsProfiles = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   position: absolute;
-
-//   top: 0;
-//   left: 0;
-//   margin: auto;
-//   padding-left: 5rem;
-//   font-size: 5rem;
-//   color: #fff;
-// `;
-
-const FriendsIcon = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 2rem;
-  padding-left: 5rem;
-  font-size: 5rem;
-  color: #fff;
-  &:hover {
-    color: green;
-  }
-`;
-
 const HomePageGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
@@ -90,6 +63,7 @@ const Navigation = styled.nav`
   width: 100%;
   grid-column: 1 / -1;
   padding-top: 1rem;
+  color: rgba(255, 255, 255, 0.9);
   & svg {
     transition: all ${Theme.navTransitionDuration};
   }
@@ -114,7 +88,7 @@ const FriendsTab = styled.section`
   grid-column: 1 / 2;
   width: 100%;
   height: 100%;
-  background-color: cyan;
+  background: rgba(255, 255, 255, 0.3);
   transition: all ${Theme.navTransitionDuration} ease-in-out;
   transform: translateX(
     ${props => (props.pageOnDisplay == "friends" ? `0` : `-5rem`)}
@@ -126,25 +100,11 @@ const RoomTab = styled.section`
   grid-column: 3 / 4;
   width: 100%;
   height: 100%;
-  background-color: cyan;
+  background: rgba(255, 255, 255, 0.3);
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${props => (props.pageOnDisplay == "rooms" ? `0` : `5rem`)}
   );
-`;
-
-const HomeIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
-  padding: 2rem;
-
-  font-size: 5rem;
-  color: #fff;
 `;
 
 const LogOutButton = styled(button)`
@@ -162,23 +122,6 @@ const LogOutButton = styled(button)`
   }
 `;
 
-const HomePageSelectorContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  height: 85vh;
-  width: 85vw;
-  background: #0090c1;
-`;
-
-const HomePageChatContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 85vh;
-  width: 70vw;
-  background: #55d2fc;
-`;
-
 export default function HomePage() {
   let [display, setDisplay] = useState("initial");
   let userAuth = useContext(AuthContext);
@@ -194,6 +137,7 @@ export default function HomePage() {
   if (!userAuth.loggedIn) {
     return <Redirect to="/login" />;
   }
+
   const handleDisplayFriends = () => {
     setDisplay("friends");
   };
@@ -203,6 +147,7 @@ export default function HomePage() {
   const handleRevertDefault = () => {
     setDisplay("initial");
   };
+
   return (
     <HomePageGrid>
       <GlobalStyle />
