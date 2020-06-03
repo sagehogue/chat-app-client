@@ -17,7 +17,7 @@ import { Redirect } from "react-router";
 import { AuthContext } from "../../App";
 import button from "../UI/Button/Button";
 import Theme from "../UI/Theme/Theme";
-import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
 
 // TODO
 // Implement a method to display only one side menu at a time.
@@ -96,16 +96,16 @@ const Navigation = styled.nav`
   & svg:first-child {
     margin-left: 1rem;
     color: ${props =>
-      props.pageOnDisplay == "friends"
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
+    props.pageOnDisplay == "friends"
+      ? `${Theme.navColorActive}`
+      : `${Theme.navColorInactive}`};
   }
   & svg:last-child {
     margin-right: 1rem;
     color: ${props =>
-      props.pageOnDisplay == "rooms"
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
+    props.pageOnDisplay == "rooms"
+      ? `${Theme.navColorActive}`
+      : `${Theme.navColorInactive}`};
   }
 `;
 

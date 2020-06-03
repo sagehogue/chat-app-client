@@ -11,7 +11,7 @@ import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
 import LoginPage from "./components/LoginPage/LoginPage";
 import HomePage from "./components/HomePage/HomePage";
-import GlobalStyle from "./components/GlobalStyles/GlobalStyles";
+import GlobalStyle from "./components/UI/GlobalStyles/GlobalStyles";
 
 // Initialize firebase for auth purposes
 firebase.initializeApp(firebaseConfig)
