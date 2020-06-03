@@ -1,5 +1,5 @@
 export default {
-  navColorInactive: "rgba(3, 3, 3, 0.35)",
-  navColorActive: "rgba(3, 3, 3, 0)",
+  navColorInactive: "rgba(255, 255, 255, 0.9)",
+  navColorActive: "rgba(255, 255, 255, 0)",
   navTransitionDuration: ".35s"
 };
