@@ -6,26 +6,25 @@ import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
-import firebaseConfig from '../../firebaseConfig';
-import { AuthContext, firebaseController } from '../../App'
-import * as EmailValidator from 'email-validator';
+import firebaseConfig from "../../firebaseConfig";
+import { AuthContext, firebaseController } from "../../App";
+import * as EmailValidator from "email-validator";
 
 import background from "../Images/background.jpg";
-import styled from 'styled-components'
-import { SubmitButton } from '../UI/Button/Button'
+import styled from "styled-components";
+import { SubmitButton } from "../UI/Button/Button";
 import Login from "../Login/Login";
-import LoginForm from '../LoginForm/LoginForm'
+import LoginForm from "../LoginForm/LoginForm";
 import Register from "../Register/Register";
 import RegisterForm from "../RegisterForm/RegisterForm";
-import GlobalStyle from "../GlobalStyles/GlobalStyles";
-import { fadeIn } from '../UI/Animations/Animations'
+// import GlobalStyle from "../GlobalStyles/GlobalStyles";
+import { fadeIn } from "../UI/Animations/Animations";
 
-import { Redirect } from 'react-router'
+import { Redirect } from "react-router";
 
 // TODOS
-// 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in. 
-// 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are. 
-
+// 1.) Create a back button for the registration screen in case someone wants to cancel it and sign in.
+// 2.) Handle invalid email submissions - create some element that will tell them to correct it, and what the requirements are.
 
 const AuthButtons = styled.div`
   display: flex;
@@ -102,7 +101,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
-  let userAuth = useContext(AuthContext)
+  let userAuth = useContext(AuthContext);
   if (userAuth.loggedIn) {
     return <Redirect to="/" />;
   }
@@ -121,7 +120,7 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -136,7 +135,7 @@ export default function LoginPage() {
     const email = form.email.value;
     const username = form.username.value;
     const password = form.password.value;
-    const validEmail = EmailValidator.validate(email)
+    const validEmail = EmailValidator.validate(email);
     if (validEmail) {
       // Create new account
       firebase
@@ -150,18 +149,16 @@ export default function LoginPage() {
             .updateProfile({
               displayName: username
             })
-            .then(function () {
+            .then(function() {
               // Update successful.
               // Code to prepare the room join screen goes here.
             })
-            .catch(function (error) {
-              return alert(
-                "Error! Account failed to update. Error: " + error
-              );
+            .catch(function(error) {
+              return alert("Error! Account failed to update. Error: " + error);
             });
           setHeading("Chatter");
         })
-        .catch(function (error) {
+        .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -172,13 +169,15 @@ export default function LoginPage() {
           // ...
         });
     } else {
-      alert('ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>')
+      alert(
+        "ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>"
+      );
     }
   };
 
   return (
     <OuterFormContainer>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <FormStyleContainer>
         <InnerFormContainer>
           <LoginForm
