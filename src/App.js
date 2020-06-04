@@ -11,6 +11,7 @@ import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
 import LoginPage from "./components/LoginPage/LoginPage";
 import HomePage from "./components/HomePage/HomePage";
+import UserProfile from "./components/UserProfile/UserProfile";
 import GlobalStyle from "./components/UI/GlobalStyles/GlobalStyles";
 
 // Initialize firebase for auth purposes
@@ -75,6 +76,7 @@ const App = () => {
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/chat" component={Chat} />
+        <Route path="/profile" component={UserProfile} />
         <GlobalStyle />
       </UserProvider>
     </Router>
