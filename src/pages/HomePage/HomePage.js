@@ -50,10 +50,11 @@ i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span 
 
 const HomePageGrid = styled.main`
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: repeat(10, 1fr);
   height: 100vh;
-  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
   background: #016789;
 `;
 
