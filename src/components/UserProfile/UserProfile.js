@@ -61,7 +61,14 @@ const TempButtonName = styled.input`
   }
 `;
 
-export default function UserProfile({ userPic, userName, bio, props }) {
+export default function UserProfile({
+  userPic,
+  userName,
+  bio,
+  handleAddFriend,
+  handleMessage,
+  handleInviteToRoom
+}) {
   return (
     <StyledProfileBackground>
       <StyledProfile>
@@ -75,15 +82,21 @@ export default function UserProfile({ userPic, userName, bio, props }) {
           {bio}
         </StyledBio>
         <ProfileButtons>
-          <TempButtonName type="submit" value="test">
-            {props}
-          </TempButtonName>
-          <TempButtonName type="submit" value="test2">
-            {props}
-          </TempButtonName>
-          <TempButtonName type="submit" value="test3">
-            {props}
-          </TempButtonName>
+          <TempButtonName
+            onClick={handleAddFriend}
+            type="submit"
+            value="Add Friend"
+          ></TempButtonName>
+          <TempButtonName
+            onClick={handleMessage}
+            type="submit"
+            value="Message"
+          ></TempButtonName>
+          <TempButtonName
+            onClick={handleInviteToRoom}
+            type="submit"
+            value="Invite to Room"
+          ></TempButtonName>
         </ProfileButtons>
       </StyledProfile>
     </StyledProfileBackground>
