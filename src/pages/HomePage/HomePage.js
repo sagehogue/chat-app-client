@@ -10,9 +10,11 @@ import { firebaseController } from "../../App";
 
 import { Redirect } from "react-router";
 import { AuthContext } from "../../App";
-import button from "../UI/Button/Button";
-import Theme from "../UI/Theme/Theme";
-import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
+import FriendsTab from './FriendsTab/FriendsTab'
+import RoomsTab from './RoomsTab/RoomsTab'
+import button from "../../components/UI/Button/Button";
+import Theme from "../../util/Theme/Theme";
+import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
 
 // TODO
 // Implement a method to display only one side menu at a time.
@@ -43,10 +45,11 @@ i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span 
 
 const HomePageGrid = styled.main`
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: repeat(10, 1fr);
   height: 100vh;
-  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
   background: #016789;
 `;
 
@@ -57,6 +60,7 @@ const Navigation = styled.nav`
   grid-row: 1 / 2;
   width: 100%;
   grid-column: 1 / -1;
+  z-index: 1;
   padding-top: 1rem;
   color: rgba(255, 255, 255, 0.9);
   & svg {
@@ -65,42 +69,21 @@ const Navigation = styled.nav`
   & svg:first-child {
     margin-left: 1rem;
     color: ${props =>
-      props.pageOnDisplay == "friends"
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
+    props.pageOnDisplay == "friends"
+      ? `${Theme.navColorActive}`
+      : `${Theme.navColorInactive}`};
   }
   & svg:last-child {
     margin-right: 1rem;
     color: ${props =>
-      props.pageOnDisplay == "rooms"
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
+    props.pageOnDisplay == "rooms"
+      ? `${Theme.navColorActive}`
+      : `${Theme.navColorInactive}`};
   }
 `;
 
-const FriendsTab = styled.section`
-  grid-row: 1 / -1;
-  grid-column: 1 / 2;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all ${Theme.navTransitionDuration} ease-in-out;
-  transform: translateX(
-    ${props => (props.pageOnDisplay == "friends" ? `0` : `-5rem`)}
-  );
-`;
 
-const RoomTab = styled.section`
-  grid-row: 1 / -1;
-  grid-column: 3 / 4;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all ${Theme.navTransitionDuration} ease-in;
-  transform: translateX(
-    ${props => (props.pageOnDisplay == "rooms" ? `0` : `5rem`)}
-  );
-`;
+
 
 const LogOutButton = styled(button)`
   position: absolute;
@@ -156,7 +139,7 @@ export default function HomePage() {
       {/* Implement Chat component */}
       <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
       {/* Implement room component */}
-      <RoomTab pageOnDisplay={display}></RoomTab>
+      <RoomsTab pageOnDisplay={display}></RoomsTab>
     </HomePageGrid>
   );
 }

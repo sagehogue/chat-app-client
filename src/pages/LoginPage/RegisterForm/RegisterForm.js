@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import styled, { keyframes, css } from 'styled-components';
 
-import { SubmitButton } from '../UI/Button/Button'
-import Login from "../Login/Login";
-import Register from "../Register/Register";
+import { SubmitButton } from '../../../components/UI/Button/Button'
+import LoginButton from "../LoginButton/LoginButton";
+import RegisterButton from "../RegisterButton/RegisterButton";
 
 const fadeOutKey = keyframes`
 0% {
