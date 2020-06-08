@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
-=======
-
->>>>>>> a2d9a987bd014cfcca3db4a167234359147250af
 // Firebase App (the core Firebase SDK) is always required and must be listed before other Firebase SDKs
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
@@ -14,20 +9,15 @@ import firebaseConfig from "../../firebaseConfig";
 import { AuthContext, firebaseController } from "../../App";
 import * as EmailValidator from "email-validator";
 
-import background from "../Images/background.jpg";
+import background from "../../img/background.jpg";
 import styled from "styled-components";
-import { SubmitButton } from "../UI/Button/Button";
-import Login from "../Login/Login";
-import LoginForm from "../LoginForm/LoginForm";
-import Register from "../Register/Register";
-import RegisterForm from "../RegisterForm/RegisterForm";
-<<<<<<< HEAD
-
-import { fadeIn } from '../UI/Animations/Animations'
-=======
-import GlobalStyle from "../UI/GlobalStyles/GlobalStyles";
-import { fadeIn } from "../UI/Animations/Animations";
->>>>>>> a2d9a987bd014cfcca3db4a167234359147250af
+import { SubmitButton } from "../../components/UI/Button/Button";
+import LoginButton from "./LoginButton/LoginButton";
+import LoginForm from "./LoginForm/LoginForm";
+import Register from "./RegisterButton/RegisterButton";
+import RegisterForm from "./RegisterForm/RegisterForm";
+import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
+import { fadeIn } from "../../components/UI/Animations/Animations";
 
 import { Redirect } from "react-router";
 
@@ -129,7 +119,7 @@ export default function LoginPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(function(error) {
+      .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -158,16 +148,16 @@ export default function LoginPage() {
             .updateProfile({
               displayName: username
             })
-            .then(function() {
+            .then(function () {
               // Update successful.
               // Code to prepare the room join screen goes here.
             })
-            .catch(function(error) {
+            .catch(function (error) {
               return alert("Error! Account failed to update. Error: " + error);
             });
           setHeading("Chatter");
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;

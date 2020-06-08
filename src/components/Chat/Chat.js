@@ -6,7 +6,7 @@ import styled from "styled-components";
 import TextContainer from "../TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "../InfoBar/InfoBar";
-import Input from "../Input/Input";
+import Input from "../UI/Input/Input";
 
 import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
 
