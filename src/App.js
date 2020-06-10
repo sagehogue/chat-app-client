@@ -9,6 +9,7 @@ import firebaseConfig from "./firebaseConfig";
 
 import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
+import Gooey1 from "./components/UI/GUIMenu/GUIMenu";
 
 import UserProfile from "./components/UserProfile/UserProfile";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -78,6 +79,7 @@ const App = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/chat" component={Chat} />
         <Route path="/profile" component={UserProfile} />
+        <Route path="/menu" component={Gooey1} />
         <GlobalStyle />
       </UserProvider>
     </Router>
