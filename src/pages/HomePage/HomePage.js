@@ -19,7 +19,7 @@ import FriendsTab from './FriendsTab/FriendsTab'
 import RoomsTab from './RoomsTab/RoomsTab'
 import button from "../../components/UI/Button/Button";
 import Theme from "../../util/Theme/Theme";
-import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
+import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 // TODO
 // Implement a method to display only one side menu at a time.
@@ -27,6 +27,7 @@ import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
 // adjust proportions of menus - they take up too much space.
 // Integrate chat component.
+// 3.) Create loading symbol to stand in for fetched data
 
 /* Description of implementation of this component:
 
@@ -108,6 +109,9 @@ const LogOutButton = styled(button)`
 export default function HomePage() {
   let [display, setDisplay] = useState("initial");
   let userAuth = useContext(AuthContext);
+  if (!userAuth.loggedIn) {
+    return <Redirect to="/login" />;
+  }
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -117,10 +121,16 @@ export default function HomePage() {
   } else {
     db = firebase.app().firestore();
   }
-  if (!userAuth.loggedIn) {
-    return <Redirect to="/login" />;
-  }
-
+  let user = firebase.auth().currentUser;
+  let name, email, photoUrl, uid, emailVerified;
+  console.log(user)
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, use User.getToken() 
+  // instead.
   const handleDisplayFriends = () => {
     setDisplay("friends");
   };
