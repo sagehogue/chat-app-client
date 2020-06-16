@@ -1,17 +1,31 @@
 import React, { Component } from "react";
 //import logo from './logo.svg';
 import "./Gooey1.css";
-//import styled from "styled-components";
+import styled from "styled-components";
 
 //things to do:
 //convert to styled components
 //MOBILE FRIENDLY/make it dynamic
 
+const GooeyContainer = styled.div``;
+const Menu = styled.nav`
+  position: absolute;
+  left: 50%;
+  margin-left: -190px;
+  padding-top: 20px;
+  padding-left: 190px;
+  width: 380px;
+  height: 250px;
+  box-sizing: border-box;
+  font-size: 20px;
+  text-align: left;
+`;
+
 class Gooey1 extends Component {
   render() {
     return (
-      <div className="Gooey1">
-        <nav className="menu">
+      <GooeyContainer>
+        <Menu>
           <input
             type="checkbox"
             href="#"
@@ -45,7 +59,7 @@ class Gooey1 extends Component {
             {" "}
             <i className="fa fa-cog"></i>{" "}
           </a>
-        </nav>
+        </Menu>
 
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
           <defs>
@@ -88,7 +102,7 @@ class Gooey1 extends Component {
             </filter>
           </defs>
         </svg>
-      </div>
+      </GooeyContainer>
     );
   }
 }

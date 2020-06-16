@@ -99,7 +99,7 @@ input[type="checkbox"] {
 }
 
 /* line 89, Gooey1.scss */
-.menu {
+/* .menu {
   position: absolute;
   left: 50%;
   margin-left: -190px;
@@ -110,7 +110,7 @@ input[type="checkbox"] {
   box-sizing: border-box;
   font-size: 20px;
   text-align: left;
-}
+} */
 
 /* line 107, Gooey1.scss */
 .menu-item:hover {
