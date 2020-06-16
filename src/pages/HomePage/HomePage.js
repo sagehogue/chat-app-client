@@ -15,8 +15,10 @@ import { firebaseController } from "../../App";
 
 import { Redirect } from "react-router";
 import { AuthContext } from "../../App";
-import FriendsTab from './FriendsTab/FriendsTab'
-import RoomsTab from './RoomsTab/RoomsTab'
+import FriendsTab from './FriendsTab/FriendsTab';
+import RoomsTab from './RoomsTab/RoomsTab';
+import Chat from '../../components/Chat/Chat';
+
 import button from "../../components/UI/Button/Button";
 import Theme from "../../util/Theme/Theme";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
@@ -63,9 +65,9 @@ const Navigation = styled.nav`
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
-  grid-row: 1 / 2;
+  grid-row: ${Theme.gridRowNav};
   width: 100%;
-  grid-column: 1 / -1;
+  grid-column: ${Theme.gridColNav};
   z-index: 1;
   padding-top: 1rem;
   color: rgba(255, 255, 255, 0.9);
@@ -151,8 +153,8 @@ export default function HomePage() {
       </Navigation>
       <FriendsTab pageOnDisplay={display}></FriendsTab>
       {/* Implement friends component */}
-      {/* Implement Chat component */}
-      <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
+      <Chat user={user} />
+      {/* <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton> */}
       {/* Implement room component */}
       <RoomsTab pageOnDisplay={display}></RoomsTab>
     </HomePageGrid>

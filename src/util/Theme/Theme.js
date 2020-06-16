@@ -3,5 +3,10 @@ export default {
   navColorActive: "rgba(255, 255, 255, 0)",
   navTransitionDuration: ".35s",
   offWhite: "#f8f8ff",
-  white: "#f0f0f0"
+  offBlack: "#1a1a1d;",
+  white: "#f0f0f0",
+  gridColNav: "1 / -1",
+  gridRowNav: "1 / 2",
+  gridColChat: "2 / 3",
+  gridRowChat: "2 / -1"
 };

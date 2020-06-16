@@ -2,17 +2,23 @@ import React from "react";
 
 import styled from "styled-components";
 
+// TODO:
+// Make sexy word wrapping capabilities so people can type 
+// out walls of text easily.
+
 const Form = styled.form`
   display: flex;
+  width: 55vw;
   border-top: 2px solid #d3d3d3;
 `;
 
 const InputStyle = styled.input`
   border: none;
-  border-radius: 0;
-  padding: 5%;
   width: 80%;
-  font-size: 1.2em;
+  min-height: 12.5vw;
+  border-radius: 0;
+  padding: 3%;
+  font-size: 1.1em;
   &:focus,
   textarea:focus,
   select:focus {
@@ -25,7 +31,7 @@ const SendButton = styled.button`
   text-transform: uppercase;
   text-decoration: none;
   background: #2979ff;
-  padding: 20px;
+  padding: .5rem;
   display: inline-block;
   border: none;
   width: 20%;
