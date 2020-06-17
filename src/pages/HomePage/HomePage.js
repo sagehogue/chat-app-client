@@ -18,6 +18,7 @@ import { AuthContext } from "../../App";
 import FriendsTab from './FriendsTab/FriendsTab';
 import RoomsTab from './RoomsTab/RoomsTab';
 import Chat from '../../components/Chat/Chat';
+import Join from '../../components/Join/Join';
 
 import button from "../../components/UI/Button/Button";
 import Theme from "../../util/Theme/Theme";
@@ -110,6 +111,7 @@ const LogOutButton = styled(button)`
 
 export default function HomePage() {
   let [display, setDisplay] = useState("initial");
+  let [currentRoom, setCurrentRoom] = useState(false);
   let userAuth = useContext(AuthContext);
   if (!userAuth.loggedIn) {
     return <Redirect to="/login" />;
@@ -133,6 +135,9 @@ export default function HomePage() {
   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
   // this value to authenticate with your backend server, use User.getToken() 
   // instead.
+  const handleJoinRoom = (room) => {
+    setCurrentRoom(room)
+  }
   const handleDisplayFriends = () => {
     setDisplay("friends");
   };
@@ -153,7 +158,7 @@ export default function HomePage() {
       </Navigation>
       <FriendsTab pageOnDisplay={display}></FriendsTab>
       {/* Implement friends component */}
-      <Chat user={user} />
+      {currentRoom ? <Chat user={user} room={currentRoom} /> : <Join user={user} joinHandler={handleJoinRoom} />}
       {/* <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton> */}
       {/* Implement room component */}
       <RoomsTab pageOnDisplay={display}></RoomsTab>

@@ -6,6 +6,8 @@ import styled from "styled-components";
 // Make sexy word wrapping capabilities so people can type 
 // out walls of text easily.
 
+// Add styling breakpoints - mobile first
+
 const Form = styled.form`
   display: flex;
   width: 55vw;
@@ -14,11 +16,11 @@ const Form = styled.form`
 
 const InputStyle = styled.input`
   border: none;
-  width: 80%;
+  width: 78%;
   min-height: 12.5vw;
   border-radius: 0;
   padding: 3%;
-  font-size: 1.1em;
+  font-size: 1rem;
   &:focus,
   textarea:focus,
   select:focus {
@@ -31,10 +33,10 @@ const SendButton = styled.button`
   text-transform: uppercase;
   text-decoration: none;
   background: #2979ff;
-  padding: .5rem;
+  padding: 2px;
   display: inline-block;
   border: none;
-  width: 20%;
+  width: 22%;
 `;
 const Input = ({ setMessage, sendMessage, message }) => (
   <Form>

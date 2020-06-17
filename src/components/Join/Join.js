@@ -3,37 +3,57 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
+import Theme from "../../util/Theme/Theme";
+
 const JoinOuterContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  height: 100vh;
-  align-items: center;
-  background-color: #1a1a1d;
-  @media (min-width: 320px) and (max-width: 480px) {
-    height: 100%;
-  }
+display: flex;
+grid-row: ${Theme.gridRowChat};
+grid-column: ${Theme.gridColChat};
+justify-content: center;
+text-align: center;
+align-items: center;
+margin: auto;
+margin-top: 0;
+//   @media (min-width: 320px) and (max-width: 480px) {
+//     height: 100%;
+//   }
 `;
 
 const JoinInnerContainer = styled.div`
-  width: 20%;
-  @media (min-width: 320px) and (max-width: 480px) {
-    width: 90%;
-  }
+display: flex;
+  flex-direction: column;
+  border-radius: .8rem;
+  height: 85vh;
+  width: 55vw;
 `;
 
 const Heading = styled.h1`
-  color: white;
+  color: ${Theme.offWhite};
+  justify-self: flex-start;
   font-size: 2.5em;
   padding-bottom: 10px;
   border-bottom: 2px solid white;
+  margin-top: 0;
+ 
 `;
+
+const Directive = styled.h3`
+color: ${Theme.offWhite};
+margin-top: 1.5rem;
+margin-bottom: 3rem;
+font-size: 1.75rem;
+`
 
 const JoinInput = styled.input`
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
+  box-shadow: none;
 `;
+
+const JoinModal = styled.div`
+margin-bottom: auto;
+`
 const JoinInputMt20 = styled.input`
   border-radius: 0;
   padding: 15px 20px;
@@ -56,35 +76,33 @@ const SignInButton = styled.button`
   }
 `;
 
-export default function SignIn() {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
-
-  return (
-    <JoinOuterContainer>
-      <JoinInnerContainer>
-        <Heading>Join</Heading>
-        <div>
-          <JoinInput
-            placeholder="Name"
-            type="text"
-            onChange={event => setName(event.target.value)}
-          />
-        </div>
-        <div>
-          <JoinInputMt20
-            placeholder="Room"
-            type="text"
-            onChange={event => setRoom(event.target.value)}
-          />
-        </div>
-        <Link
-          onClick={e => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}
-        >
-          <SignInButton type="submit">Sign In</SignInButton>
-        </Link>
-      </JoinInnerContainer>
-    </JoinOuterContainer>
-  );
+export default function Join({ user, joinHandler }) {
+    const [room, setRoom] = useState("");
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            //   do validation
+            joinHandler(room)
+        }
+    }
+    return (
+        <JoinOuterContainer>
+            <JoinInnerContainer>
+                <Heading>Welcome {user.displayName}!</Heading>
+                <Directive>Enter the name of the room you wish to join.</Directive>
+                <JoinModal>
+                    <JoinInput
+                        placeholder="Room"
+                        type="text"
+                        onChange={event => setRoom(event.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <Link
+                        onClick={e => joinHandler(room)}
+                    >
+                        <SignInButton type="submit">Sign In</SignInButton>
+                    </Link>
+                </JoinModal>
+            </JoinInnerContainer>
+        </JoinOuterContainer>
+    );
 }

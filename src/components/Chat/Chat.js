@@ -12,14 +12,13 @@ import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
 import Theme from "../../util/Theme/Theme";
 
 const OuterContainer = styled.div`
+display: flex;
 grid-row: ${Theme.gridRowChat};
 grid-column: ${Theme.gridColChat};
-  display: flex;
   justify-content: center;
   align-items: center;
-//   height: 100%;
-//   width: 100%;
   margin: auto;
+  margin-top: 0;
   .outerContainer {
     height: 100%;
   }

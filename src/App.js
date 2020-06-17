@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import firebaseConfig from "./firebaseConfig";
 
 import Chat from "./components/Chat/Chat-old";
-import Join from "./components/Join/Join";
+import Join from "./components/Join/oldJoin";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
