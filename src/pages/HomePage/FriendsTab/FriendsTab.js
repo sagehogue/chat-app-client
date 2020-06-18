@@ -3,7 +3,11 @@ import React from 'react'
 import styled from 'styled-components';
 import Theme from '../../../util/Theme/Theme'
 
+
+
 import SearchBar from '../../../components/UI/SearchBar/SearchBar'
+import button from "../../../components/UI/Button/Button";
+
 
 export const oldFriendsTab = styled.section`
   
@@ -15,6 +19,7 @@ export const oldFriendsTab = styled.section`
 Write functionality to enable drop down menu of search results for a given Friend name. 
 Maybe look for some kind of package that can handle pagination
 */
+
 
 const FriendsTabStyle = styled.section`
 grid-row: 1 / -1;
@@ -92,7 +97,19 @@ margin-top: .25rem;
 margin-bottom: .5rem;
 opacity: .75;
 `
-export default function FriendsTab({ pageOnDisplay, favoriteFriends = null, Friends = null, }) {
+
+
+const LogOutButton = styled(button)`
+  margin-top: auto;
+  color: #fff;
+  border: 1px #fff solid;
+  background-color: black;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+export default function FriendsTab({ pageOnDisplay, favoriteFriends = null, Friends = null, logoutHandler }) {
   // Attach event listeners to these that take you to corresponding Friend
   let FriendButtons, favFriendButtons
   if (favoriteFriends) {
@@ -118,7 +135,9 @@ export default function FriendsTab({ pageOnDisplay, favoriteFriends = null, Frie
             {Friends ? FriendButtons : <NoFavorites>Save some Friends to find them displayed here.</NoFavorites>}
           </GrayBG>
         </FriendsContainer>
+        <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </FriendsList>
+
       {/* <Toolbox /> */}
     </FriendsTabStyle>
   )

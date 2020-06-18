@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -96,11 +95,8 @@ export default function Join({ user, joinHandler }) {
                         onChange={event => setRoom(event.target.value)}
                         onKeyDown={handleKeyDown}
                     />
-                    <Link
-                        onClick={e => joinHandler(room)}
-                    >
-                        <SignInButton type="submit">Sign In</SignInButton>
-                    </Link>
+
+                    <SignInButton type="submit" onClick={e => joinHandler(room)}>Sign In</SignInButton>
                 </JoinModal>
             </JoinInnerContainer>
         </JoinOuterContainer>

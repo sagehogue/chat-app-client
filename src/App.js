@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import firebaseConfig from "./firebaseConfig";
 
@@ -12,6 +12,7 @@ import Join from "./components/Join/oldJoin";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
+
 
 // Initialize firebase for auth purposes
 firebase.initializeApp(firebaseConfig);
@@ -68,13 +69,33 @@ const App = () => {
       unsubscribe();
     };
   }, []);
-  const [user, setUser] = useState({ loggedIn: false });
+  const [user, setUser] = useState({ loggedIn: null });
+
+  //  Maybe check if null, false, or true and display loading, loggedout, loggedin.
+
+  // const [user, setUser] = useState({ loggedIn: firebase.auth().currentUser });
+
+  // a ? b : (c ? d : e)
   return (
     <Router>
       <UserProvider value={user}>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/chat" component={Chat} />
+        {/* Put loading component here */}
+        <Route path="/" exact render={props => user.loggedIn == null ? null : (
+          user.loggedIn ? (
+            <HomePage {...props} />
+          ) : (
+              <Redirect to="/login" />
+            )
+        )
+        }
+        />
+        <Route path="/login" render={(props) => user.loggedIn == null ? null : (
+          user.loggedIn ? (
+            <Redirect to="/" />
+          ) : (
+              <LoginPage {...props} />
+            )
+        )} />
         <GlobalStyle />
       </UserProvider>
     </Router>

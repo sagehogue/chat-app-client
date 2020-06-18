@@ -48,7 +48,7 @@ const Container = styled.div`
 
 let socket;
 
-const Chat = ({ room = false, user }) => {
+const Chat = ({ room = false, user, closeChatHandler }) => {
     const [username, setUsername] = useState(user.displayName);
     const [currentRoom, setRoom] = useState(room);
     const [users, setUsers] = useState("");
@@ -58,7 +58,6 @@ const Chat = ({ room = false, user }) => {
     // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
     // TESTING
     const ENDPOINT = "localhost:5000";
-    console.log(username)
 
     useEffect(() => {
         // OLD LOGIC - Fetches username, room from url. Convert to state.
@@ -112,7 +111,7 @@ const Chat = ({ room = false, user }) => {
     return (
         <OuterContainer>
             <Container>
-                <InfoBar room={currentRoom} />
+                <InfoBar room={currentRoom} closeChatHandler={closeChatHandler} />
                 <Messages messages={messages} name={username} />
                 <Input
                     message={message}
