@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
-import {
-  FaUserFriends,
-  FaRegComments,
-  FaHome,
-  FaPortrait
-} from "react-icons/fa";
+import { FaUserFriends, FaRegComments, FaHome } from "react-icons/fa";
 import styled from "styled-components";
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use

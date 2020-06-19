@@ -7,8 +7,16 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import firebaseConfig from "./firebaseConfig";
 
+<<<<<<< HEAD
 import Chat from "./components/Chat/Chat-old";
 import Join from "./components/Join/oldJoin";
+=======
+import Chat from "./components/Chat/Chat";
+import Join from "./components/Join/Join";
+import Gooey1 from "./components/UI/GUIMenu/GUIMenu";
+
+import UserProfile from "./components/UserProfile/UserProfile";
+>>>>>>> 3bf6863ab0658c8d732cde3388e6855734acbf29
 import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
@@ -79,6 +87,7 @@ const App = () => {
   return (
     <Router>
       <UserProvider value={user}>
+<<<<<<< HEAD
         {/* Put loading component here */}
         <Route path="/" exact render={props => user.loggedIn == null ? null : (
           user.loggedIn ? (
@@ -96,6 +105,13 @@ const App = () => {
               <LoginPage {...props} />
             )
         )} />
+=======
+        <Route path="/" exact component={HomePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/chat" component={Chat} />
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/menu" component={Gooey1} />
+>>>>>>> 3bf6863ab0658c8d732cde3388e6855734acbf29
         <GlobalStyle />
       </UserProvider>
     </Router>
