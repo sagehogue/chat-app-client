@@ -12,6 +12,7 @@ import Join from "./components/Join/Join";
 import Gooey1 from "./components/UI/GUIMenu/GUIMenu";
 
 import UserProfile from "./components/UserProfile/UserProfile";
+import LoadingAnimation from "./components/LoadingAnimation/LoadingAnimation";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./components/UI/GlobalStyles/GlobalStyles";
@@ -80,6 +81,7 @@ const App = () => {
         <Route path="/chat" component={Chat} />
         <Route path="/profile" component={UserProfile} />
         <Route path="/menu" component={Gooey1} />
+        <Route path="/loadingAnimation" component={LoadingAnimation} />
         <GlobalStyle />
       </UserProvider>
     </Router>
