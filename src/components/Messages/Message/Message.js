@@ -53,8 +53,8 @@ const Message = ({ message, name }) => {
   console.log(message)
   let text, user, timeSent, profilePic;
   timeSent = message.time
-  text = message.message
-  user = message.name
+  text = message.text
+  user = message.user
   if (message.profilePic) {
     profilePic = message.profilePic
   }

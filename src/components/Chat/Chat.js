@@ -66,7 +66,7 @@ const Chat = ({ room = false, user, closeChatHandler }) => {
         socket = io(ENDPOINT);
         // Sets state equal to current room, stores Username
         setRoom(currentRoom);
-        setUsername(username);
+        // setUsername(username);
 
         // Fires socket.io "join" event when room state changes.
         // 
@@ -102,7 +102,7 @@ const Chat = ({ room = false, user, closeChatHandler }) => {
 
     const sendMessage = (event) => {
         event.preventDefault();
-
+        console.log({ content: { text: message, user: username, time: getCurrentTime(), room: currentRoom } })
         if (message) {
             socket.emit("sendMessage", { content: { text: message, user: username, time: getCurrentTime(), room: currentRoom } }, () => setMessage(""));
         }

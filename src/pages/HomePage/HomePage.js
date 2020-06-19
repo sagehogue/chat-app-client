@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
 import { FaUserFriends, FaRegComments, FaHome } from "react-icons/fa";
 import styled from "styled-components";
+
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
@@ -88,7 +89,8 @@ const Navigation = styled.nav`
 
 
 
-export default function HomePage() {
+export default function HomePage({ socket }) {
+  console.log(socket)
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
   let userAuth = useContext(AuthContext);
@@ -127,6 +129,7 @@ export default function HomePage() {
 
   const clearChat = () => {
     setCurrentRoom(false)
+    socket.emit("disconnect")
   }
 
   return (
