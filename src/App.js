@@ -17,6 +17,9 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./components/UI/GlobalStyles/GlobalStyles";
 
+// TODOS:
+// Refactor redundant/useless code
+
 // Initialize firebase for auth purposes
 firebase.initializeApp(firebaseConfig);
 
