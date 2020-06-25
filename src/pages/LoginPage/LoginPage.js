@@ -16,7 +16,7 @@ import LoginButton from "./LoginButton/LoginButton";
 import LoginForm from "./LoginForm/LoginForm";
 import Register from "./RegisterButton/RegisterButton";
 import RegisterForm from "./RegisterForm/RegisterForm";
-import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
+import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 import { fadeIn } from "../../components/UI/Animations/Animations";
 
 import { Redirect } from "react-router";

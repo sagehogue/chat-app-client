@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
 import { FaUserFriends, FaRegComments, FaHome } from "react-icons/fa";
 import styled from "styled-components";
+
 import * as firebase from "firebase/app";
 // Add the Firebase services that you want to use
 import "firebase/auth";
@@ -8,13 +9,14 @@ import "firebase/firestore";
 import firebaseConfig from "../../firebaseConfig";
 import { firebaseController } from "../../App";
 
-import { Redirect } from "react-router";
 import { AuthContext } from "../../App";
-import FriendsTab from './FriendsTab/FriendsTab'
-import RoomsTab from './RoomsTab/RoomsTab'
-import button from "../../components/UI/Button/Button";
+import FriendsTab from './FriendsTab/FriendsTab';
+import RoomsTab from './RoomsTab/RoomsTab';
+import Chat from '../../components/Chat/Chat';
+import Join from '../../components/Join/Join';
+
 import Theme from "../../util/Theme/Theme";
-import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
+import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 // TODO
 // Implement a method to display only one side menu at a time.
@@ -22,6 +24,7 @@ import GlobalStyle from "../../components/UI/GlobalStyles/GlobalStyles";
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
 // adjust proportions of menus - they take up too much space.
 // Integrate chat component.
+// 3.) Create loading symbol to stand in for fetched data
 
 /* Description of implementation of this component:
 
@@ -57,9 +60,9 @@ const Navigation = styled.nav`
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
-  grid-row: 1 / 2;
+  grid-row: ${Theme.gridRowNav};
   width: 100%;
-  grid-column: 1 / -1;
+  grid-column: ${Theme.gridColNav};
   z-index: 1;
   padding-top: 1rem;
   color: rgba(255, 255, 255, 0.9);
@@ -85,24 +88,13 @@ const Navigation = styled.nav`
 
 
 
-const LogOutButton = styled(button)`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 3rem;
-  margin-right: 30rem;
 
-  color: #fff;
-  border: 1px #fff solid;
-  background-color: transparent;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-`;
-
-export default function HomePage() {
+export default function HomePage({ socket }) {
+  console.log(socket)
   let [display, setDisplay] = useState("initial");
+  let [currentRoom, setCurrentRoom] = useState(false);
   let userAuth = useContext(AuthContext);
+  console.log(userAuth)
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -112,10 +104,19 @@ export default function HomePage() {
   } else {
     db = firebase.app().firestore();
   }
-  if (!userAuth.loggedIn) {
-    return <Redirect to="/login" />;
+  let user = userAuth;
+  let name, email, photoUrl, uid, emailVerified;
+  console.log(user)
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, use User.getToken() 
+  // instead.
+  const handleJoinRoom = (room) => {
+    setCurrentRoom(room)
   }
-
   const handleDisplayFriends = () => {
     setDisplay("friends");
   };
@@ -126,6 +127,11 @@ export default function HomePage() {
     setDisplay("initial");
   };
 
+  const clearChat = () => {
+    setCurrentRoom(false)
+    socket.emit("disconnect")
+  }
+
   return (
     <HomePageGrid>
       <GlobalStyle />
@@ -134,11 +140,11 @@ export default function HomePage() {
         <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
         <FaRegComments onClick={handleDisplayRooms} />
       </Navigation>
-      <FriendsTab pageOnDisplay={display}></FriendsTab>
-      {/* Implement friends component */}
-      {/* Implement Chat component */}
-      <LogOutButton onClick={firebaseController.logout}>Log Out</LogOutButton>
-      {/* Implement room component */}
+      <FriendsTab pageOnDisplay={display} logoutHandler={firebaseController.logout}></FriendsTab>
+      {currentRoom ?
+        <Chat user={user} room={currentRoom} closeChatHandler={clearChat} />
+        : <Join user={user} joinHandler={handleJoinRoom} />
+      }
       <RoomsTab pageOnDisplay={display}></RoomsTab>
     </HomePageGrid>
   );

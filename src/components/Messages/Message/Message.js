@@ -3,11 +3,14 @@ import styled from "styled-components";
 
 import ReactEmoji from "react-emoji";
 
+// TODOS
+// Make profile pictures display
+
 const MessageText = styled.p`
   width: 100%;
   letter-spacing: 0;
   float: left;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   word-wrap: break-word;
   color: ${(props) => (props.dark ? "#353535" : "#f2f2f2")};
 `;
@@ -45,9 +48,18 @@ const MessageContainerJS = styled.div`
   margin-top: 3px;
 `;
 
-const Message = ({ message: { text, user }, name }) => {
+const Message = ({ message, name }) => {
   let isSentByCurrentUser = false;
-  console.log(text, user, name);
+  console.log(message)
+  let text, user, timeSent, profilePic;
+  timeSent = message.time
+  text = message.text
+  user = message.user
+  if (message.profilePic) {
+    profilePic = message.profilePic
+  }
+
+  console.log(text, user, timeSent);
 
   const trimmedName = name.trim().toLowerCase();
 

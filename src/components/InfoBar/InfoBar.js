@@ -34,16 +34,16 @@ const OnlineIcon = styled.img`
   margin-right: 5%;
 `;
 
-const InfoBar = ({ room }) => (
+const InfoBar = ({ room, closeChatHandler }) => (
   <InfoBarStyle>
     <LeftInnerContainer>
       <OnlineIcon src={onlineIcon} alt="online icon" />
       <h3>{room}</h3>
     </LeftInnerContainer>
     <RightInnerContainer>
-      <a href="/">
+      <div onClick={e => closeChatHandler()}>
         <img src={closeIcon} alt="close icon" />
-      </a>
+      </div>
     </RightInnerContainer>
   </InfoBarStyle>
 );
