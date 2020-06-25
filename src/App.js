@@ -113,7 +113,7 @@ const App = () => {
           )
           }
           />
-          <Route path="/login" render={(props) => user.loggedIn == null ? null : (
+          <Route path="/login" render={(props) => user.loggedIn == <Loader fullscreen /> ? null : (
             user.loggedIn ? (
               <Redirect to="/" />
             ) : (
