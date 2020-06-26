@@ -12,9 +12,9 @@ import * as EmailValidator from "email-validator";
 import background from "../../img/background.jpg";
 import styled from "styled-components";
 import { SubmitButton } from "../../components/UI/Button/Button";
-import LoginButton from "./LoginButton/LoginButton";
+import SignInButton from "./SignInButton/SignInButton";
 import LoginForm from "./LoginForm/LoginForm";
-import Register from "./RegisterButton/RegisterButton";
+import RegisterButton from "./RegisterButton/RegisterButton";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 import { fadeIn } from "../../components/UI/Animations/Animations";
@@ -33,6 +33,7 @@ const AuthButtons = styled.div`
 
 const OuterFormContainer = styled.div`
   display: flex;
+  overflow: hidden;
   justify-content: center;
   text-align: center;
   height: 100vh;
@@ -44,28 +45,53 @@ const OuterFormContainer = styled.div`
   }
 `;
 const FormStyleContainer = styled.div`
-  height: 55%;
-  width: 22.5%;
+  height: 65%;
+  width: 65%;
   background-color: rgba(51, 51, 51, 0.75);
   border-radius: 2%;
+  @media screen and (min-width: 800px) { 
+    max-width: 45vw;
+  }
+  @media screen and (min-width: 1100px) { 
+    max-width: 35vw;
+  }
+  @media screen and (min-width: 1300px) { 
+    max-width: 25vw;
+  }
+  @media screen and (min-width: 1600px) { 
+    max-width: 20vw;
+  }
 `;
 const InnerFormContainer = styled.div`
   margin: auto;
   justify-content: center;
   position: relative;
-  height: 600px;
-  width: 250px;
-  @media (min-width: 320px) and (max-width: 480px) {
+  height: 60rem;
+  width: 25rem;
+  @media (min-width: 240px) and (max-width: 750px) {
     width: 90%;
+  }
+  @media screen and (min-width: 750px) { 
+    width: 75%;
+  }
+  @media screen and (min-width: 1100px) { 
+    width: 65%;
+  }
+
+  @media screen and (min-width: 1600px) { 
+    width: 60%;
   }
 `;
 
 const Heading = styled.h1`
   color: white;
-  font-size: 3.1em;
+  font-size: 3rem;
   font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
-  border-bottom: 2px solid white;
+  margin-top: 1rem;
+  @media (max-width: 300px) {
+    font-size: 2.5rem;
+  }
 `;
 const EmailInput = styled.input`
   border-radius: 0;
@@ -85,12 +111,7 @@ const PasswordInput = styled.input`
   outline: none;
   border: none;
 `;
-const SignInButton = styled(SubmitButton)`
-  background-image: linear-gradient(#0090c1, #4099b7);
-  width: 50%;
-  margin-top: 2rem;
-  border: none;
-`;
+
 
 export default function LoginPage() {
   const [name, setName] = useState("");
@@ -184,33 +205,25 @@ export default function LoginPage() {
             onSubmit={handleLoginSubmit}
           >
             <Heading>{`${heading}`}</Heading>
-            <div>
-              <EmailInput
-                required
-                placeholder="Email"
-                name="email"
-                type="text"
-                onChange={event => setEmail(event.target.value)}
-              />
-            </div>
-            <div>
-              <PasswordInput
-                required
-                placeholder="Password"
-                name="password"
-                type="password"
-                onChange={event => setPassword(event.target.value)}
-              />
-            </div>
-            <AuthButtons>
-              {/* <Link
-              onClick={e => (!name || !room ? e.preventDefault() : null)}
-              to={`/chat?name=${name}&room=${room}`}
-            >
-            </Link>  This is from the room link component*/}
-              <SignInButton type="submit" value="Sign In" />
+            <EmailInput
+              required
+              placeholder="Email"
+              name="email"
+              type="text"
+              onChange={event => setEmail(event.target.value)}
+            />
 
-              <Register clickHandler={() => handleDisplayRegisterForm()} />
+            <PasswordInput
+              required
+              placeholder="Password"
+              name="password"
+              type="password"
+              onChange={event => setPassword(event.target.value)}
+            />
+
+            <AuthButtons>
+              <SignInButton type="submit" value="Sign In" />
+              <RegisterButton clickHandler={() => handleDisplayRegisterForm()} />
             </AuthButtons>
           </LoginForm>
           <RegisterForm
