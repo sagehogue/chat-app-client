@@ -14,16 +14,37 @@ const RoomsTabStyle = styled.section`
   grid-row: 1 / -1;
   grid-column: 3 / 4;
   overflow: hidden;
-  display: flex;
-  flex-direction: row-reverse;
   height: 100%;
-  max-width: 20vw;
-  background: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  background-color: ${Theme.white};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${props => (props.pageOnDisplay == "rooms" ? `0` : `5rem`)}
   );
   z-index: 2;
+  @media screen and (min-width: 400px) {
+    transform: translateX(
+      ${props => (props.pageOnDisplay == "rooms" ? `0` : `10rem`)}
+    );
+    }
+    @media screen and (min-width: 800px) {
+      transform: translateX(
+        ${props => (props.pageOnDisplay == "rooms" ? `0` : `15rem`)}
+      );
+        padding: 1rem;
+      }
+      @media screen and (min-width: 1200px) {
+        transform: translateX(
+          ${props => (props.pageOnDisplay == "rooms" ? `0` : `20rem`)}
+        );
+          padding: 2rem;
+        }
+        @media screen and (min-width: 1600px) {
+          transform: translateX(
+            ${props => (props.pageOnDisplay == "rooms" ? `0` : `25rem`)}
+          );
+            padding: 2rem;
+          }
 `;
 
 
@@ -32,7 +53,6 @@ const RoomsList = styled.div`
 display: flex;
 flex-direction: column;
 height: 100vh;
-background-color: ${Theme.white};
 max-width: 20vw;
 `
 
@@ -109,7 +129,7 @@ export default function RoomsTab({ pageOnDisplay, favoriteRooms = null, rooms = 
           </GrayBG>
         </Rooms>
       </RoomsList>
-      <Toolbox />
+      {/* <Toolbox /> */}
     </RoomsTabStyle>
   )
 }

@@ -1,13 +1,13 @@
 import React from "react";
 
-import onlineIcon from "../../icons/onlineIcon.png";
+import onlineIcon from "../../../icons/onlineIcon.png";
 
 import styled from "styled-components";
 
 const TextContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 100px;
+  margin-left: 10rem;
   color: white;
   height: 60%;
   justify-content: space-between;

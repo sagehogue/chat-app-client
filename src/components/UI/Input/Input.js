@@ -10,22 +10,41 @@ import styled from "styled-components";
 
 const Form = styled.form`
   display: flex;
-  width: 55vw;
+  width: inherit;
   border-top: 2px solid #d3d3d3;
 `;
 
-const InputStyle = styled.input`
+const InputStyle = styled.textarea`
   border: none;
+  resize: none;
   width: 78%;
-  min-height: 12.5vw;
+  overflow: scroll-y;
+  min-height: 7vh;
+  word-wrap: break-word;
+  whitespace: wrap;
   border-radius: 0;
-  padding: 3%;
-  font-size: 1rem;
+  padding: .5rem;
+  font-size: .85rem;
   &:focus,
   textarea:focus,
   select:focus {
     outline: none;
   }
+  @media screen and (min-width: 800px) {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  @media screen and (min-width: 1200px) {
+    padding: 1.25rem;
+    font-size: 1.15rem;
+    min-height: 12.5vh;
+  }
+  @media screen and (min-width: 1600px) {
+    padding: 1.5rem;
+  }
+          @media (max-height: 450px) and (min-width: 550px) {
+          min-height: 6.75vh;
+        }
 `;
 
 const SendButton = styled.button`

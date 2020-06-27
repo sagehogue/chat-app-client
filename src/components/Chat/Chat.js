@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import styled from "styled-components";
 
-import TextContainer from "../TextContainer/TextContainer";
+import TextContainer from "./TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
-import InfoBar from "../InfoBar/InfoBar";
+import InfoBar from "./InfoBar/InfoBar";
 import Input from "../UI/Input/Input";
 
 import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
@@ -18,10 +18,7 @@ grid-column: ${Theme.gridColChat};
   justify-content: center;
   align-items: center;
   margin: auto;
-  margin-top: 0;
-  .outerContainer {
-    height: 100%;
-  }
+  margin-top;
 //   @media (min-width: 320px) and (max-width: 480px) {
 //     height: 100%;
 //   }
@@ -33,8 +30,8 @@ const Container = styled.div`
   justify-content: space-between;
   background: #ffffff;
   border-radius: .8rem;
-  height: 85vh;
-  width: 55vw;
+  height: 84vh;
+  width: 58vw;
 //   @media (min-width: 320px) and (max-width: 480px) {
 //     .container {
 //       width: 100%;
