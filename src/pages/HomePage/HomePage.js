@@ -19,12 +19,11 @@ import Theme from "../../util/Theme/Theme";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 // TODO
-// Implement a method to display only one side menu at a time.
-// Display a user greeting somewhere
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
 // adjust proportions of menus - they take up too much space.
-// Integrate chat component.
-// 3.) Create loading symbol to stand in for fetched data
+// Create chat bubbles, user text backgrounds for better message differentiation
+// Chat app looks a little stretched out on desktop, adjust for better
+// center focus
 
 /* Description of implementation of this component:
 
@@ -59,10 +58,11 @@ const HomePageGrid = styled.main`
 const Navigation = styled.nav`
   font-size: 2rem;
   display: flex;
+  height: 10vh;
   justify-content: space-between;
-  grid-row: ${Theme.gridRowNav};
+  grid-row: ${Theme.layout.gridRowNav};
   width: 100%;
-  grid-column: ${Theme.gridColNav};
+  grid-column: ${Theme.layout.gridColNav};
   z-index: 1;
   padding-top: 1rem;
   color: rgba(255, 255, 255, 0.9);
@@ -83,6 +83,25 @@ const Navigation = styled.nav`
       ? `${Theme.navColorActive}`
       : `${Theme.navColorInactive}`};
   }
+      @media screen and (min-width: 1200px) {
+        font-size: 2.25rem;
+        & svg:first-child {
+          margin-left: 3rem;
+        }
+        & svg:last-child {
+          margin-right: 3rem;
+        }
+        }
+        @media screen and (min-width: 1600px) {
+          font-size: 2.5rem;
+          & svg:first-child {
+            margin-left: 4.5rem;
+          }
+          & svg:last-child {
+            margin-right: 4.5rem;
+          }
+          }
+          }
 `;
 
 

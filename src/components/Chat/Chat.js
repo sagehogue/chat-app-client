@@ -11,14 +11,18 @@ import Input from "../UI/Input/Input";
 import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
 import Theme from "../../util/Theme/Theme";
 
+// TODOS:
+
+// Create component to display users in room
+// Make chat window draggable for users who wanna write textwalls
+
 const OuterContainer = styled.div`
 display: flex;
-grid-row: ${Theme.gridRowChat};
-grid-column: ${Theme.gridColChat};
+grid-row: ${Theme.layout.gridRowChat};
+grid-column: ${Theme.layout.gridColChat};
   justify-content: center;
   align-items: center;
   margin: auto;
-  margin-top;
 //   @media (min-width: 320px) and (max-width: 480px) {
 //     height: 100%;
 //   }
@@ -116,7 +120,6 @@ const Chat = ({ room = false, user, closeChatHandler }) => {
                     sendMessage={sendMessage}
                 />
             </Container>
-            <TextContainer users={users} />
         </OuterContainer>
     );
 };

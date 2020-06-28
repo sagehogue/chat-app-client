@@ -1,107 +1,52 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
 
-import ReactEmoji from "react-emoji";
+import { FaRegSmileBeam } from 'react-icons/fa'
 
-// TODOS
-// Make profile pictures display
+// TODOS:
 
-const MessageText = styled.p`
-  width: 100%;
-  letter-spacing: 0;
-  float: left;
-  font-size: 1.1rem;
-  word-wrap: break-word;
-  color: ${(props) => (props.dark ? "#353535" : "#f2f2f2")};
-`;
+// figure out how to lookup user's profile pic on firebase
 
-const MessageBox = styled.div`
-background-color: ${props => (props.blue ? "#2979ff" : "#f3f3f3")}
 
-border-radius: 20px;
-padding: 1rem .5rem;
-color: white;
-display: inline-block;
-// max-width: 80%;
-`;
 
-const SentText = styled.span`
-  display: flex;
-  align-items: center;
-  font-family: Helvetica;
-  color: #828282;
-  padding: 0 .5rem;
-  letter-spacing: 0.3px;
-  // ${(props) => (props.pl ? "padding-left: .5rem;" : null)}
-  // ${(props) => (props.pr ? "padding-right: .5rem;" : null)}
-`;
 
-const MessageContainerJE = styled.div`
-  display: flex;
-  justify-content: space-around;
-  // padding: 0 .5rem;
-  margin-top: 3px;
-  overflow: hidden;
-  width: 100%;
-  & > :nth-child(1) {
-    margin: 0 auto auto 0;
-  }
-  & > :nth-child(2) {
-    margin: auto;
-    min-width: 50vw;
-  }
-`;
-const MessageContainerJS = styled.div`
+const MessageWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  // padding: 0 .5rem;
-  margin-top: 3px;
+  margin-top: .3rem;
   overflow: hidden;
   width: 100%;
   & > :nth-child(1) {
-    margin: auto;
-    min-width: 50vw;
+      margin: ${props.sentByUser ? "0 auto auto 0" : "auto"};
+      min-width: ${props.sentByUser ? "0" : "50vw"};
   }
   & > :nth-child(2) {
-    margin 0 0 auto auto;
+    margin: ${props.sentByUser ? "auto" : "0 0 auto auto"};
+    min-width: ${props.sentByUser ? "50vw" : "0"};
   }
-`;
+`
 
-const Message = ({ message, name }) => {
-  let isSentByCurrentUser = false;
-  console.log(message)
-  let text, user, timeSent, profilePic;
-  timeSent = message.time
-  text = message.text
-  user = message.user
-  if (message.profilePic) {
-    profilePic = message.profilePic
-  }
+const Profile = styled.div`
+display: flex;
+flex-direction: column;`
 
-  console.log(text, user, timeSent);
+export default function Message({ message, user, shouldDisplayUsername = false }) {
+    console.log(message)
+    let text, user, timeSent, profilePic;
+    timeSent = message.time
+    text = message.text
+    user = message.user
+    const trimmedUsername = user.trim().toLowerCase();
 
-  const trimmedName = name.trim().toLowerCase();
-
-  if (user === trimmedName) {
-    isSentByCurrentUser = true;
-  }
-
-
-  return isSentByCurrentUser ? (
-    <MessageContainerJE>
-      <SentText>{trimmedName}</SentText>
-      <MessageBox blue>
-        <MessageText>{ReactEmoji.emojify(text + '')}</MessageText>
-      </MessageBox>
-    </MessageContainerJE>
-  ) : (
-      <MessageContainerJS>
-        <MessageBox>
-          <MessageText dark>{ReactEmoji.emojify(text + '')}</MessageText>
-        </MessageBox>
-        <SentText>{user}</SentText>
-      </MessageContainerJS>
-    );
-};
-
-export default Message;
+    if (user === trimmedUsername) {
+        isSentByCurrentUser = true;
+    }
+    return (
+        <MessageWrapper>
+            <Profile>
+                <ProfilePic />
+                <Username />
+            </Profile>
+            <Message></Message>
+        </MessageWrapper>
+    )
+}
