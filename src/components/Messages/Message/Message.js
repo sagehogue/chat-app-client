@@ -12,11 +12,11 @@ import { FaRegSmileBeam } from 'react-icons/fa'
 
 
 const MessageWrapper = styled.div`
+max-width: 100%;
 position: relative;
   display: flex;
   justify-content: flex-start;
-  margin-top: .3rem;
-  width: 100%;
+  margin: .3rem 1rem 0 1rem;
   & > :nth-child(1) {
       /* margin: ${ props => props.sentByUser ? "0 auto auto 0" : "auto"}; */
       /* min-width: ${ props => props.sentByUser ? "0" : "50vw"}; */
@@ -25,7 +25,9 @@ position: relative;
     /* margin: ${ props => props.showProfile ? "0 0 0 1.5rem" : "0"}; */
     /* min-width: ${ props => props.sentByUser ? "50vw" : "0"}; */
   }
-  
+  @media screen and (min-width: 900px) {
+    padding:  1rem .5rem;
+  }
 `
 
 const TextBubble = styled.p`
@@ -33,8 +35,18 @@ text-align: center;
 background-color: ${props => props.sentByUser ? "#2979ff" : "#f3f3f3"};
 padding: .5rem .25rem;
 border-radius: 1rem;
-margin: ${props => props.showProfile ? "3.3rem auto 0 auto" : "0 auto"};
-width: 95%;
+margin: ${props => props.showProfile ? "3.3rem auto 0 0" : "0 auto 0 0"};
+word-wrap: break-word;
+max-width: 100%;
+/* width: 95%; */
+&:hover {
+    &::after {
+        background-color: red;
+        padding: 2rem;
+        color: grey;
+        content: ${props => props.timestamp}
+    }
+}
 /* margin-top: ; */
 /* transform: translateX(${props => props.showProfile ? "2.5vw" : "0"}); */
 @media screen and (min-width: 900px) {
@@ -46,13 +58,23 @@ const Profile = styled.div`
 text-align: center;
 position: absolute;
 top: -.1rem;
-left: 0;
+left: -.25rem;
 display: ${props => props.showProfile ? "flex" : "none"};
-flex-direction: column;`
+flex-direction: column;
+@media screen and (min-width: 900px) {
+
+  }
+  `
 
 const ProfilePic = styled.div`
-font-size: 1.5rem;`;
+font-size: 1.5rem;
+
+`;
 const Username = styled.span``;
+
+const Timestamp = styled.span`
+
+`
 
 export default function Message({ message, user, shouldDisplayUsername = false }) {
     let text, author, timeSent, profilePic;
