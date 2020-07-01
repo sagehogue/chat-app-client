@@ -9,13 +9,6 @@ import Loader from './components/UI/Animations/Loading/Loading'
 
 import Chat from "./components/Chat/Chat";
 import Join from "./components/Join/Join";
-<<<<<<< HEAD
-import Gooey1 from "./components/UI/GUIMenu/GUIMenu";
-
-import UserProfile from "./components/UserProfile/UserProfile";
-import LoadingAnimation from "./components/LoadingAnimation/LoadingAnimation";
-=======
->>>>>>> 0773e76ea750c78a4554658d2ddd3e8e227e3e90
 import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
@@ -107,17 +100,6 @@ const App = () => {
   // </ThemeContext.Consumer>
   return (
     <Router>
-<<<<<<< HEAD
-      <UserProvider value={user}>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/profile" component={UserProfile} />
-        <Route path="/menu" component={Gooey1} />
-        <Route path="/loadingAnimation" component={LoadingAnimation} />
-        <GlobalStyle />
-      </UserProvider>
-=======
       <SocketProvider value={socket}>
         <UserProvider value={user}>
           {/* Put loading component here */}
@@ -144,7 +126,6 @@ const App = () => {
           <GlobalStyle />
         </UserProvider>
       </SocketProvider>
->>>>>>> 0773e76ea750c78a4554658d2ddd3e8e227e3e90
     </Router>
   );
 };
