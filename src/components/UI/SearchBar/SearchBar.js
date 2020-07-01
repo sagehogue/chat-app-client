@@ -7,7 +7,7 @@ import { FaSearch } from 'react-icons/fa'
 const SearchBarContainer = styled.div`
 position: relative;
 width: 91%;
-border-radius: 12.5%;
+border-radius: 15px;
 overflow: hidden;
 margin: .75rem auto .75rem auto;
 height: 2rem;
@@ -25,7 +25,7 @@ width: 100%;
 border: none;
 height: inherit;
 outline: none;
-padding: 5% 5% 5% 5vw;
+padding: 5% 5% 5% 2rem;
 `
 
 export default function SearchBar() {

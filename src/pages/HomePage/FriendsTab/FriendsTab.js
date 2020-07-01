@@ -22,23 +22,45 @@ Maybe look for some kind of package that can handle pagination
 
 
 const FriendsTabStyle = styled.section`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 grid-row: 1 / -1;
 grid-column: 1 / 2;
 overflow: hidden;
 width: 100%;
 height: 100%;
-background: rgba(255, 255, 255, 0.3);
+
+background-color: ${Theme.white};
 transition: all ${Theme.navTransitionDuration} ease-in;
 transform: translateX(
   ${props => (props.pageOnDisplay == "friends" ? `0` : `-5rem`)}
 );
 z-index: 2;
 
-  display: flex;
-  flex-direction: row-reverse;
-  max-width: 20vw;
-  background: rgba(255, 255, 255, 0.3);
-  z-index: 2;
+  @media screen and (min-width: 400px) {
+    transform: translateX(
+      ${props => (props.pageOnDisplay == "friends" ? `0` : `-10rem`)}
+    );
+    }
+    @media screen and (min-width: 800px) {
+      transform: translateX(
+        ${props => (props.pageOnDisplay == "friends" ? `0` : `-15rem`)}
+      );
+      padding: 1rem;
+      }
+      @media screen and (min-width: 1200px) {
+        transform: translateX(
+          ${props => (props.pageOnDisplay == "friends" ? `0` : `-20rem`)}
+        );
+        padding: 2rem;
+        }
+        @media screen and (min-width: 1600px) {
+          transform: translateX(
+            ${props => (props.pageOnDisplay == "friends" ? `0` : `-25rem`)}
+          );
+          padding: 2rem;
+          }
 `;
 
 
@@ -46,9 +68,11 @@ z-index: 2;
 const FriendsList = styled.div`
 display: flex;
 flex-direction: column;
-height: 100vh;
-background-color: ${Theme.white};
+height: 100%
+overflow-y: scroll;
+max-height: 90vh;
 max-width: 20vw;
+
 `
 
 const FriendsContainer = styled.div`
@@ -104,6 +128,8 @@ const LogOutButton = styled(button)`
   color: #fff;
   border: 1px #fff solid;
   background-color: black;
+  margin: auto;
+  margin-top: 2rem;
   &:hover {
     background-color: rgba(0, 0, 0, 0.5);
   }
@@ -135,8 +161,8 @@ export default function FriendsTab({ pageOnDisplay, favoriteFriends = null, Frie
             {Friends ? FriendButtons : <NoFavorites>Save some Friends to find them displayed here.</NoFavorites>}
           </GrayBG>
         </FriendsContainer>
-        <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </FriendsList>
+      <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
 
       {/* <Toolbox /> */}
     </FriendsTabStyle>

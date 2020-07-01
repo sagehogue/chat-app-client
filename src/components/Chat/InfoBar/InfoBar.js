@@ -1,7 +1,7 @@
 import React from "react";
 
-import onlineIcon from "../../icons/onlineIcon.png";
-import closeIcon from "../../icons/closeIcon.png";
+import onlineIcon from "../../../icons/onlineIcon.png";
+import closeIcon from "../../../icons/closeIcon.png";
 
 import styled from "styled-components";
 
@@ -11,8 +11,12 @@ const InfoBarStyle = styled.div`
   justify-content: space-between;
   background: #2979ff;
   border-radius: 4px 4px 0 0;
-  height: 60px;
+  height: 4rem;
   width: 100%;
+  @media (min-width: 600px) and (max-height: 450px) {
+    height: 2.5rem;
+    }
+
 `;
 
 const LeftInnerContainer = styled.div`

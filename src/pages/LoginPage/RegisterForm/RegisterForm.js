@@ -3,8 +3,14 @@ import React, { useState } from "react";
 import styled, { keyframes, css } from 'styled-components';
 
 import { SubmitButton } from '../../../components/UI/Button/Button'
-import LoginButton from "../LoginButton/LoginButton";
+import LoginButton from "../SignInButton/SignInButton";
 import RegisterButton from "../RegisterButton/RegisterButton";
+
+// TODOS:
+// Password validation
+// Password/Confirm password matching
+// error messages
+// error handling
 
 const fadeOutKey = keyframes`
 0% {
@@ -45,12 +51,19 @@ const fadeOut = props =>
 // 3. Username must be of appropriate length, comprised of allowable chars, available.
 
 const RegisterFormStyle = styled.form`
+display: flex;
+justify-content: space-around;
+align-items: center;
+flex-direction: column;
+width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   animation-fill-mode: forwards;
   margin: auto;
+  justify-content: center;
   transition: all 0.5s ease-in;
+  border-radius: 2%;
   animation: ${props => (props.animateLoginForm ? `${fadeOut}` : 'none')};
   animation: ${props => (props.showRegisterForm ? `${fadeIn}` : 'none')};
   opacity: ${props => (props.showRegisterForm ? 1 : 0)};
@@ -60,10 +73,12 @@ const RegisterFormStyle = styled.form`
 
 const Heading = styled.h1`
   color: white;
-  font-size: 3.1rem;
+  font-size: 2rem;
   font-family: "Josefin Sans", sans-serif;
-  padding-bottom: 10px;
-  border-bottom: 2px solid white;
+  padding: 1rem .5rem;
+  @media (max-width: 300px) {
+    font-size: 1.65rem;
+  }
 `;
 const EmailInput = styled.input`
   border-radius: 0;
@@ -132,7 +147,7 @@ export default function RegisterForm({ showRegisterForm, heading, handleSubmit }
       />
 
       <UserInput
-
+        required
         placeholder="Username"
         name="username"
         type="text"
@@ -148,6 +163,7 @@ export default function RegisterForm({ showRegisterForm, heading, handleSubmit }
       />
 
       <PasswordInputConfirm
+        required
         placeholder="Confirm Password"
         type="text"
         onChange={event => handlePasswordConfirmation(event)}
