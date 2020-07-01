@@ -15,7 +15,7 @@ const MessagesStyle = styled.div`
 padding: 1.5% 0 1% 0;
   flex: auto;
   min-height: 70vh;
-  overflow: hidden;
+  overflow-y: scroll;
 
 `;
 const Messages = ({ messages, name }) => {
