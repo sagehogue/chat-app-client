@@ -134,6 +134,7 @@ export default function HomePage({ socket }) {
   // this value to authenticate with your backend server, use User.getToken() 
   // instead.
   const handleJoinRoom = (room) => {
+    socket.emit("join", { name, room })
     setCurrentRoom(room)
   }
   const handleDisplayFriends = () => {
@@ -148,7 +149,11 @@ export default function HomePage({ socket }) {
 
   const clearChat = () => {
     setCurrentRoom(false)
-    socket.emit("disconnect")
+    disconnectUser()
+  }
+
+  const disconnectUser = () => {
+    socket.emit("room-disconnect")
   }
 
   return (
