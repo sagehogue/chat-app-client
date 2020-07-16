@@ -93,6 +93,7 @@ export default function Join({ user, joinHandler }) {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       //   do validation
+
       joinHandler(room)
     }
   }

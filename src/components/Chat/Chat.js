@@ -7,9 +7,9 @@ import TextContainer from "./TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "./InfoBar/InfoBar";
 import Input from "../UI/Input/Input";
+import Theme from "../../util/Theme/Theme";
 
 import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
-import Theme from "../../util/Theme/Theme";
 
 // TODOS:
 
@@ -112,7 +112,7 @@ const Chat = ({ room = false, user, closeChatHandler }) => {
     return (
         <OuterContainer>
             <Container>
-                <InfoBar room={currentRoom} closeChatHandler={closeChatHandler} />
+                <InfoBar room={currentRoom} closeChatHandler={() => closeChatHandler(currentRoom)} />
                 <Messages messages={messages} name={username} />
                 <Input
                     message={message}

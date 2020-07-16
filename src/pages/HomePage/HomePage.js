@@ -113,7 +113,7 @@ export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
   let userAuth = useContext(AuthContext);
-  console.log(userAuth)
+  console.log(`userAuth: ${userAuth}`)
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -125,7 +125,6 @@ export default function HomePage({ socket }) {
   }
   let user = userAuth;
   let name, email, photoUrl, uid, emailVerified;
-  console.log(user)
   name = user.displayName;
   email = user.email;
   photoUrl = user.photoURL;
@@ -134,6 +133,7 @@ export default function HomePage({ socket }) {
   // this value to authenticate with your backend server, use User.getToken() 
   // instead.
   const handleJoinRoom = (room) => {
+    console.log(`Room sent to backend: ${room}`)
     socket.emit("join", { name, room })
     setCurrentRoom(room)
   }
@@ -147,13 +147,13 @@ export default function HomePage({ socket }) {
     setDisplay("initial");
   };
 
-  const clearChat = () => {
+  const clearChat = (room) => {
     setCurrentRoom(false)
-    disconnectUser()
+    disconnectUser(room)
   }
 
-  const disconnectUser = () => {
-    socket.emit("room-disconnect")
+  const disconnectUser = (room) => {
+    socket.emit("room-disconnect", { room })
   }
 
   return (
