@@ -166,7 +166,7 @@ export default function HomePage({ socket }) {
       </Navigation>
       <FriendsTab pageOnDisplay={display} logoutHandler={firebaseController.logout}></FriendsTab>
       {currentRoom ?
-        <Chat user={user} room={currentRoom} closeChatHandler={clearChat} />
+        <Chat user={user} room={currentRoom} closeChatHandler={clearChat} socket={socket} />
         : <Join user={user} joinHandler={handleJoinRoom} />
       }
       <RoomsTab pageOnDisplay={display}></RoomsTab>

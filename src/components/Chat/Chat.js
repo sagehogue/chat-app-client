@@ -49,7 +49,7 @@ const Container = styled.div`
 
 let socket;
 
-const Chat = ({ room = false, user, closeChatHandler }) => {
+const Chat = ({ room = false, user, closeChatHandler, socket }) => {
     const [username, setUsername] = useState(user.displayName);
     const [currentRoom, setRoom] = useState(room);
     const [users, setUsers] = useState("");
@@ -64,7 +64,7 @@ const Chat = ({ room = false, user, closeChatHandler }) => {
         // OLD LOGIC - Fetches username, room from url. Convert to state.
         // const { name, room } = queryString.parse(location.search);
 
-        socket = io(ENDPOINT);
+        /* socket = io(ENDPOINT); */
         // Sets state equal to current room, stores Username
         setRoom(currentRoom);
         // setUsername(username);

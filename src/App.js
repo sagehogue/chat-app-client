@@ -32,7 +32,8 @@ export const SocketConsumer = SocketContext.Consumer;
 function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      socket = io(ENDPOINT);
+      console.log("Socket.io connecting displayName " + user.displayName)
+      socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
       callback({
         loggedIn: true,
         displayName: user.displayName,
