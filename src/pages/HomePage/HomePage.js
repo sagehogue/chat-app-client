@@ -18,7 +18,9 @@ import Join from '../../components/Join/Join';
 import Theme from "../../util/Theme/Theme";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
-// TODO
+//      **********TODOS***********
+// 
+//          *****STYLING*****
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
 // adjust proportions of menus - they take up too much space.
 // Create chat bubbles, user text backgrounds for better message differentiation

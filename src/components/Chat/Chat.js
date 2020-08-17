@@ -71,11 +71,11 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
 
         // Fires socket.io "join" event when room state changes.
         // 
-        socket.emit("join", { name: username, room: currentRoom }, (error) => {
-            if (error) {
-                alert(error);
-            }
-        });
+        // socket.emit("join", { name: username, room: currentRoom }, (error) => {
+        //     if (error) {
+        //         alert(error);
+        //     }
+        // });
     }, [ENDPOINT, currentRoom]);
 
     useEffect(() => {
@@ -106,6 +106,13 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
         console.log({ content: { text: message, user: username, time: getCurrentTime(), room: currentRoom } })
         if (message) {
             socket.emit("sendMessage", { content: { text: message, user: username, time: getCurrentTime(), room: currentRoom } }, () => setMessage(""));
+            const newMessage = {
+                text: message,
+                time: getCurrentTime(),
+                user: username,
+                room: currentRoom 
+            }
+            setMessages((messages) => [...messages, newMessage]);
         }
     };
 

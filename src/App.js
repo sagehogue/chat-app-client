@@ -13,11 +13,10 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import HomePage from "./pages/HomePage/HomePage";
 import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
 
-// TODOS
-// Make a background component, use it on loginpage/homepage/loader to keep it from flashing white on load
 
 // TODOS:
-// Refactor redundant/useless code
+// Refactor redundant/useless code. Looks like there's lots of repetition here.
+// Make a background component, use it on loginpage/homepage/loader to keep it from flashing white on load
 
 // Initialize firebase for auth purposes
 firebase.initializeApp(firebaseConfig);

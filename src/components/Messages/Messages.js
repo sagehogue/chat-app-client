@@ -32,6 +32,7 @@ const Messages = ({ messages, name }) => {
   return (
     <MessagesStyle>
       {messages.map((message, i) => {
+        try {
         let differentUser = lastUserToSendMessage !== message.user ? true : false
         lastUserToSendMessage = message.user
         return (
@@ -41,6 +42,10 @@ const Messages = ({ messages, name }) => {
             user={name}
             shouldDisplayUsername={(differentUser || lastUserToSendMessage === undefined) && message.user !== "admin" ? true : false} />
         )
+       } catch(err) {
+         console.log("ERROR: Message improperly formatted or otherwise exploding the program.")
+         console.log(err)
+       }
       })}
       <div ref={messagesEndRef} />
     </MessagesStyle >
