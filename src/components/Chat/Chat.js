@@ -15,6 +15,7 @@ import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
 
 // Create component to display users in room
 // Make chat window draggable for users who wanna write textwalls
+// Create roomDisconnect event to fire when user clicks X on chat window, thus leaving the chat.
 
 const OuterContainer = styled.div`
 display: flex;
@@ -53,6 +54,7 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
     const [username, setUsername] = useState(user.displayName);
     const [currentRoom, setRoom] = useState(room);
     const [users, setUsers] = useState("");
+    const [onlineUserCount, setOnlineUserCount] = useState(0)
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     // PROD
@@ -96,8 +98,10 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
             }
         });
 
-        socket.on("roomData", ({ users }) => {
+        socket.on("roomData", ({ room, users, onlineUserCount,  }) => {
+            console.log(`Room Data: \n${users}`)
             setUsers(users);
+            setOnlineUserCount(users.length)
         });
     }, []);
 
@@ -119,7 +123,7 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
     return (
         <OuterContainer>
             <Container>
-                <InfoBar room={currentRoom} closeChatHandler={() => closeChatHandler(currentRoom)} />
+                <InfoBar room={currentRoom} userCount={onlineUserCount} closeChatHandler={() => closeChatHandler(currentRoom)} />
                 <Messages messages={messages} name={username} />
                 <Input
                     message={message}

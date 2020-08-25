@@ -11,7 +11,7 @@ const InfoBarStyle = styled.div`
   justify-content: space-between;
   background: #2979ff;
   border-radius: 4px 4px 0 0;
-  height: 4rem;
+  min-height: 3rem;
   width: 100%;
   @media (min-width: 600px) and (max-height: 450px) {
     height: 2.5rem;
@@ -27,6 +27,9 @@ const LeftInnerContainer = styled.div`
   color: white;
 `;
 
+const CenterInnerContainer = styled.div`
+`
+
 const RightInnerContainer = styled.div`
   display: flex;
   flex: 0.5;
@@ -38,12 +41,13 @@ const OnlineIcon = styled.img`
   margin-right: 5%;
 `;
 
-const InfoBar = ({ room, closeChatHandler }) => (
+const InfoBar = ({ room, closeChatHandler, userCount }) => (
   <InfoBarStyle>
     <LeftInnerContainer>
       <OnlineIcon src={onlineIcon} alt="online icon" />
       <h3>{room}</h3>
     </LeftInnerContainer>
+<CenterInnerContainer>{userCount} online</CenterInnerContainer>
     <RightInnerContainer>
       <div onClick={e => closeChatHandler()}>
         <img src={closeIcon} alt="close icon" />

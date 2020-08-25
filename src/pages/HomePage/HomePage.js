@@ -20,6 +20,8 @@ import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 //      **********TODOS***********
 // 
+// Create roomDisconnect event to fire when user clicks X on chat window, thus leaving the chat.
+
 //          *****STYLING*****
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
 // adjust proportions of menus - they take up too much space.
@@ -155,7 +157,7 @@ export default function HomePage({ socket }) {
   }
 
   const disconnectUser = (room) => {
-    socket.emit("room-disconnect", { room })
+    socket.emit("room-disconnect", { room, name })
   }
 
   return (

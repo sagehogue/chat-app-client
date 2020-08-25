@@ -19,7 +19,7 @@ const InputStyle = styled.textarea`
   resize: none;
   width: 78%;
   overflow: scroll-y;
-  min-height: 7vh;
+  // min-height: 7vh;
   word-wrap: break-word;
   whitespace: wrap;
   border-radius: 0;
@@ -37,13 +37,13 @@ const InputStyle = styled.textarea`
   @media screen and (min-width: 1200px) {
     padding: 1.25rem;
     font-size: 1.15rem;
-    min-height: 12.5vh;
+    // min-height: 12.5vh;
   }
   @media screen and (min-width: 1600px) {
     padding: 1.5rem;
   }
           @media (max-height: 450px) and (min-width: 550px) {
-          min-height: 6.75vh;
+          // min-height: 6.75vh;
         }
 `;
 
