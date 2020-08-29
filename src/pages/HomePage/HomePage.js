@@ -9,17 +9,20 @@ import "firebase/firestore";
 import firebaseConfig from "../../firebaseConfig";
 import { firebaseController } from "../../App";
 
+import FriendsTab from "./FriendsTab/FriendsTab";
+import RoomsTab from "./RoomsTab/RoomsTab";
+import Chat from "../../components/Chat/Chat";
+import Join from "../../components/Join/Join";
+import Backdrop from "../../components/UI/Backdrop/Backdrop";
+
 import { AuthContext } from "../../App";
-import FriendsTab from './FriendsTab/FriendsTab';
-import RoomsTab from './RoomsTab/RoomsTab';
-import Chat from '../../components/Chat/Chat';
-import Join from '../../components/Join/Join';
+import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
 
 import Theme from "../../util/Theme/Theme";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 //      **********TODOS***********
-// 
+//
 // Create roomDisconnect event to fire when user clicks X on chat window, thus leaving the chat.
 
 //          *****STYLING*****
@@ -75,17 +78,17 @@ const Navigation = styled.nav`
   }
   & svg:first-child {
     margin-left: 1rem;
-    color: ${props =>
-    props.pageOnDisplay == "friends"
-      ? `${Theme.navColorActive}`
-      : `${Theme.navColorInactive}`};
+    color: ${(props) =>
+      props.pageOnDisplay == "friends"
+        ? `${Theme.navColorActive}`
+        : `${Theme.navColorInactive}`};
   }
   & svg:last-child {
     margin-right: 1rem;
-    color: ${props =>
-    props.pageOnDisplay == "rooms"
-      ? `${Theme.navColorActive}`
-      : `${Theme.navColorInactive}`};
+    color: ${(props) =>
+      props.pageOnDisplay == "rooms"
+        ? `${Theme.navColorActive}`
+        : `${Theme.navColorInactive}`};
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;
@@ -108,16 +111,13 @@ const Navigation = styled.nav`
           }
 `;
 
-
-
-
-
 export default function HomePage({ socket }) {
-  console.log(socket)
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
+  let [showBackdrop, setShowBackdrop] = useState(false);
+  let [showUsers, setShowUsers] = useState(false);
   let userAuth = useContext(AuthContext);
-  console.log(`userAuth: ${userAuth}`)
+  console.log(`userAuth: ${userAuth}`);
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -133,14 +133,15 @@ export default function HomePage({ socket }) {
   email = user.email;
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
-  uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, use User.getToken() 
+  uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, use User.getToken()
   // instead.
   const handleJoinRoom = (room) => {
-    console.log(`Room sent to backend: ${room}`)
-    socket.emit("join", { name, room })
-    setCurrentRoom(room)
-  }
+    console.log(`Room sent to backend: ${room}`);
+    socket.emit("join", { name, room });
+    setCurrentRoom(room);
+  };
+
   const handleDisplayFriends = () => {
     setDisplay("friends");
   };
@@ -152,28 +153,51 @@ export default function HomePage({ socket }) {
   };
 
   const clearChat = (room) => {
-    setCurrentRoom(false)
-    disconnectUser(room)
-  }
+    setCurrentRoom(false);
+    disconnectUser(room);
+  };
 
   const disconnectUser = (room) => {
-    socket.emit("room-disconnect", { room, name })
-  }
+    socket.emit("room-disconnect", { room, name });
+  };
+
+  const closeBackdrop = () => {
+    setShowBackdrop(false);
+    setShowUsers(false);
+  };
+  const openBackdrop = () => {
+    setShowBackdrop(true);
+  };
 
   return (
-    <HomePageGrid>
-      <GlobalStyle />
-      <Navigation pageOnDisplay={display}>
-        <FaUserFriends onClick={handleDisplayFriends} />
-        <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
-        <FaRegComments onClick={handleDisplayRooms} />
-      </Navigation>
-      <FriendsTab pageOnDisplay={display} logoutHandler={firebaseController.logout}></FriendsTab>
-      {currentRoom ?
-        <Chat user={user} room={currentRoom} closeChatHandler={clearChat} socket={socket} />
-        : <Join user={user} joinHandler={handleJoinRoom} />
-      }
-      <RoomsTab pageOnDisplay={display}></RoomsTab>
-    </HomePageGrid>
+    <>
+      <HomePageGrid>
+        <GlobalStyle />
+        <Navigation pageOnDisplay={display}>
+          <FaUserFriends onClick={handleDisplayFriends} />
+          <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+          <FaRegComments onClick={handleDisplayRooms} />
+        </Navigation>
+        <FriendsTab
+          pageOnDisplay={display}
+          logoutHandler={firebaseController.logout}
+        ></FriendsTab>
+        {currentRoom ? (
+          <Chat
+            user={user}
+            room={currentRoom}
+            openBackdrop={openBackdrop}
+            closeChatHandler={clearChat}
+            socket={socket}
+            showUsers={showUsers}
+            setShowUsers={setShowUsers}
+          />
+        ) : (
+          <Join user={user} joinHandler={handleJoinRoom} />
+        )}
+        <RoomsTab pageOnDisplay={display}></RoomsTab>
+      </HomePageGrid>
+      <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
+    </>
   );
 }
