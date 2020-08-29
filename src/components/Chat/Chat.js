@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import styled from "styled-components";
 
+import UserList from '../UI/UserList/UserList'
 import TextContainer from "./TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "./InfoBar/InfoBar";
@@ -19,6 +20,7 @@ import { getCurrentTime, sortByDate } from '../../util/helpers/helpers.js'
 
 const OuterContainer = styled.div`
 display: flex;
+position: relative;
 grid-row: ${Theme.layout.gridRowChat};
 grid-column: ${Theme.layout.gridColChat};
   justify-content: center;
@@ -31,12 +33,14 @@ grid-column: ${Theme.layout.gridColChat};
 
 const Container = styled.div`
   display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: space-between;
   background: #ffffff;
   border-radius: .8rem;
   height: 84vh;
   width: 58vw;
+  z-index: ${props => props.showUsers? "0" : "100"};
 //   @media (min-width: 320px) and (max-width: 480px) {
 //     .container {
 //       width: 100%;
@@ -48,6 +52,11 @@ const Container = styled.div`
 //       }
 `;
 
+const UserListContainer = styled(Container)`
+z-index: ${props => props.showUsers? "100" : "0"};
+position: absolute;
+`
+
 let socket;
 
 const Chat = ({ room = false, user, closeChatHandler, socket }) => {
@@ -57,6 +66,7 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
     const [onlineUserCount, setOnlineUserCount] = useState(0)
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
+    const [showUsers, setShowUsers] = useState(false)
     // PROD
     // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
     // TESTING
@@ -120,10 +130,14 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
         }
     };
 
+    const showUserDisplay = () => {
+        setShowUsers(true)
+    }
+
     return (
         <OuterContainer>
-            <Container>
-                <InfoBar room={currentRoom} userCount={onlineUserCount} closeChatHandler={() => closeChatHandler(currentRoom)} />
+            <Container showUsers={showUsers}>
+                <InfoBar room={currentRoom} userCount={onlineUserCount} showUserList={showUserDisplay} closeChatHandler={() => closeChatHandler(currentRoom)} />
                 <Messages messages={messages} name={username} />
                 <Input
                     message={message}
@@ -131,6 +145,9 @@ const Chat = ({ room = false, user, closeChatHandler, socket }) => {
                     sendMessage={sendMessage}
                 />
             </Container>
+            <UserListContainer showUsers={showUsers}>
+                <UserList users={users} location={currentRoom}/>
+            </UserListContainer>
         </OuterContainer>
     );
 };

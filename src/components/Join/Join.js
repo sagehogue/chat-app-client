@@ -90,13 +90,13 @@ const SignInButton = styled.button`
 
 export default function Join({ user, joinHandler }) {
   const [room, setRoom] = useState("");
-  // const handleKeyDown = (event) => {
-  //   if (event.key === 'Enter') {
-  //     //   do validation
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      //   do validation
 
-  //     joinHandler(room)
-  //   }
-  // }
+      joinHandler(room)
+    }
+  }
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -107,7 +107,7 @@ export default function Join({ user, joinHandler }) {
             placeholder="Room"
             type="text"
             onChange={event => setRoom(event.target.value)}
-            // onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyDown}
           />
 
           <SignInButton type="submit" onClick={e => joinHandler(room)}>Sign In</SignInButton>

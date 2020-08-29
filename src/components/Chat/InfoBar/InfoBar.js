@@ -1,9 +1,11 @@
 import React from "react";
+import styled from "styled-components";
+
+import UserList from '../../UI/UserList/UserList'
 
 import onlineIcon from "../../../icons/onlineIcon.png";
 import closeIcon from "../../../icons/closeIcon.png";
 
-import styled from "styled-components";
 
 const InfoBarStyle = styled.div`
   display: flex;
@@ -24,10 +26,12 @@ const LeftInnerContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 5%;
-  color: white;
+  
 `;
 
 const CenterInnerContainer = styled.div`
+color: white;
+font-size: 1.25rem;
 `
 
 const RightInnerContainer = styled.div`
@@ -41,13 +45,13 @@ const OnlineIcon = styled.img`
   margin-right: 5%;
 `;
 
-const InfoBar = ({ room, closeChatHandler, userCount }) => (
+const InfoBar = ({ room, closeChatHandler, userCount, showUserList }) => (
   <InfoBarStyle>
-    <LeftInnerContainer>
+    <LeftInnerContainer onClick={showUserList}>
       <OnlineIcon src={onlineIcon} alt="online icon" />
-      <h3>{room}</h3>
+     {userCount} online
     </LeftInnerContainer>
-<CenterInnerContainer>{userCount} online</CenterInnerContainer>
+<CenterInnerContainer> {room}</CenterInnerContainer>
     <RightInnerContainer>
       <div onClick={e => closeChatHandler()}>
         <img src={closeIcon} alt="close icon" />
