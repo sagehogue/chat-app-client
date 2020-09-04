@@ -181,6 +181,7 @@ export default function HomePage({ socket }) {
         <FriendsTab
           pageOnDisplay={display}
           logoutHandler={firebaseController.logout}
+          closeTabHandler={handleRevertDefault}
         ></FriendsTab>
         {currentRoom ? (
           <Chat
@@ -195,7 +196,10 @@ export default function HomePage({ socket }) {
         ) : (
           <Join user={user} joinHandler={handleJoinRoom} />
         )}
-        <RoomsTab pageOnDisplay={display}></RoomsTab>
+        <RoomsTab
+          pageOnDisplay={display}
+          closeTabHandler={handleRevertDefault}
+        ></RoomsTab>
       </HomePageGrid>
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
     </>

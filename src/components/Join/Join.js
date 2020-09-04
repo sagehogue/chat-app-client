@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
 
 import Theme from "../../util/Theme/Theme";
 
 const JoinOuterContainer = styled.div`
-display: flex;
-grid-row: ${Theme.gridRowChat};
-grid-column: ${Theme.gridColChat};
-justify-content: center;
-text-align: center;
-align-items: center;
-margin: auto;
-@media screen and (max-height: 400px) {
-  max-height: 75vh;
-}
+  display: flex;
+  grid-row: ${Theme.gridRowChat};
+  grid-column: ${Theme.gridColChat};
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+  @media screen and (max-height: 400px) {
+    max-height: 75vh;
+  }
 
-@media (min-width: 600px) and (max-height: 450px) {
-  // max-height: 60vh;
-}
+  @media (min-width: 600px) and (max-height: 450px) {
+    // max-height: 60vh;
+  }
 `;
 
 const JoinInnerContainer = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
-  border-radius: .8rem;
+  border-radius: 0.8rem;
   // height: 83vh;
   width: 55vw;
   margin: auto;
@@ -38,21 +39,21 @@ const Heading = styled.h1`
   border-bottom: 2px solid white;
   margin-top: 0;
   @media (min-width: 600px) and (max-height: 450px) {
-  font-size: 2.25rem;
+    font-size: 2.25rem;
   }
 `;
 
 const Directive = styled.h3`
-color: ${Theme.offWhite};
-margin-top: 1.5rem;
-margin-bottom: 3rem;
-font-size: 1.75rem;
-@media (min-width: 600px) and (max-height: 450px) {
-  margin-top: 1rem;
-margin-bottom: 1.5rem;
-font-size: 1.25rem;
-}
-`
+  color: ${Theme.offWhite};
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 1.75rem;
+  @media (min-width: 600px) and (max-height: 450px) {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+`;
 
 const JoinInput = styled.input`
   border-radius: 0;
@@ -65,8 +66,7 @@ const JoinInput = styled.input`
 `;
 
 const JoinModal = styled.div`
-margin: 1rem auto auto auto
-
+  margin: 1rem auto auto auto;
 `;
 
 const SignInButton = styled.button`
@@ -88,15 +88,36 @@ const SignInButton = styled.button`
   }
 `;
 
-export default function Join({ user, joinHandler }) {
+const Animation = styled.div`
+  transition: 0.5s;
+  /* example for move item */
+  z-index: ${({ state }) =>
+    state === "entering" || state === "entered" ? 1 : 0};
+  /* change opacity*/
+  opacity: ${({ state }) => {
+    switch (state) {
+      case "entering":
+        return "1";
+      case "entered":
+        return "1";
+      case "exiting":
+        return "0";
+      case "exited":
+        return "0";
+    }
+  }};
+  display: ${({ state }) => (state === "exited" ? "none" : "block")};
+`;
+
+function JoinInternals({ user, joinHandler }) {
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       //   do validation
 
-      joinHandler(room)
+      joinHandler(room);
     }
-  }
+  };
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -106,13 +127,17 @@ export default function Join({ user, joinHandler }) {
           <JoinInput
             placeholder="Room"
             type="text"
-            onChange={event => setRoom(event.target.value)}
+            onChange={(event) => setRoom(event.target.value)}
             onKeyDown={handleKeyDown}
           />
 
-          <SignInButton type="submit" onClick={e => joinHandler(room)}>Sign In</SignInButton>
+          <SignInButton type="submit" onClick={(e) => joinHandler(room)}>
+            Sign In
+          </SignInButton>
         </JoinModal>
       </JoinInnerContainer>
     </JoinOuterContainer>
   );
 }
+
+const Join = ({ user, joinHandler }) => {};

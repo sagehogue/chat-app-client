@@ -15,7 +15,7 @@ const UserBarStyle = styled.li`
   flex-direction: row;
   justify-content: space-around;
   padding: 0.5rem 0.25rem;
-  margin: 0 1rem;
+  margin: 1rem 0;
   background-color: offwhite;
   border: solid medium rgba(46, 49, 49, 0.6);
   text-align: center;

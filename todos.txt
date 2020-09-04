@@ -1,0 +1,5 @@
+* Validation needs to be implemented on all input fields.
+
+* Needs a browse section of open rooms on the join page. Like a "public rooms" list.
+
+* Needs animated transitions to feel polished. 
