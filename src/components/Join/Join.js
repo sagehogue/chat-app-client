@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
-import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
+// import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
 
 import Theme from "../../util/Theme/Theme";
+
+// I think I'm going to fix this by splitting the logic and visual elements up.
+// I need to be able to animate the elements properly without interrupting the flow of data.
+//
 
 const JoinOuterContainer = styled.div`
   display: flex;
@@ -109,7 +113,7 @@ const Animation = styled.div`
   display: ${({ state }) => (state === "exited" ? "none" : "block")};
 `;
 
-function JoinInternals({ user, joinHandler }) {
+export default function JoinInternals({ user, joinHandler }) {
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
