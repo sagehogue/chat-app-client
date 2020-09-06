@@ -14,6 +14,7 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
+import UserProfile from "../../components/ProfilePage/UserProfile.jsx";
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
@@ -82,6 +83,7 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "friends"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+        cursor: pointer;
   }
   & svg:last-child {
     margin-right: 1rem;
@@ -89,6 +91,7 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "rooms"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+        cursor: pointer;
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;
@@ -111,11 +114,24 @@ const Navigation = styled.nav`
           }
 `;
 
+const HomeAndUser = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const UserNameDisplay = styled.div`
+  font-size: 2rem;
+  color: white;
+  padding-left: 1rem;
+`;
+
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
+  let [displayProfile, setDisplayProfile] = useState(false);
   let userAuth = useContext(AuthContext);
   console.log(`userAuth: ${userAuth}`);
   let firebaseDoesNotExist, db;
@@ -169,13 +185,30 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
+  const handleDisplayProfile = () => {
+    setDisplayProfile(true);
+  };
+
+  const closeProfileHandler = () => {
+    setDisplayProfile(false);
+  };
+
   return (
     <>
       <HomePageGrid>
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
           <FaUserFriends onClick={handleDisplayFriends} />
-          <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+          <HomeAndUser>
+            <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+            <UserNameDisplay onClick={handleDisplayProfile}>
+              {user.displayName}
+            </UserNameDisplay>
+            <UserProfile
+              profileDisplayState={displayProfile}
+              handleCloseProfile={closeProfileHandler}
+            ></UserProfile>
+          </HomeAndUser>
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
