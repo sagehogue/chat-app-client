@@ -59,8 +59,6 @@ const UserListContainer = styled(Container)`
   width: 50vw;
 `;
 
-let socket;
-
 const Chat = ({
   room = false,
   user,
@@ -71,11 +69,17 @@ const Chat = ({
   setShowUsers,
 }) => {
   const [username, setUsername] = useState(user.displayName);
+  // Controls which chat room is displayed on screen
   const [currentRoom, setRoom] = useState(room);
+  // Users in current room, self and others
   const [users, setUsers] = useState("");
+  // A count of the above data
   const [onlineUserCount, setOnlineUserCount] = useState(0);
+  // Message  you are currently typing, yet to be sent to server/other users
   const [message, setMessage] = useState("");
+  // Messages in memory, including messages retrieved from server and temporary messages from SYSTEM
   const [messages, setMessages] = useState([]);
+
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
@@ -104,6 +108,7 @@ const Chat = ({
       setMessages((messages) => [...messages, message]);
     });
 
+    // Message history of room you are currently in, retrieved from server
     socket.on("messageHistory", (messageHistory) => {
       if (messageHistory) {
         sortByDate(messageHistory);
@@ -115,6 +120,7 @@ const Chat = ({
       }
     });
 
+    // List of currently active users in room
     socket.on("roomData", ({ room, users, onlineUserCount }) => {
       console.log(`Room Data: \n${users}`);
       setUsers(users);
@@ -156,6 +162,7 @@ const Chat = ({
     }
   };
 
+  // Opens user list
   const showUserDisplay = () => {
     openBackdrop();
     setShowUsers(true);

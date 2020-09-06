@@ -59,6 +59,7 @@ export const getStorageRef = () => {
   return storage.ref();
 };
 
+
 export const firebaseController = {
   login: (email, password) => login(email, password),
   logout: logout,
@@ -70,6 +71,8 @@ export const AuthContext = React.createContext(defaultUser);
 
 const UserProvider = AuthContext.Provider;
 export const UserConsumer = AuthContext.Consumer;
+
+// END OF FUNCTION DEFINITIONS
 
 const App = () => {
   const requestLogin = useCallback((username, password) => {

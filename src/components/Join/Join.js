@@ -143,5 +143,3 @@ export default function JoinInternals({ user, joinHandler }) {
     </JoinOuterContainer>
   );
 }
-
-const Join = ({ user, joinHandler }) => {};
