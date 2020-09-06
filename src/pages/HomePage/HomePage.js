@@ -113,6 +113,9 @@ const Navigation = styled.nav`
 
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
+
+  let [displayFriendsTab, setDisplayFriendsTab] = useState(initialFriendState);
+  let [displayRoomsTab, setDisplayRoomsTab] = useState(initialRoomState);
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
