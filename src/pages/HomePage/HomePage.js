@@ -113,9 +113,6 @@ const Navigation = styled.nav`
 
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
-
-  let [displayFriendsTab, setDisplayFriendsTab] = useState(initialFriendState);
-  let [displayRoomsTab, setDisplayRoomsTab] = useState(initialRoomState);
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
@@ -145,14 +142,32 @@ export default function HomePage({ socket }) {
     setCurrentRoom(room);
   };
 
-  const handleDisplayFriends = () => {
-    setDisplay("friends");
+  const handleDisplayFriendsTab = () => {
+    let newDisplay;
+    newDisplay = display == "rooms" ? "initial" : "friends";
+    setDisplay(newDisplay);
   };
+
+  const handleCloseFriends = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "rooms" : false;
+    setDisplay(newDisplay);
+  };
+
   const handleDisplayRooms = () => {
-    setDisplay("rooms");
+    let newDisplay;
+    newDisplay = display == "friends" ? "initial" : "rooms";
+    setDisplay(newDisplay);
   };
+
+  const handleCloseRoomsTab = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "friends" : false;
+    setDisplay(newDisplay);
+  };
+
   const handleRevertDefault = () => {
-    setDisplay("initial");
+    setDisplay(false);
   };
 
   const clearChat = (room) => {
@@ -177,14 +192,14 @@ export default function HomePage({ socket }) {
       <HomePageGrid>
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
-          <FaUserFriends onClick={handleDisplayFriends} />
+          <FaUserFriends onClick={handleDisplayFriendsTab} />
           <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
           pageOnDisplay={display}
           logoutHandler={firebaseController.logout}
-          closeTabHandler={handleRevertDefault}
+          closeTabHandler={handleCloseFriends}
         ></FriendsTab>
         {currentRoom ? (
           <Chat
@@ -201,7 +216,7 @@ export default function HomePage({ socket }) {
         )}
         <RoomsTab
           pageOnDisplay={display}
-          closeTabHandler={handleRevertDefault}
+          closeTabHandler={handleCloseRoomsTab}
         ></RoomsTab>
       </HomePageGrid>
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
