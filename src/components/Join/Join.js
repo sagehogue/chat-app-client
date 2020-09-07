@@ -131,7 +131,7 @@ const ArrowDown = styled(AiOutlineArrowDown)`
   color: #2979ff;
 `;
 
-export default function JoinInternals({ user, joinHandler }) {
+export default function JoinInternals({ user, joinHandler, publicRooms }) {
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
