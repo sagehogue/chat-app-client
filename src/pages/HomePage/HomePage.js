@@ -186,6 +186,7 @@ export default function HomePage({ socket }) {
   };
 
   const handleDisplayProfile = () => {
+    console.log("test");
     setDisplayProfile(true);
   };
 

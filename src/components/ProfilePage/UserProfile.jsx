@@ -12,7 +12,7 @@ const ProfileContainer = styled.div`
 
   border-radius: 1rem;
   cursor: default;
-  display: ${(props) => (props.displayProfile == true ? "flex" : "none")}
+  display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
 `;
 
@@ -58,7 +58,7 @@ export default function UserProfile({
   handleCloseProfile,
 }) {
   return (
-    <ProfileContainer displayProfile={profileDisplayState}>
+    <ProfileContainer profileDisplayState={profileDisplayState}>
       <CloseButton onClick={handleCloseProfile}>
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
