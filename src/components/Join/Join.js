@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+import { AiOutlineArrowDown } from "react-icons/ai";
+import RoomCard from "../UI/RoomCard/RoomCard";
 // import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
 
 import Theme from "../../util/Theme/Theme";
@@ -113,6 +115,22 @@ const Animation = styled.div`
   display: ${({ state }) => (state === "exited" ? "none" : "block")};
 `;
 
+const PublicRoomListHeader = styled.h3`
+  margin-top: 20vh;
+  color: ${Theme.offWhite};
+`;
+
+const PublicRoomList = styled.section`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ArrowDown = styled(AiOutlineArrowDown)`
+  margin: 1rem auto 0 auto;
+  display: block;
+  color: #2979ff;
+`;
+
 export default function JoinInternals({ user, joinHandler }) {
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
@@ -122,6 +140,9 @@ export default function JoinInternals({ user, joinHandler }) {
       joinHandler(room);
     }
   };
+  let PublicRooms = [
+    <RoomCard roomName={"The Zone"} joinHandler={joinHandler} />,
+  ];
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -139,6 +160,11 @@ export default function JoinInternals({ user, joinHandler }) {
             Sign In
           </SignInButton>
         </JoinModal>
+        <PublicRoomListHeader>
+          Or jump into a conversation in an active public chat room.
+        </PublicRoomListHeader>
+        <ArrowDown size={40} />
+        <PublicRoomList>{PublicRooms}</PublicRoomList>
       </JoinInnerContainer>
     </JoinOuterContainer>
   );
