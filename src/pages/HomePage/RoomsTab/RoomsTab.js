@@ -22,29 +22,44 @@ const RoomsTabStyle = styled.section`
   background-color: ${Theme.white};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
-    ${(props) => (props.pageOnDisplay == "rooms" ? `0` : `5rem`)}
+    ${(props) =>
+      props.pageOnDisplay == "rooms" || props.pageOnDisplay == "initial"
+        ? `0`
+        : `5rem`}
   );
   z-index: 2;
   @media screen and (min-width: 400px) {
     transform: translateX(
-      ${(props) => (props.pageOnDisplay == "rooms" ? `0` : `10rem`)}
+      ${(props) =>
+        props.pageOnDisplay == "rooms" || props.pageOnDisplay == "initial"
+          ? `0`
+          : `10rem`}
     );
   }
   @media screen and (min-width: 800px) {
     transform: translateX(
-      ${(props) => (props.pageOnDisplay == "rooms" ? `0` : `15rem`)}
+      ${(props) =>
+        props.pageOnDisplay == "rooms" || props.pageOnDisplay == "initial"
+          ? `0`
+          : `15rem`}
     );
     padding: 1rem;
   }
   @media screen and (min-width: 1200px) {
     transform: translateX(
-      ${(props) => (props.pageOnDisplay == "rooms" ? `0` : `20rem`)}
+      ${(props) =>
+        props.pageOnDisplay == "rooms" || props.pageOnDisplay == "initial"
+          ? `0`
+          : `20rem`}
     );
     padding: 2rem;
   }
   @media screen and (min-width: 1600px) {
     transform: translateX(
-      ${(props) => (props.pageOnDisplay == "rooms" ? `0` : `25rem`)}
+      ${(props) =>
+        props.pageOnDisplay == "rooms" || props.pageOnDisplay == "initial"
+          ? `0`
+          : `25rem`}
     );
     padding: 2rem;
   }

@@ -132,8 +132,12 @@ export default function HomePage({ socket }) {
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
   let [displayProfile, setDisplayProfile] = useState(false);
+  let [populatedRooms, setPopulatedRooms] = useState([]);
   let userAuth = useContext(AuthContext);
-  console.log(`userAuth: ${userAuth}`);
+  useEffect(() => {
+    socket.emit("requestTop8Rooms");
+  }, []);
+  socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -158,14 +162,32 @@ export default function HomePage({ socket }) {
     setCurrentRoom(room);
   };
 
-  const handleDisplayFriends = () => {
-    setDisplay("friends");
+  const handleDisplayFriendsTab = () => {
+    let newDisplay;
+    newDisplay = display == "rooms" ? "initial" : "friends";
+    setDisplay(newDisplay);
   };
+
+  const handleCloseFriends = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "rooms" : false;
+    setDisplay(newDisplay);
+  };
+
   const handleDisplayRooms = () => {
-    setDisplay("rooms");
+    let newDisplay;
+    newDisplay = display == "friends" ? "initial" : "rooms";
+    setDisplay(newDisplay);
   };
+
+  const handleCloseRoomsTab = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "friends" : false;
+    setDisplay(newDisplay);
+  };
+
   const handleRevertDefault = () => {
-    setDisplay("initial");
+    setDisplay(false);
   };
 
   const clearChat = (room) => {
@@ -199,7 +221,7 @@ export default function HomePage({ socket }) {
       <HomePageGrid>
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
-          <FaUserFriends onClick={handleDisplayFriends} />
+          <FaUserFriends onClick={handleDisplayFriendsTab} />
           <HomeAndUser>
             <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
             <UserNameDisplay onClick={handleDisplayProfile}>
@@ -215,7 +237,7 @@ export default function HomePage({ socket }) {
         <FriendsTab
           pageOnDisplay={display}
           logoutHandler={firebaseController.logout}
-          closeTabHandler={handleRevertDefault}
+          closeTabHandler={handleCloseFriends}
         ></FriendsTab>
         {currentRoom ? (
           <Chat
@@ -228,11 +250,15 @@ export default function HomePage({ socket }) {
             setShowUsers={setShowUsers}
           />
         ) : (
-          <Join user={user} joinHandler={handleJoinRoom} />
+          <Join
+            user={user}
+            joinHandler={handleJoinRoom}
+            previewedRooms={populatedRooms}
+          />
         )}
         <RoomsTab
           pageOnDisplay={display}
-          closeTabHandler={handleRevertDefault}
+          closeTabHandler={handleCloseRoomsTab}
         ></RoomsTab>
       </HomePageGrid>
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />

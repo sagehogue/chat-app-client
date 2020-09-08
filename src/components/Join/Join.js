@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+import { AiOutlineArrowDown } from "react-icons/ai";
+import RoomCard from "../UI/RoomCard/RoomCard";
 // import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
 
 import Theme from "../../util/Theme/Theme";
@@ -113,15 +115,48 @@ const Animation = styled.div`
   display: ${({ state }) => (state === "exited" ? "none" : "block")};
 `;
 
-export default function JoinInternals({ user, joinHandler }) {
+const PublicRoomListHeader = styled.h3`
+  margin-top: 15vh;
+  color: ${Theme.offWhite};
+`;
+
+const PublicRoomList = styled.section`
+  margin-top: 5vh;
+  display: flex;
+`;
+
+const ArrowDown = styled(AiOutlineArrowDown)`
+  margin: 1rem auto 0 auto;
+  display: block;
+  color: #2979ff;
+`;
+
+const NoRooms = styled.div`
+  color: ${Theme.offWhite};
+  text-align: center;
+  margin: 5rem auto 0 auto;
+`;
+
+export default function JoinInternals({ user, joinHandler, previewedRooms }) {
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       //   do validation
-
-      joinHandler(room);
+      if (room) {
+        joinHandler(room.trim());
+      }
     }
   };
+  let PublicRooms = previewedRooms.map((room) => (
+    <RoomCard
+      roomName={room.roomName}
+      usercount={room.online}
+      joinHandler={joinHandler}
+    />
+  ));
+  // [
+  //   <RoomCard roomName={"The Zone"}  />,
+  // ];
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -135,10 +170,31 @@ export default function JoinInternals({ user, joinHandler }) {
             onKeyDown={handleKeyDown}
           />
 
-          <SignInButton type="submit" onClick={(e) => joinHandler(room)}>
+          <SignInButton
+            type="submit"
+            onClick={(e) => {
+              if (room) {
+                joinHandler(room);
+              }
+            }}
+          >
             Sign In
           </SignInButton>
         </JoinModal>
+        <PublicRoomListHeader>
+          Or jump into a conversation in an active public chat room.
+        </PublicRoomListHeader>
+        <ArrowDown size={40} />
+        <PublicRoomList>
+          {!!previewedRooms[0] == true ? (
+            PublicRooms
+          ) : (
+            <NoRooms>
+              It appears there are no populated rooms. Why don't you join one
+              and invite someone to chat with?
+            </NoRooms>
+          )}
+        </PublicRoomList>
       </JoinInnerContainer>
     </JoinOuterContainer>
   );
