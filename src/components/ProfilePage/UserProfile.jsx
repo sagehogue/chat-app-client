@@ -53,6 +53,12 @@ const CloseButton = styled.button`
   }
 `;
 
+//to do:
+
+// make online/offline display on profile
+// add profile bio/bio display
+// add logout button
+
 export default function UserProfile({
   profileDisplayState,
   handleCloseProfile,
