@@ -18,6 +18,7 @@ const Styles = styled.div`
   flex-direction: column;
   justify-content: space-around;
   color: ${Theme.offWhite};
+  margin-left: 2rem;
 `;
 
 const UserCountStyles = styled.span`

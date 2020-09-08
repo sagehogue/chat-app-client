@@ -116,8 +116,12 @@ export default function HomePage({ socket }) {
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
+  let [populatedRooms, setPopulatedRooms] = useState([]);
   let userAuth = useContext(AuthContext);
-  console.log(`userAuth: ${userAuth}`);
+  useEffect(() => {
+    socket.emit("requestTop8Rooms");
+  }, []);
+  socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
   firebaseDoesNotExist = !firebase.apps.length;
@@ -212,7 +216,11 @@ export default function HomePage({ socket }) {
             setShowUsers={setShowUsers}
           />
         ) : (
-          <Join user={user} joinHandler={handleJoinRoom} />
+          <Join
+            user={user}
+            joinHandler={handleJoinRoom}
+            previewedRooms={populatedRooms}
+          />
         )}
         <RoomsTab
           pageOnDisplay={display}
