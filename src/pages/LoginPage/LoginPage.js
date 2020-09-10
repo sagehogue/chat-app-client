@@ -49,16 +49,16 @@ const FormStyleContainer = styled.div`
   width: 65%;
   background-color: rgba(51, 51, 51, 0.75);
   border-radius: 2%;
-  @media screen and (min-width: 800px) { 
+  @media screen and (min-width: 800px) {
     max-width: 45vw;
   }
-  @media screen and (min-width: 1100px) { 
+  @media screen and (min-width: 1100px) {
     max-width: 35vw;
   }
-  @media screen and (min-width: 1300px) { 
+  @media screen and (min-width: 1300px) {
     max-width: 25vw;
   }
-  @media screen and (min-width: 1600px) { 
+  @media screen and (min-width: 1600px) {
     max-width: 20vw;
   }
 `;
@@ -71,14 +71,14 @@ const InnerFormContainer = styled.div`
   @media (min-width: 240px) and (max-width: 750px) {
     width: 90%;
   }
-  @media screen and (min-width: 750px) { 
+  @media screen and (min-width: 750px) {
     width: 75%;
   }
-  @media screen and (min-width: 1100px) { 
+  @media screen and (min-width: 1100px) {
     width: 65%;
   }
 
-  @media screen and (min-width: 1600px) { 
+  @media screen and (min-width: 1600px) {
     width: 60%;
   }
 `;
@@ -112,7 +112,6 @@ const PasswordInput = styled.input`
   border: none;
 `;
 
-
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -132,7 +131,7 @@ export default function LoginPage() {
     setHeading("Registration");
   };
 
-  const handleLoginSubmit = e => {
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
@@ -148,7 +147,7 @@ export default function LoginPage() {
       });
   };
 
-  const handleRegisterSubmit = e => {
+  const handleRegisterSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
     const form = e.target;
@@ -161,13 +160,13 @@ export default function LoginPage() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(res => {
+        .then((res) => {
           const user = firebase.auth().currentUser;
 
           // This is how you update properties on the profile.
           user
             .updateProfile({
-              displayName: username
+              displayName: username,
             })
             .then(function () {
               // Update successful.
@@ -210,7 +209,7 @@ export default function LoginPage() {
               placeholder="Email"
               name="email"
               type="text"
-              onChange={event => setEmail(event.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
             />
 
             <PasswordInput
@@ -218,12 +217,14 @@ export default function LoginPage() {
               placeholder="Password"
               name="password"
               type="password"
-              onChange={event => setPassword(event.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
             />
 
             <AuthButtons>
               <SignInButton type="submit" value="Sign In" />
-              <RegisterButton clickHandler={() => handleDisplayRegisterForm()} />
+              <RegisterButton
+                clickHandler={() => handleDisplayRegisterForm()}
+              />
             </AuthButtons>
           </LoginForm>
           <RegisterForm

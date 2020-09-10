@@ -199,6 +199,11 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
+  const handleRoomCreation = (data) => {
+    socket.emit("createNewRoom", data);
+    closeBackdrop();
+  };
+
   return (
     <>
       <HomePageGrid>
@@ -216,6 +221,8 @@ export default function HomePage({ socket }) {
         <CreateRoomModal
           visible={showCreateRoomModal}
           closeHandler={closeBackdrop}
+          submitHandler={handleRoomCreation}
+          user={user}
         />
 
         {currentRoom ? (

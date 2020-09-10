@@ -9,6 +9,8 @@ import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
 
 /* TODOS:
+* Mobile view looks kind of shit, need to make the search bar look nice and scale up the
+add room button.
 Write functionality to enable drop down menu of search results for a given room name. 
 Maybe look for some kind of package that can handle pagination
 */

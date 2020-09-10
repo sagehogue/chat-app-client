@@ -11,6 +11,11 @@ export default {
     gridColNav: "1 / -1",
     gridRowNav: "1 / 2",
     gridColChat: "2 / 3",
-    gridRowChat: "2 / -1"
-  }
+    gridRowChat: "2 / -1",
+  },
+  zIndex: {
+    chat: "10",
+    backdrop: "20",
+    modal: "25",
+  },
 };

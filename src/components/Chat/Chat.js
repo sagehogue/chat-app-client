@@ -40,7 +40,7 @@ const Container = styled.div`
   border-radius: 0.8rem;
   height: 84vh;
   width: 58vw;
-  z-index: ${(props) => (props.showUsers ? "0" : "100")};
+  z-index: ${(props) => (props.showUsers ? "0" : Theme.zIndex.chat)};
   //   @media (min-width: 320px) and (max-width: 480px) {
   //     .container {
   //       width: 100%;
@@ -53,7 +53,7 @@ const Container = styled.div`
 `;
 
 const UserListContainer = styled(Container)`
-  z-index: ${(props) => (props.showUsers ? "100" : "0")};
+  z-index: ${(props) => (props.showUsers ? Theme.zIndex.modal : "0")};
   position: absolute;
   height: 75vh;
   width: 50vw;
