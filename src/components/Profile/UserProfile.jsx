@@ -63,11 +63,11 @@ const StatusContainer = styled.div`
     &&& svg {
       margin: 0;
       cursor: default;
+      color: ${(props) => (props.online ? "lightgreen" : "red")};
     }
   }
 
   display: flex;
-
   justify-content: flex-start;
   width: 30%;
   font-size: 1.5rem;
@@ -77,6 +77,14 @@ const StatusContainer = styled.div`
 
 const Status = styled.div`
   display: inline-block;
+`;
+
+const StatusOnline = styled.div`
+  display: ${(props) => (props.online ? "inline-block" : "none")};
+`;
+
+const StatusOffline = styled.div`
+  display: ${(props) => (props.online ? "none" : "inline-block")};
 `;
 
 const StatusCircle = styled.div`
@@ -115,6 +123,7 @@ export default function UserProfile({
   profileDisplayState,
   handleCloseProfile,
   logoutHandler,
+  // OnlineStatusHandler
 }) {
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
@@ -127,9 +136,10 @@ export default function UserProfile({
       <ProfileInfoContainer>
         <StatusContainer online>
           <StatusCircle>
-            <FaUserCircle size={10} color={"lightgreen"}></FaUserCircle>
+            <FaUserCircle size={10}></FaUserCircle>
           </StatusCircle>
-          <Status>Online</Status>
+          <StatusOnline online>Online</StatusOnline>
+          <StatusOffline online>Offline</StatusOffline>
         </StatusContainer>
         <SettingsContainer>
           <SettingsButton>
