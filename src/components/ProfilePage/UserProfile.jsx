@@ -2,14 +2,13 @@ import React, { useState, setState } from "react";
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
 import button from "../../components/UI/Button/Button";
-import { FaNapster, FaCircle } from "react-icons/fa";
+import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill } from "react-icons/bs";
 
 const ProfileContainer = styled.div`
   position: absolute;
-  height: 480px;
-  width: 300px;
-
+  height: 35rem;
+  width: 20rem;
   margin-top: 4rem;
   background-color: #333;
   border-radius: 1rem;
@@ -20,7 +19,7 @@ const ProfileContainer = styled.div`
 
 const ProfilePicContainer = styled.div`
   position: relative;
-  height: 200px;
+  height: 15rem;
   width: 100%;
   background-color: lightgray;
   border-top-left-radius: 1rem;
@@ -30,30 +29,9 @@ const ProfilePicContainer = styled.div`
   align-items: center;
 `;
 
-// const ProfileInfoContainer = styled.div`
-//   position: relative;
-//   padding-top: 2rem;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-//   align-items: center;
-//   text-align: center;
-//   font-size: 2rem;
-//   height: 20vh;
-// `;
-
 const ProfileInfoContainer = styled.div`
-  position: relative;
-  padding-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
-  font-size: 1.5rem;
-  height: 280px;
-  background-color: #333;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CloseButton = styled.button`
@@ -81,34 +59,37 @@ const CloseButton = styled.button`
 `;
 
 const StatusContainer = styled.div`
-  display: inline-block;
-  grid-row-start: 1;
-  grid-row-end: 1;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  padding: 0;
-  margin: 0;
+  @media screen and (min-width: 1px) {
+    &&& svg {
+      margin: 0;
+    }
+  }
+
+  display: flex;
+
+  justify-content: flex-start;
+  width: 30%;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
 `;
 
-const ColorStatusPicker = styled.div`
-  color: ${(props) => (props.online ? "green" : "red")};
+const Status = styled.div`
+  display: inline-block;
+`;
+
+const StatusCircle = styled.div`
+  width: 25%;
 `;
 
 const SettingsContainer = styled.div`
-  grid-row-start: 2;
-  grid-row-end: 2;
-  grid-column-start: 1;
-  grid-column-end: 1;
-  padding: none;
-  margin: none;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 7rem;
+  margin-right: 3rem;
 `;
 
 const LogOutButton = styled(button)`
-  grid-row-start: 2;
-  grid-row-end: 2;
-  grid-column-start: 2;
-  grid-column-end: 2;
-
   color: #fff;
   border: 1px #fff solid;
   background-color: black;
@@ -132,16 +113,20 @@ export default function UserProfile({
         <FaNapster size={100} color={"black"}></FaNapster>
       </ProfilePicContainer>
       <ProfileInfoContainer>
-        <StatusContainer>
-          <ColorStatusPicker online>
-            <FaCircle size={10} color={"lightgreen"} cursor="none"></FaCircle>
-          </ColorStatusPicker>
-          Online
+        <StatusContainer online>
+          <StatusCircle>
+            <FaUserCircle
+              size={10}
+              color={"lightgreen"}
+              cursor="none"
+            ></FaUserCircle>
+          </StatusCircle>
+          <Status>Online</Status>
         </StatusContainer>
         <SettingsContainer>
-          <BsGearFill size={60} verticleAlign={"none"}></BsGearFill>
+          <BsGearFill style={{}} size={60} verticleAlign={"none"}></BsGearFill>
+          <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
         </SettingsContainer>
-        <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </ProfileInfoContainer>
     </ProfileContainer>
   );
