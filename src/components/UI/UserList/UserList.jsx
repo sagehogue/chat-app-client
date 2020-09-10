@@ -42,7 +42,7 @@ const UserList = ({ users, location }) => {
   if (users) {
     onlineUsers = users.map((user) => {
       let profilePic = user.avatar || "default";
-      return <UserBar avatar={profilePic} username={user.name} />;
+      return <UserBar avatar={profilePic} username={user.displayName} />;
     });
   }
   return (

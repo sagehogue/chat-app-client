@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { FaPlusCircle } from "react-icons/fa";
+
 import Theme from "../../../util/Theme/Theme";
 import Toolbox from "./Toolbox/Toolbox";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
@@ -121,11 +123,25 @@ const Stylishhr = styled.hr`
   margin-bottom: 0.5rem;
   opacity: 0.75;
 `;
+
+const AddRoomButton = styled(FaPlusCircle)`
+  font-size: 1.6rem;
+  width: 12.5%;
+  text-align: center;
+  color: lightseagreen;
+  margin: auto auto auto 0;
+`;
+
+const SearchAndNewRoom = styled.div`
+  display: flex;
+`;
+
 export default function RoomsTab({
   pageOnDisplay,
   favoriteRooms = null,
   rooms = null,
   closeTabHandler,
+  createRoomHandler,
 }) {
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons;
@@ -145,7 +161,10 @@ export default function RoomsTab({
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
       <RoomsList>
-        <SearchBar />
+        <SearchAndNewRoom>
+          <SearchBar small noRightMargin />
+          <AddRoomButton onClick={createRoomHandler} />
+        </SearchAndNewRoom>
         <FavoriteRooms>
           <Label>Favorites</Label>
           <Stylishhr />

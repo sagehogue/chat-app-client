@@ -14,6 +14,7 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
+import CreateRoomModal from "./NewRoomModal/NewRoomModal";
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
@@ -116,6 +117,7 @@ export default function HomePage({ socket }) {
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
+  let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let userAuth = useContext(AuthContext);
   useEffect(() => {
@@ -185,9 +187,15 @@ export default function HomePage({ socket }) {
 
   const closeBackdrop = () => {
     setShowBackdrop(false);
+    setShowCreateRoomModal(false);
     setShowUsers(false);
   };
   const openBackdrop = () => {
+    setShowBackdrop(true);
+  };
+
+  const handleShowCreateRoomModal = () => {
+    setShowCreateRoomModal(true);
     setShowBackdrop(true);
   };
 
@@ -205,6 +213,11 @@ export default function HomePage({ socket }) {
           logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
         ></FriendsTab>
+        <CreateRoomModal
+          visible={showCreateRoomModal}
+          closeHandler={closeBackdrop}
+        />
+
         {currentRoom ? (
           <Chat
             user={user}
@@ -225,6 +238,8 @@ export default function HomePage({ socket }) {
         <RoomsTab
           pageOnDisplay={display}
           closeTabHandler={handleCloseRoomsTab}
+          createRoomHandler={handleShowCreateRoomModal}
+          closeCreateRoomHandler={closeBackdrop}
         ></RoomsTab>
       </HomePageGrid>
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
