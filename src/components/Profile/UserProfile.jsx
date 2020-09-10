@@ -75,10 +75,6 @@ const StatusContainer = styled.div`
   margin-left: 1rem;
 `;
 
-const Status = styled.div`
-  display: inline-block;
-`;
-
 const StatusOnline = styled.div`
   display: ${(props) => (props.online ? "inline-block" : "none")};
 `;
@@ -123,7 +119,8 @@ export default function UserProfile({
   profileDisplayState,
   handleCloseProfile,
   logoutHandler,
-  // OnlineStatusHandler
+  // handleOnlineStatus
+  // handleSettings
 }) {
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
@@ -142,7 +139,9 @@ export default function UserProfile({
           <StatusOffline online>Offline</StatusOffline>
         </StatusContainer>
         <SettingsContainer>
-          <SettingsButton>
+          <SettingsButton
+          // onClick={handleSettings()}
+          >
             <BsGearFill size={60} color={"#fff"}></BsGearFill>
           </SettingsButton>
           <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
