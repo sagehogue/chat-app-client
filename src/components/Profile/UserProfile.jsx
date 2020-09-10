@@ -96,7 +96,7 @@ const SettingsButton = styled.div`
   margin-right: 3rem;
   transition: 0.3s;
   &:hover {
-    transform: translateY(-3px);
+    scale: 1.1;
   }
 `;
 
@@ -108,7 +108,6 @@ const LogOutButton = styled(button)`
   cursor: pointer;
   &:hover {
     background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: ;
   }
 `;
 
@@ -134,7 +133,7 @@ export default function UserProfile({
         </StatusContainer>
         <SettingsContainer>
           <SettingsButton>
-            <BsGearFill size={60}></BsGearFill>
+            <BsGearFill size={60} color={"#fff"}></BsGearFill>
           </SettingsButton>
           <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
         </SettingsContainer>
