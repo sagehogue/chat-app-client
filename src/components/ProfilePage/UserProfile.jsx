@@ -62,6 +62,7 @@ const StatusContainer = styled.div`
   @media screen and (min-width: 1px) {
     &&& svg {
       margin: 0;
+      cursor: default;
     }
   }
 
@@ -80,22 +81,34 @@ const Status = styled.div`
 
 const StatusCircle = styled.div`
   width: 25%;
+  transform: translateY(-4px);
 `;
 
 const SettingsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 7rem;
+`;
+
+const SettingsButton = styled.div`
+  width: 40%;
+  padding-top: 0.5rem;
   margin-right: 3rem;
+  transition: 0.3s;
+  &:hover {
+    transform: translateY(-3px);
+  }
 `;
 
 const LogOutButton = styled(button)`
   color: #fff;
   border: 1px #fff solid;
   background-color: black;
-
+  margin-right: 2rem;
+  cursor: pointer;
   &:hover {
     background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: ;
   }
 `;
 
@@ -115,16 +128,14 @@ export default function UserProfile({
       <ProfileInfoContainer>
         <StatusContainer online>
           <StatusCircle>
-            <FaUserCircle
-              size={10}
-              color={"lightgreen"}
-              cursor="none"
-            ></FaUserCircle>
+            <FaUserCircle size={10} color={"lightgreen"}></FaUserCircle>
           </StatusCircle>
           <Status>Online</Status>
         </StatusContainer>
         <SettingsContainer>
-          <BsGearFill style={{}} size={60} verticleAlign={"none"}></BsGearFill>
+          <SettingsButton>
+            <BsGearFill size={60}></BsGearFill>
+          </SettingsButton>
           <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
         </SettingsContainer>
       </ProfileInfoContainer>
