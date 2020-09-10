@@ -60,7 +60,7 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-  background: #016789;
+  background: #2b3a67;
 `;
 
 const Navigation = styled.nav`
@@ -81,7 +81,7 @@ const Navigation = styled.nav`
     margin-left: 1rem;
     color: ${(props) =>
       props.pageOnDisplay == "friends"
-        ? `${Theme.navColorActive}`
+        ? `${Theme.navColorInactive}`
         : `${Theme.navColorInactive}`};
         cursor: pointer;
   }

@@ -25,7 +25,7 @@ const FriendsTabStyle = styled.section`
   width: 100%;
   height: 100%;
 
-  background-color: ${Theme.white};
+  background-color: rgba(154, 169, 213, 1);
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -79,6 +79,7 @@ height: 100%
 overflow-y: scroll;
 max-height: 90vh;
 max-width: 20vw;
+
 
 `;
 

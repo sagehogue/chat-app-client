@@ -78,14 +78,23 @@ const JoinModal = styled.div`
 const SignInButton = styled.button`
   color: #fff !important;
   text-transform: uppercase;
+
+  font-size: 1rem;
   text-decoration: none;
-  background: #2979ff;
+  background-color: rgba(154, 169, 213, 1);
   padding: 20px;
   border-radius: 5px;
   display: inline-block;
   border: none;
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
+  cursor: pointer;
+  transition: 0.4s;
+  &:hover {
+    font-size: 1.08rem;
+    transform: translateY(-3px);
+    box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
+  }
   & :focus {
     outline: 0;
   }
