@@ -14,7 +14,7 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
-import UserProfile from "../../components/ProfilePage/UserProfile.jsx";
+import UserProfile from "../../components/Profile/UserProfile.jsx";
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";

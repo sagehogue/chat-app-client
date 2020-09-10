@@ -1,7 +1,7 @@
 import React, { useState, setState } from "react";
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
-import button from "../../components/UI/Button/Button";
+import button from "../UI/Button/Button";
 import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill } from "react-icons/bs";
 
