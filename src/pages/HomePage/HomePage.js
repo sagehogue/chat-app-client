@@ -201,6 +201,8 @@ export default function HomePage({ socket }) {
 
   const handleRoomCreation = (data) => {
     socket.emit("createNewRoom", data);
+    socket.emit("join", { name, room: data.roomName });
+    setCurrentRoom(data.roomName);
     closeBackdrop();
   };
 

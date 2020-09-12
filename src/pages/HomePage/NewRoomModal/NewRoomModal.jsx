@@ -108,6 +108,7 @@ export default function NewRoomModal({
       passwordProtected: passwordProtected,
       password: password,
       creator: user.displayName,
+      creatorUID: user.uid,
     };
     submitHandler(data);
   };

@@ -26,12 +26,14 @@ const ENDPOINT = "localhost:5000";
 const SocketContext = React.createContext(socket);
 const SocketProvider = SocketContext.Provider;
 export const SocketConsumer = SocketContext.Consumer;
+socket = io(ENDPOINT, { query: "displayName=``" });
 // Listen for auth events
 function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log("Socket.io connecting displayName " + user.displayName);
-      socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
+      socket.query = { displayName: user.displayName };
+      // socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
       callback({
         loggedIn: true,
         displayName: user.displayName,

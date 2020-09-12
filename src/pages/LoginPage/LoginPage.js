@@ -124,6 +124,9 @@ export default function LoginPage({ socket }) {
   if (userAuth.loggedIn) {
     return <Redirect to="/" />;
   }
+  console.log(socket);
+
+  // socket.emit("on-login-page");
 
   const handleDisplayRegisterForm = () => {
     // changes the variable that controls which form is displayed
@@ -155,9 +158,9 @@ export default function LoginPage({ socket }) {
     const username = form.username.value;
     const password = form.password.value;
     const validEmail = EmailValidator.validate(email);
-    socket.on("register-user-success", ({ displayName, email }) =>
-      console.log("Register user success! " + displayName, email)
-    );
+    // socket.on("register-user-success", ({ displayName, email }) =>
+    //   console.log("Register user success! " + displayName, email)
+    // );
     if (validEmail) {
       // Create new account
       firebase
