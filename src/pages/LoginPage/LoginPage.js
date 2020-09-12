@@ -112,7 +112,7 @@ const PasswordInput = styled.input`
   border: none;
 `;
 
-export default function LoginPage() {
+export default function LoginPage({ socket }) {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [heading, setHeading] = useState("Chatter");
@@ -155,6 +155,9 @@ export default function LoginPage() {
     const username = form.username.value;
     const password = form.password.value;
     const validEmail = EmailValidator.validate(email);
+    socket.on("register-user-success", ({ displayName, email }) =>
+      console.log("Register user success! " + displayName, email)
+    );
     if (validEmail) {
       // Create new account
       firebase
@@ -162,7 +165,12 @@ export default function LoginPage() {
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
           const user = firebase.auth().currentUser;
-
+          socket.emit("register-user", {
+            uid: user.uid,
+            displayName: username,
+            password,
+            email,
+          });
           // This is how you update properties on the profile.
           user
             .updateProfile({
@@ -170,23 +178,24 @@ export default function LoginPage() {
             })
             .then(function () {
               // Update successful.
+              socket.emit();
               // Code to prepare the room join screen goes here.
             })
             .catch(function (error) {
               return alert("Error! Account failed to update. Error: " + error);
             });
           setHeading("Chatter");
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(
-            `ERROR ${errorCode}\n
-          ${error.message}`
-          );
-          // ...
         });
+      // .catch(function (error) {
+      //   // Handle Errors here.
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   alert(
+      //     `ERROR ${errorCode}\n
+      //   ${error.message}`
+      //   );
+      //   // ...
+      // });
     } else {
       alert(
         "ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>"

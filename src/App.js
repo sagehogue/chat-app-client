@@ -59,7 +59,6 @@ export const getStorageRef = () => {
   return storage.ref();
 };
 
-
 export const firebaseController = {
   login: (email, password) => login(email, password),
   logout: logout,
@@ -129,7 +128,9 @@ const App = () => {
               user.loggedIn == <Loader fullscreen /> ? null : user.loggedIn ? (
                 <Redirect to="/" />
               ) : (
-                <LoginPage {...props} />
+                <SocketConsumer>
+                  {(socket) => <LoginPage socket={socket} {...props} />}
+                </SocketConsumer>
               )
             }
           />
