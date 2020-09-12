@@ -3,7 +3,8 @@ import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
 import button from "../UI/Button/Button";
 import { FaNapster, FaUserCircle } from "react-icons/fa";
-import { BsGearFill } from "react-icons/bs";
+import { BsGearFill, BsToggleOff } from "react-icons/bs";
+import { TiArrowBack } from "react-icons/ti";
 
 const ProfileContainer = styled.div`
   position: absolute;
@@ -104,16 +105,6 @@ const SettingsButton = styled.div`
   }
 `;
 
-const SettingsElement = styled.div`
-  position: absolute;
-  height: 35rem;
-  width: 20rem;
-  display: ${(props) => (props.settingsActive ? "flex" : "none")};
-  z-index: 1;
-  background-color: red;
-  border-radius: 1rem;
-`;
-
 const LogOutButton = styled(button)`
   color: #fff;
   border: 1px #fff solid;
@@ -125,20 +116,63 @@ const LogOutButton = styled(button)`
   }
 `;
 
+const SettingsElement = styled.div`
+  position: absolute;
+  height: 35rem;
+  width: 20rem;
+  display: ${(props) => (props.settingsActive ? "flex" : "none")};
+  z-index: 1;
+  background-color: #333;
+  border-radius: 1rem;
+  justify-content: center;
+`;
+
+const BackArrow = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 2.5rem;
+  padding-left: .125rem;
+  height: 2rem;
+  &&& svg {
+    margin: 0;
+    cursor: pointer;
+    
+  }
+  opacity: 0.8;
+  display: flex;
+  justify-content: flex-end;
+  &:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+    
+  }
+}
+`;
+
 export default function UserProfile({
   profileDisplayState,
   handleCloseProfile,
   logoutHandler,
   // handleOnlineStatus
-  // handleSettings
+
   // handleProfilePic
 }) {
+  const [displaySettings, setDisplaySettings] = useState(false);
+  const handleSettings = () => {
+    setDisplaySettings(true);
+  };
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
       <CloseButton onClick={handleCloseProfile}>
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
-      <SettingsElement settingsActive></SettingsElement>
+      <SettingsElement settingsActive={displaySettings}>
+        <BackArrow>
+          <TiArrowBack size={25}></TiArrowBack>
+        </BackArrow>
+        settings
+      </SettingsElement>
       <ProfilePicContainer>
         <FaNapster size={100} color={"black"}></FaNapster>
       </ProfilePicContainer>
@@ -151,9 +185,7 @@ export default function UserProfile({
           <StatusOffline online>Offline</StatusOffline>
         </StatusContainer>
         <SettingsContainer>
-          <SettingsButton
-          // onClick={handleSettings()}
-          >
+          <SettingsButton onClick={handleSettings}>
             <BsGearFill size={60} color={"#fff"}></BsGearFill>
           </SettingsButton>
           <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
