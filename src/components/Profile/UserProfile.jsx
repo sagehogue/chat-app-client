@@ -40,7 +40,7 @@ const CloseButton = styled.button`
   padding: 1px;
   position: absolute;
   align-self: flex-start;
-  z-index: 1;
+  z-index: 2;
   background-color: red;
   opacity: 0.7;
   border: none;
@@ -104,6 +104,16 @@ const SettingsButton = styled.div`
   }
 `;
 
+const SettingsElement = styled.div`
+  position: absolute;
+  height: 35rem;
+  width: 20rem;
+  display: ${(props) => (props.settingsActive ? "flex" : "none")};
+  z-index: 1;
+  background-color: red;
+  border-radius: 1rem;
+`;
+
 const LogOutButton = styled(button)`
   color: #fff;
   border: 1px #fff solid;
@@ -121,12 +131,14 @@ export default function UserProfile({
   logoutHandler,
   // handleOnlineStatus
   // handleSettings
+  // handleProfilePic
 }) {
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
       <CloseButton onClick={handleCloseProfile}>
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
+      <SettingsElement settingsActive></SettingsElement>
       <ProfilePicContainer>
         <FaNapster size={100} color={"black"}></FaNapster>
       </ProfilePicContainer>
