@@ -37,11 +37,24 @@ const RoomNameStyles = styled.span`
   font-size: 1.65rem;
 `;
 
-export default function RoomCard({ roomName, usercount, joinHandler }) {
+export default function RoomCard({
+  roomName,
+  usercount,
+  joinHandler,
+  id,
+  user,
+}) {
   return (
-    <Styles onClick={(e) => joinHandler(roomName)}>
+    <Styles
+      onClick={(e) => {
+        console.log(user);
+        joinHandler({ roomName, id });
+      }}
+    >
       <RoomNameStyles>{roomName}</RoomNameStyles>
-      <UserCountStyles>Online: {usercount}</UserCountStyles>
+      {usercount ? (
+        <UserCountStyles>Online: {usercount}</UserCountStyles>
+      ) : null}
     </Styles>
   );
 }

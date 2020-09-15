@@ -7,6 +7,7 @@ import Theme from "../../../util/Theme/Theme";
 import Toolbox from "./Toolbox/Toolbox";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
+import RoomCard from "../../../components/UI/RoomCard/RoomCard";
 
 /* TODOS:
 * Mobile view looks kind of shit, need to make the search bar look nice and scale up the
@@ -144,19 +145,34 @@ export default function RoomsTab({
   rooms = null,
   closeTabHandler,
   createRoomHandler,
+  joinHandler,
+  user,
 }) {
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons;
   if (favoriteRooms) {
     favRoomButtons = favoriteRooms.map((room) => (
-      <Room roomPic={room.pic}>{room.name}</Room>
+      <RoomCard
+        roomPic={room.pic}
+        roomName={room.roomName}
+        joinHandler={joinHandler}
+        id={room.id}
+        user={user}
+      ></RoomCard>
     ));
   }
   if (rooms) {
-    roomButtons = favoriteRooms.map((room) => (
-      <Room roomPic={room.pic}>{room.name}</Room>
+    roomButtons = rooms.map((room) => (
+      <RoomCard
+        roomPic={room.pic}
+        roomName={room.roomName}
+        joinHandler={joinHandler}
+        id={room.id}
+        user={user}
+      ></RoomCard>
     ));
   }
+
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
       <CloseButton onClick={closeTabHandler}>

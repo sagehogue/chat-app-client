@@ -136,12 +136,15 @@ export default function LoginPage({ socket }) {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
+      .then(() => {})
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -158,9 +161,10 @@ export default function LoginPage({ socket }) {
     const username = form.username.value;
     const password = form.password.value;
     const validEmail = EmailValidator.validate(email);
-    // socket.on("register-user-success", ({ displayName, email }) =>
-    //   console.log("Register user success! " + displayName, email)
-    // );
+
+    // VALIDATION GOES HERE
+
+    // IMPLEMENT ME
     if (validEmail) {
       // Create new account
       firebase
@@ -171,7 +175,6 @@ export default function LoginPage({ socket }) {
           socket.emit("register-user", {
             uid: user.uid,
             displayName: username,
-            password,
             email,
           });
           // This is how you update properties on the profile.

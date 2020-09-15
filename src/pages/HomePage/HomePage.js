@@ -118,11 +118,35 @@ export default function HomePage({ socket }) {
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  let [userFriends, setUserFriends] = useState(false);
+  let [userRooms, setUserRooms] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
+  let [newRoomData, setNewRoomData] = useState({});
   let userAuth = useContext(AuthContext);
+  let user = userAuth;
+  let name, email, photoUrl, uid, emailVerified;
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, use User.getToken()
+  // instead.
   useEffect(() => {
     socket.emit("requestTop8Rooms");
+    // socket.emit("requestUserFriends", uid);
+    socket.emit("requestUserRooms", uid);
   }, []);
+
+  socket.on("userFriends", (userFriends) => {
+    setUserFriends(userFriends);
+  });
+
+  socket.on("userRooms", (userRooms) => {
+    console.log(userRooms);
+    setUserRooms(userRooms);
+  });
+
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
@@ -133,18 +157,10 @@ export default function HomePage({ socket }) {
   } else {
     db = firebase.app().firestore();
   }
-  let user = userAuth;
-  let name, email, photoUrl, uid, emailVerified;
-  name = user.displayName;
-  email = user.email;
-  photoUrl = user.photoURL;
-  emailVerified = user.emailVerified;
-  uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, use User.getToken()
-  // instead.
+
   const handleJoinRoom = (room) => {
-    console.log(`Room sent to backend: ${room}`);
-    socket.emit("join", { name, room });
+    console.log(`Room sent to backend: ${JSON.stringify(room)}`);
+    socket.emit("join", { user: { displayName: name, id: uid }, room });
     setCurrentRoom(room);
   };
 
@@ -182,7 +198,10 @@ export default function HomePage({ socket }) {
   };
 
   const disconnectUser = (room) => {
-    socket.emit("room-disconnect", { room, name });
+    socket.emit("room-disconnect", {
+      room,
+      user: { displayName: name, id: uid },
+    });
   };
 
   const closeBackdrop = () => {
@@ -199,12 +218,36 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
+  socket.on("newRoomID", (roomID) => {
+    const data = {
+      user: { ...newRoomData.user },
+      room: { ...newRoomData.room },
+    };
+    data.room.id = roomID;
+    console.log(data);
+    if (data.room.id && data.room.name && data.user.id && data.user.name)
+      socket.emit("join", data);
+  });
+
   const handleRoomCreation = (data) => {
+    console.log(data);
     socket.emit("createNewRoom", data);
-    socket.emit("join", { name, room: data.roomName });
+    setNewRoomData({
+      room: { roomName: data.roomName, password: data.password },
+      user: { id: data.creatorUID, name: data.creator },
+    });
+
+    const roomObj = data;
+    const roomString = data.roomName;
     setCurrentRoom(data.roomName);
     closeBackdrop();
   };
+
+  const handleAddFriend = (userID, friendID) => {};
+
+  const handleremoveFriend = () => {};
+
+  const handleFetchFriends = () => {};
 
   return (
     <>
@@ -219,6 +262,7 @@ export default function HomePage({ socket }) {
           pageOnDisplay={display}
           logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
+          friends={userFriends}
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
@@ -245,10 +289,13 @@ export default function HomePage({ socket }) {
           />
         )}
         <RoomsTab
+          joinHandler={handleJoinRoom}
           pageOnDisplay={display}
           closeTabHandler={handleCloseRoomsTab}
           createRoomHandler={handleShowCreateRoomModal}
           closeCreateRoomHandler={closeBackdrop}
+          rooms={userRooms}
+          user={{ id: uid, displayName: name }}
         ></RoomsTab>
       </HomePageGrid>
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />

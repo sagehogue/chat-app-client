@@ -1,5 +1,6 @@
 import React from "react";
 
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
@@ -143,6 +144,30 @@ const LogOutButton = styled(button)`
     background-color: rgba(0, 0, 0, 0.5);
   }
 `;
+const AddFriendButton = styled(button)`
+  background-color: lightblue;
+  color: white;
+  margin: 0.5rem auto 0.5rem auto;
+  margin-top: 0.5rem;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const RemoveFriendButton = styled(button)`
+  background-color: red;
+  color: white;
+  color: #fff;
+  margin: 0.5rem auto 0.5rem auto;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+FriendsTab.propTypes = {
+  pageOnDisplay: PropTypes.string,
+  favoriteFriends: PropTypes.oneOfType([PropTypes.array]),
+};
 
 export default function FriendsTab({
   pageOnDisplay,
@@ -196,8 +221,9 @@ export default function FriendsTab({
           </GrayBG>
         </FriendsContainer>
       </FriendsList>
+      \<AddFriendButton>ADD</AddFriendButton>
+      <RemoveFriendButton>REMOVE</RemoveFriendButton>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
-
       {/* <Toolbox /> */}
     </FriendsTabStyle>
   );

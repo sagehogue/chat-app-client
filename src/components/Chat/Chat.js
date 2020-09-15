@@ -93,7 +93,7 @@ const Chat = ({
     // Sets state equal to current room, stores Username
     setRoom(currentRoom);
     // setUsername(username);
-
+    console.log("CURRENT ROOM" + JSON.stringify(currentRoom));
     // Fires socket.io "join" event when room state changes.
     //
     // socket.emit("join", { name: username, room: currentRoom }, (error) => {
@@ -137,6 +137,7 @@ const Chat = ({
         user: username,
         time: getCurrentTime(),
         room: currentRoom,
+        uid: user.uid,
       },
     });
     if (message) {
@@ -147,7 +148,8 @@ const Chat = ({
             text: message,
             user: username,
             time: getCurrentTime(),
-            room: currentRoom,
+            room: currentRoom.id,
+            uid: user.uid,
           },
         },
         () => setMessage("")
@@ -157,6 +159,7 @@ const Chat = ({
         time: getCurrentTime(),
         user: username,
         room: currentRoom,
+        uid: user.uid,
       };
       setMessages((messages) => [...messages, newMessage]);
     }
@@ -172,7 +175,7 @@ const Chat = ({
     <OuterContainer>
       <Container showUsers={showUsers}>
         <InfoBar
-          room={currentRoom}
+          room={currentRoom.roomName}
           userCount={onlineUserCount}
           showUserList={showUserDisplay}
           closeChatHandler={() => closeChatHandler(currentRoom)}
@@ -185,7 +188,7 @@ const Chat = ({
         />
       </Container>
       <UserListContainer showUsers={showUsers}>
-        <UserList users={users} location={currentRoom} />
+        <UserList users={users} location={currentRoom.roomName} />
       </UserListContainer>
     </OuterContainer>
   );

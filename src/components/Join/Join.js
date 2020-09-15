@@ -143,20 +143,19 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
     if (event.key === "Enter") {
       //   do validation
       if (room) {
-        joinHandler(room.trim());
+        // joinHandler(room.trim());
       }
     }
   };
   let PublicRooms = previewedRooms.map((room) => (
     <RoomCard
       roomName={room.roomName}
+      id={room.id}
       usercount={room.online}
       joinHandler={joinHandler}
+      user={user}
     />
   ));
-  // [
-  //   <RoomCard roomName={"The Zone"}  />,
-  // ];
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -170,13 +169,15 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
             onKeyDown={handleKeyDown}
           />
 
+          {/* TEMPORARILY DISABLED - We're using ID now not text names. We'll have to create some kind of search menu here. */}
           <SignInButton
-            type="submit"
-            onClick={(e) => {
-              if (room) {
-                joinHandler(room);
-              }
-            }}
+          //   type="submit"
+          //   onClick={(e) => {
+          //     if (room) {
+          //       joinHandler(room);
+          //     }
+          //   }
+          // }
           >
             Sign In
           </SignInButton>
