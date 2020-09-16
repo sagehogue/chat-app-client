@@ -1,10 +1,19 @@
-import React, { useState, setState } from "react";
+import React, { useState, setState, createRef } from "react";
+
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
 import button from "../UI/Button/Button";
+import { firebaseController } from "../../App";
+
 import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
-import { TiArrowBack } from "react-icons/ti";
+
+import axios from "axios";
+import uuid from "react-uuid";
+import { getStorageRef } from "../../App";
+// import FileUploader from "react-firebase-file-uploader";
+
+import Settings from "./Settings";
 
 const ProfileContainer = styled.div`
   position: absolute;
@@ -116,40 +125,6 @@ const LogOutButton = styled(button)`
   }
 `;
 
-const SettingsElement = styled.div`
-  position: absolute;
-  height: 35rem;
-  width: 20rem;
-  display: ${(props) => (props.settingsActive ? "flex" : "none")};
-  z-index: 1;
-  background-color: #333;
-  border-radius: 1rem;
-  justify-content: center;
-`;
-
-const BackArrow = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-top: 2.5rem;
-  padding-left: .125rem;
-  height: 2rem;
-  &&& svg {
-    margin: 0;
-    cursor: pointer;
-    
-  }
-  opacity: 0.8;
-  display: flex;
-  justify-content: flex-end;
-  &:hover {
-    opacity: 1;
-    transform: translateY(-1px);
-    
-  }
-}
-`;
-
 export default function UserProfile({
   profileDisplayState,
   handleCloseProfile,
@@ -162,19 +137,47 @@ export default function UserProfile({
   const handleSettings = () => {
     setDisplaySettings(true);
   };
+  const handleRevertToProfile = () => {
+    setDisplaySettings(false);
+  };
+
+  const fileRef = createRef();
+  const storageRef = getStorageRef();
+  const imageUuid = uuid();
+  const profilePictureRef = storageRef.child(`images/${imageUuid}`);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(fileRef);
+    profilePictureRef.put(fileRef.current.files[0]).then(function (snapshot) {
+      console.log("Uploaded a blob or file!");
+    });
+  };
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
-      <CloseButton onClick={handleCloseProfile}>
+      <CloseButton
+        onClick={() => {
+          handleCloseProfile();
+          handleRevertToProfile();
+        }}
+      >
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
-      <SettingsElement settingsActive={displaySettings}>
-        <BackArrow>
-          <TiArrowBack size={25}></TiArrowBack>
-        </BackArrow>
-        settings
-      </SettingsElement>
+      <Settings
+        settingsActive={displaySettings}
+        handleRevertToProfile={handleRevertToProfile}
+      ></Settings>
+
       <ProfilePicContainer>
         <FaNapster size={100} color={"black"}></FaNapster>
+        <form onSubmit={submitHandler}>
+          <label>
+            {" "}
+            Upload Profile Pic
+            <input type="file" name="file" ref={fileRef} />
+          </label>
+          <button type="submit">submit</button>
+        </form>
       </ProfilePicContainer>
       <ProfileInfoContainer>
         <StatusContainer online>

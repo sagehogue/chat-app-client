@@ -230,13 +230,13 @@ export default function HomePage({ socket }) {
             <UserProfile
               profileDisplayState={displayProfile}
               handleCloseProfile={closeProfileHandler}
+              logoutHandler={firebaseController.logout}
             ></UserProfile>
           </HomeAndUser>
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
           pageOnDisplay={display}
-          logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
         ></FriendsTab>
         {currentRoom ? (

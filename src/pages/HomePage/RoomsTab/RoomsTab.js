@@ -64,9 +64,10 @@ const RoomsTabStyle = styled.section`
     padding: 2rem;
   }
 `;
-
+//made cursor pointer
 const CloseButton = styled.button`
   align-self: flex-start;
+  cursor: pointer;
 `;
 
 const RoomsList = styled.div`

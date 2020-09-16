@@ -82,9 +82,10 @@ max-width: 20vw;
 
 
 `;
-
+//made cursor pointer
 const CloseButton = styled.button`
   align-self: flex-end;
+  cursor: pointer;
 `;
 
 const FriendsContainer = styled.div`

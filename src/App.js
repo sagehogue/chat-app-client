@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage";
 import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebaseConfig from "./firebaseConfig";
@@ -58,7 +59,6 @@ export const getStorageRef = () => {
   const storage = firebase.storage();
   return storage.ref();
 };
-
 
 export const firebaseController = {
   login: (email, password) => login(email, password),
