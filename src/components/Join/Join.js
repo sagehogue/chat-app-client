@@ -91,8 +91,8 @@ const SignInButton = styled.button`
   cursor: pointer;
   transition: 0.4s;
   &:hover {
-    font-size: 1.08rem;
-    transform: translateY(-3px);
+    scale: 1.1;
+
     box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
   }
   & :focus {
