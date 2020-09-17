@@ -1,6 +1,7 @@
 import React, { useState, setState } from "react";
 import styled from "styled-components";
 import { TiArrowBack } from "react-icons/ti";
+import SettingsOption from "../../components/UI/Settings/SettingsOption";
 
 const SettingsElementMain = styled.div`
   position: absolute;
@@ -12,11 +13,13 @@ const SettingsElementMain = styled.div`
   border-radius: 1rem;
   justify-content: center;
   text-align: center;
+  text-decoration: underline;
+  text-transform: capitalize;
 `;
 
 const SettingsElementOptions = styled.div`
   position: absolute;
-  padding-top: 10rem;
+  padding-top: 3rem;
   height: 35rem;
   width: 20rem;
   display: flex;
@@ -50,6 +53,14 @@ const BackArrow = styled.div`
   }
 }`;
 
+const DisplayStatus = styled(SettingsOption)``;
+
+const SettingsOptionTest = styled(SettingsOption)``;
+const SettingsOptionTest1 = styled(SettingsOption)``;
+const SettingsOptionTest2 = styled(SettingsOption)``;
+const SettingsOptionTest3 = styled(SettingsOption)``;
+const SettingsOptionTest4 = styled(SettingsOption)``;
+
 export default function Settings({ settingsActive, handleRevertToProfile }) {
   return (
     <SettingsElementMain settingsActive={settingsActive}>
@@ -58,7 +69,12 @@ export default function Settings({ settingsActive, handleRevertToProfile }) {
         <BackArrow onClick={handleRevertToProfile}>
           <TiArrowBack size={25}></TiArrowBack>
         </BackArrow>
-        test
+        <DisplayStatus>display status</DisplayStatus>
+        <SettingsOptionTest>font size</SettingsOptionTest>
+        <SettingsOptionTest1>random setting</SettingsOptionTest1>
+        <SettingsOptionTest2>test</SettingsOptionTest2>
+        <SettingsOptionTest3>testies</SettingsOptionTest3>
+        <SettingsOptionTest4>logout</SettingsOptionTest4>
       </SettingsElementOptions>
     </SettingsElementMain>
   );

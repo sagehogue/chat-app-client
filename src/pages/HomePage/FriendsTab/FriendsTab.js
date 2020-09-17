@@ -134,18 +134,6 @@ const Stylishhr = styled.hr`
   opacity: 0.75;
 `;
 
-const LogOutButton = styled(button)`
-  margin-top: auto;
-  color: #fff;
-  border: 1px #fff solid;
-  background-color: black;
-  margin: auto;
-  margin-top: 2rem;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-`;
-
 export default function FriendsTab({
   pageOnDisplay,
   favoriteFriends = null,
@@ -167,10 +155,10 @@ export default function FriendsTab({
   }
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
-      <CloseButton onClick={closeTabHandler}>
-        <img src={closeIcon} alt="close icon" />
-      </CloseButton>
       <FriendsList>
+        <CloseButton onClick={closeTabHandler}>
+          <img src={closeIcon} alt="close icon" />
+        </CloseButton>
         <SearchBar />
         <FavoriteFriends>
           <Label>Favorites</Label>
@@ -198,7 +186,6 @@ export default function FriendsTab({
           </GrayBG>
         </FriendsContainer>
       </FriendsList>
-      <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
 
       {/* <Toolbox /> */}
     </FriendsTabStyle>
