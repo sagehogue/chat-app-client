@@ -1,5 +1,6 @@
 import React, { useState, setState } from "react";
 import styled from "styled-components";
+import Theme from "../../util/Theme/Theme";
 import { TiArrowBack } from "react-icons/ti";
 import SettingsOption from "../../components/UI/Settings/SettingsOption";
 
@@ -9,7 +10,7 @@ const SettingsElementMain = styled.div`
   width: 20rem;
   display: ${(props) => (props.settingsActive ? "flex" : "none")};
   z-index: 1;
-  background-color: #333;
+  background-color: ${Theme.backgroundColorDarkGray};
   border-radius: 1rem;
   justify-content: center;
   text-align: center;

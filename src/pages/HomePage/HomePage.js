@@ -60,7 +60,7 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-  background: #2b3a67;
+  background: ${Theme.backgroundColorDark};
 `;
 
 const Navigation = styled.nav`
@@ -118,12 +118,14 @@ const HomeAndUser = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
+  z-index: 1;
 `;
 
 const UserNameDisplay = styled.div`
   font-size: 2rem;
-  color: white;
+  color: ${Theme.textColorLight};
   padding-left: 1rem;
+  z-index: 1;
 `;
 
 export default function HomePage({ socket }) {
@@ -261,6 +263,7 @@ export default function HomePage({ socket }) {
           closeTabHandler={handleCloseRoomsTab}
         ></RoomsTab>
       </HomePageGrid>
+
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
     </>
   );

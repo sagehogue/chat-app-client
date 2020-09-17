@@ -38,7 +38,7 @@ const JoinInnerContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   justify-self: flex-start;
   font-size: 2.5rem;
   padding-bottom: 10px;
@@ -50,7 +50,7 @@ const Heading = styled.h1`
 `;
 
 const Directive = styled.h3`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   font-size: 1.75rem;
@@ -76,7 +76,7 @@ const JoinModal = styled.div`
 `;
 
 const SignInButton = styled.button`
-  color: #fff !important;
+  color: ${Theme.textColorLight} !important;
   text-transform: uppercase;
 
   font-size: 1rem;
@@ -89,7 +89,7 @@ const SignInButton = styled.button`
   margin-top: 30px;
   width: 100%;
   cursor: pointer;
-  transition: 0.4s;
+  transition: 0.3s;
   &:hover {
     scale: 1.1;
 
@@ -126,7 +126,7 @@ const Animation = styled.div`
 
 const PublicRoomListHeader = styled.h3`
   margin-top: 15vh;
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
 `;
 
 const PublicRoomList = styled.section`
@@ -141,7 +141,7 @@ const ArrowDown = styled(AiOutlineArrowDown)`
 `;
 
 const NoRooms = styled.div`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   text-align: center;
   margin: 5rem auto 0 auto;
 `;
@@ -187,7 +187,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
               }
             }}
           >
-            Sign In
+            Join Room
           </SignInButton>
         </JoinModal>
         <PublicRoomListHeader>

@@ -19,7 +19,7 @@ const RoomsTabStyle = styled.section`
   overflow: hidden;
   height: 100%;
   width: 100%;
-  background-color: rgba(154, 169, 213, 1);
+  background-color: ${Theme.backgroundColorLight};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -107,6 +107,7 @@ const NoFavorites = styled.div`
   font-size: 0.75rem;
 `;
 
+//restyle
 const GrayBG = styled.div`
   background-color: rgba(211, 211, 211, 0.35);
 `;

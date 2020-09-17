@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Theme from "../../../util/Theme/Theme";
 
 export default styled.button`
 width: 60%;
@@ -7,9 +8,9 @@ width: 60%;
 margin: auto;
 cursor: pointer;
 border: none;
-background-color: #333;
+background-color: ${Theme.backgroundColorDarkGray};
 font-size: 1.5rem;
-color: #fff;
+color: ${Theme.textColorLight};
 transition-all: 0.3s;
 &:hover{
     scale: 1.1;

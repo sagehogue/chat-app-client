@@ -11,6 +11,14 @@ export default {
     gridColNav: "1 / -1",
     gridRowNav: "1 / 2",
     gridColChat: "2 / 3",
-    gridRowChat: "2 / -1"
-  }
+    gridRowChat: "2 / -1",
+  },
+  backgroundColorDark: "#2b3a67;",
+  backgroundColorLight: "#9aa9d5;",
+  backgroundColorDarkGray: "#333",
+  backgroundColorDarkerGray: "rgb(43, 43, 43)",
+  backgroundColorLightGray: "#c4c4c4;",
+
+  textColorLight: "#fff;",
+  textColorDark: "black",
 };
