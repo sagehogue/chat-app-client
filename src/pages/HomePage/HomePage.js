@@ -14,6 +14,7 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
+import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
 import UserProfile from "../../components/Profile/UserProfile.jsx";
 
 import { AuthContext } from "../../App";
@@ -218,6 +219,30 @@ export default function HomePage({ socket }) {
     setDisplayProfile(false);
   };
 
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+
+  const IsCurrentUserProfile = (
+    <CurrentUserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+    ></CurrentUserProfile>
+  );
+
+  const OtherUser = (
+    <UserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+    ></UserProfile>
+  );
+
   return (
     <>
       <HomePageGrid>
@@ -229,11 +254,7 @@ export default function HomePage({ socket }) {
             <UserNameDisplay onClick={handleDisplayProfile}>
               {user.displayName}
             </UserNameDisplay>
-            <UserProfile
-              profileDisplayState={displayProfile}
-              handleCloseProfile={closeProfileHandler}
-              logoutHandler={firebaseController.logout}
-            ></UserProfile>
+            {isCurrentUser ? IsCurrentUserProfile : OtherUser}
           </HomeAndUser>
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>

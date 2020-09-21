@@ -16,7 +16,7 @@ export default {
   backgroundColorDark: "#2b3a67;",
   backgroundColorLight: "#9aa9d5;",
   backgroundColorDarkGray: "#333",
-  backgroundColorDarkerGray: "rgb(43, 43, 43)",
+  backgroundColorDarkerGray: "rgba(43, 43, 43, 1)",
   backgroundColorLightGray: "#c4c4c4;",
 
   textColorLight: "#fff;",

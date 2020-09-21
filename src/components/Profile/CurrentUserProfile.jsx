@@ -2,13 +2,12 @@ import React, { useState, setState, createRef } from "react";
 
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
-import button from "../UI/Button/Button";
+
 import Theme from "../../util/Theme/Theme";
+import { firebaseController } from "../../App";
 
 import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
-import { TiUserAdd, TiUserDelete } from "react-icons/ti";
-import { MdBlock } from "react-icons/md";
 
 import CurrentUser from "../../App.js";
 
@@ -42,6 +41,47 @@ const ProfilePicContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+`;
+
+const PicFormStyle = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  height: 90%;
+  width: 90%;
+  font-size: 1rem;
+`;
+
+const SubmitPic = styled.button`
+  border: none;
+  background: ${Theme.backgroundColorDarkGray};
+  color: ${Theme.textColorLight};
+  padding: 0.4rem;
+  border-radius: 3px;
+  border: 1px solid ${Theme.backgroundColorDarkerGray}
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  cursor: pointer;
+  transition-all: 0.3s;
+  &:hover {
+    scale: 1.1;
+  }
+`;
+const PicLabel = styled.label`
+  color: ${Theme.backgroundColorDarkGray};
+  font-size: 1.25rem;
+`;
+
+const PicInput = styled.input`
+  border: none;
+  background: ${Theme.backgroundColorLigjtGray};
+  color: ${Theme.textColorLight};
+  width: 80%;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  cursor: pointer;
 `;
 
 const IMG = styled.img`
@@ -130,35 +170,25 @@ const StatusCircle = styled.div`
 //   border: none;
 // `;
 
-const MessageUser = styled.input`
-  width: 80%;
-  height: 30%;
-  margin: 0 auto;
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-bottom: 0.25rem;
-  background-color: ${Theme.backgroundColorDarkerGray};
-  overflow-y: scroll;
-  border-radius: 3px;
-  border: 1px solid ${Theme.backgroundColorLight};
-  color: ${Theme.textColorLight};
-  font-size: 1rem;
-`;
+//remove
 
-const ActionsContainer = styled.div`
+const SettingsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
   padding-top: 5rem;
 `;
 
-const ActionsButtons = styled.div`
-  display: flex;
+const SettingsToolTip = styled.div``;
 
-  justify-content: space-around;
-  width: 80%;
-  padding-top: 0.5rem;
-  margin: 0 auto;
+const SettingsButton = styled.div`
+  position: relative;
+  width: 40%;
+  padding-top: 8rem;
+  margin-right: 4rem;
   transition: 0.3s;
+  &:hover {
+    scale: 1.1;
+  }
 `;
 
 export default function UserProfile({
@@ -173,35 +203,38 @@ export default function UserProfile({
 
   // handleProfilePic
 }) {
-  //determines whether profile pic or profile pic icon is displayed
-  const [profilePic, setProfilePic] = useState(profilePicURL);
+  const [displaySettings, setDisplaySettings] = useState(false);
+  const handleSettings = () => {
+    setDisplaySettings(true);
+  };
+  const handleRevertToProfile = () => {
+    setDisplaySettings(false);
+  };
 
-  //handles whether to display add or delete friend icon
-  const [addFriend, setAddFriend] = useState(false);
+  const [profilePic, setProfilePic] = useState(profilePicURL);
 
   const fileRef = createRef();
 
   const storageRef = getStorageRef();
   const imageUuid = uuid();
+  const profilePictureRef = storageRef.child(`images/${imageUuid}`);
 
-  // const profilePictureRef = storageRef.child(`images/${imageUuid}`);
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(fileRef);
+    profilePictureRef.put(fileRef.current.files[0]).then(function (snapshot) {
+      console.log(snapshot);
+      console.log("Uploaded a blob or file!");
+      const profilePicRef = storageRef.child(`images/${imageUuid}`);
 
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log(fileRef);
-  //   profilePictureRef.put(fileRef.current.files[0]).then(function (snapshot) {
-  //     console.log(snapshot);
-  //     console.log("Uploaded a blob or file!");
-  //     const profilePicRef = storageRef.child(`images/${imageUuid}`);
-
-  //     profilePicRef.getDownloadURL().then((URL) => {
-  //       console.log(URL);
-  //       socket.emit("ChangeUserProfile", { id, URL });
-  //       setProfilePic(URL);
-  //     });
-  //     console.log(profilePicRef.getDownloadURL());
-  //   });
-  // };
+      profilePicRef.getDownloadURL().then((URL) => {
+        console.log(URL);
+        socket.emit("ChangeUserProfile", { id, URL });
+        setProfilePic(URL);
+      });
+      console.log(profilePicRef.getDownloadURL());
+    });
+  };
 
   const ProfilePicExists = (
     <ProfilePicContainer>
@@ -210,22 +243,32 @@ export default function UserProfile({
   );
   const NoProfilePicExists = (
     <ProfilePicContainer>
-      <FaNapster size={100} color={Theme.textColorDark}></FaNapster>
+      <PicFormStyle onSubmit={submitHandler}>
+        <PicLabel>
+          {" "}
+          Upload Profile Pic
+          <PicInput type="file" name="file" ref={fileRef} />
+        </PicLabel>
+        <SubmitPic type="submit">submit</SubmitPic>
+      </PicFormStyle>
     </ProfilePicContainer>
   );
-
-  const IsFriend = <TiUserDelete></TiUserDelete>;
-  const IsNotFriend = <TiUserAdd></TiUserAdd>;
 
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
       <CloseButton
         onClick={() => {
           handleCloseProfile();
+          handleRevertToProfile();
         }}
       >
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
+      <Settings
+        settingsActive={displaySettings}
+        handleRevertToProfile={handleRevertToProfile}
+        logoutHandler={firebaseController.logout}
+      ></Settings>
 
       {profilePic ? ProfilePicExists : NoProfilePicExists}
       <ProfileInfoContainer>
@@ -239,13 +282,12 @@ export default function UserProfile({
         {/* <ProfilePicButtonContainer>
           <ChangeProfilePic>Profile Picture</ChangeProfilePic>
         </ProfilePicButtonContainer> */}
-        <MessageUser placeholder={`send user a message`}></MessageUser>
-        <ActionsContainer>
-          <ActionsButtons>
-            {addFriend ? IsFriend : IsNotFriend}
-            <MdBlock></MdBlock>
-          </ActionsButtons>
-        </ActionsContainer>
+
+        <SettingsContainer>
+          <SettingsButton onClick={handleSettings}>
+            <BsGearFill size={40} color={"#fff"}></BsGearFill>
+          </SettingsButton>
+        </SettingsContainer>
       </ProfileInfoContainer>
     </ProfileContainer>
   );

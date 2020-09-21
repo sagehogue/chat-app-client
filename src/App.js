@@ -74,6 +74,10 @@ export const UserConsumer = AuthContext.Consumer;
 
 // END OF FUNCTION DEFINITIONS
 
+export const CurrentUser = () => {
+  return firebase.auth().currentUser;
+};
+
 const App = () => {
   const requestLogin = useCallback((username, password) => {
     login(username, password);

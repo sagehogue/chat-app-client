@@ -2,6 +2,7 @@ import React, { useState, setState } from "react";
 import styled from "styled-components";
 import Theme from "../../util/Theme/Theme";
 import { TiArrowBack } from "react-icons/ti";
+import button from "../UI/Button/Button";
 import SettingsOption from "../../components/UI/Settings/SettingsOption";
 
 const SettingsElementMain = styled.div`
@@ -27,7 +28,7 @@ const SettingsElementOptions = styled.div`
   flex-direction: column;
   background-color: transparent;
   border-radius: 1rem;
-  justify-content: space-center;
+  justify-content: center;
   text-align: center;
   font-size: 2rem;
 `;
@@ -62,7 +63,26 @@ const SettingsOptionTest2 = styled(SettingsOption)``;
 const SettingsOptionTest3 = styled(SettingsOption)``;
 const SettingsOptionTest4 = styled(SettingsOption)``;
 
-export default function Settings({ settingsActive, handleRevertToProfile }) {
+const LogOutButton = styled(button)`
+  color: ${Theme.textColorLight};
+  border: 1px #fff solid;
+  background-color: ${Theme.backgroundColorDarkGray};
+  color: ${Theme.textColorLight};
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+
+  cursor: pointer;
+  &:hover {
+    background-color: ${Theme.backgroundColorDarkerGray};
+  }
+`;
+
+export default function Settings({
+  settingsActive,
+  handleRevertToProfile,
+  logoutHandler,
+}) {
   return (
     <SettingsElementMain settingsActive={settingsActive}>
       settings
@@ -75,7 +95,8 @@ export default function Settings({ settingsActive, handleRevertToProfile }) {
         <SettingsOptionTest1>random setting</SettingsOptionTest1>
         <SettingsOptionTest2>test</SettingsOptionTest2>
         <SettingsOptionTest3>testies</SettingsOptionTest3>
-        <SettingsOptionTest4>logout</SettingsOptionTest4>
+        <SettingsOptionTest4>more test</SettingsOptionTest4>
+        <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </SettingsElementOptions>
     </SettingsElementMain>
   );
