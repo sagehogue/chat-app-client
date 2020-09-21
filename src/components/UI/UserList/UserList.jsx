@@ -35,15 +35,84 @@ const OnlineUsersList = styled.div`
   margin: 1rem 2rem;
 `;
 
-const UserList = ({ users, location }) => {
+// users is users in current room, location is room name, friends is any friends the user might have,
+// userID is the ID of the actual user in session
+const UserList = ({
+  users,
+  location,
+  friends = false,
+  userID,
+  handleAddFriend,
+  handleRemoveFriend,
+  addFavoriteHandler,
+  removeFavoriteHandler,
+}) => {
   console.log(users);
   let onlineUsers;
   // creates list of userbars from users prop
   if (users) {
-    onlineUsers = users.map((user) => {
-      let profilePic = user.avatar || "default";
-      return <UserBar avatar={profilePic} username={user.displayName} />;
-    });
+    let isFriend = false;
+    if (friends) {
+      onlineUsers = users.map((user) => {
+        console.log(`client user: ${userID}\n user in room: ${user.id}`);
+        let profilePic = user.avatar || "default";
+        if (user.id == userID) {
+          return (
+            <UserBar
+              avatar={profilePic}
+              username={user.displayName}
+              friend={isFriend}
+              id={userID}
+              isUser
+            />
+          );
+        } else {
+          let i;
+          for (i of friends) {
+            if (i.id == user.id) isFriend = i.isFriend;
+          }
+
+          return (
+            <UserBar
+              avatar={profilePic}
+              username={user.displayName}
+              friend={isFriend}
+              id={user.id}
+              clientID={userID}
+              addFriendHandler={handleAddFriend}
+              removeFriendHandler={handleRemoveFriend}
+            />
+          );
+        }
+      });
+    } else {
+      onlineUsers = users.map((user) => {
+        let profilePic = user.avatar || "default";
+        if (user.id == userID) {
+          return (
+            <UserBar
+              avatar={profilePic}
+              username={user.displayName}
+              friend={isFriend}
+              id={userID}
+              isUser
+            />
+          );
+        } else {
+          return (
+            <UserBar
+              avatar={profilePic}
+              username={user.displayName}
+              friend={isFriend}
+              id={user.id}
+              clientID={userID}
+              addFriendHandler={handleAddFriend}
+              removeFriendHandler={handleRemoveFriend}
+            />
+          );
+        }
+      });
+    }
   }
   return (
     <DisplayBox>

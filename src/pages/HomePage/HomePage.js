@@ -118,7 +118,12 @@ export default function HomePage({ socket }) {
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  // fully accepted friends
   let [userFriends, setUserFriends] = useState(false);
+  // users who have requested client's friendship
+  let [userPendingFriends, setUserPendingFriends] = useState();
+  // users who the client has sent friend requests to
+  let [userSentFriendRequests, setUserSentFriendRequests] = useState();
   let [userRooms, setUserRooms] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
@@ -129,17 +134,33 @@ export default function HomePage({ socket }) {
   email = user.email;
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
-  uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, use User.getToken()
-  // instead.
+  uid = user.uid;
   useEffect(() => {
     socket.emit("requestTop8Rooms");
-    // socket.emit("requestUserFriends", uid);
+    socket.emit("requestUserFriends", uid);
     socket.emit("requestUserRooms", uid);
   }, []);
 
   socket.on("userFriends", (userFriends) => {
-    setUserFriends(userFriends);
+    const friends = [];
+    const friendsRequested = [];
+    const pendingFriends = [];
+    userFriends.map((friend) => {
+      switch (friend.isFriend) {
+        case "pending":
+          pendingFriends.push(friend);
+          return;
+        case "sent":
+          friendsRequested.push(friend);
+          return;
+        case true:
+          friends.push(friend);
+          return;
+      }
+    });
+    setUserFriends(friends);
+    setUserPendingFriends(pendingFriends);
+    setUserSentFriendRequests(friendsRequested);
   });
 
   socket.on("userRooms", (userRooms) => {
@@ -175,6 +196,10 @@ export default function HomePage({ socket }) {
     newDisplay = display == "initial" ? "rooms" : false;
     setDisplay(newDisplay);
   };
+
+  // const handleUserPendingFriendChange = (newUserPendingFriendArray) => {
+  //   setUserPendingFriends(newUserPendingFriendArray);
+  // };
 
   const handleDisplayRooms = () => {
     let newDisplay;
@@ -243,11 +268,67 @@ export default function HomePage({ socket }) {
     closeBackdrop();
   };
 
-  const handleAddFriend = (userID, friendID) => {};
+  const handleAddFriend = (uid, friendUID, displayName) => {
+    const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
+    const newArray = [...userPendingFriends, newPendingFriend];
+    setUserPendingFriends(newArray);
+    socket.emit("add-friend", { uid, friendUID });
+  };
 
-  const handleremoveFriend = () => {};
+  const handleRemoveFriend = (uid, friendUID) => {
+    // whether or not friendUID has been found in any of the friend states
+    let notFound = true;
 
-  const handleFetchFriends = () => {};
+    // socket event that will fire if friendUID corresponds to a user.
+    const emit = () => socket.emit("remove-friend", { uid, friendUID });
+    // check pendingfriends for requested user
+    const newPendingFriendArray = userPendingFriends.filter((friend) => {
+      if (friend.id == friendUID) {
+        notFound = false;
+        return false;
+      } else return true;
+    });
+
+    if (notFound) {
+      // keep searching sent friends
+      const newRequestedFriendArray = userSentFriendRequests.filter(
+        (friend) => {
+          if (friend.id == friendUID) {
+            notFound = false;
+            return false;
+          } else return true;
+        }
+      );
+
+      if (notFound) {
+        // search accepted friends
+        const newUserFriendArray = userFriends.filter((friend) => {
+          if (friend.id == friendUID) {
+            notFound = false;
+            return false;
+          } else return true;
+        });
+
+        if (notFound) {
+          // error! uid doesn't correspond to any user in friends list
+        } else {
+          setUserFriends(newUserFriendArray);
+          emit();
+        }
+      } else {
+        setUserSentFriendRequests(newRequestedFriendArray);
+        emit();
+      }
+    } else {
+      setUserPendingFriends(newPendingFriendArray);
+      emit();
+    }
+    console.log("removing friend!");
+  };
+
+  const requestFetchFriends = (uid) => {
+    socket.emit("fetch-friend", { uid });
+  };
 
   return (
     <>
@@ -280,6 +361,8 @@ export default function HomePage({ socket }) {
             socket={socket}
             showUsers={showUsers}
             setShowUsers={setShowUsers}
+            handleAddFriend={handleAddFriend}
+            handleRemoveFriend={handleRemoveFriend}
           />
         ) : (
           <Join

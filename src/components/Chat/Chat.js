@@ -67,6 +67,8 @@ const Chat = ({
   socket,
   showUsers,
   setShowUsers,
+  handleAddFriend,
+  handleRemoveFriend,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -188,7 +190,13 @@ const Chat = ({
         />
       </Container>
       <UserListContainer showUsers={showUsers}>
-        <UserList users={users} location={currentRoom.roomName} />
+        <UserList
+          users={users}
+          location={currentRoom.roomName}
+          userID={user.uid}
+          handleAddFriend={handleAddFriend}
+          handleRemoveFriend={handleRemoveFriend}
+        />
       </UserListContainer>
     </OuterContainer>
   );

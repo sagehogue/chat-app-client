@@ -46,16 +46,54 @@ const UserActionIcons = styled.span`
 // Needs to support user avatars, add/remove friend, block, send message (for DMs)
 // Tooltips over the icons would be useful
 
-export default function UserBar({ avatar = "default", username }) {
+export default function UserBar({
+  avatar = "default",
+  isUser,
+  username,
+  friend,
+  addFriendHandler,
+  removeFriendHandler,
+  addFavoriteHandler,
+  removeFavoriteHandler,
+  id,
+  clientID,
+}) {
   if (avatar == "default") {
     avatar = <FaUserSecret />;
+  }
+  let friendOperation = (
+    <FaUserPlus
+      onClick={() => {
+        addFriendHandler(clientID, id, username);
+      }}
+    />
+  );
+  if (friend) {
+    friendOperation = (
+      <FaUserMinus
+        onClick={() => {
+          removeFriendHandler(clientID, id);
+        }}
+      />
+    );
   }
   //   if (userIsFriend) {
   // display FaUserMinus
   // } else {
   // display FaUserPlus
   //   }
-  return (
+  let clientUserBar = (
+    <UserBarStyle>
+      <UserAvatar>
+        <FaUserSecret />
+      </UserAvatar>
+      <Username>{username}</Username>
+      <UserActionIcons></UserActionIcons>
+    </UserBarStyle>
+  );
+  return isUser ? (
+    clientUserBar
+  ) : (
     <UserBarStyle>
       <UserAvatar>
         <FaUserSecret />
@@ -63,7 +101,7 @@ export default function UserBar({ avatar = "default", username }) {
       <Username>{username}</Username>
       <UserActionIcons>
         <FaEnvelope />
-        <FaUserPlus />
+        {friendOperation}
         <FaUserSlash />
       </UserActionIcons>
     </UserBarStyle>
