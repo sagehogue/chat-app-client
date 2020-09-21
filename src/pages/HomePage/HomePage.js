@@ -119,11 +119,11 @@ export default function HomePage({ socket }) {
   let [showUsers, setShowUsers] = useState(false);
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   // fully accepted friends
-  let [userFriends, setUserFriends] = useState(false);
+  let [userFriends, setUserFriends] = useState([]);
   // users who have requested client's friendship
-  let [userPendingFriends, setUserPendingFriends] = useState();
+  let [userPendingFriends, setUserPendingFriends] = useState([]);
   // users who the client has sent friend requests to
-  let [userSentFriendRequests, setUserSentFriendRequests] = useState();
+  let [userSentFriendRequests, setUserSentFriendRequests] = useState([]);
   let [userRooms, setUserRooms] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
@@ -135,13 +135,16 @@ export default function HomePage({ socket }) {
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
   uid = user.uid;
+  // fetches friends
+
   useEffect(() => {
     socket.emit("requestTop8Rooms");
-    socket.emit("requestUserFriends", uid);
     socket.emit("requestUserRooms", uid);
+    socket.emit("fetch-friends", { uid });
   }, []);
 
   socket.on("userFriends", (userFriends) => {
+    console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
     const friends = [];
     const friendsRequested = [];
     const pendingFriends = [];
@@ -344,6 +347,8 @@ export default function HomePage({ socket }) {
           logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
+          pendingFriends={userPendingFriends}
+          sentFriendRequests={userSentFriendRequests}
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}

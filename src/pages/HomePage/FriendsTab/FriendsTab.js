@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
+import Cabinet from "./FriendsCabinet/FriendsCabinet";
 import closeIcon from "../../../icons/closeIcon.png";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import button from "../../../components/UI/Button/Button";
@@ -19,7 +20,7 @@ Maybe look for some kind of package that can handle pagination
 const FriendsTabStyle = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   grid-row: 1 / -1;
   grid-column: 1 / 2;
   overflow: hidden;
@@ -73,64 +74,8 @@ const FriendsTabStyle = styled.section`
   }
 `;
 
-const FriendsList = styled.div`
-display: flex;
-flex-direction: column;
-height: 100%
-overflow-y: scroll;
-max-height: 90vh;
-max-width: 20vw;
-
-`;
-
 const CloseButton = styled.button`
   align-self: flex-end;
-`;
-
-const FriendsContainer = styled.div`
-  width: 91%;
-  padding: 0.5rem 2px;
-  margin: 0 auto;
-  min-height: 1rem;
-  text-align: center;
-  border-radius: 15%;
-`;
-
-const FriendButton = styled.li`
-  border-radius: 15%;
-  margin: 0.5rem auto;
-  background-image: ${(props) => (props.FriendPic ? props.FriendPic : "none")};
-`;
-
-const FavoriteFriends = styled.ul`
-  width: 91%;
-  padding: 0.5rem 2px;
-  margin: 0 auto;
-  min-height: 1rem;
-  text-align: center;
-  border-radius: 15%;
-`;
-
-const NoFavorites = styled.div`
-  margin-top: 1rem;
-  border-radius: 15%;
-  font-size: 0.75rem;
-`;
-
-const GrayBG = styled.div`
-  background-color: rgba(211, 211, 211, 0.35);
-`;
-const Label = styled.label`
-  display: block;
-  font-size: 0.95rem;
-  width: inherit;
-  margin: 0 auto;
-`;
-
-const Stylishhr = styled.hr`
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
-  opacity: 0.75;
 `;
 
 const LogOutButton = styled(button)`
@@ -164,6 +109,10 @@ const RemoveFriendButton = styled(button)`
   }
 `;
 
+const Whitespace = styled.div`
+  margin-bottom: 5rem;
+`;
+
 FriendsTab.propTypes = {
   pageOnDisplay: PropTypes.string,
   favoriteFriends: PropTypes.oneOfType([PropTypes.array]),
@@ -172,58 +121,24 @@ FriendsTab.propTypes = {
 export default function FriendsTab({
   pageOnDisplay,
   favoriteFriends = null,
-  Friends = null,
-  logoutHandler,
+  friends = null,
+  pendingFriends = null,
+  sentFriendRequests = null,
   closeTabHandler,
 }) {
-  // Attach event listeners to these that take you to corresponding Friend
-  let FriendButtons, favFriendButtons;
-  if (favoriteFriends) {
-    favFriendButtons = favoriteFriends.map((Friend) => (
-      <FriendButton FriendPic={Friend.pic}>{Friend.name}</FriendButton>
-    ));
-  }
-  if (Friends) {
-    FriendButtons = favoriteFriends.map((Friend) => (
-      <FriendButton FriendPic={Friend.pic}>{Friend.name}</FriendButton>
-    ));
-  }
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <CloseButton onClick={closeTabHandler}>
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
-      <FriendsList>
-        <SearchBar />
-        <FavoriteFriends>
-          <Label>Favorites</Label>
-          <Stylishhr />
-          <GrayBG>
-            {favoriteFriends ? (
-              favFriendButtons
-            ) : (
-              <NoFavorites>
-                Add some Friends to your favorites to see them displayed here.
-              </NoFavorites>
-            )}
-          </GrayBG>
-        </FavoriteFriends>
-        <FriendsContainer>
-          <Stylishhr />
-          <GrayBG>
-            {Friends ? (
-              FriendButtons
-            ) : (
-              <NoFavorites>
-                Save some Friends to find them displayed here.
-              </NoFavorites>
-            )}
-          </GrayBG>
-        </FriendsContainer>
-      </FriendsList>
-      \<AddFriendButton>ADD</AddFriendButton>
-      <RemoveFriendButton>REMOVE</RemoveFriendButton>
-      <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
+      <SearchBar />
+      <Whitespace />
+      <Cabinet
+        favoriteFriends={favoriteFriends}
+        friends={friends}
+        pendingFriends={pendingFriends}
+        sentFriendRequests={sentFriendRequests}
+      />
       {/* <Toolbox /> */}
     </FriendsTabStyle>
   );
