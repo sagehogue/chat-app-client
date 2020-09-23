@@ -9,7 +9,7 @@ margin: auto;
 cursor: pointer;
 border: none;
 background-color: ${Theme.backgroundColorDarkGray};
-font-size: 1.5rem;
+font-size: ${Theme.fontSizeS};
 color: ${Theme.textColorLight};
 transition-all: 0.3s;
 &:hover{

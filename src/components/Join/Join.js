@@ -79,17 +79,17 @@ const SignInButton = styled.button`
   color: ${Theme.textColorLight} !important;
   text-transform: uppercase;
 
-  font-size: 1rem;
+  font-size: ${Theme.fontSizeS};
   text-decoration: none;
   background-color: rgba(154, 169, 213, 1);
   padding: 20px;
-  border-radius: 5px;
+  border-radius: ${Theme.borderRadiusBtnL};
   display: inline-block;
   border: none;
   margin-top: 30px;
   width: 100%;
   cursor: pointer;
-  transition: 0.3s;
+  transition: ${Theme.transitionSpeed};
   &:hover {
     scale: 1.1;
 

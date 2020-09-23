@@ -2,7 +2,7 @@ import React, { useState, setState, createRef } from "react";
 
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
-import button from "../UI/Button/Button";
+
 import Theme from "../../util/Theme/Theme";
 
 import { FaNapster, FaUserCircle } from "react-icons/fa";
@@ -17,15 +17,13 @@ import { getStorageRef } from "../../App";
 
 // import FileUploader from "react-firebase-file-uploader";
 
-import Settings from "./Settings";
-
 const ProfileContainer = styled.div`
   position: absolute;
   height: 35rem;
   width: 20rem;
   margin-top: 4rem;
-  background-color: #333;
-  border-radius: 1rem;
+  background-color: ${Theme.backgroundColorDarkGray};
+  border-radius: ${Theme.borderRadius};
   cursor: default;
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
@@ -36,8 +34,8 @@ const ProfilePicContainer = styled.div`
   height: 15rem;
   width: 100%;
   background-color: ${Theme.backgroundColorLightGray};
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: ${Theme.borderRadius};
+  border-top-right-radius: ${Theme.borderRadius};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,16 +59,15 @@ const CloseButton = styled.button`
   position: absolute;
   align-self: flex-start;
   z-index: 2;
-  background-color: red;
+  background-color: transparent;
   opacity: 0.7;
   border: none;
-  border-radius: 3px;
+  border-radius: ${Theme.borderRadiusBtn};
   cursor: pointer;
-  transition: 0.4s;
+  transition: ${Theme.transitionSpeed};
   &:hover {
     opacity: 1;
     transform: translateY(-1px);
-    box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
   }
   &:active {
     opacity: 0.8;
@@ -90,7 +87,7 @@ const StatusContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 30%;
-  font-size: 1.5rem;
+  font-size: ${Theme.fontSizeM};
   margin-top: 1rem;
   margin-left: 1rem;
 `;
@@ -141,10 +138,10 @@ const MessageUser = styled.input`
   padding-bottom: 0.25rem;
   background-color: ${Theme.backgroundColorDarkerGray};
   overflow-y: scroll;
-  border-radius: 3px;
+  border-radius: ${Theme.borderRadiusBtn};
   border: 1px solid ${Theme.backgroundColorLight};
   color: ${Theme.textColorLight};
-  font-size: 1rem;
+  font-size: ${Theme.fontSizeS};
 `;
 
 const ActionsContainer = styled.div`
@@ -158,7 +155,7 @@ const ActionsButtons = styled.div`
   width: 80%;
   padding-top: 0.5rem;
   margin: 0 auto;
-  transition: 0.3s;
+  transition: ${Theme.transitionSpeed};
 `;
 
 export default function UserProfile({

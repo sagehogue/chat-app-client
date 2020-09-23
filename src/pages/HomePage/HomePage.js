@@ -65,7 +65,7 @@ const HomePageGrid = styled.main`
 `;
 
 const Navigation = styled.nav`
-  font-size: 2rem;
+  font-size: ${Theme.fontSizeL};
   display: flex;
   height: 10vh;
   justify-content: space-between;
@@ -123,7 +123,7 @@ const HomeAndUser = styled.div`
 `;
 
 const UserNameDisplay = styled.div`
-  font-size: 2rem;
+  font-size: ${Theme.fontSizeL};
   color: ${Theme.textColorLight};
   padding-left: 1rem;
   z-index: 1;

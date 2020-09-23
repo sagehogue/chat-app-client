@@ -21,4 +21,13 @@ export default {
 
   textColorLight: "#fff;",
   textColorDark: "black",
+
+  fontSizeS: "1rem",
+  fontSizeM: "1.5rem",
+  fontSizeL: "2rem",
+  borderRadiusBtn: "3px",
+  borderRadiusBtnL: "5px",
+  borderRadius: "1rem",
+  borderRadiusL: "15%",
+  transitionSpeed: ".3s",
 };

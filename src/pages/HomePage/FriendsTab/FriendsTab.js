@@ -83,9 +83,28 @@ max-width: 20vw;
 
 `;
 //made cursor pointer
+
 const CloseButton = styled.button`
   align-self: flex-end;
+  padding: 1px;
+  transform: translateY(-5px);
+  position: absolute;
+  align-self: flex-start;
+  z-index: 2;
+  background-color: transparent;
+  opacity: 0.7;
+  border: none;
+  border-radius: ${Theme.borderRadiusBtn};
   cursor: pointer;
+  transition: ${Theme.transitionSpeed};
+  &:hover {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
 `;
 
 const FriendsContainer = styled.div`
@@ -94,11 +113,11 @@ const FriendsContainer = styled.div`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
 `;
 
 const FriendButton = styled.li`
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
   margin: 0.5rem auto;
   background-image: ${(props) => (props.FriendPic ? props.FriendPic : "none")};
 `;
@@ -109,7 +128,7 @@ const FavoriteFriends = styled.ul`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
 `;
 
 const NoFavorites = styled.div`

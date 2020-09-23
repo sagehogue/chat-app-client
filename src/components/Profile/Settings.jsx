@@ -22,6 +22,7 @@ const SettingsElementMain = styled.div`
 const SettingsElementOptions = styled.div`
   position: absolute;
   padding-top: 3rem;
+
   height: 35rem;
   width: 20rem;
   display: flex;
@@ -30,7 +31,8 @@ const SettingsElementOptions = styled.div`
   border-radius: 1rem;
   justify-content: center;
   text-align: center;
-  font-size: 2rem;
+  font-size: ${Theme.fontSizeM};
+  overflow-y: scroll;
 `;
 
 const BackArrow = styled.div`
@@ -92,8 +94,10 @@ export default function Settings({
         </BackArrow>
         <DisplayStatus>display status</DisplayStatus>
         <SettingsOptionTest>font size</SettingsOptionTest>
-        <SettingsOptionTest1>random setting</SettingsOptionTest1>
+        <SettingsOptionTest1>Change Profile Picture</SettingsOptionTest1>
         <SettingsOptionTest2>test</SettingsOptionTest2>
+        <SettingsOptionTest2>test</SettingsOptionTest2>
+
         <SettingsOptionTest3>testies</SettingsOptionTest3>
         <SettingsOptionTest4>more test</SettingsOptionTest4>
         <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>

@@ -23,8 +23,8 @@ const ProfileContainer = styled.div`
   height: 35rem;
   width: 20rem;
   margin-top: 4rem;
-  background-color: #333;
-  border-radius: 1rem;
+  background-color: ${Theme.backgroundColorDarkGray};
+  border-radius: ${Theme.borderRadius};
   cursor: default;
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
@@ -35,8 +35,8 @@ const ProfilePicContainer = styled.div`
   height: 15rem;
   width: 100%;
   background-color: ${Theme.backgroundColorLightGray};
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: ${Theme.borderRadius};
+  border-top-right-radius: ${Theme.borderRadius};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,28 +50,23 @@ const PicFormStyle = styled.form`
   text-align: center;
   height: 90%;
   width: 90%;
-  font-size: 1rem;
+  font-size: ${Theme.fontSizeS};
 `;
 
-const SubmitPic = styled.button`
-  border: none;
-  background: ${Theme.backgroundColorDarkGray};
-  color: ${Theme.textColorLight};
-  padding: 0.4rem;
-  border-radius: 3px;
-  border: 1px solid ${Theme.backgroundColorDarkerGray}
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
-  cursor: pointer;
-  transition-all: 0.3s;
-  &:hover {
-    scale: 1.1;
-  }
-`;
 const PicLabel = styled.label`
   color: ${Theme.backgroundColorDarkGray};
+  display: flex;
+  margin-top: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 1.25rem;
+
+  @media screen and (min-width: 1px) {
+    &&& svg {
+      margin: 0;
+    }
+  }
 `;
 
 const PicInput = styled.input`
@@ -80,8 +75,26 @@ const PicInput = styled.input`
   color: ${Theme.textColorLight};
   width: 80%;
   margin-left: 3rem;
-  margin-top: 3rem;
+  margin-top: 0.5rem;
   cursor: pointer;
+`;
+
+const SubmitPic = styled.button`
+  border: none;
+  background: ${Theme.backgroundColorDarkGray};
+  color: ${Theme.textColorLight};
+  padding: 0.15rem;
+  border-radius: ${Theme.borderRadiusBtn};
+  border: 1px solid ${Theme.backgroundColorDarkerGray};
+  width: 30%;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition-all: ${Theme.transitionSpeed};
+  &:hover {
+    scale: 1.1;
+  }
 `;
 
 const IMG = styled.img`
@@ -101,16 +114,15 @@ const CloseButton = styled.button`
   position: absolute;
   align-self: flex-start;
   z-index: 2;
-  background-color: red;
+  background-color: transparent;
   opacity: 0.7;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: 0.4s;
+  transition: ${Theme.transitionSpeed};
   &:hover {
     opacity: 1;
     transform: translateY(-1px);
-    box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
   }
   &:active {
     opacity: 0.8;
@@ -130,7 +142,7 @@ const StatusContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 30%;
-  font-size: 1.5rem;
+  font-size: ${Theme.fontSizeM};
   margin-top: 1rem;
   margin-left: 1rem;
 `;
@@ -185,9 +197,10 @@ const SettingsButton = styled.div`
   width: 40%;
   padding-top: 8rem;
   margin-right: 4rem;
-  transition: 0.3s;
+  transition: ${Theme.transitionSpeed};
   &:hover {
-    scale: 1.1;
+    padding-top: 7.75rem;
+    scale: 1.075;
   }
 `;
 
@@ -247,6 +260,7 @@ export default function UserProfile({
         <PicLabel>
           {" "}
           Upload Profile Pic
+          <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
           <PicInput type="file" name="file" ref={fileRef} />
         </PicLabel>
         <SubmitPic type="submit">submit</SubmitPic>

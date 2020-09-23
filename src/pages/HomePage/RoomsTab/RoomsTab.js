@@ -64,10 +64,27 @@ const RoomsTabStyle = styled.section`
     padding: 2rem;
   }
 `;
-//made cursor pointer
 const CloseButton = styled.button`
   align-self: flex-start;
+  padding: 1px;
+  transform: translateY(-5px);
+  position: absolute;
+  align-self: flex-start;
+  z-index: 2;
+  background-color: transparent;
+  opacity: 0.7;
+  border: none;
+  border-radius: ${Theme.borderRadiusBtn};
   cursor: pointer;
+  transition: 0.4s;
+  &:hover {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
 `;
 
 const RoomsList = styled.div`
@@ -83,11 +100,11 @@ const Rooms = styled.div`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
 `;
 
 const Room = styled.li`
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
   margin: 0.5rem auto;
   background-image: ${(props) => (props.roomPic ? props.roomPic : "none")};
 `;
@@ -98,12 +115,12 @@ const FavoriteRooms = styled.ul`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
 `;
 
 const NoFavorites = styled.div`
   margin-top: 1rem;
-  border-radius: 15%;
+  border-radius: ${Theme.borderRadiusL};
   font-size: 0.75rem;
 `;
 
