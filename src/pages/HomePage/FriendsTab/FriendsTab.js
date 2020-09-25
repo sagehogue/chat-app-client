@@ -125,7 +125,21 @@ export default function FriendsTab({
   pendingFriends = null,
   sentFriendRequests = null,
   closeTabHandler,
+  clientID,
+  handleAccept,
+  handleDecline,
+  handleDeleteFriend,
 }) {
+  const deleteFriendHandler = (uid, friendUID) => {
+    // later I should allow multiple deletes with one confirmation
+    // display them all when selected
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this user from your friends list?"
+    );
+    if (confirmation) {
+      handleDeleteFriend(uid, friendUID);
+    }
+  };
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <CloseButton onClick={closeTabHandler}>
@@ -138,6 +152,10 @@ export default function FriendsTab({
         friends={friends}
         pendingFriends={pendingFriends}
         sentFriendRequests={sentFriendRequests}
+        clientID={clientID}
+        handleAccept={handleAccept}
+        handleDecline={handleDecline}
+        deleteFriend={deleteFriendHandler}
       />
       {/* <Toolbox /> */}
     </FriendsTabStyle>

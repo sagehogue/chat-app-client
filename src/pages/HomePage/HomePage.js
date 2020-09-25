@@ -246,6 +246,14 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
+  const declineFriendRequest = (id, requestAuthorID) => {
+    socket.emit("decline-friend-request", { id, requestAuthorID });
+  };
+
+  const acceptFriendRequest = (id, requestAuthorID) => {
+    socket.emit("accept-friend-request", { id, requestAuthorID });
+  };
+
   socket.on("newRoomID", (roomID) => {
     const data = {
       user: { ...newRoomData.user },
@@ -349,6 +357,10 @@ export default function HomePage({ socket }) {
           friends={userFriends}
           pendingFriends={userPendingFriends}
           sentFriendRequests={userSentFriendRequests}
+          clientID={uid}
+          handleAccept={acceptFriendRequest}
+          handleDecline={declineFriendRequest}
+          handleDeleteFriend={handleRemoveFriend}
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Drawer from "./Drawer/Drawer.js";
+import UserBar from "../../../../components/UI/UserSystem/UserBar/UserBar";
+import FriendRequest from "../../../../components/UI/UserSystem/FriendRequest/FriendRequest";
 
 const FavoriteFriends = styled.ul`
   width: 91%;
@@ -74,31 +76,67 @@ export default function FriendsCabinet({
   friends = null,
   pendingFriends = null,
   sentFriendRequests = null,
+  handleAccept,
+  handleDecline,
+  deleteFriend,
+  removeFavorite,
+  addFavorite,
+  clientID,
+  openDMHandler,
 }) {
-  console.log(`FRIENDS! ` + friends + pendingFriends + sentFriendRequests);
+  console.log(
+    `Friends:${JSON.stringify(
+      friends
+    )}\npendingFriendRequests: ${JSON.stringify(
+      pendingFriends
+    )}\nsentFriendRequests: ${JSON.stringify(sentFriendRequests)}`
+  );
   // Attach event listeners to these that take you to corresponding Friend
-  let FriendButtons,
-    favFriendButtons,
-    pendingFriendButtons,
-    sentFriendRequestButtons;
+  let FriendButtons, favFriendButtons, sentFriendRequestButtons;
   if (favoriteFriends) {
     favFriendButtons = favoriteFriends.map((Friend) => (
-      <FriendButton>{Friend.displayName}</FriendButton>
+      <UserBar
+        displayName={Friend.displayName}
+        clientID={clientID}
+        id={Friend.id}
+        deleteHandler={deleteFriend}
+        dmHandler={openDMHandler}
+      ></UserBar>
     ));
   }
   if (friends) {
     FriendButtons = friends.map((Friend) => (
-      <FriendButton>{Friend.displayName}</FriendButton>
+      <UserBar
+        displayName={Friend.displayName}
+        clientID={clientID}
+        id={Friend.id}
+        deleteHandler={deleteFriend}
+        dmHandler={openDMHandler}
+      ></UserBar>
     ));
   }
+  let friendRequests;
   if (pendingFriends) {
-    pendingFriendButtons = pendingFriends.map((Friend) => (
-      <FriendButton>{Friend.displayName}</FriendButton>
+    friendRequests = pendingFriends.map((Friend) => (
+      <FriendRequest
+        displayName={Friend.displayName}
+        clientID={clientID}
+        requesterID={Friend.uid}
+        handleAccept={handleAccept}
+        handleDecline={handleDecline}
+      >
+        {Friend.displayName}
+      </FriendRequest>
     ));
   }
   if (sentFriendRequests) {
     sentFriendRequestButtons = sentFriendRequests.map((Friend) => (
-      <FriendButton>{Friend.displayName}</FriendButton>
+      <UserBar
+        displayName={Friend.displayName}
+        clientID={clientID}
+        id={Friend.id}
+        type="SENTREQUEST"
+      ></UserBar>
     ));
   }
   return (
@@ -113,31 +151,17 @@ export default function FriendsCabinet({
           )} */}
       </FavoritesDrawer>
       <FriendsDrawer name={"Friends"}>
-        {/* {friends ? (
-            FriendButtons
-          ) : (
-            <NoFavorites>
-              Save some Friends to find them displayed here.
-            </NoFavorites>
-          )} */}
+        {friends ? (
+          FriendButtons
+        ) : (
+          <NoFavorites>
+            Save some Friends to find them displayed here.
+          </NoFavorites>
+        )}
       </FriendsDrawer>
-      <RequestDrawer name={"Requests"}>
-        {/* {pendingFriends ? (
-            pendingFriendButtons
-          ) : (
-            <NoFavorites>
-              Save some Friends to find them displayed here.
-            </NoFavorites>
-          )} */}
-      </RequestDrawer>
+      <RequestDrawer name={"Requests"}>{friendRequests}</RequestDrawer>
       <SentRequestDrawer name={"Sent"}>
-        {/* {sentFriendRequests ? (
-            sentFriendRequestButtons
-          ) : (
-            <NoFavorites>
-              Save some Friends to find them displayed here.
-            </NoFavorites>
-          )} */}
+        {sentFriendRequests ? sentFriendRequestButtons : null}
       </SentRequestDrawer>
     </DrawerFrame>
   );
