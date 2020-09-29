@@ -73,11 +73,12 @@ export default function UserBar({
   online = false,
   dmHandler,
   deleteHandler,
-  cancelFriendRequestHandler,
+  handleCancelFriendRequest,
   type = false,
 }) {
   if (type) {
     if (type == "SENTREQUEST") {
+      console.log(id + clientID);
       return (
         <Bar>
           <Avatar>
@@ -94,7 +95,8 @@ export default function UserBar({
             <FaRegTimesCircle
               size={20}
               onClick={() => {
-                cancelFriendRequestHandler(clientID, id);
+                console.log(id);
+                handleCancelFriendRequest(clientID, id);
               }}
             />
           </SentFriendRequestControls>
