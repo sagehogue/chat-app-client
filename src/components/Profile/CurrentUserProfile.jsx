@@ -258,7 +258,7 @@ export default function UserProfile({
     <ProfilePicContainer>
       <PicFormStyle onSubmit={submitHandler}>
         <PicLabel>
-          {" "}
+          {/* {" "} */}
           Upload Profile Pic
           <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
           <PicInput type="file" name="file" ref={fileRef} />

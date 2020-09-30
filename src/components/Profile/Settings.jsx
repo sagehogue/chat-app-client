@@ -58,6 +58,7 @@ const BackArrow = styled.div`
 }`;
 
 const DisplayStatus = styled(SettingsOption)``;
+const ChangeProPic = styled(SettingsOption)``;
 
 const SettingsOptionTest = styled(SettingsOption)``;
 const SettingsOptionTest1 = styled(SettingsOption)``;
@@ -94,7 +95,7 @@ export default function Settings({
         </BackArrow>
         <DisplayStatus>display status</DisplayStatus>
         <SettingsOptionTest>font size</SettingsOptionTest>
-        <SettingsOptionTest1>Change Profile Picture</SettingsOptionTest1>
+        <ChangeProPic>Change Profile Picture</ChangeProPic>
         <SettingsOptionTest2>test</SettingsOptionTest2>
         <SettingsOptionTest2>test</SettingsOptionTest2>
 
