@@ -14,7 +14,12 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
+<<<<<<< HEAD
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
+=======
+import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
+import UserProfile from "../../components/Profile/UserProfile.jsx";
+>>>>>>> profilepage
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
@@ -60,11 +65,11 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-  background: #016789;
+  background: ${Theme.backgroundColorDark};
 `;
 
 const Navigation = styled.nav`
-  font-size: 2rem;
+  font-size: ${Theme.fontSizeL};
   display: flex;
   height: 10vh;
   justify-content: space-between;
@@ -81,8 +86,9 @@ const Navigation = styled.nav`
     margin-left: 1rem;
     color: ${(props) =>
       props.pageOnDisplay == "friends"
-        ? `${Theme.navColorActive}`
+        ? `${Theme.navColorInactive}`
         : `${Theme.navColorInactive}`};
+        cursor: pointer;
   }
   & svg:last-child {
     margin-right: 1rem;
@@ -90,6 +96,7 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "rooms"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+        cursor: pointer;
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;
@@ -112,6 +119,20 @@ const Navigation = styled.nav`
           }
 `;
 
+const HomeAndUser = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+`;
+
+const UserNameDisplay = styled.div`
+  font-size: ${Theme.fontSizeL};
+  color: ${Theme.textColorLight};
+  padding-left: 1rem;
+  z-index: 1;
+`;
+
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
@@ -125,6 +146,7 @@ export default function HomePage({ socket }) {
   // users who the client has sent friend requests to
   let [userSentFriendRequests, setUserSentFriendRequests] = useState([]);
   let [userRooms, setUserRooms] = useState(false);
+  let [displayProfile, setDisplayProfile] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
   let userAuth = useContext(AuthContext);
@@ -350,6 +372,38 @@ export default function HomePage({ socket }) {
       recipientID,
     });
   };
+  const handleDisplayProfile = () => {
+    console.log("test");
+    setDisplayProfile(true);
+  };
+
+  const closeProfileHandler = () => {
+    setDisplayProfile(false);
+  };
+
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+
+  const IsCurrentUserProfile = (
+    <CurrentUserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+    ></CurrentUserProfile>
+  );
+
+  const OtherUser = (
+    <UserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+    ></UserProfile>
+  );
 
   return (
     <>
@@ -357,12 +411,17 @@ export default function HomePage({ socket }) {
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
           <FaUserFriends onClick={handleDisplayFriendsTab} />
-          <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+          <HomeAndUser>
+            <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+            <UserNameDisplay onClick={handleDisplayProfile}>
+              {user.displayName}
+            </UserNameDisplay>
+            {isCurrentUser ? IsCurrentUserProfile : OtherUser}
+          </HomeAndUser>
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
           pageOnDisplay={display}
-          logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
           pendingFriends={userPendingFriends}
@@ -410,6 +469,7 @@ export default function HomePage({ socket }) {
           user={{ id: uid, displayName: name }}
         ></RoomsTab>
       </HomePageGrid>
+
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
     </>
   );

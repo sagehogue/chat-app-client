@@ -38,7 +38,7 @@ const JoinInnerContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   justify-self: flex-start;
   font-size: 2.5rem;
   padding-bottom: 10px;
@@ -50,7 +50,7 @@ const Heading = styled.h1`
 `;
 
 const Directive = styled.h3`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   font-size: 1.75rem;
@@ -76,16 +76,25 @@ const JoinModal = styled.div`
 `;
 
 const SignInButton = styled.button`
-  color: #fff !important;
+  color: ${Theme.textColorLight} !important;
   text-transform: uppercase;
+
+  font-size: ${Theme.fontSizeS};
   text-decoration: none;
-  background: #2979ff;
+  background-color: rgba(154, 169, 213, 1);
   padding: 20px;
-  border-radius: 5px;
+  border-radius: ${Theme.borderRadiusBtnL};
   display: inline-block;
   border: none;
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
+  cursor: pointer;
+  transition: ${Theme.transitionSpeed};
+  &:hover {
+    scale: 1.1;
+
+    box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
+  }
   & :focus {
     outline: 0;
   }
@@ -117,7 +126,7 @@ const Animation = styled.div`
 
 const PublicRoomListHeader = styled.h3`
   margin-top: 15vh;
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
 `;
 
 const PublicRoomList = styled.section`
@@ -132,7 +141,7 @@ const ArrowDown = styled(AiOutlineArrowDown)`
 `;
 
 const NoRooms = styled.div`
-  color: ${Theme.offWhite};
+  color: ${Theme.textColorLight};
   text-align: center;
   margin: 5rem auto 0 auto;
 `;
@@ -179,7 +188,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
           //   }
           // }
           >
-            Sign In
+            Join Room
           </SignInButton>
         </JoinModal>
         <PublicRoomListHeader>
