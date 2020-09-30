@@ -75,6 +75,7 @@ export default function UserBar({
   deleteHandler,
   cancelFriendRequestHandler,
   type = false,
+  deleteSelf,
 }) {
   if (type) {
     if (type == "SENTREQUEST") {
@@ -95,6 +96,7 @@ export default function UserBar({
               size={20}
               onClick={() => {
                 cancelFriendRequestHandler(clientID, id);
+                deleteSelf();
               }}
             />
           </SentFriendRequestControls>
@@ -123,7 +125,7 @@ export default function UserBar({
           <FaUserMinus
             size={20}
             onClick={() => {
-              deleteHandler(clientID, id);
+              deleteHandler(clientID, id, deleteSelf);
             }}
           />
         </Controls>

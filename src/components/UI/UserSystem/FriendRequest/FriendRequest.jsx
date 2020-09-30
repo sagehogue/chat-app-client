@@ -70,6 +70,7 @@ export default function FriendRequest({
   handleDecline,
   clientID,
   requesterID,
+  deleteSelf
 }) {
   let pic;
   if (avatar) {
@@ -84,10 +85,20 @@ export default function FriendRequest({
         <Username>{displayName}</Username>
       </Top>
       <Bottom>
-        <RequestOption onClick={() => handleAccept(clientID, requesterID)}>
+        <RequestOption
+          onClick={() => {
+            handleAccept(clientID, requesterID);
+            deleteSelf();
+          }}
+        >
           Accept
         </RequestOption>
-        <RequestOption onClick={() => handleDecline(clientID, requesterID)}>
+        <RequestOption
+          onClick={() => {
+            handleDecline(clientID, requesterID);
+            deleteSelf();
+          }}
+        >
           Decline
         </RequestOption>
       </Bottom>

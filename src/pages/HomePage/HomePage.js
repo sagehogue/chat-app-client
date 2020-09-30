@@ -286,7 +286,7 @@ export default function HomePage({ socket }) {
     socket.emit("add-friend", { uid, friendUID });
   };
 
-  const handleRemoveFriend = (uid, friendUID) => {
+  const handleRemoveFriend = (uid, friendUID, callback = false) => {
     // whether or not friendUID has been found in any of the friend states
     let notFound = true;
 
@@ -335,6 +335,9 @@ export default function HomePage({ socket }) {
       emit();
     }
     console.log("removing friend!");
+    if (callback) {
+      callback();
+    }
   };
 
   const requestFetchFriends = (uid) => {
