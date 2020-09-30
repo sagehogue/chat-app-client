@@ -27,7 +27,7 @@ const FriendsTabStyle = styled.section`
   width: 100%;
   height: 100%;
 
-  background-color: ${Theme.white};
+  background-color: ${Theme.backgroundColorLight};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -76,36 +76,24 @@ const FriendsTabStyle = styled.section`
 
 const CloseButton = styled.button`
   align-self: flex-end;
-`;
-
-const LogOutButton = styled(button)`
-  margin-top: auto;
-  color: #fff;
-  border: 1px #fff solid;
-  background-color: black;
-  margin: auto;
-  margin-top: 2rem;
+  padding: 1px;
+  transform: translateY(-5px);
+  position: absolute;
+  align-self: flex-start;
+  z-index: 2;
+  background-color: transparent;
+  opacity: 0.7;
+  border: none;
+  border-radius: ${Theme.borderRadiusBtn};
+  cursor: pointer;
+  transition: ${Theme.transitionSpeed};
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transform: translateY(-6px);
   }
-`;
-const AddFriendButton = styled(button)`
-  background-color: lightblue;
-  color: white;
-  margin: 0.5rem auto 0.5rem auto;
-  margin-top: 0.5rem;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-`;
-
-const RemoveFriendButton = styled(button)`
-  background-color: red;
-  color: white;
-  color: #fff;
-  margin: 0.5rem auto 0.5rem auto;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+  &:active {
+    opacity: 0.8;
+    transform: translateY(1px);
   }
 `;
 

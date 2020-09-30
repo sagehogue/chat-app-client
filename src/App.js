@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage";
 import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebaseConfig from "./firebaseConfig";
@@ -74,6 +75,10 @@ const UserProvider = AuthContext.Provider;
 export const UserConsumer = AuthContext.Consumer;
 
 // END OF FUNCTION DEFINITIONS
+
+export const CurrentUser = () => {
+  return firebase.auth().currentUser;
+};
 
 const App = () => {
   const requestLogin = useCallback((username, password) => {
