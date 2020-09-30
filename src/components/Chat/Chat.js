@@ -69,6 +69,7 @@ const Chat = ({
   setShowUsers,
   handleAddFriend,
   handleRemoveFriend,
+  userRooms,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -173,6 +174,22 @@ const Chat = ({
     setShowUsers(true);
   };
 
+  let id = currentRoom.id;
+  let isSavedRoom = false;
+  let isFavoriteRoom = false;
+
+  userRooms.map((room) => {
+    if (room.id === id) {
+      isSavedRoom = true;
+    }
+  });
+
+  userRooms.map((room) => {
+    if (room.id === id) {
+      isFavoriteRoom = true;
+    }
+  });
+
   return (
     <OuterContainer>
       <Container showUsers={showUsers}>
@@ -181,6 +198,9 @@ const Chat = ({
           userCount={onlineUserCount}
           showUserList={showUserDisplay}
           closeChatHandler={() => closeChatHandler(currentRoom)}
+          userRooms={userRooms}
+          isUserSavedRoom={isSavedRoom}
+          isUserFavoriteRoom={isFavoriteRoom}
         />
         <Messages messages={messages} name={username} />
         <Input

@@ -83,6 +83,7 @@ export default function FriendsCabinet({
   addFavorite,
   clientID,
   openDMHandler,
+  handleCancelFriendRequest,
 }) {
   console.log(
     `Friends:${JSON.stringify(

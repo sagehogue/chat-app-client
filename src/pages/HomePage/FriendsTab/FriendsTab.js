@@ -129,6 +129,7 @@ export default function FriendsTab({
   handleAccept,
   handleDecline,
   handleDeleteFriend,
+  handleCancelFriendRequest,
 }) {
   const deleteFriendHandler = (uid, friendUID) => {
     // later I should allow multiple deletes with one confirmation
@@ -156,6 +157,7 @@ export default function FriendsTab({
         handleAccept={handleAccept}
         handleDecline={handleDecline}
         deleteFriend={deleteFriendHandler}
+        handleCancelFriendRequest={handleCancelFriendRequest}
       />
       {/* <Toolbox /> */}
     </FriendsTabStyle>

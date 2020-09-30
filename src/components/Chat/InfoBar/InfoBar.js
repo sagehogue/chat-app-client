@@ -104,12 +104,12 @@ const InfoBar = ({
   closeChatHandler,
   userCount,
   showUserList,
+  userRooms,
   isUserSavedRoom = false,
-  isUserFavoriteRoom = false,
+  isFavoriteRoom,
 }) => {
   const [optionMenuHovered, setOptionMenuHovered] = useState(false);
-  const [isSavedRoom, setIsSavedRoom] = useState(isUserSavedRoom);
-  const [isFavoriteRoom, setIsFavoriteRoom] = useState(isUserFavoriteRoom);
+
   const handleSetMenuToVisible = () => {
     setOptionMenuHovered(true);
   };
@@ -133,9 +133,9 @@ const InfoBar = ({
         <FaCog />
         <OptionsMenu visible={optionMenuHovered}>
           <Option>
-            {isSavedRoom ? <FaMinus /> : <FaPlus />}
+            {isUserSavedRoom ? <FaMinus /> : <FaPlus />}
             <Text>
-              {isSavedRoom ? "Removed from saved" : "Add to saved rooms"}
+              {isUserSavedRoom ? "Removed from saved" : "Add to saved rooms"}
             </Text>
           </Option>
           <Option>

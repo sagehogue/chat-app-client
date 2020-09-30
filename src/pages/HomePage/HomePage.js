@@ -344,6 +344,13 @@ export default function HomePage({ socket }) {
     socket.emit("fetch-friend", { uid });
   };
 
+  const handleCancelFriendRequest = (authorID, recipientID) => {
+    socket.emit("cancel-friend-request", {
+      authorID,
+      recipientID,
+    });
+  };
+
   return (
     <>
       <HomePageGrid>
@@ -364,6 +371,7 @@ export default function HomePage({ socket }) {
           handleAccept={acceptFriendRequest}
           handleDecline={declineFriendRequest}
           handleDeleteFriend={handleRemoveFriend}
+          handleCancelFriendRequest={handleCancelFriendRequest}
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
@@ -383,6 +391,7 @@ export default function HomePage({ socket }) {
             setShowUsers={setShowUsers}
             handleAddFriend={handleAddFriend}
             handleRemoveFriend={handleRemoveFriend}
+            userRooms={userRooms}
           />
         ) : (
           <Join
