@@ -171,6 +171,11 @@ export default function HomePage({ socket }) {
     setUserRooms(userRooms);
   });
 
+  socket.on("new-friend-request", (friendRequest) => {
+    const newRequests = [...userPendingFriends, friendRequest];
+    setUserPendingFriends;
+  });
+
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
