@@ -192,7 +192,7 @@ export default function HomePage({ socket }) {
 
   socket.on("new-friend-request", (friendRequest) => {
     const newRequests = [...userPendingFriends, friendRequest];
-    setUserPendingFriends;
+    setUserPendingFriends(newRequests);
   });
 
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
