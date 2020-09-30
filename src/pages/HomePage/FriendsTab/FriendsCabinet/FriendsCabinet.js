@@ -150,7 +150,7 @@ export default function FriendsCabinet({
           <FriendRequest
             displayName={Friend.displayName}
             clientID={clientID}
-            requesterID={Friend.uid}
+            requesterID={Friend.id}
             handleAccept={handleAccept}
             handleDecline={handleDecline}
             key={Friend.id}

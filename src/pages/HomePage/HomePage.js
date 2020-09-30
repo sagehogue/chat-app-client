@@ -282,7 +282,7 @@ export default function HomePage({ socket }) {
   const handleAddFriend = (uid, friendUID, displayName) => {
     const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
     const newArray = [...userPendingFriends, newPendingFriend];
-    setUserPendingFriends(newArray);
+    setUserSentFriendRequests(newArray);
     socket.emit("add-friend", { uid, friendUID });
   };
 
