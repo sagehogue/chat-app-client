@@ -14,12 +14,9 @@ import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
-<<<<<<< HEAD
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
-=======
 import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
 import UserProfile from "../../components/Profile/UserProfile.jsx";
->>>>>>> profilepage
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
