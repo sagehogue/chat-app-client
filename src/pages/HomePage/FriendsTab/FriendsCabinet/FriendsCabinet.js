@@ -178,6 +178,7 @@ export default function FriendsCabinet({
             clientID={clientID}
             id={Friend.id}
             type="SENTREQUEST"
+            handleCancelFriendRequest={handleCancelFriendRequest}
             deleteSelf={() => {
               let newSentFriendRequests = sentFriendRequestUserbars.filter(
                 (userbar) => userbar.key !== Friend.id

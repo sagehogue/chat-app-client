@@ -50,11 +50,13 @@ const Controls = styled.div`
   flex-direction: column;
   grid-row: 1 / 3;
   grid-column: 5 / 6;
+  z-index: 5;
 `;
 
 const SentFriendRequestControls = styled(Controls)`
   justify-content: space-around;
   align-items: center;
+  z-index: 5;
 `;
 
 const Status = styled.span`
