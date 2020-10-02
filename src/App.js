@@ -33,7 +33,7 @@ function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log("Socket.io connecting displayName " + user.displayName);
-      socket.query = { displayName: user.displayName };
+      socket.query = { displayName: user.displayName, id: user.uid };
       // socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
       callback({
         loggedIn: true,

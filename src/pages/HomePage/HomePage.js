@@ -35,26 +35,6 @@ import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 // Chat app looks a little stretched out on desktop, adjust for better
 // center focus
 
-/* Description of implementation of this component:
-
-3 states
-1.) display no side bars, only main conversation
-2.) show left sidebar
-3.) show right sidebar
-
-We should seek to adjust the whitespace around the main component so it never shifts the content. I'm thinking a system like this will work:
-<main>
-  <leftsidebar />
-    <content-wrapper>
-      <chat />
-    </content-wrapper>
-  <rightsidebar />
-</main>
-
-the main will be a grid. the main will have state that controls the display, and the grid css will correspond to the state to render the screen how we want.
-i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
-*/
-
 const HomePageGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -142,6 +122,7 @@ export default function HomePage({ socket }) {
   let [userPendingFriends, setUserPendingFriends] = useState([]);
   // users who the client has sent friend requests to
   let [userSentFriendRequests, setUserSentFriendRequests] = useState([]);
+  let [avatar, setAvatar] = useState(false);
   let [userRooms, setUserRooms] = useState(false);
   let [displayProfile, setDisplayProfile] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
@@ -160,7 +141,25 @@ export default function HomePage({ socket }) {
     socket.emit("requestTop8Rooms");
     socket.emit("requestUserRooms", uid);
     socket.emit("fetch-friends", { uid });
+    socket.emit("fetch-avatar", { id: uid });
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", manualDisconnect);
+    return () => {
+      window.removeEventListener("beforeunload", manualDisconnect);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.emit("user-status", {
+      name,
+      id: uid,
+      socket: socket.id,
+      room: currentRoom,
+      online: true,
+    });
+  }, [currentRoom]);
 
   socket.on("userFriends", (userFriends) => {
     console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
@@ -185,6 +184,10 @@ export default function HomePage({ socket }) {
     setUserSentFriendRequests(friendsRequested);
   });
 
+  socket.on("new-avatar", ({ url }) => {
+    setAvatar(url);
+  });
+
   socket.on("userRooms", (userRooms) => {
     console.log(userRooms);
     setUserRooms(userRooms);
@@ -205,6 +208,10 @@ export default function HomePage({ socket }) {
   } else {
     db = firebase.app().firestore();
   }
+
+  const manualDisconnect = () => {
+    socket.disconnect();
+  };
 
   const handleJoinRoom = (room) => {
     console.log(`Room sent to backend: ${JSON.stringify(room)}`);
@@ -393,6 +400,7 @@ export default function HomePage({ socket }) {
       handleCloseProfile={closeProfileHandler}
       logoutHandler={firebaseController.logout}
       user={user}
+      profilePicURL={avatar}
     ></CurrentUserProfile>
   );
 
@@ -453,6 +461,7 @@ export default function HomePage({ socket }) {
             handleAddFriend={handleAddFriend}
             handleRemoveFriend={handleRemoveFriend}
             userRooms={userRooms}
+            avatar={avatar}
           />
         ) : (
           <Join

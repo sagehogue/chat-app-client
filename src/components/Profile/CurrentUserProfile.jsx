@@ -1,4 +1,4 @@
-import React, { useState, setState, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 
 import styled from "styled-components";
 import closeIcon from "../../icons/closeIcon.png";
@@ -216,7 +216,8 @@ export default function UserProfile({
 
   // handleProfilePic
 }) {
-  const [displaySettings, setDisplaySettings] = useState(false);
+  const [displaySettings, setDisplaySettings] = useState(false); // Responsible for whether or not settings are shown
+
   const handleSettings = () => {
     setDisplaySettings(true);
   };
@@ -226,9 +227,16 @@ export default function UserProfile({
 
   const [profilePic, setProfilePic] = useState(profilePicURL);
 
+  useEffect(() => {
+    setProfilePic(profilePicURL);
+  }, [profilePicURL]);
+
+  // Reference to our uploaded file
   const fileRef = createRef();
 
   const storageRef = getStorageRef();
+
+  // Newly generated unique ID
   const imageUuid = uuid();
   const profilePictureRef = storageRef.child(`images/${imageUuid}`);
 
@@ -240,34 +248,15 @@ export default function UserProfile({
       console.log("Uploaded a blob or file!");
       const profilePicRef = storageRef.child(`images/${imageUuid}`);
 
-      profilePicRef.getDownloadURL().then((URL) => {
-        console.log(URL);
-        socket.emit("ChangeUserProfile", { id, URL });
-        setProfilePic(URL);
+      profilePicRef.getDownloadURL().then((url) => {
+        console.log(url);
+        socket.emit("change-avatar", { id, url });
+        setProfilePic(url);
       });
       console.log(profilePicRef.getDownloadURL());
     });
   };
-
-  const ProfilePicExists = (
-    <ProfilePicContainer>
-      <IMG src={profilePic}></IMG>
-    </ProfilePicContainer>
-  );
-  const NoProfilePicExists = (
-    <ProfilePicContainer>
-      <PicFormStyle onSubmit={submitHandler}>
-        <PicLabel>
-          {/* {" "} */}
-          Upload Profile Pic
-          <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
-          <PicInput type="file" name="file" ref={fileRef} />
-        </PicLabel>
-        <SubmitPic type="submit">submit</SubmitPic>
-      </PicFormStyle>
-    </ProfilePicContainer>
-  );
-
+  console.log(profilePicURL + "\n" + profilePic);
   return (
     <ProfileContainer profileDisplayState={profileDisplayState}>
       <CloseButton
@@ -284,7 +273,23 @@ export default function UserProfile({
         logoutHandler={firebaseController.logout}
       ></Settings>
 
-      {profilePic ? ProfilePicExists : NoProfilePicExists}
+      {profilePic ? (
+        <ProfilePicContainer>
+          <IMG src={profilePic}></IMG>
+        </ProfilePicContainer>
+      ) : (
+        <ProfilePicContainer>
+          <PicFormStyle onSubmit={submitHandler}>
+            <PicLabel>
+              {/* {" "} */}
+              Upload Profile Pic
+              <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
+              <PicInput type="file" name="file" ref={fileRef} />
+            </PicLabel>
+            <SubmitPic type="submit">submit</SubmitPic>
+          </PicFormStyle>
+        </ProfilePicContainer>
+      )}
       <ProfileInfoContainer>
         <StatusContainer online>
           <StatusCircle>

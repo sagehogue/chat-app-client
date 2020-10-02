@@ -60,6 +60,7 @@ const UserListContainer = styled(Container)`
 `;
 
 const Chat = ({
+  avatar,
   room = false,
   user,
   closeChatHandler,
@@ -202,7 +203,7 @@ const Chat = ({
           isUserSavedRoom={isSavedRoom}
           isUserFavoriteRoom={isFavoriteRoom}
         />
-        <Messages messages={messages} name={username} />
+        <Messages messages={messages} name={username} avatar={avatar} />
         <Input
           message={message}
           setMessage={setMessage}
