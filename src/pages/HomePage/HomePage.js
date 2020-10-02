@@ -73,7 +73,10 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "rooms"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+<<<<<<< HEAD
+=======
         cursor: pointer;
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;

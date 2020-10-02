@@ -89,8 +89,7 @@ export default function Message({
   timeSent = message.time;
   text = message.text;
   author = message.user;
-  const trimmedAuthorName = author.trim().toLowerCase();
-  const sentByUser = trimmedAuthorName == user ? true : false;
+  const sentByUser = author == user ? true : false;
   let messagePic = <FaRegSmileBeam />;
   if (sentByUser && avatar) {
     messagePic = <Avatar src={avatar} alt="User Picture" />;
