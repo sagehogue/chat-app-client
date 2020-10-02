@@ -250,7 +250,7 @@ export default function UserProfile({
 
       profilePicRef.getDownloadURL().then((url) => {
         console.log(url);
-        socket.emit("change-avatar", { id, url });
+        socket.emit("change-avatar", { id, image: { id: imageUuid, url } });
         setProfilePic(url);
       });
       console.log(profilePicRef.getDownloadURL());

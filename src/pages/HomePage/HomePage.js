@@ -184,8 +184,8 @@ export default function HomePage({ socket }) {
     setUserSentFriendRequests(friendsRequested);
   });
 
-  socket.on("new-avatar", ({ url }) => {
-    setAvatar(url);
+  socket.on("new-avatar", (avatar) => {
+    setAvatar(avatar);
   });
 
   socket.on("userRooms", (userRooms) => {
@@ -400,7 +400,7 @@ export default function HomePage({ socket }) {
       handleCloseProfile={closeProfileHandler}
       logoutHandler={firebaseController.logout}
       user={user}
-      profilePicURL={avatar}
+      profilePicURL={avatar.url}
     ></CurrentUserProfile>
   );
 
@@ -461,7 +461,7 @@ export default function HomePage({ socket }) {
             handleAddFriend={handleAddFriend}
             handleRemoveFriend={handleRemoveFriend}
             userRooms={userRooms}
-            avatar={avatar}
+            avatar={avatar.url}
           />
         ) : (
           <Join
