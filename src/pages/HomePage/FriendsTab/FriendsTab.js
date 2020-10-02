@@ -1,8 +1,16 @@
 import React from "react";
 
+<<<<<<< HEAD
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
+=======
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Theme from "../../../util/Theme/Theme";
+
+import Cabinet from "./FriendsCabinet/FriendsCabinet";
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 import closeIcon from "../../../icons/closeIcon.png";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import button from "../../../components/UI/Button/Button";
@@ -18,14 +26,22 @@ Maybe look for some kind of package that can handle pagination
 const FriendsTabStyle = styled.section`
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   justify-content: space-between;
+=======
+  justify-content: flex-start;
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   grid-row: 1 / -1;
   grid-column: 1 / 2;
   overflow: hidden;
   width: 100%;
   height: 100%;
 
+<<<<<<< HEAD
   background-color: ${Theme.white};
+=======
+  background-color: ${Theme.backgroundColorLight};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -72,6 +88,7 @@ const FriendsTabStyle = styled.section`
   }
 `;
 
+<<<<<<< HEAD
 const FriendsList = styled.div`
 display: flex;
 flex-direction: column;
@@ -143,10 +160,44 @@ const LogOutButton = styled(button)`
     background-color: rgba(0, 0, 0, 0.5);
   }
 `;
+=======
+const CloseButton = styled.button`
+  align-self: flex-end;
+  padding: 1px;
+  transform: translateY(-5px);
+  position: absolute;
+  align-self: flex-start;
+  z-index: 2;
+  background-color: transparent;
+  opacity: 0.7;
+  border: none;
+  border-radius: ${Theme.borderRadiusBtn};
+  cursor: pointer;
+  transition: ${Theme.transitionSpeed};
+  &:hover {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+`;
+
+const Whitespace = styled.div`
+  margin-bottom: 5rem;
+`;
+
+FriendsTab.propTypes = {
+  pageOnDisplay: PropTypes.string,
+  favoriteFriends: PropTypes.oneOfType([PropTypes.array]),
+};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 export default function FriendsTab({
   pageOnDisplay,
   favoriteFriends = null,
+<<<<<<< HEAD
   Friends = null,
   logoutHandler,
   closeTabHandler,
@@ -163,11 +214,34 @@ export default function FriendsTab({
       <FriendButton FriendPic={Friend.pic}>{Friend.name}</FriendButton>
     ));
   }
+=======
+  friends = null,
+  pendingFriends = null,
+  sentFriendRequests = null,
+  closeTabHandler,
+  clientID,
+  handleAccept,
+  handleDecline,
+  handleDeleteFriend,
+  handleCancelFriendRequest,
+}) {
+  const deleteFriendHandler = (uid, friendUID) => {
+    // later I should allow multiple deletes with one confirmation
+    // display them all when selected
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this user from your friends list?"
+    );
+    if (confirmation) {
+      handleDeleteFriend(uid, friendUID);
+    }
+  };
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <CloseButton onClick={closeTabHandler}>
         <img src={closeIcon} alt="close icon" />
       </CloseButton>
+<<<<<<< HEAD
       <FriendsList>
         <SearchBar />
         <FavoriteFriends>
@@ -198,6 +272,21 @@ export default function FriendsTab({
       </FriendsList>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
 
+=======
+      <SearchBar />
+      <Whitespace />
+      <Cabinet
+        favoriteFriends={favoriteFriends}
+        friends={friends}
+        pendingFriends={pendingFriends}
+        sentFriendRequests={sentFriendRequests}
+        clientID={clientID}
+        handleAccept={handleAccept}
+        handleDecline={handleDecline}
+        deleteFriend={deleteFriendHandler}
+        handleCancelFriendRequest={handleCancelFriendRequest}
+      />
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       {/* <Toolbox /> */}
     </FriendsTabStyle>
   );

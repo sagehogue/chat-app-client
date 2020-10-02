@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+<<<<<<< HEAD
+=======
+import "firebase/storage";
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 import io from "socket.io-client";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import firebaseConfig from "./firebaseConfig";
@@ -26,12 +30,21 @@ const ENDPOINT = "localhost:5000";
 const SocketContext = React.createContext(socket);
 const SocketProvider = SocketContext.Provider;
 export const SocketConsumer = SocketContext.Consumer;
+<<<<<<< HEAD
+=======
+socket = io(ENDPOINT, { query: "displayName=``" });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 // Listen for auth events
 function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log("Socket.io connecting displayName " + user.displayName);
+<<<<<<< HEAD
       socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
+=======
+      socket.query = { displayName: user.displayName, id: user.uid };
+      // socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       callback({
         loggedIn: true,
         displayName: user.displayName,
@@ -59,7 +72,10 @@ export const getStorageRef = () => {
   return storage.ref();
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 export const firebaseController = {
   login: (email, password) => login(email, password),
   logout: logout,
@@ -74,6 +90,13 @@ export const UserConsumer = AuthContext.Consumer;
 
 // END OF FUNCTION DEFINITIONS
 
+<<<<<<< HEAD
+=======
+export const CurrentUser = () => {
+  return firebase.auth().currentUser;
+};
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 const App = () => {
   const requestLogin = useCallback((username, password) => {
     login(username, password);
@@ -129,7 +152,13 @@ const App = () => {
               user.loggedIn == <Loader fullscreen /> ? null : user.loggedIn ? (
                 <Redirect to="/" />
               ) : (
+<<<<<<< HEAD
                 <LoginPage {...props} />
+=======
+                <SocketConsumer>
+                  {(socket) => <LoginPage socket={socket} {...props} />}
+                </SocketConsumer>
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
               )
             }
           />

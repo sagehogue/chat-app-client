@@ -46,16 +46,65 @@ const UserActionIcons = styled.span`
 // Needs to support user avatars, add/remove friend, block, send message (for DMs)
 // Tooltips over the icons would be useful
 
+<<<<<<< HEAD
 export default function UserBar({ avatar = "default", username }) {
   if (avatar == "default") {
     avatar = <FaUserSecret />;
   }
+=======
+export default function UserBar({
+  avatar = "default",
+  isUser,
+  username,
+  friend,
+  addFriendHandler,
+  removeFriendHandler,
+  addFavoriteHandler,
+  removeFavoriteHandler,
+  id,
+  clientID,
+}) {
+  if (avatar == "default") {
+    avatar = <FaUserSecret />;
+  }
+  let friendOperation = (
+    <FaUserPlus
+      onClick={() => {
+        addFriendHandler(clientID, id, username);
+      }}
+    />
+  );
+  if (friend) {
+    friendOperation = (
+      <FaUserMinus
+        onClick={() => {
+          removeFriendHandler(clientID, id);
+        }}
+      />
+    );
+  }
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   //   if (userIsFriend) {
   // display FaUserMinus
   // } else {
   // display FaUserPlus
   //   }
+<<<<<<< HEAD
   return (
+=======
+  let clientUserBar = (
+    <UserBarStyle>
+      <UserAvatar>
+        <FaUserSecret />
+      </UserAvatar>
+      <Username>{username}</Username>
+      <UserActionIcons></UserActionIcons>
+    </UserBarStyle>
+  );
+  return isUser ? (
+    clientUserBar
+  ) : (
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
     <UserBarStyle>
       <UserAvatar>
         <FaUserSecret />
@@ -63,7 +112,11 @@ export default function UserBar({ avatar = "default", username }) {
       <Username>{username}</Username>
       <UserActionIcons>
         <FaEnvelope />
+<<<<<<< HEAD
         <FaUserPlus />
+=======
+        {friendOperation}
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
         <FaUserSlash />
       </UserActionIcons>
     </UserBarStyle>

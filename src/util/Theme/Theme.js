@@ -18,4 +18,24 @@ export default {
     backdrop: "20",
     modal: "25",
   },
+<<<<<<< HEAD
+=======
+  backgroundColorDark: "#2b3a67;",
+  backgroundColorLight: "#9aa9d5;",
+  backgroundColorDarkGray: "#333",
+  backgroundColorDarkerGray: "rgba(43, 43, 43, 1)",
+  backgroundColorLightGray: "#c4c4c4;",
+
+  textColorLight: "#fff;",
+  textColorDark: "black",
+
+  fontSizeS: "1rem",
+  fontSizeM: "1.5rem",
+  fontSizeL: "2rem",
+  borderRadiusBtn: "3px",
+  borderRadiusBtnL: "5px",
+  borderRadius: "1rem",
+  borderRadiusL: "15%",
+  transitionSpeed: ".3s",
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 };

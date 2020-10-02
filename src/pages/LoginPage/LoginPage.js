@@ -112,7 +112,11 @@ const PasswordInput = styled.input`
   border: none;
 `;
 
+<<<<<<< HEAD
 export default function LoginPage() {
+=======
+export default function LoginPage({ socket }) {
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [heading, setHeading] = useState("Chatter");
@@ -124,6 +128,12 @@ export default function LoginPage() {
   if (userAuth.loggedIn) {
     return <Redirect to="/" />;
   }
+<<<<<<< HEAD
+=======
+  console.log(socket);
+
+  // socket.emit("on-login-page");
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
   const handleDisplayRegisterForm = () => {
     // changes the variable that controls which form is displayed
@@ -133,12 +143,24 @@ export default function LoginPage() {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
+=======
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {})
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -155,6 +177,13 @@ export default function LoginPage() {
     const username = form.username.value;
     const password = form.password.value;
     const validEmail = EmailValidator.validate(email);
+<<<<<<< HEAD
+=======
+
+    // VALIDATION GOES HERE
+
+    // IMPLEMENT ME
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
     if (validEmail) {
       // Create new account
       firebase
@@ -162,7 +191,15 @@ export default function LoginPage() {
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
           const user = firebase.auth().currentUser;
+<<<<<<< HEAD
 
+=======
+          socket.emit("register-user", {
+            uid: user.uid,
+            displayName: username,
+            email,
+          });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           // This is how you update properties on the profile.
           user
             .updateProfile({
@@ -170,12 +207,17 @@ export default function LoginPage() {
             })
             .then(function () {
               // Update successful.
+<<<<<<< HEAD
+=======
+              socket.emit();
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
               // Code to prepare the room join screen goes here.
             })
             .catch(function (error) {
               return alert("Error! Account failed to update. Error: " + error);
             });
           setHeading("Chatter");
+<<<<<<< HEAD
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -187,6 +229,19 @@ export default function LoginPage() {
           );
           // ...
         });
+=======
+        });
+      // .catch(function (error) {
+      //   // Handle Errors here.
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   alert(
+      //     `ERROR ${errorCode}\n
+      //   ${error.message}`
+      //   );
+      //   // ...
+      // });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
     } else {
       alert(
         "ERROR\nPlease enter a valid email\nAddress must be formatted <6+ letters>@<domain>.<tld>"

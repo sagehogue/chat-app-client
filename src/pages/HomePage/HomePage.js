@@ -15,6 +15,11 @@ import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
+<<<<<<< HEAD
+=======
+import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
+import UserProfile from "../../components/Profile/UserProfile.jsx";
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
@@ -33,6 +38,7 @@ import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 // Chat app looks a little stretched out on desktop, adjust for better
 // center focus
 
+<<<<<<< HEAD
 /* Description of implementation of this component:
 
 3 states
@@ -53,6 +59,8 @@ the main will be a grid. the main will have state that controls the display, and
 i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
 */
 
+=======
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 const HomePageGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -60,11 +68,19 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
+<<<<<<< HEAD
   background: #016789;
 `;
 
 const Navigation = styled.nav`
   font-size: 2rem;
+=======
+  background: ${Theme.backgroundColorDark};
+`;
+
+const Navigation = styled.nav`
+  font-size: ${Theme.fontSizeL};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   display: flex;
   height: 10vh;
   justify-content: space-between;
@@ -81,8 +97,14 @@ const Navigation = styled.nav`
     margin-left: 1rem;
     color: ${(props) =>
       props.pageOnDisplay == "friends"
+<<<<<<< HEAD
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+=======
+        ? `${Theme.navColorInactive}`
+        : `${Theme.navColorInactive}`};
+        cursor: pointer;
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
   & svg:last-child {
     margin-right: 1rem;
@@ -90,6 +112,10 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "rooms"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
+<<<<<<< HEAD
+=======
+        cursor: pointer;
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;
@@ -112,17 +138,119 @@ const Navigation = styled.nav`
           }
 `;
 
+<<<<<<< HEAD
+=======
+const HomeAndUser = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+`;
+
+const UserNameDisplay = styled.div`
+  font-size: ${Theme.fontSizeL};
+  color: ${Theme.textColorLight};
+  padding-left: 1rem;
+  z-index: 1;
+`;
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+<<<<<<< HEAD
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let userAuth = useContext(AuthContext);
   useEffect(() => {
     socket.emit("requestTop8Rooms");
   }, []);
+=======
+  // fully accepted friends
+  let [userFriends, setUserFriends] = useState([]);
+  // users who have requested client's friendship
+  let [userPendingFriends, setUserPendingFriends] = useState([]);
+  // users who the client has sent friend requests to
+  let [userSentFriendRequests, setUserSentFriendRequests] = useState([]);
+  let [avatar, setAvatar] = useState(false);
+  let [userRooms, setUserRooms] = useState(false);
+  let [displayProfile, setDisplayProfile] = useState(false);
+  let [populatedRooms, setPopulatedRooms] = useState([]);
+  let [newRoomData, setNewRoomData] = useState({});
+  let userAuth = useContext(AuthContext);
+  let user = userAuth;
+  let name, email, photoUrl, uid, emailVerified;
+  name = user.displayName;
+  email = user.email;
+  photoUrl = user.photoURL;
+  emailVerified = user.emailVerified;
+  uid = user.uid;
+  // fetches friends
+
+  useEffect(() => {
+    socket.emit("requestTop8Rooms");
+    socket.emit("requestUserRooms", uid);
+    socket.emit("fetch-friends", { uid });
+    socket.emit("fetch-avatar", { id: uid });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", manualDisconnect);
+    return () => {
+      window.removeEventListener("beforeunload", manualDisconnect);
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.emit("user-status", {
+      name,
+      id: uid,
+      socket: socket.id,
+      room: currentRoom,
+      online: true,
+    });
+  }, [currentRoom]);
+
+  socket.on("userFriends", (userFriends) => {
+    console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
+    const friends = [];
+    const friendsRequested = [];
+    const pendingFriends = [];
+    userFriends.map((friend) => {
+      switch (friend.isFriend) {
+        case "pending":
+          pendingFriends.push(friend);
+          return;
+        case "sent":
+          friendsRequested.push(friend);
+          return;
+        case true:
+          friends.push(friend);
+          return;
+      }
+    });
+    setUserFriends(friends);
+    setUserPendingFriends(pendingFriends);
+    setUserSentFriendRequests(friendsRequested);
+  });
+
+  socket.on("new-avatar", ({ url }) => {
+    setAvatar(url);
+  });
+
+  socket.on("userRooms", (userRooms) => {
+    console.log(userRooms);
+    setUserRooms(userRooms);
+  });
+
+  socket.on("new-friend-request", (friendRequest) => {
+    const newRequests = [...userPendingFriends, friendRequest];
+    setUserPendingFriends(newRequests);
+  });
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
@@ -133,6 +261,7 @@ export default function HomePage({ socket }) {
   } else {
     db = firebase.app().firestore();
   }
+<<<<<<< HEAD
   let user = userAuth;
   let name, email, photoUrl, uid, emailVerified;
   name = user.displayName;
@@ -145,6 +274,16 @@ export default function HomePage({ socket }) {
   const handleJoinRoom = (room) => {
     console.log(`Room sent to backend: ${room}`);
     socket.emit("join", { name, room });
+=======
+
+  const manualDisconnect = () => {
+    socket.disconnect();
+  };
+
+  const handleJoinRoom = (room) => {
+    console.log(`Room sent to backend: ${JSON.stringify(room)}`);
+    socket.emit("join", { user: { displayName: name, id: uid }, room });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
     setCurrentRoom(room);
   };
 
@@ -160,6 +299,13 @@ export default function HomePage({ socket }) {
     setDisplay(newDisplay);
   };
 
+<<<<<<< HEAD
+=======
+  // const handleUserPendingFriendChange = (newUserPendingFriendArray) => {
+  //   setUserPendingFriends(newUserPendingFriendArray);
+  // };
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   const handleDisplayRooms = () => {
     let newDisplay;
     newDisplay = display == "friends" ? "initial" : "rooms";
@@ -182,7 +328,14 @@ export default function HomePage({ socket }) {
   };
 
   const disconnectUser = (room) => {
+<<<<<<< HEAD
     socket.emit("room-disconnect", { room, name });
+=======
+    socket.emit("room-disconnect", {
+      room,
+      user: { displayName: name, id: uid },
+    });
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   };
 
   const closeBackdrop = () => {
@@ -199,24 +352,187 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
+<<<<<<< HEAD
   const handleRoomCreation = (data) => {
     socket.emit("createNewRoom", data);
     closeBackdrop();
   };
 
+=======
+  const declineFriendRequest = (id, requestAuthorID) => {
+    socket.emit("decline-friend-request", { id, requestAuthorID });
+  };
+
+  const acceptFriendRequest = (id, requestAuthorID) => {
+    socket.emit("accept-friend-request", { id, requestAuthorID });
+  };
+
+  socket.on("newRoomID", (roomID) => {
+    const data = {
+      user: { ...newRoomData.user },
+      room: { ...newRoomData.room },
+    };
+    data.room.id = roomID;
+    console.log(data);
+    if (data.room.id && data.room.name && data.user.id && data.user.name)
+      socket.emit("join", data);
+  });
+
+  const handleRoomCreation = (data) => {
+    console.log(data);
+    socket.emit("createNewRoom", data);
+    setNewRoomData({
+      room: { roomName: data.roomName, password: data.password },
+      user: { id: data.creatorUID, name: data.creator },
+    });
+
+    const roomObj = data;
+    const roomString = data.roomName;
+    setCurrentRoom(data.roomName);
+    closeBackdrop();
+  };
+
+  const handleAddFriend = (uid, friendUID, displayName) => {
+    const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
+    const newArray = [...userPendingFriends, newPendingFriend];
+    setUserSentFriendRequests(newArray);
+    socket.emit("add-friend", { uid, friendUID });
+  };
+
+  const handleRemoveFriend = (uid, friendUID, callback = false) => {
+    // whether or not friendUID has been found in any of the friend states
+    let notFound = true;
+
+    // socket event that will fire if friendUID corresponds to a user.
+    const emit = () => socket.emit("remove-friend", { uid, friendUID });
+    // check pendingfriends for requested user
+    const newPendingFriendArray = userPendingFriends.filter((friend) => {
+      if (friend.id == friendUID) {
+        notFound = false;
+        return false;
+      } else return true;
+    });
+
+    if (notFound) {
+      // keep searching sent friends
+      const newRequestedFriendArray = userSentFriendRequests.filter(
+        (friend) => {
+          if (friend.id == friendUID) {
+            notFound = false;
+            return false;
+          } else return true;
+        }
+      );
+
+      if (notFound) {
+        // search accepted friends
+        const newUserFriendArray = userFriends.filter((friend) => {
+          if (friend.id == friendUID) {
+            notFound = false;
+            return false;
+          } else return true;
+        });
+
+        if (notFound) {
+          // error! uid doesn't correspond to any user in friends list
+        } else {
+          setUserFriends(newUserFriendArray);
+          emit();
+        }
+      } else {
+        setUserSentFriendRequests(newRequestedFriendArray);
+        emit();
+      }
+    } else {
+      setUserPendingFriends(newPendingFriendArray);
+      emit();
+    }
+    console.log("removing friend!");
+    if (callback) {
+      callback();
+    }
+  };
+
+  const requestFetchFriends = (uid) => {
+    socket.emit("fetch-friend", { uid });
+  };
+
+  const handleCancelFriendRequest = (authorID, recipientID) => {
+    socket.emit("cancel-friend-request", {
+      authorID,
+      recipientID,
+    });
+  };
+  const handleDisplayProfile = () => {
+    console.log("test");
+    setDisplayProfile(true);
+  };
+
+  const closeProfileHandler = () => {
+    setDisplayProfile(false);
+  };
+
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+
+  const IsCurrentUserProfile = (
+    <CurrentUserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+      profilePicURL={avatar}
+    ></CurrentUserProfile>
+  );
+
+  const OtherUser = (
+    <UserProfile
+      id={uid}
+      socket={socket}
+      profileDisplayState={displayProfile}
+      handleCloseProfile={closeProfileHandler}
+      logoutHandler={firebaseController.logout}
+      user={user}
+    ></UserProfile>
+  );
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <>
       <HomePageGrid>
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
           <FaUserFriends onClick={handleDisplayFriendsTab} />
+<<<<<<< HEAD
           <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+=======
+          <HomeAndUser>
+            <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
+            <UserNameDisplay onClick={handleDisplayProfile}>
+              {user.displayName}
+            </UserNameDisplay>
+            {isCurrentUser ? IsCurrentUserProfile : OtherUser}
+          </HomeAndUser>
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
           pageOnDisplay={display}
+<<<<<<< HEAD
           logoutHandler={firebaseController.logout}
           closeTabHandler={handleCloseFriends}
+=======
+          closeTabHandler={handleCloseFriends}
+          friends={userFriends}
+          pendingFriends={userPendingFriends}
+          sentFriendRequests={userSentFriendRequests}
+          clientID={uid}
+          handleAccept={acceptFriendRequest}
+          handleDecline={declineFriendRequest}
+          handleDeleteFriend={handleRemoveFriend}
+          handleCancelFriendRequest={handleCancelFriendRequest}
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
@@ -234,6 +550,13 @@ export default function HomePage({ socket }) {
             socket={socket}
             showUsers={showUsers}
             setShowUsers={setShowUsers}
+<<<<<<< HEAD
+=======
+            handleAddFriend={handleAddFriend}
+            handleRemoveFriend={handleRemoveFriend}
+            userRooms={userRooms}
+            avatar={avatar}
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           />
         ) : (
           <Join
@@ -243,12 +566,24 @@ export default function HomePage({ socket }) {
           />
         )}
         <RoomsTab
+<<<<<<< HEAD
+=======
+          joinHandler={handleJoinRoom}
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           pageOnDisplay={display}
           closeTabHandler={handleCloseRoomsTab}
           createRoomHandler={handleShowCreateRoomModal}
           closeCreateRoomHandler={closeBackdrop}
+<<<<<<< HEAD
         ></RoomsTab>
       </HomePageGrid>
+=======
+          rooms={userRooms}
+          user={{ id: uid, displayName: name }}
+        ></RoomsTab>
+      </HomePageGrid>
+
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
     </>
   );

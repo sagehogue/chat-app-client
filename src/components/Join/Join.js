@@ -38,7 +38,11 @@ const JoinInnerContainer = styled.div`
 `;
 
 const Heading = styled.h1`
+<<<<<<< HEAD
   color: ${Theme.offWhite};
+=======
+  color: ${Theme.textColorLight};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   justify-self: flex-start;
   font-size: 2.5rem;
   padding-bottom: 10px;
@@ -50,7 +54,11 @@ const Heading = styled.h1`
 `;
 
 const Directive = styled.h3`
+<<<<<<< HEAD
   color: ${Theme.offWhite};
+=======
+  color: ${Theme.textColorLight};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   font-size: 1.75rem;
@@ -76,6 +84,7 @@ const JoinModal = styled.div`
 `;
 
 const SignInButton = styled.button`
+<<<<<<< HEAD
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -86,6 +95,27 @@ const SignInButton = styled.button`
   border: none;
   margin-top: 20px;
   width: 100%;
+=======
+  color: ${Theme.textColorLight} !important;
+  text-transform: uppercase;
+
+  font-size: ${Theme.fontSizeS};
+  text-decoration: none;
+  background-color: rgba(154, 169, 213, 1);
+  padding: 20px;
+  border-radius: ${Theme.borderRadiusBtnL};
+  display: inline-block;
+  border: none;
+  margin-top: 30px;
+  width: 100%;
+  cursor: pointer;
+  transition: ${Theme.transitionSpeed};
+  &:hover {
+    scale: 1.1;
+
+    box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
+  }
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   & :focus {
     outline: 0;
   }
@@ -117,7 +147,11 @@ const Animation = styled.div`
 
 const PublicRoomListHeader = styled.h3`
   margin-top: 15vh;
+<<<<<<< HEAD
   color: ${Theme.offWhite};
+=======
+  color: ${Theme.textColorLight};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 `;
 
 const PublicRoomList = styled.section`
@@ -132,7 +166,11 @@ const ArrowDown = styled(AiOutlineArrowDown)`
 `;
 
 const NoRooms = styled.div`
+<<<<<<< HEAD
   color: ${Theme.offWhite};
+=======
+  color: ${Theme.textColorLight};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   text-align: center;
   margin: 5rem auto 0 auto;
 `;
@@ -143,13 +181,18 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
     if (event.key === "Enter") {
       //   do validation
       if (room) {
+<<<<<<< HEAD
         joinHandler(room.trim());
+=======
+        // joinHandler(room.trim());
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       }
     }
   };
   let PublicRooms = previewedRooms.map((room) => (
     <RoomCard
       roomName={room.roomName}
+<<<<<<< HEAD
       usercount={room.online}
       joinHandler={joinHandler}
     />
@@ -157,6 +200,14 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
   // [
   //   <RoomCard roomName={"The Zone"}  />,
   // ];
+=======
+      id={room.id}
+      usercount={room.online}
+      joinHandler={joinHandler}
+      user={user}
+    />
+  ));
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -170,6 +221,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
             onKeyDown={handleKeyDown}
           />
 
+<<<<<<< HEAD
           <SignInButton
             type="submit"
             onClick={(e) => {
@@ -179,6 +231,19 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
             }}
           >
             Sign In
+=======
+          {/* TEMPORARILY DISABLED - We're using ID now not text names. We'll have to create some kind of search menu here. */}
+          <SignInButton
+          //   type="submit"
+          //   onClick={(e) => {
+          //     if (room) {
+          //       joinHandler(room);
+          //     }
+          //   }
+          // }
+          >
+            Join Room
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           </SignInButton>
         </JoinModal>
         <PublicRoomListHeader>

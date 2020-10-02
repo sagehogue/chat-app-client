@@ -1,7 +1,21 @@
+<<<<<<< HEAD
 import React from "react";
 import styled from "styled-components";
 
 import { FaUsers } from "react-icons/fa";
+=======
+import React, { useState } from "react";
+import styled from "styled-components";
+
+import {
+  FaUsers,
+  FaCog,
+  FaPlus,
+  FaMinus,
+  FaStar,
+  FaRegStar,
+} from "react-icons/fa";
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 import onlineIcon from "../../../icons/onlineIcon.png";
 import closeIcon from "../../../icons/closeIcon.png";
@@ -35,7 +49,11 @@ const LeftInnerContainer = styled.div`
 const CenterInnerContainer = styled.div`
   color: white;
   font-size: 1.25rem;
+<<<<<<< HEAD
   min-width: 20vw;
+=======
+  min-width: 30vw;
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   text-align: center;
   margin-left: auto;
 `;
@@ -52,6 +70,7 @@ const OnlineIcon = styled.img`
   margin-right: 5%;
 `;
 
+<<<<<<< HEAD
 const InfoBar = ({ room, closeChatHandler, userCount, showUserList }) => (
   <InfoBarStyle>
     <LeftInnerContainer onClick={showUserList}>
@@ -67,5 +86,104 @@ const InfoBar = ({ room, closeChatHandler, userCount, showUserList }) => (
     </RightInnerContainer>
   </InfoBarStyle>
 );
+=======
+const CenterRightContainer = styled.div`
+  margin: 0 0 0 auto;
+  font-size: 1.75rem;
+  position: relative;
+`;
+const OptionsMenu = styled.div`
+  transition: all 0.3s;
+  width: 12rem;
+  opacity: ${({ visible }) => (visible ? "1" : "0")};
+  z-index: ${({ visible }) => (visible ? "100" : "-1")};
+  padding: 0.75rem;
+  position: absolute;
+  top: 2rem;
+  left: -4.5rem;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  vertical-align: center;
+`;
+
+const Option = styled.div`
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
+const Text = styled.span`
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: inline-block;
+  width: 80%;
+  text-align: end;
+`;
+
+// Needs access to user saved rooms, current room, favoriterooms
+// Also needs a way to be closed on mobile
+
+const InfoBar = ({
+  room,
+  closeChatHandler,
+  userCount,
+  showUserList,
+  userRooms,
+  isUserSavedRoom = false,
+  isFavoriteRoom,
+}) => {
+  const [optionMenuHovered, setOptionMenuHovered] = useState(false);
+
+  const handleSetMenuToVisible = () => {
+    setOptionMenuHovered(true);
+  };
+  const handleSetMenuToInvisible = () => {
+    setOptionMenuHovered(false);
+  };
+
+  return (
+    <InfoBarStyle>
+      <LeftInnerContainer onClick={showUserList}>
+        <FaUsers />
+        <OnlineIcon src={onlineIcon} alt="online icon" />
+        {userCount} online
+      </LeftInnerContainer>
+      <CenterInnerContainer> {room}</CenterInnerContainer>
+      <CenterRightContainer
+        onMouseEnter={handleSetMenuToVisible}
+        onClick={handleSetMenuToVisible}
+        onMouseLeave={handleSetMenuToInvisible}
+      >
+        <FaCog />
+        <OptionsMenu visible={optionMenuHovered}>
+          <Option>
+            {isUserSavedRoom ? <FaMinus /> : <FaPlus />}
+            <Text>
+              {isUserSavedRoom ? "Removed from saved" : "Add to saved rooms"}
+            </Text>
+          </Option>
+          <Option>
+            {isFavoriteRoom ? <FaRegStar /> : <FaStar />}
+            <Text>
+              {isFavoriteRoom
+                ? "Removed from favorites"
+                : "Add to favorite rooms"}
+            </Text>
+          </Option>
+        </OptionsMenu>
+      </CenterRightContainer>
+      <RightInnerContainer>
+        <div onClick={(e) => closeChatHandler()}>
+          <img src={closeIcon} alt="close icon" />
+        </div>
+      </RightInnerContainer>
+    </InfoBarStyle>
+  );
+};
+>>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 export default InfoBar;
