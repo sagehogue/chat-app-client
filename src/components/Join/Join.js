@@ -166,11 +166,7 @@ const ArrowDown = styled(AiOutlineArrowDown)`
 `;
 
 const NoRooms = styled.div`
-<<<<<<< HEAD
-  color: ${Theme.offWhite};
-=======
   color: ${Theme.textColorLight};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   text-align: center;
   margin: 5rem auto 0 auto;
 `;
@@ -181,33 +177,19 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
     if (event.key === "Enter") {
       //   do validation
       if (room) {
-<<<<<<< HEAD
-        joinHandler(room.trim());
-=======
         // joinHandler(room.trim());
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       }
     }
   };
   let PublicRooms = previewedRooms.map((room) => (
     <RoomCard
       roomName={room.roomName}
-<<<<<<< HEAD
-      usercount={room.online}
-      joinHandler={joinHandler}
-    />
-  ));
-  // [
-  //   <RoomCard roomName={"The Zone"}  />,
-  // ];
-=======
       id={room.id}
       usercount={room.online}
       joinHandler={joinHandler}
       user={user}
     />
   ));
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
@@ -221,17 +203,6 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
             onKeyDown={handleKeyDown}
           />
 
-<<<<<<< HEAD
-          <SignInButton
-            type="submit"
-            onClick={(e) => {
-              if (room) {
-                joinHandler(room);
-              }
-            }}
-          >
-            Sign In
-=======
           {/* TEMPORARILY DISABLED - We're using ID now not text names. We'll have to create some kind of search menu here. */}
           <SignInButton
           //   type="submit"
@@ -243,7 +214,6 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
           // }
           >
             Join Room
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           </SignInButton>
         </JoinModal>
         <PublicRoomListHeader>

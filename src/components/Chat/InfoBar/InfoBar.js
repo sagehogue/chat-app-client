@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import styled from "styled-components";
-
-import { FaUsers } from "react-icons/fa";
-=======
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -15,7 +9,6 @@ import {
   FaStar,
   FaRegStar,
 } from "react-icons/fa";
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 import onlineIcon from "../../../icons/onlineIcon.png";
 import closeIcon from "../../../icons/closeIcon.png";
@@ -49,11 +42,7 @@ const LeftInnerContainer = styled.div`
 const CenterInnerContainer = styled.div`
   color: white;
   font-size: 1.25rem;
-<<<<<<< HEAD
-  min-width: 20vw;
-=======
   min-width: 30vw;
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   text-align: center;
   margin-left: auto;
 `;
@@ -70,23 +59,6 @@ const OnlineIcon = styled.img`
   margin-right: 5%;
 `;
 
-<<<<<<< HEAD
-const InfoBar = ({ room, closeChatHandler, userCount, showUserList }) => (
-  <InfoBarStyle>
-    <LeftInnerContainer onClick={showUserList}>
-      <FaUsers />
-      <OnlineIcon src={onlineIcon} alt="online icon" />
-      {userCount} online
-    </LeftInnerContainer>
-    <CenterInnerContainer> {room}</CenterInnerContainer>
-    <RightInnerContainer>
-      <div onClick={(e) => closeChatHandler()}>
-        <img src={closeIcon} alt="close icon" />
-      </div>
-    </RightInnerContainer>
-  </InfoBarStyle>
-);
-=======
 const CenterRightContainer = styled.div`
   margin: 0 0 0 auto;
   font-size: 1.75rem;
@@ -184,6 +156,5 @@ const InfoBar = ({
     </InfoBarStyle>
   );
 };
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 export default InfoBar;

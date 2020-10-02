@@ -35,9 +35,6 @@ const OnlineUsersList = styled.div`
   margin: 1rem 2rem;
 `;
 
-<<<<<<< HEAD
-const UserList = ({ users, location }) => {
-=======
 // users is users in current room, location is room name, friends is any friends the user might have,
 // userID is the ID of the actual user in session
 const UserList = ({
@@ -50,17 +47,10 @@ const UserList = ({
   addFavoriteHandler,
   removeFavoriteHandler,
 }) => {
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   console.log(users);
   let onlineUsers;
   // creates list of userbars from users prop
   if (users) {
-<<<<<<< HEAD
-    onlineUsers = users.map((user) => {
-      let profilePic = user.avatar || "default";
-      return <UserBar avatar={profilePic} username={user.displayName} />;
-    });
-=======
     let isFriend = false;
     if (friends) {
       onlineUsers = users.map((user) => {
@@ -123,7 +113,6 @@ const UserList = ({
         }
       });
     }
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
   return (
     <DisplayBox>

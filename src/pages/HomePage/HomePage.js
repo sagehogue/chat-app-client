@@ -15,11 +15,8 @@ import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
-<<<<<<< HEAD
-=======
 import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
 import UserProfile from "../../components/Profile/UserProfile.jsx";
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 import { AuthContext } from "../../App";
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
@@ -38,29 +35,6 @@ import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 // Chat app looks a little stretched out on desktop, adjust for better
 // center focus
 
-<<<<<<< HEAD
-/* Description of implementation of this component:
-
-3 states
-1.) display no side bars, only main conversation
-2.) show left sidebar
-3.) show right sidebar
-
-We should seek to adjust the whitespace around the main component so it never shifts the content. I'm thinking a system like this will work:
-<main>
-  <leftsidebar />
-    <content-wrapper>
-      <chat />
-    </content-wrapper>
-  <rightsidebar />
-</main>
-
-the main will be a grid. the main will have state that controls the display, and the grid css will correspond to the state to render the screen how we want.
-i.e. in state 1 content-wrapper will span the whole grid, in state 2 it'll span the right 3/4 of the screen, in state 3 it'll span the left 3/4 of the screen.
-*/
-
-=======
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 const HomePageGrid = styled.main`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -68,19 +42,11 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-<<<<<<< HEAD
-  background: #016789;
-`;
-
-const Navigation = styled.nav`
-  font-size: 2rem;
-=======
   background: ${Theme.backgroundColorDark};
 `;
 
 const Navigation = styled.nav`
   font-size: ${Theme.fontSizeL};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   display: flex;
   height: 10vh;
   justify-content: space-between;
@@ -97,14 +63,9 @@ const Navigation = styled.nav`
     margin-left: 1rem;
     color: ${(props) =>
       props.pageOnDisplay == "friends"
-<<<<<<< HEAD
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
-=======
         ? `${Theme.navColorInactive}`
         : `${Theme.navColorInactive}`};
         cursor: pointer;
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
   & svg:last-child {
     margin-right: 1rem;
@@ -138,8 +99,6 @@ const Navigation = styled.nav`
           }
 `;
 
-<<<<<<< HEAD
-=======
 const HomeAndUser = styled.div`
   display: flex;
   justify-content: center;
@@ -154,20 +113,12 @@ const UserNameDisplay = styled.div`
   z-index: 1;
 `;
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 export default function HomePage({ socket }) {
   let [display, setDisplay] = useState("initial");
   let [currentRoom, setCurrentRoom] = useState(false);
   let [showBackdrop, setShowBackdrop] = useState(false);
   let [showUsers, setShowUsers] = useState(false);
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
-<<<<<<< HEAD
-  let [populatedRooms, setPopulatedRooms] = useState([]);
-  let userAuth = useContext(AuthContext);
-  useEffect(() => {
-    socket.emit("requestTop8Rooms");
-  }, []);
-=======
   // fully accepted friends
   let [userFriends, setUserFriends] = useState([]);
   // users who have requested client's friendship
@@ -250,7 +201,6 @@ export default function HomePage({ socket }) {
     setUserPendingFriends(newRequests);
   });
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
   let firebaseDoesNotExist, db;
   // Check if firebase instance exists
@@ -261,20 +211,6 @@ export default function HomePage({ socket }) {
   } else {
     db = firebase.app().firestore();
   }
-<<<<<<< HEAD
-  let user = userAuth;
-  let name, email, photoUrl, uid, emailVerified;
-  name = user.displayName;
-  email = user.email;
-  photoUrl = user.photoURL;
-  emailVerified = user.emailVerified;
-  uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, use User.getToken()
-  // instead.
-  const handleJoinRoom = (room) => {
-    console.log(`Room sent to backend: ${room}`);
-    socket.emit("join", { name, room });
-=======
 
   const manualDisconnect = () => {
     socket.disconnect();
@@ -283,7 +219,6 @@ export default function HomePage({ socket }) {
   const handleJoinRoom = (room) => {
     console.log(`Room sent to backend: ${JSON.stringify(room)}`);
     socket.emit("join", { user: { displayName: name, id: uid }, room });
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
     setCurrentRoom(room);
   };
 
@@ -299,13 +234,10 @@ export default function HomePage({ socket }) {
     setDisplay(newDisplay);
   };
 
-<<<<<<< HEAD
-=======
   // const handleUserPendingFriendChange = (newUserPendingFriendArray) => {
   //   setUserPendingFriends(newUserPendingFriendArray);
   // };
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   const handleDisplayRooms = () => {
     let newDisplay;
     newDisplay = display == "friends" ? "initial" : "rooms";
@@ -328,14 +260,10 @@ export default function HomePage({ socket }) {
   };
 
   const disconnectUser = (room) => {
-<<<<<<< HEAD
-    socket.emit("room-disconnect", { room, name });
-=======
     socket.emit("room-disconnect", {
       room,
       user: { displayName: name, id: uid },
     });
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   };
 
   const closeBackdrop = () => {
@@ -352,13 +280,6 @@ export default function HomePage({ socket }) {
     setShowBackdrop(true);
   };
 
-<<<<<<< HEAD
-  const handleRoomCreation = (data) => {
-    socket.emit("createNewRoom", data);
-    closeBackdrop();
-  };
-
-=======
   const declineFriendRequest = (id, requestAuthorID) => {
     socket.emit("decline-friend-request", { id, requestAuthorID });
   };
@@ -497,16 +418,12 @@ export default function HomePage({ socket }) {
     ></UserProfile>
   );
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <>
       <HomePageGrid>
         <GlobalStyle />
         <Navigation pageOnDisplay={display}>
           <FaUserFriends onClick={handleDisplayFriendsTab} />
-<<<<<<< HEAD
-          <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
-=======
           <HomeAndUser>
             <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
             <UserNameDisplay onClick={handleDisplayProfile}>
@@ -514,15 +431,10 @@ export default function HomePage({ socket }) {
             </UserNameDisplay>
             {isCurrentUser ? IsCurrentUserProfile : OtherUser}
           </HomeAndUser>
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
           pageOnDisplay={display}
-<<<<<<< HEAD
-          logoutHandler={firebaseController.logout}
-          closeTabHandler={handleCloseFriends}
-=======
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
           pendingFriends={userPendingFriends}
@@ -532,7 +444,6 @@ export default function HomePage({ socket }) {
           handleDecline={declineFriendRequest}
           handleDeleteFriend={handleRemoveFriend}
           handleCancelFriendRequest={handleCancelFriendRequest}
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
@@ -550,13 +461,10 @@ export default function HomePage({ socket }) {
             socket={socket}
             showUsers={showUsers}
             setShowUsers={setShowUsers}
-<<<<<<< HEAD
-=======
             handleAddFriend={handleAddFriend}
             handleRemoveFriend={handleRemoveFriend}
             userRooms={userRooms}
             avatar={avatar}
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           />
         ) : (
           <Join
@@ -566,24 +474,16 @@ export default function HomePage({ socket }) {
           />
         )}
         <RoomsTab
-<<<<<<< HEAD
-=======
           joinHandler={handleJoinRoom}
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
           pageOnDisplay={display}
           closeTabHandler={handleCloseRoomsTab}
           createRoomHandler={handleShowCreateRoomModal}
           closeCreateRoomHandler={closeBackdrop}
-<<<<<<< HEAD
-        ></RoomsTab>
-      </HomePageGrid>
-=======
           rooms={userRooms}
           user={{ id: uid, displayName: name }}
         ></RoomsTab>
       </HomePageGrid>
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
       <Backdrop closeBackdrop={closeBackdrop} visible={showBackdrop} />
     </>
   );

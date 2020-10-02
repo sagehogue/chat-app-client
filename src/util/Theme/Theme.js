@@ -18,8 +18,6 @@ export default {
     backdrop: "20",
     modal: "25",
   },
-<<<<<<< HEAD
-=======
   backgroundColorDark: "#2b3a67;",
   backgroundColorLight: "#9aa9d5;",
   backgroundColorDarkGray: "#333",
@@ -37,5 +35,4 @@ export default {
   borderRadius: "1rem",
   borderRadiusL: "15%",
   transitionSpeed: ".3s",
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 };

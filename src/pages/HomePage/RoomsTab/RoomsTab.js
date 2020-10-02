@@ -7,10 +7,7 @@ import Theme from "../../../util/Theme/Theme";
 import Toolbox from "./Toolbox/Toolbox";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
-<<<<<<< HEAD
-=======
 import RoomCard from "../../../components/UI/RoomCard/RoomCard";
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 
 /* TODOS:
 * Mobile view looks kind of shit, need to make the search bar look nice and scale up the
@@ -27,11 +24,7 @@ const RoomsTabStyle = styled.section`
   overflow: hidden;
   height: 100%;
   width: 100%;
-<<<<<<< HEAD
-  background-color: ${Theme.white};
-=======
   background-color: ${Theme.backgroundColorLight};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -76,11 +69,6 @@ const RoomsTabStyle = styled.section`
     padding: 2rem;
   }
 `;
-<<<<<<< HEAD
-
-const CloseButton = styled.button`
-  align-self: flex-start;
-=======
 const CloseButton = styled.button`
   align-self: flex-start;
   padding: 1px;
@@ -102,7 +90,6 @@ const CloseButton = styled.button`
     opacity: 0.8;
     transform: translateY(1px);
   }
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 `;
 
 const RoomsList = styled.div`
@@ -118,19 +105,11 @@ const Rooms = styled.div`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-<<<<<<< HEAD
-  border-radius: 15%;
-`;
-
-const Room = styled.li`
-  border-radius: 15%;
-=======
   border-radius: ${Theme.borderRadiusL};
 `;
 
 const Room = styled.li`
   border-radius: ${Theme.borderRadiusL};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   margin: 0.5rem auto;
   background-image: ${(props) => (props.roomPic ? props.roomPic : "none")};
 `;
@@ -141,27 +120,16 @@ const FavoriteRooms = styled.ul`
   margin: 0 auto;
   min-height: 1rem;
   text-align: center;
-<<<<<<< HEAD
-  border-radius: 15%;
-=======
   border-radius: ${Theme.borderRadiusL};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 `;
 
 const NoFavorites = styled.div`
   margin-top: 1rem;
-<<<<<<< HEAD
-  border-radius: 15%;
-  font-size: 0.75rem;
-`;
-
-=======
   border-radius: ${Theme.borderRadiusL};
   font-size: 0.75rem;
 `;
 
 //restyle
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 const GrayBG = styled.div`
   background-color: rgba(211, 211, 211, 0.35);
 `;
@@ -196,26 +164,13 @@ export default function RoomsTab({
   rooms = null,
   closeTabHandler,
   createRoomHandler,
-<<<<<<< HEAD
-=======
   joinHandler,
   user,
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
 }) {
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons;
   if (favoriteRooms) {
     favRoomButtons = favoriteRooms.map((room) => (
-<<<<<<< HEAD
-      <Room roomPic={room.pic}>{room.name}</Room>
-    ));
-  }
-  if (rooms) {
-    roomButtons = favoriteRooms.map((room) => (
-      <Room roomPic={room.pic}>{room.name}</Room>
-    ));
-  }
-=======
       <RoomCard
         roomPic={room.pic}
         roomName={room.roomName}
@@ -237,7 +192,6 @@ export default function RoomsTab({
     ));
   }
 
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
       <CloseButton onClick={closeTabHandler}>
