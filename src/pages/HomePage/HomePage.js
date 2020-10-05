@@ -13,6 +13,7 @@ import FriendsTab from "./FriendsTab/FriendsTab";
 import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
+import UserSearch from "../../components/UI/SearchBar/UserSearchBar/UserSearchBar";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
 import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
@@ -26,7 +27,7 @@ import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
 
 //      **********TODOS***********
 //
-// Create roomDisconnect event to fire when user clicks X on chat window, thus leaving the chat.
+// Create addUserList
 
 //          *****STYLING*****
 // Fix following issue: When page is loaded directly from url bar and not from login page, it redirects to login even if immediately authenticated.
@@ -111,20 +112,28 @@ const UserNameDisplay = styled.div`
 `;
 
 export default function HomePage({ socket }) {
+  // "initial", "rooms", "friends", "none" which side tabs are active, initial is both
   let [display, setDisplay] = useState("initial");
+  // whether to display the user profile
+  let [displayProfile, setDisplayProfile] = useState(false);
+  // whether to display user search component
+  let [displayUserSearch, setDisplayUserSearch] = useState(false);
+  // current room the user has joined, default is false
+
   let [currentRoom, setCurrentRoom] = useState(false);
+  // whether or not backdrop is enabled
   let [showBackdrop, setShowBackdrop] = useState(false);
-  let [showUsers, setShowUsers] = useState(false);
-  let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   // fully accepted friends
   let [userFriends, setUserFriends] = useState([]);
   // users who have requested client's friendship
   let [userPendingFriends, setUserPendingFriends] = useState([]);
   // users who the client has sent friend requests to
   let [userSentFriendRequests, setUserSentFriendRequests] = useState([]);
+  let [showUsers, setShowUsers] = useState(false);
+  let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
+  let [isCurrentUser, setIsCurrentUser] = useState(true);
   let [avatar, setAvatar] = useState(false);
   let [userRooms, setUserRooms] = useState(false);
-  let [displayProfile, setDisplayProfile] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
   let userAuth = useContext(AuthContext);
@@ -136,6 +145,8 @@ export default function HomePage({ socket }) {
   emailVerified = user.emailVerified;
   uid = user.uid;
   // fetches friends
+
+  // SIDE EFFECTS
 
   useEffect(() => {
     socket.emit("requestTop8Rooms");
@@ -160,6 +171,8 @@ export default function HomePage({ socket }) {
       online: true,
     });
   }, [currentRoom]);
+
+  // SOCKET EVENT LISTENERS
 
   socket.on("userFriends", (userFriends) => {
     console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
@@ -199,91 +212,6 @@ export default function HomePage({ socket }) {
   });
 
   socket.on("top8Rooms", (topRooms) => setPopulatedRooms(topRooms));
-  let firebaseDoesNotExist, db;
-  // Check if firebase instance exists
-  firebaseDoesNotExist = !firebase.apps.length;
-  if (firebaseDoesNotExist) {
-    // Initialize Firebase
-    db = firebase.initializeApp(firebaseConfig).firestore();
-  } else {
-    db = firebase.app().firestore();
-  }
-
-  const manualDisconnect = () => {
-    socket.disconnect();
-  };
-
-  const handleJoinRoom = (room) => {
-    console.log(`Room sent to backend: ${JSON.stringify(room)}`);
-    socket.emit("join", { user: { displayName: name, id: uid }, room });
-    setCurrentRoom(room);
-  };
-
-  const handleDisplayFriendsTab = () => {
-    let newDisplay;
-    newDisplay = display == "rooms" ? "initial" : "friends";
-    setDisplay(newDisplay);
-  };
-
-  const handleCloseFriends = () => {
-    let newDisplay;
-    newDisplay = display == "initial" ? "rooms" : false;
-    setDisplay(newDisplay);
-  };
-
-  // const handleUserPendingFriendChange = (newUserPendingFriendArray) => {
-  //   setUserPendingFriends(newUserPendingFriendArray);
-  // };
-
-  const handleDisplayRooms = () => {
-    let newDisplay;
-    newDisplay = display == "friends" ? "initial" : "rooms";
-    setDisplay(newDisplay);
-  };
-
-  const handleCloseRoomsTab = () => {
-    let newDisplay;
-    newDisplay = display == "initial" ? "friends" : false;
-    setDisplay(newDisplay);
-  };
-
-  const handleRevertDefault = () => {
-    setDisplay(false);
-  };
-
-  const clearChat = (room) => {
-    setCurrentRoom(false);
-    disconnectUser(room);
-  };
-
-  const disconnectUser = (room) => {
-    socket.emit("room-disconnect", {
-      room,
-      user: { displayName: name, id: uid },
-    });
-  };
-
-  const closeBackdrop = () => {
-    setShowBackdrop(false);
-    setShowCreateRoomModal(false);
-    setShowUsers(false);
-  };
-  const openBackdrop = () => {
-    setShowBackdrop(true);
-  };
-
-  const handleShowCreateRoomModal = () => {
-    setShowCreateRoomModal(true);
-    setShowBackdrop(true);
-  };
-
-  const declineFriendRequest = (id, requestAuthorID) => {
-    socket.emit("decline-friend-request", { id, requestAuthorID });
-  };
-
-  const acceptFriendRequest = (id, requestAuthorID) => {
-    socket.emit("accept-friend-request", { id, requestAuthorID });
-  };
 
   socket.on("newRoomID", (roomID) => {
     const data = {
@@ -295,6 +223,23 @@ export default function HomePage({ socket }) {
     if (data.room.id && data.room.name && data.user.id && data.user.name)
       socket.emit("join", data);
   });
+
+  // SOCKET EVENT EMITTERS
+
+  const disconnectUser = (room) => {
+    socket.emit("room-disconnect", {
+      room,
+      user: { displayName: name, id: uid },
+    });
+  };
+
+  const declineFriendRequest = (id, requestAuthorID) => {
+    socket.emit("decline-friend-request", { id, requestAuthorID });
+  };
+
+  const acceptFriendRequest = (id, requestAuthorID) => {
+    socket.emit("accept-friend-request", { id, requestAuthorID });
+  };
 
   const handleRoomCreation = (data) => {
     console.log(data);
@@ -395,6 +340,74 @@ export default function HomePage({ socket }) {
       recipientID,
     });
   };
+
+  // FUNCTIONS
+
+  const setStateTrue = (state) => {
+    state(true);
+  };
+
+  const setStateFalse = (state) => {
+    state(false);
+  };
+  const manualDisconnect = () => {
+    socket.disconnect();
+  };
+
+  const handleJoinRoom = (room) => {
+    console.log(`Room sent to backend: ${JSON.stringify(room)}`);
+    socket.emit("join", { user: { displayName: name, id: uid }, room });
+    setCurrentRoom(room);
+  };
+
+  const handleDisplayFriendsTab = () => {
+    let newDisplay;
+    newDisplay = display == "rooms" ? "initial" : "friends";
+    setDisplay(newDisplay);
+  };
+
+  const handleCloseFriends = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "rooms" : false;
+    setDisplay(newDisplay);
+  };
+
+  const handleDisplayRooms = () => {
+    let newDisplay;
+    newDisplay = display == "friends" ? "initial" : "rooms";
+    setDisplay(newDisplay);
+  };
+
+  const handleCloseRoomsTab = () => {
+    let newDisplay;
+    newDisplay = display == "initial" ? "friends" : false;
+    setDisplay(newDisplay);
+  };
+
+  const handleRevertDefault = () => {
+    setDisplay(false);
+  };
+
+  const clearChat = (room) => {
+    setCurrentRoom(false);
+    disconnectUser(room);
+  };
+
+  const closeBackdrop = () => {
+    setShowBackdrop(false);
+    setShowCreateRoomModal(false);
+    setShowUsers(false);
+    setDisplayUserSearch(false);
+  };
+  const openBackdrop = () => {
+    setShowBackdrop(true);
+  };
+
+  const handleShowCreateRoomModal = () => {
+    setShowCreateRoomModal(true);
+    setShowBackdrop(true);
+  };
+
   const handleDisplayProfile = () => {
     console.log("test");
     setDisplayProfile(true);
@@ -404,7 +417,15 @@ export default function HomePage({ socket }) {
     setDisplayProfile(false);
   };
 
-  const [isCurrentUser, setIsCurrentUser] = useState(true);
+  let firebaseDoesNotExist, db;
+  // Check if firebase instance exists
+  firebaseDoesNotExist = !firebase.apps.length;
+  if (firebaseDoesNotExist) {
+    // Initialize Firebase
+    db = firebase.initializeApp(firebaseConfig).firestore();
+  } else {
+    db = firebase.app().firestore();
+  }
 
   const IsCurrentUserProfile = (
     <CurrentUserProfile
@@ -455,6 +476,10 @@ export default function HomePage({ socket }) {
           handleDecline={declineFriendRequest}
           handleDeleteFriend={handleRemoveFriend}
           handleCancelFriendRequest={handleCancelFriendRequest}
+          openUserSearchHandler={() => {
+            openBackdrop();
+            setStateTrue(setDisplayUserSearch);
+          }}
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
@@ -462,7 +487,14 @@ export default function HomePage({ socket }) {
           submitHandler={handleRoomCreation}
           user={user}
         />
-
+        <UserSearch
+          visible={displayUserSearch}
+          closeHandler={() => {
+            closeBackdrop();
+            setStateFalse(setDisplayUserSearch);
+          }}
+        />
+        ;
         {currentRoom ? (
           <Chat
             user={user}
