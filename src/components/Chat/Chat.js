@@ -71,6 +71,8 @@ const Chat = ({
   handleAddFriend,
   handleRemoveFriend,
   userRooms,
+  handleAddSavedRoom,
+  handleRmvSavedRoom,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -195,13 +197,17 @@ const Chat = ({
     <OuterContainer>
       <Container showUsers={showUsers}>
         <InfoBar
+          user={user}
           room={currentRoom.roomName}
+          roomID={currentRoom.id}
           userCount={onlineUserCount}
           showUserList={showUserDisplay}
           closeChatHandler={() => closeChatHandler(currentRoom)}
           userRooms={userRooms}
           isUserSavedRoom={isSavedRoom}
           isUserFavoriteRoom={isFavoriteRoom}
+          handleAddSavedRoom={handleAddSavedRoom}
+          handleRmvSavedRoom={handleRmvSavedRoom}
         />
         <Messages messages={messages} name={username} avatar={avatar} />
         <Input

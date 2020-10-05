@@ -42,7 +42,7 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-  background: ${Theme.backgroundColorDark};
+  background: ${Theme.backgroundColorLight};
 `;
 
 const Navigation = styled.nav`
@@ -53,7 +53,7 @@ const Navigation = styled.nav`
   grid-row: ${Theme.layout.gridRowNav};
   width: 100%;
   grid-column: ${Theme.layout.gridColNav};
-  z-index: 1;
+  z-index: ${Theme.zIndex.nav};
   padding-top: 1rem;
   color: rgba(255, 255, 255, 0.9);
   & svg {
@@ -73,10 +73,7 @@ const Navigation = styled.nav`
       props.pageOnDisplay == "rooms"
         ? `${Theme.navColorActive}`
         : `${Theme.navColorInactive}`};
-<<<<<<< HEAD
-=======
         cursor: pointer;
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   }
       @media screen and (min-width: 1200px) {
         font-size: 2.25rem;
@@ -108,7 +105,7 @@ const HomeAndUser = styled.div`
 
 const UserNameDisplay = styled.div`
   font-size: ${Theme.fontSizeL};
-  color: ${Theme.textColorLight};
+  color: ${Theme.textColorDark};
   padding-left: 1rem;
   z-index: 1;
 `;
@@ -313,6 +310,20 @@ export default function HomePage({ socket }) {
     closeBackdrop();
   };
 
+  //save room
+
+  const handleAddSavedRoom = (id, roomID) => {
+    console.log("saved");
+    socket.emit("add-saved-room", { id, roomID });
+  };
+
+  //remove saved room
+
+  const handleRmvSavedRoom = (id, roomID) => {
+    console.log("removed " + id + " " + roomID);
+    socket.emit("rmv-saved-room", { id, roomID });
+  };
+
   const handleAddFriend = (uid, friendUID, displayName) => {
     const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
     const newArray = [...userPendingFriends, newPendingFriend];
@@ -465,6 +476,8 @@ export default function HomePage({ socket }) {
             handleRemoveFriend={handleRemoveFriend}
             userRooms={userRooms}
             avatar={avatar.url}
+            handleAddSavedRoom={handleAddSavedRoom}
+            handleRmvSavedRoom={handleRmvSavedRoom}
           />
         ) : (
           <Join

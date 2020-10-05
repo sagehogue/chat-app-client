@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Theme from "../../../util/Theme/Theme.js";
 
 import {
   FaUsers,
@@ -73,10 +74,12 @@ const OptionsMenu = styled.div`
   position: absolute;
   top: 2rem;
   left: -4.5rem;
-  background-color: red;
+  background-color: ${Theme.backgroundColorDarkGray};
+  border-radius: ${Theme.borderRadiusBtn};
   display: flex;
   flex-direction: column;
   vertical-align: center;
+  color: ${Theme.textColorLight};
 `;
 
 const Option = styled.div`
@@ -86,6 +89,9 @@ const Option = styled.div`
   justify-content: space-between;
   &:last-of-type {
     margin-bottom: 0;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 const Text = styled.span`
@@ -101,12 +107,16 @@ const Text = styled.span`
 
 const InfoBar = ({
   room,
+  roomID,
+  user,
   closeChatHandler,
   userCount,
   showUserList,
   userRooms,
   isUserSavedRoom = false,
   isFavoriteRoom,
+  handleAddSavedRoom,
+  handleRmvSavedRoom,
 }) => {
   const [optionMenuHovered, setOptionMenuHovered] = useState(false);
 
@@ -133,7 +143,21 @@ const InfoBar = ({
         <FaCog />
         <OptionsMenu visible={optionMenuHovered}>
           <Option>
-            {isUserSavedRoom ? <FaMinus /> : <FaPlus />}
+            {/* add on click to faminus and faplus to initiate saved room */}
+
+            {isUserSavedRoom ? (
+              <FaMinus
+                onClick={() => {
+                  handleRmvSavedRoom(user.uid, roomID);
+                }}
+              />
+            ) : (
+              <FaPlus
+                onClick={() => {
+                  handleAddSavedRoom(user.uid, roomID);
+                }}
+              />
+            )}
             <Text>
               {isUserSavedRoom ? "Removed from saved" : "Add to saved rooms"}
             </Text>

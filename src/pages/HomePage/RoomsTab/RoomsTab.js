@@ -24,7 +24,7 @@ const RoomsTabStyle = styled.section`
   overflow: hidden;
   height: 100%;
   width: 100%;
-  background-color: ${Theme.backgroundColorLight};
+  background-color: ${Theme.backgroundColorDark};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -32,7 +32,7 @@ const RoomsTabStyle = styled.section`
         ? `0`
         : `5rem`}
   );
-  z-index: 2;
+  z-index: ${Theme.zIndex.tabs};
   @media screen and (min-width: 400px) {
     transform: translateX(
       ${(props) =>
@@ -126,18 +126,22 @@ const FavoriteRooms = styled.ul`
 const NoFavorites = styled.div`
   margin-top: 1rem;
   border-radius: ${Theme.borderRadiusL};
-  font-size: 0.75rem;
+  font-size: 1rem;
+  color: ${Theme.textColorLight};
 `;
 
 //restyle
 const GrayBG = styled.div`
   background-color: rgba(211, 211, 211, 0.35);
+  border-radius: ${Theme.borderRadiusBtnL};
+  padding: 0.25rem;
 `;
 const Label = styled.label`
   display: block;
   font-size: 0.95rem;
   width: inherit;
   margin: 0 auto;
+  color: ${Theme.textColorLight};
 `;
 
 const Stylishhr = styled.hr`
@@ -150,8 +154,13 @@ const AddRoomButton = styled(FaPlusCircle)`
   font-size: 1.6rem;
   width: 12.5%;
   text-align: center;
-  color: lightseagreen;
+  color: ${Theme.textColorLight};
   margin: auto auto auto 0;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    scale: 1.075;
+  }
 `;
 
 const SearchAndNewRoom = styled.div`

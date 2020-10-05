@@ -28,6 +28,7 @@ const ProfileContainer = styled.div`
   cursor: default;
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
+  z-index: 5;
 `;
 
 const ProfilePicContainer = styled.div`
@@ -213,7 +214,6 @@ export default function UserProfile({
   id,
   profilePicURL = false,
   // handleOnlineStatus
-
   // handleProfilePic
 }) {
   const [displaySettings, setDisplaySettings] = useState(false); // Responsible for whether or not settings are shown
@@ -271,6 +271,9 @@ export default function UserProfile({
         settingsActive={displaySettings}
         handleRevertToProfile={handleRevertToProfile}
         logoutHandler={firebaseController.logout}
+        socket={socket}
+        id={id}
+        profilePicURL={profilePicURL}
       ></Settings>
 
       {profilePic ? (

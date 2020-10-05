@@ -27,7 +27,7 @@ const FriendsTabStyle = styled.section`
   width: 100%;
   height: 100%;
 
-  background-color: ${Theme.backgroundColorLight};
+  background-color: ${Theme.backgroundColorDark};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -35,7 +35,7 @@ const FriendsTabStyle = styled.section`
         ? `0`
         : `-5rem`}
   );
-  z-index: 2;
+  z-index: ${Theme.zIndex.tabs};
 
   @media screen and (min-width: 400px) {
     transform: translateX(
@@ -75,11 +75,10 @@ const FriendsTabStyle = styled.section`
 `;
 
 const CloseButton = styled.button`
-  align-self: flex-end;
   padding: 1px;
   transform: translateY(-5px);
   position: absolute;
-  align-self: flex-start;
+  align-self: flex-end;
   z-index: 2;
   background-color: transparent;
   opacity: 0.7;

@@ -4,12 +4,15 @@ import styled from "styled-components";
 
 const DrawerFrame = styled.div`
   transition: all 0.5s;
-  background-color: #c78989;
+  background-color: rgba(211, 211, 211, 0.35);
+  // original background-color: #c78989;
   max-height: ${(props) => (props.isOpen ? "40vh" : "2.5rem")};
   overflow: hidden;
+  cursor: pointer;
   padding: 0 0.75rem 0.75rem 0.75rem;
   &:nth-child(odd) {
-    background-color: #edcece;
+    background-color: rgba(211, 211, 211, 0.65);
+    // original background-color: #edcece;
   }
 `;
 const Label = styled.span`
@@ -23,6 +26,12 @@ const Label = styled.span`
   z-index: 5;
   padding: 0.2rem;
   font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.3s;
+  &:hover {
+    font-weight: 500;
+    scale: 1.1;
+  }
 `;
 
 const Contents = styled.div`

@@ -38,11 +38,7 @@ const JoinInnerContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-<<<<<<< HEAD
-  color: ${Theme.offWhite};
-=======
-  color: ${Theme.textColorLight};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
+  color: ${Theme.textColorDark};
   justify-self: flex-start;
   font-size: 2.5rem;
   padding-bottom: 10px;
@@ -54,11 +50,7 @@ const Heading = styled.h1`
 `;
 
 const Directive = styled.h3`
-<<<<<<< HEAD
-  color: ${Theme.offWhite};
-=======
-  color: ${Theme.textColorLight};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
+  color: ${Theme.textColorDark};
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   font-size: 1.75rem;
@@ -70,8 +62,9 @@ const Directive = styled.h3`
 `;
 
 const JoinInput = styled.input`
-  border-radius: 0;
-  padding: 15px 20px;
+  border-radius: ${Theme.borderRadius};
+  border: none;
+  padding: 17px 22px;
   box-shadow: none;
   width: 100%;
   @media screen and (min-width: 1000px) {
@@ -84,24 +77,12 @@ const JoinModal = styled.div`
 `;
 
 const SignInButton = styled.button`
-<<<<<<< HEAD
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #2979ff;
-  padding: 20px;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
-  margin-top: 20px;
-  width: 100%;
-=======
   color: ${Theme.textColorLight} !important;
   text-transform: uppercase;
 
   font-size: ${Theme.fontSizeS};
   text-decoration: none;
-  background-color: rgba(154, 169, 213, 1);
+  background-color: ${Theme.colorHighlight};
   padding: 20px;
   border-radius: ${Theme.borderRadiusBtnL};
   display: inline-block;
@@ -115,7 +96,6 @@ const SignInButton = styled.button`
 
     box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
   }
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
   & :focus {
     outline: 0;
   }
@@ -147,11 +127,7 @@ const Animation = styled.div`
 
 const PublicRoomListHeader = styled.h3`
   margin-top: 15vh;
-<<<<<<< HEAD
-  color: ${Theme.offWhite};
-=======
-  color: ${Theme.textColorLight};
->>>>>>> 379a6177d2975f524ffddd8f6679bb16bb7bc3ba
+  color: ${Theme.textColorDark};
 `;
 
 const PublicRoomList = styled.section`
@@ -162,11 +138,11 @@ const PublicRoomList = styled.section`
 const ArrowDown = styled(AiOutlineArrowDown)`
   margin: 1rem auto 0 auto;
   display: block;
-  color: #2979ff;
+  color: ${Theme.colorHighlight};
 `;
 
 const NoRooms = styled.div`
-  color: ${Theme.textColorLight};
+  color: ${Theme.textColorDark};
   text-align: center;
   margin: 5rem auto 0 auto;
 `;

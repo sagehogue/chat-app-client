@@ -1,5 +1,5 @@
 export default {
-  navColorInactive: "rgba(255, 255, 255, 0.9)",
+  navColorInactive: "rgba(43, 43, 43, 1)",
   navColorActive: "rgba(255, 255, 255, 0)",
   navTransitionDuration: ".35s",
   offWhite: "#f8f8ff",
@@ -15,14 +15,22 @@ export default {
   },
   zIndex: {
     chat: "10",
+    nav: "11",
+    tabs: "12",
     backdrop: "20",
     modal: "25",
   },
-  backgroundColorDark: "#2b3a67;",
-  backgroundColorLight: "#9aa9d5;",
+  colorHighlight: "#F51444;",
+
+  blueButtonColor: "#2979ff",
+
+  backgroundColorDark: "#588982",
+  // backgroundColorDark: "#506e67",
+  // backgroundColorLight: "#6A948B;",
+  backgroundColorLight: "#DAE7E6",
   backgroundColorDarkGray: "#333",
   backgroundColorDarkerGray: "rgba(43, 43, 43, 1)",
-  backgroundColorLightGray: "#c4c4c4;",
+  backgroundColorLightGray: "#B4C2BF;",
 
   textColorLight: "#fff;",
   textColorDark: "black",

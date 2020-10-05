@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import Theme from "../../../util/Theme/Theme";
 import Modal from "../../../components/UI/Modal/Modal";
 
 // [TODOS]
@@ -13,17 +14,20 @@ const Styles = styled(Modal)`
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  background-color: ${Theme.textColorLight};
 `;
 
 const Heading = styled.h3`
   margin-top: 2rem;
   text-align: center;
+  background-color: ${Theme.textColorLight};
 `;
 
 const Label = styled.label`
   text-align: center;
   display: block;
   margin-top: 1.25rem;
+  background-color: ${Theme.textColorLight};
 `;
 
 const CreateRoomForm = styled.form`
@@ -31,16 +35,32 @@ const CreateRoomForm = styled.form`
   display: flex;
   flex-direction: column;
   height: 75%;
+  background-color: ${Theme.textColorLight};
 `;
 
 const FormInput = styled.input`
   display: block;
   margin: ${(props) => (props.centered ? "0 auto 0 auto" : "0")};
   width: 100%;
+  border: none;
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  background-color: ${Theme.textColorLight};
+  border: 1px solid ${Theme.backgroundColorLight};
 `;
 
 const SubmitButton = styled.button`
-  margin-top: auto;
+  width: 25%;
+  border: none;
+  border-radius: ${Theme.borderRadiusBtn};
+  margin: 0 auto;
+  margin-top: 30%;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: ${Theme.colorHighlight};
+  font-size: ${Theme.fontSizeM};
+  color: ${Theme.textColorLight};
 `;
 
 const ConfirmPasswordInput = styled(FormInput)`
