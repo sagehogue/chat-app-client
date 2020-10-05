@@ -1,12 +1,15 @@
 import React from "react";
 
+import { FaPlusCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
+
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
 import Cabinet from "./FriendsCabinet/FriendsCabinet";
 import closeIcon from "../../../icons/closeIcon.png";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
+import UserSearchBar from "../../../components/UI/SearchBar/UserSearchBar/UserSearchBar.jsx";
 import button from "../../../components/UI/Button/Button";
 
 export const oldFriendsTab = styled.section``;
@@ -74,11 +77,12 @@ const FriendsTabStyle = styled.section`
   }
 `;
 
-const CloseButton = styled.button`
+const CloseButton = styled.span`
+  display: inline;
   align-self: flex-end;
   padding: 1px;
   transform: translateY(-5px);
-  position: absolute;
+  // position: absolute;
   align-self: flex-start;
   z-index: 2;
   background-color: transparent;
@@ -87,6 +91,7 @@ const CloseButton = styled.button`
   border-radius: ${Theme.borderRadiusBtn};
   cursor: pointer;
   transition: ${Theme.transitionSpeed};
+  vertical-align: middle;
   &:hover {
     opacity: 1;
     transform: translateY(-6px);
@@ -97,8 +102,13 @@ const CloseButton = styled.button`
   }
 `;
 
+const TopButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Whitespace = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 2.5rem;
 `;
 
 FriendsTab.propTypes = {
@@ -118,6 +128,7 @@ export default function FriendsTab({
   handleDecline,
   handleDeleteFriend,
   handleCancelFriendRequest,
+  openUserSearchHandler,
 }) {
   const deleteFriendHandler = (uid, friendUID) => {
     // later I should allow multiple deletes with one confirmation
@@ -131,10 +142,13 @@ export default function FriendsTab({
   };
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
-      <CloseButton onClick={closeTabHandler}>
-        <img src={closeIcon} alt="close icon" />
-      </CloseButton>
-      <SearchBar />
+      <TopButtons>
+        <CloseButton onClick={closeTabHandler}>
+          <img src={closeIcon} alt="close icon" />
+        </CloseButton>
+        <FaPlusCircle size={15} onClick={openUserSearchHandler} />
+      </TopButtons>
+      {/* <SearchBar /> */}
       <Whitespace />
       <Cabinet
         favoriteFriends={favoriteFriends}
