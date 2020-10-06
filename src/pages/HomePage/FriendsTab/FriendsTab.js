@@ -80,7 +80,7 @@ const FriendsTabStyle = styled.section`
 const CloseButton = styled.button`
   padding: 1px;
   transform: translateY(-5px);
-  position: absolute;
+  // position: absolute;
   align-self: flex-end;
   z-index: 2;
   background-color: transparent;
@@ -146,7 +146,7 @@ export default function FriendsTab({
         </CloseButton>
         <FaPlusCircle size={15} onClick={openUserSearchHandler} />
       </TopButtons>
-      {/* <SearchBar /> */}
+      <SearchBar />
       <Whitespace />
       <Cabinet
         favoriteFriends={favoriteFriends}
