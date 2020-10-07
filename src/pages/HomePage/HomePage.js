@@ -251,7 +251,7 @@ export default function HomePage({ socket }) {
 
     const roomObj = data;
     const roomString = data.roomName;
-    setCurrentRoom(data.roomName);
+    setCurrentRoom({ roomName: data.roomName, roomID: data.roomID });
     closeBackdrop();
   };
 
@@ -272,7 +272,6 @@ export default function HomePage({ socket }) {
   //favorite room
 
   const handleAddFavoriteRoom = (id, roomID) => {
-    console.log("favorite");
     socket.emit("add-favorite-room", { id, roomID });
   };
 

@@ -167,7 +167,12 @@ const InfoBar = ({
             {isFavoriteRoom ? (
               <FaRegStar />
             ) : (
-              <FaStar onClick={handleAddFavoriteRoom(user.uid, roomID)} />
+              <FaStar
+                onClick={() => {
+                  console.log(roomID);
+                  handleAddFavoriteRoom(user.uid, roomID);
+                }}
+              />
             )}
             <Text>
               {isFavoriteRoom
