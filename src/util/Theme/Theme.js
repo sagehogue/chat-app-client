@@ -20,6 +20,14 @@ export default {
     backdrop: "20",
     modal: "25",
   },
+  colors: {
+    primary: "#588982",
+    accentLight: `rgba(211, 211, 211, 0.8)`,
+    accentExtraLight: `rgba(211, 211, 211, 0.35)`,
+    accentLightNew: `rgba(238, 252, 247)`,
+    accentExtraLightNew: "",
+    accentMedium: `rgb(73, 227, 181)`,
+  },
   colorHighlight: "#F51444;",
 
   blueButtonColor: "#2979ff",
