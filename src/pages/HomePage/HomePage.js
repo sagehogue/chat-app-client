@@ -271,10 +271,10 @@ export default function HomePage({ socket }) {
 
   //favorite room
 
-  // const handleAddSavedRoom = (id, roomID) => {
-  //   console.log("saved");
-  //   socket.emit("add-saved-room", { id, roomID });
-  // };
+  const handleAddFavoritedRoom = (id, roomID) => {
+    console.log("favorite");
+    socket.emit("add-favorite-room", { id, roomID });
+  };
 
   //rmv favorite room
   // const handleRmvSavedRoom = (id, roomID) => {
@@ -523,6 +523,7 @@ export default function HomePage({ socket }) {
             avatar={avatar.url}
             handleAddSavedRoom={handleAddSavedRoom}
             handleRmvSavedRoom={handleRmvSavedRoom}
+            handleAddFavoritedRoom={handleAddFavoritedRoom}
           />
         ) : (
           <Join
