@@ -73,6 +73,7 @@ const Chat = ({
   userRooms,
   handleAddSavedRoom,
   handleRmvSavedRoom,
+  handleAddFavoriteRoom,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -181,17 +182,21 @@ const Chat = ({
   let isSavedRoom = false;
   let isFavoriteRoom = false;
 
-  userRooms.map((room) => {
-    if (room.id === id) {
-      isSavedRoom = true;
-    }
-  });
+  try {
+    userRooms.map((room) => {
+      if (room.id === id) {
+        isSavedRoom = true;
+      }
+    });
+  } catch (error) {
+    console.log("error");
+  }
 
-  userRooms.map((room) => {
-    if (room.id === id) {
-      isFavoriteRoom = true;
-    }
-  });
+  // userRooms.map((room) => {
+  //   if (room.id === id) {
+  //     isFavoriteRoom = true;
+  //   }
+  // });
 
   return (
     <OuterContainer>
@@ -208,6 +213,7 @@ const Chat = ({
           isUserFavoriteRoom={isFavoriteRoom}
           handleAddSavedRoom={handleAddSavedRoom}
           handleRmvSavedRoom={handleRmvSavedRoom}
+          handleAddFavoriteRoom={handleAddFavoriteRoom}
         />
         <Messages messages={messages} name={username} avatar={avatar} />
         <Input
