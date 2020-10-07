@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import Uuid from "react-uuid";
 import Theme from "../../../util/Theme/Theme";
 import Modal from "../../../components/UI/Modal/Modal";
 
@@ -129,6 +130,7 @@ export default function NewRoomModal({
       password: password,
       creator: user.displayName,
       creatorUID: user.uid,
+      roomID: Uuid(),
     };
     submitHandler(data);
   };

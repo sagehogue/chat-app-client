@@ -181,17 +181,21 @@ const Chat = ({
   let isSavedRoom = false;
   let isFavoriteRoom = false;
 
-  userRooms.map((room) => {
-    if (room.id === id) {
-      isSavedRoom = true;
-    }
-  });
+  try {
+    userRooms.map((room) => {
+      if (room.id === id) {
+        isSavedRoom = true;
+      }
+    });
+  } catch (error) {
+    console.log("error");
+  }
 
-  userRooms.map((room) => {
-    if (room.id === id) {
-      isFavoriteRoom = true;
-    }
-  });
+  // userRooms.map((room) => {
+  //   if (room.id === id) {
+  //     isFavoriteRoom = true;
+  //   }
+  // });
 
   return (
     <OuterContainer>
