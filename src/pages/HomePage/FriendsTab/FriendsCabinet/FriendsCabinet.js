@@ -20,31 +20,6 @@ const NoFavorites = styled.div`
   font-size: 0.75rem;
 `;
 
-const GrayBG = styled.div`
-  background-color: rgba(211, 211, 211, 0.35);
-`;
-const Label = styled.label`
-  display: block;
-  font-size: 0.95rem;
-  width: inherit;
-  margin: 0 auto;
-`;
-
-const Stylishhr = styled.hr`
-  margin-top: 0.25rem;
-  margin-bottom: 0.5rem;
-  opacity: 0.75;
-`;
-
-const FriendsContainer = styled.div`
-  width: 91%;
-  padding: 0.5rem 2px;
-  margin: 0 auto;
-  min-height: 1rem;
-  text-align: center;
-  border-radius: 15%;
-`;
-
 const DrawerFrame = styled.div`
 display: flex;
 flex-direction: column;
@@ -62,14 +37,6 @@ const FriendsDrawer = styled(Drawer)``;
 const RequestDrawer = styled(Drawer)``;
 
 const SentRequestDrawer = styled(Drawer)``;
-
-const FriendButton = styled.li`
-  border-radius: 15%;
-  margin: 0.5rem auto;
-  padding: 2rem;
-  background-color: grey;
-  background-image: ${(props) => (props.FriendPic ? props.FriendPic : "none")};
-`;
 
 export default function FriendsCabinet({
   favoriteFriends = null,
