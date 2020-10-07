@@ -271,7 +271,7 @@ export default function HomePage({ socket }) {
 
   //favorite room
 
-  const handleAddFavoritedRoom = (id, roomID) => {
+  const handleAddFavoriteRoom = (id, roomID) => {
     console.log("favorite");
     socket.emit("add-favorite-room", { id, roomID });
   };
@@ -523,7 +523,7 @@ export default function HomePage({ socket }) {
             avatar={avatar.url}
             handleAddSavedRoom={handleAddSavedRoom}
             handleRmvSavedRoom={handleRmvSavedRoom}
-            handleAddFavoritedRoom={handleAddFavoritedRoom}
+            handleAddFavoriteRoom={handleAddFavoriteRoom}
           />
         ) : (
           <Join
