@@ -276,10 +276,10 @@ export default function HomePage({ socket }) {
   };
 
   //rmv favorite room
-  // const handleRmvSavedRoom = (id, roomID) => {
-  //   console.log("removed " + id + " " + roomID);
-  //   socket.emit("rmv-saved-room", { id, roomID });
-  // };
+  const handleRmvFavoriteRoom = (id, roomID) => {
+    console.log("removed " + id + " " + roomID);
+    socket.emit("rmv-favorite-room", { id, roomID });
+  };
 
   const handleAddFriend = (uid, friendUID, displayName) => {
     const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
@@ -523,6 +523,7 @@ export default function HomePage({ socket }) {
             handleAddSavedRoom={handleAddSavedRoom}
             handleRmvSavedRoom={handleRmvSavedRoom}
             handleAddFavoriteRoom={handleAddFavoriteRoom}
+            handleRmvFavoriteRoom={handleRmvFavoriteRoom}
           />
         ) : (
           <Join
