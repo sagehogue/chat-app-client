@@ -12,6 +12,7 @@ const Styles = styled.div`
   background-color: ${Theme.offWhite};
   //   padding: 3rem 5rem;
   border-radius: 7px;
+  padding: 0.5rem 1rem;
   min-height: 6rem;
   min-width: 10rem;
   display: flex;

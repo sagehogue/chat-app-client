@@ -12,22 +12,24 @@ import { Highlight } from "react-instantsearch-dom";
 const Card = styled.div`
   transition: transform 0.5s, color 0.2s;
   position: relative;
-  transform-style: preserve-3d;
-  min-height: 3rem;
+  // transform-style: preserve-3d;
+  min-height: 4rem;
+  min-width: 4rem;
+  max-width: 8rem
+  margin: 1rem;
+  border-radius: 8px;
   overflow: hidden;
-
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   //   &:hover {
   //     max-height: 4rem;
   //     transform: rotateY(180deg);
   //     box-shadow: -5px 5px 5px #aaa;
   //   }
-  // &:nth-of-type(even) {
-  //   background-color: ${Theme.colors.accentLight};
-  // }
-  // &:nth-of-type(odd) {
-  //   background-color: ${Theme.colors.accentExtraLight};
-  // }
+  &:nth-of-type(even) {
+    background-color: ${Theme.colors.accentLight};
+  }
+  &:nth-of-type(odd) {
+    background-color: ${Theme.colors.accentExtraLight};
+  }
 `;
 
 const Container = styled.div`
@@ -40,6 +42,7 @@ const Name = styled.span`
   width: 100%;
   text-align: center;
   min-height: 1.25rem;
+  font-size: 0.9rem;
   font-weight: 600;
   background-color: rgba(50, 50, 50, 0.4);
 `;
@@ -51,6 +54,7 @@ const RoomCreatorName = styled.span`
   min-height: 0.75rem;
   font-weight: 400;
   margin-top: auto;
+  font-size: 0.75rem;
 `;
 
 const Controls = styled.div`
@@ -61,13 +65,12 @@ const Controls = styled.div`
 
 const Face = styled.div`
   transition: all 0.3s;
-  position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  top: 0;
-  left: 0;
-  transform: rotateX(0deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const FrontFace = styled(Face)``;
@@ -79,7 +82,7 @@ const FrontFace = styled(Face)``;
 //   color: ${(props) => (props.flipCard ? "rgba(245, 245, 245, 0)" : "#fff")};
 // `;
 
-export default function Hit({ hit }) {
+export default function Hit({ hit, handleClientJoin, closeHandler }) {
   let avatar;
   if (hit.avatar) {
     avatar = (
@@ -99,8 +102,6 @@ export default function Hit({ hit }) {
   //     setFlipCard(false);
   //   };
   let user = useContext(AuthContext);
-  console.log(user);
-  //   Def gotta get access to the user object in here.
   return (
     <Container
       onClick={() => {
@@ -115,6 +116,12 @@ export default function Hit({ hit }) {
             id: user.uid,
           },
         });
+        handleClientJoin({
+          id: hit.id,
+          roomName: hit.roomName,
+          avatar: hit.avatar,
+        });
+        closeHandler();
       }}
     >
       <Card>

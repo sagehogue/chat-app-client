@@ -3,7 +3,7 @@ import styled from "styled-components";
 import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
-  Hits,
+  connectHits,
   Stats,
   SearchBox,
   Pagination,
@@ -55,9 +55,22 @@ const SearchHeading = styled.h1`
   }
 `;
 
+const SearchResults = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: 10rem;
+  // min-width: 35rem;
+  & > div {
+    flex-shrink: 1;
+    flex-grow: 1;
+    margin: 0.25rem;
+  }
+`;
+
 const client = algoliasearch("333WBDSI2L", "402eef045334263775aa43830a7952d5");
 
-export default function UserSearchBar({ visible, closeHandler }) {
+export default function UserSearchBar({ visible, closeHandler, joinHandler }) {
   const searchChanged = (query) => {
     if (query.length) {
       this.showResults = true;
@@ -65,6 +78,25 @@ export default function UserSearchBar({ visible, closeHandler }) {
       this.showResults = false;
     }
   };
+
+  const Hits = ({ hits }) => (
+    <SearchResults>
+      {hits.map((hit) => (
+        <Hit
+          key={hit.objectID}
+          hit={hit}
+          handleClientJoin={joinHandler}
+          closeHandler={closeHandler}
+        >
+          {hit.name}
+        </Hit>
+      ))}
+    </SearchResults>
+    // return the DOM output
+  );
+
+  // 2. Connect the component using the connector
+  const CustomHits = connectHits(Hits);
   return (
     <SearchBarWrapper visible={visible}>
       <Styles className="ais-InstantSearch">
@@ -80,7 +112,8 @@ export default function UserSearchBar({ visible, closeHandler }) {
           <SearchAndResults className="right-panel">
             <SearchBox autofocus />
             <Stats />
-            <Hits hitComponent={Hit} />
+            <CustomHits />
+            {/* <Hits hitComponent={hitComponent} /> */}
             <Pagination />
           </SearchAndResults>
         </InstantSearch>

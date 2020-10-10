@@ -514,7 +514,7 @@ export default function HomePage() {
           visible={displayUserSearch}
           closeHandler={() => {
             closeBackdrop();
-            setStateFalse(setDisplayUserSearch);
+            setDisplayUserSearch(false);
           }}
         />
         <RoomSearch
@@ -522,6 +522,9 @@ export default function HomePage() {
           closeHandler={() => {
             closeBackdrop();
             setDisplayRoomSearch(false);
+          }}
+          joinHandler={(roomObj) => {
+            setCurrentRoom(roomObj);
           }}
         />
         ;
