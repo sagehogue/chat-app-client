@@ -27,6 +27,13 @@ export default {
     accentLightNew: `rgba(238, 252, 247)`,
     accentExtraLightNew: "",
     accentMedium: `rgb(73, 227, 181)`,
+    brightAccentRed: "#F51444",
+  },
+  animations: {
+    transition: "all .3s",
+  },
+  ui: {
+    tabs: {},
   },
   colorHighlight: "#F51444;",
 

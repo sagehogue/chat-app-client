@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaSearch, FaTimes } from "react-icons/fa";
 
 import Theme from "../../../util/Theme/Theme";
 import Toolbox from "./Toolbox/Toolbox";
@@ -10,6 +10,8 @@ import closeIcon from "../../../icons/closeIcon.png";
 import RoomCard from "../../../components/UI/RoomCard/RoomCard";
 
 /* TODOS:
+* The hover effects need to be finished - they're missing 1-2 inset box shadows to complete the effect. Since the SVG isn't the same size as their box I need to
+make it appear like they're glowing from inside or it'll just be an empty circle.
 * Mobile view looks kind of shit, need to make the search bar look nice and scale up the
 add room button.
 Write functionality to enable drop down menu of search results for a given room name. 
@@ -67,28 +69,6 @@ const RoomsTabStyle = styled.section`
           : `25rem`}
     );
     padding: 2rem;
-  }
-`;
-const CloseButton = styled.button`
-  align-self: flex-start;
-  padding: 1px;
-  transform: translateY(-5px);
-  position: absolute;
-  align-self: flex-start;
-  z-index: 2;
-  background-color: transparent;
-  opacity: 0.7;
-  border: none;
-  border-radius: ${Theme.borderRadiusBtn};
-  cursor: pointer;
-  transition: 0.4s;
-  &:hover {
-    opacity: 1;
-    transform: translateY(-6px);
-  }
-  &:active {
-    opacity: 0.8;
-    transform: translateY(1px);
   }
 `;
 
@@ -150,21 +130,62 @@ const Stylishhr = styled.hr`
   opacity: 0.75;
 `;
 
-const AddRoomButton = styled(FaPlusCircle)`
-  font-size: 1.6rem;
-  width: 12.5%;
-  text-align: center;
+const Controls = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const SearchAndNewRoom = styled.div`
+  display: flex;
+`;
+
+const CreateRoomButton = styled(FaPlusCircle)`
   color: ${Theme.textColorLight};
-  margin: auto auto auto 0;
   cursor: pointer;
   transition: all 0.3s;
+  border-radius: 50%;
+  margin: 0 1.25rem 0 auto;
   &:hover {
+    opacity: 1;
     scale: 1.075;
+    box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+      /* middle magenta */ 0 0 140px 9px #0ff;
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(2px);
   }
 `;
 
-const SearchAndNewRoom = styled.div`
-  display: flex;
+const CloseButton = styled(FaTimes)`
+  transition: all 0.3s;
+  margin-bottom: 4rem;
+  border-radius: 50%;
+  &:hover {
+    opacity: 1;
+    scale: 1.075;
+    box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+      /* middle magenta */ 0 0 140px 9px #0ff;
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
+`;
+
+const SearchButton = styled(FaSearch)`
+  transition: all 0.3s;
+  margin-bottom: 4rem;
+  border-radius: 50%;
+  &:hover {
+    opacity: 1;
+    scale: 1.075;
+    box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+      /* middle magenta */ 0 0 140px 9px #0ff;
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
 `;
 
 export default function RoomsTab({
@@ -175,6 +196,7 @@ export default function RoomsTab({
   createRoomHandler,
   joinHandler,
   user,
+  openRoomSearchHandler,
 }) {
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons;
@@ -203,17 +225,14 @@ export default function RoomsTab({
 
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
-      <CloseButton onClick={closeTabHandler}>
-        <img src={closeIcon} alt="close icon" />
-      </CloseButton>
+      <Controls>
+        <CloseButton size={25} onClick={closeTabHandler} />
+        <CreateRoomButton size={25} onClick={createRoomHandler} />
+        <SearchButton size={25} onClick={openRoomSearchHandler} />
+      </Controls>
+
       <RoomsList>
-        <SearchAndNewRoom>
-          <SearchBar small noRightMargin />
-          <AddRoomButton onClick={createRoomHandler} />
-        </SearchAndNewRoom>
         <FavoriteRooms>
-          <Label>Favorites</Label>
-          <Stylishhr />
           <GrayBG>
             {favoriteRooms ? (
               favRoomButtons

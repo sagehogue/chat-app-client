@@ -8,18 +8,21 @@ import "firebase/auth";
 import "firebase/firestore";
 import firebaseConfig from "../../firebaseConfig";
 import { firebaseController } from "../../App";
+import { socket } from "../../App";
 
 import FriendsTab from "./FriendsTab/FriendsTab";
 import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
 import Join from "../../components/Join/Join";
 import UserSearch from "../../components/UI/SearchBar/UserSearchBar/UserSearchBar";
+import RoomSearch from "../../components/UI/SearchBar/RoomSearch/RoomSearchModal";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
 import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
 import UserProfile from "../../components/Profile/UserProfile.jsx";
 
 import { AuthContext } from "../../App";
+
 import { BackdropContextProvier } from "../../components/UI/Backdrop/Backdrop";
 
 import Theme from "../../util/Theme/Theme";
@@ -111,15 +114,21 @@ const UserNameDisplay = styled.div`
   z-index: 1;
 `;
 
-export default function HomePage({ socket }) {
+export const emitJoin = (roomAndUserObject) => {
+  socket.emit("join", roomAndUserObject);
+};
+
+export default function HomePage() {
   // "initial", "rooms", "friends", "none" which side tabs are active, initial is both
   let [display, setDisplay] = useState("initial");
   // whether to display the user profile
   let [displayProfile, setDisplayProfile] = useState(false);
   // whether to display user search component
   let [displayUserSearch, setDisplayUserSearch] = useState(false);
-  // current room the user has joined, default is false
+  // whether to display room search component
+  let [displayRoomSearch, setDisplayRoomSearch] = useState(false);
 
+  // current room the user has joined, default is false
   let [currentRoom, setCurrentRoom] = useState(false);
   // whether or not backdrop is enabled
   let [showBackdrop, setShowBackdrop] = useState(false);
@@ -140,10 +149,11 @@ export default function HomePage({ socket }) {
   let user = userAuth;
   let name, email, photoUrl, uid, emailVerified;
   name = user.displayName;
+  uid = user.uid;
   email = user.email;
   photoUrl = user.photoURL;
   emailVerified = user.emailVerified;
-  uid = user.uid;
+
   // fetches friends
 
   // SIDE EFFECTS
@@ -368,8 +378,8 @@ export default function HomePage({ socket }) {
   };
 
   const handleJoinRoom = (room) => {
-    console.log(`Room sent to backend: ${JSON.stringify(room)}`);
-    socket.emit("join", { user: { displayName: name, id: uid }, room });
+    console.log({ user: { displayName: name, id: uid }, room });
+    emitJoin({ user: { displayName: name, id: uid }, room });
     setCurrentRoom(room);
   };
 
@@ -411,6 +421,7 @@ export default function HomePage({ socket }) {
     setShowCreateRoomModal(false);
     setShowUsers(false);
     setDisplayUserSearch(false);
+    setDisplayRoomSearch(false);
   };
   const openBackdrop = () => {
     setShowBackdrop(true);
@@ -507,6 +518,13 @@ export default function HomePage({ socket }) {
             setStateFalse(setDisplayUserSearch);
           }}
         />
+        <RoomSearch
+          visible={displayRoomSearch}
+          closeHandler={() => {
+            closeBackdrop();
+            setDisplayRoomSearch(false);
+          }}
+        />
         ;
         {currentRoom ? (
           <Chat
@@ -540,6 +558,10 @@ export default function HomePage({ socket }) {
           closeCreateRoomHandler={closeBackdrop}
           rooms={userRooms}
           user={{ id: uid, displayName: name }}
+          openRoomSearchHandler={() => {
+            openBackdrop();
+            setStateTrue(setDisplayRoomSearch);
+          }}
         ></RoomsTab>
       </HomePageGrid>
 

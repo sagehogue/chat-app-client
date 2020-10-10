@@ -22,7 +22,7 @@ import GlobalStyle from "./util/GlobalStyles/GlobalStyles";
 firebase.initializeApp(firebaseConfig);
 
 // initialize socket.io
-let socket;
+export let socket;
 const ENDPOINT = "localhost:5000";
 const SocketContext = React.createContext(socket);
 const SocketProvider = SocketContext.Provider;

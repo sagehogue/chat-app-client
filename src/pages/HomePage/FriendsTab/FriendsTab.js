@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlusCircle, FaTimes, FaSearch } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 import styled from "styled-components";
@@ -141,12 +141,9 @@ export default function FriendsTab({
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <TopButtons>
-        <CloseButton onClick={closeTabHandler}>
-          <img src={closeIcon} alt="close icon" />
-        </CloseButton>
-        <FaPlusCircle size={15} onClick={openUserSearchHandler} />
+        <FaSearch size={25} onClick={openUserSearchHandler} />
+        <FaTimes size={25} onClick={closeTabHandler} />
       </TopButtons>
-      <SearchBar />
       <Whitespace />
       <Cabinet
         favoriteFriends={favoriteFriends}

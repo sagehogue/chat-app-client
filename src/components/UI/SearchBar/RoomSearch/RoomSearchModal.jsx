@@ -4,6 +4,7 @@ import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
   Hits,
+  Stats,
   SearchBox,
   Pagination,
   Highlight,
@@ -26,9 +27,6 @@ const SearchBarWrapper = styled.div`
 
   & .ais-SearchBox {
     margin: 1em 0;
-  }
-  & .ais-Hits {
-    // min-height: 10rem;
   }
   .ais-Hits-item {
     &:nth-of-type(even) {
@@ -70,17 +68,18 @@ export default function UserSearchBar({ visible, closeHandler }) {
   return (
     <SearchBarWrapper visible={visible}>
       <Styles className="ais-InstantSearch">
-        <SearchHeading>Users</SearchHeading>
+        <SearchHeading>Find a room</SearchHeading>
         <InstantSearch
-          indexName="user_search"
+          indexName="room_search"
           searchClient={client}
-          translate={{ placeholder: "Search for users..." }}
+          translate={{ placeholder: "Search for rooms..." }}
           onChange={searchChanged}
         >
-          <Configure hitsPerPage={5} />
+          <Configure hitsPerPage={10} />
           {/* </div> */}
           <SearchAndResults className="right-panel">
             <SearchBox autofocus />
+            <Stats />
             <Hits hitComponent={Hit} />
             <Pagination />
           </SearchAndResults>
