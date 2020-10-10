@@ -118,6 +118,7 @@ const InfoBar = ({
   handleAddSavedRoom,
   handleRmvSavedRoom,
   handleAddFavoriteRoom,
+  handleRmvFavoriteRoom,
 }) => {
   const [optionMenuHovered, setOptionMenuHovered] = useState(false);
 
@@ -160,19 +161,22 @@ const InfoBar = ({
               />
             )}
             <Text>
-              {isUserSavedRoom ? "Removed from saved" : "Add to saved rooms"}
+              {isUserSavedRoom ? "Remove from saved" : "Add to saved"}
             </Text>
           </Option>
           <Option>
             {isFavoriteRoom ? (
-              <FaRegStar />
+              <FaRegStar onclick={handleRmvFavoriteRoom} />
             ) : (
-              <FaStar onClick={handleAddFavoriteRoom(user.uid, roomID)} />
+              <FaStar
+                onClick={() => {
+                  console.log(roomID);
+                  handleAddFavoriteRoom(user.uid, roomID);
+                }}
+              />
             )}
             <Text>
-              {isFavoriteRoom
-                ? "Removed from favorites"
-                : "Add to favorite rooms"}
+              {isFavoriteRoom ? "Remove from favorites" : "Add to favorites"}
             </Text>
           </Option>
         </OptionsMenu>

@@ -261,7 +261,7 @@ export default function HomePage() {
 
     const roomObj = data;
     const roomString = data.roomName;
-    setCurrentRoom(data.roomName);
+    setCurrentRoom({ roomName: data.roomName, roomID: data.roomID });
     closeBackdrop();
   };
 
@@ -281,16 +281,15 @@ export default function HomePage() {
 
   //favorite room
 
-  const handleAddFavoritedRoom = (id, roomID) => {
-    console.log("favorite");
+  const handleAddFavoriteRoom = (id, roomID) => {
     socket.emit("add-favorite-room", { id, roomID });
   };
 
   //rmv favorite room
-  // const handleRmvSavedRoom = (id, roomID) => {
-  //   console.log("removed " + id + " " + roomID);
-  //   socket.emit("rmv-saved-room", { id, roomID });
-  // };
+  const handleRmvFavoriteRoom = (id, roomID) => {
+    console.log("removed " + id + " " + roomID);
+    socket.emit("rmv-favorite-room", { id, roomID });
+  };
 
   const handleAddFriend = (uid, friendUID, displayName) => {
     const newPendingFriend = { displayName, id: friendUID, isFriend: "sent" };
@@ -541,7 +540,8 @@ export default function HomePage() {
             avatar={avatar.url}
             handleAddSavedRoom={handleAddSavedRoom}
             handleRmvSavedRoom={handleRmvSavedRoom}
-            handleAddFavoritedRoom={handleAddFavoritedRoom}
+            handleAddFavoriteRoom={handleAddFavoriteRoom}
+            handleRmvFavoriteRoom={handleRmvFavoriteRoom}
           />
         ) : (
           <Join

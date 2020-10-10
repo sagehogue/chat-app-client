@@ -199,7 +199,10 @@ export default function RoomsTab({
   openRoomSearchHandler,
 }) {
   // Attach event listeners to these that take you to corresponding room
-  let roomButtons, favRoomButtons;
+  let roomButtons, favRoomButtons, savedRooms;
+  if (rooms) {
+    favoriteRooms = rooms.filter((room) => room.isFavorite);
+  }
   if (favoriteRooms) {
     favRoomButtons = favoriteRooms.map((room) => (
       <RoomCard
@@ -212,7 +215,8 @@ export default function RoomsTab({
     ));
   }
   if (rooms) {
-    roomButtons = rooms.map((room) => (
+    savedRooms = rooms.filter((room) => room.isFavorite == false);
+    roomButtons = savedRooms.map((room) => (
       <RoomCard
         roomPic={room.pic}
         roomName={room.roomName}
