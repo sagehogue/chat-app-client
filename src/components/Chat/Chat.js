@@ -189,18 +189,17 @@ const Chat = ({
         isSavedRoom = true;
       }
     });
+
+    userRooms.map((room) => {
+      if (room.id === id) {
+        if (room.isFavorite) {
+          isFavoriteRoom = true;
+        }
+      }
+    });
   } catch (error) {
     console.log("error");
   }
-
-  userRooms.map((room) => {
-    if (room.id === id) {
-      if (room.isFavorite) {
-        isFavoriteRoom = true;
-      }
-    }
-  });
-
   return (
     <OuterContainer>
       <Container showUsers={showUsers}>
