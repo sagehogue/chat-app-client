@@ -169,10 +169,10 @@ const CloseButton = styled(FaTimes)`
   margin-bottom: 4rem;
   border-radius: 50%;
   cursor: pointer;
-  color: ${Theme.textColorLight};
+  
 
   &:hover {
-    color: ${Theme.backgroundColorDarkerGray};
+    
     opacity: 1;
     scale: 1.075;
     background: radial-gradient(circle farthest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
