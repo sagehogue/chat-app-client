@@ -107,7 +107,7 @@ export default function Hit({ hit, handleClientJoin, closeHandler }) {
       onClick={() => {
         emitJoin({
           room: {
-            id: hit.id,
+            id: hit.objectID,
             roomName: hit.roomName,
             avatar: hit.avatar,
           },
