@@ -15,9 +15,10 @@ const Card = styled.div`
   // transform-style: preserve-3d;
   min-height: 4rem;
   min-width: 4rem;
-  max-width: 8rem
+  max-width: 4rem
   margin: 1rem;
   border-radius: 8px;
+  border: 1px solid ${Theme.blueButtonColor};
   overflow: hidden;
   //   &:hover {
   //     max-height: 4rem;
@@ -35,6 +36,14 @@ const Card = styled.div`
 const Container = styled.div`
   margin: 0.5rem 0;
   perspective: 1000;
+  max-width: 8rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: all .2s;
+  &:hover {
+    scale: 1.1;
+    
+  }
 `;
 
 const Name = styled.span`

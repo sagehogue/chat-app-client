@@ -21,7 +21,7 @@ const SearchBarWrapper = styled.div`
   grid-column: ${Theme.gridColChat};
   grid-row: ${Theme.gridRowChat};
   z-index: ${Theme.zIndex.modal};
-  background-color: ${Theme.colors.primary};
+  background-color: ${Theme.backgroundColorLight};
   font-family: sans-serif;
   padding: 0 1rem;
 
