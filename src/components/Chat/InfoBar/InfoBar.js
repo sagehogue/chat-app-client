@@ -35,6 +35,7 @@ const LeftInnerContainer = styled.div`
   margin-left: 3%;
   min-height: 3rem;
   min-width: 10vw;
+  cursor: pointer;
   & svg {
     font-size: 1.5rem;
   }
