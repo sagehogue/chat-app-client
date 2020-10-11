@@ -103,7 +103,12 @@ const CloseButton = styled.button`
 const TopButtons = styled.div`
   display: flex;
   justify-content: space-between;
+  
 `;
+
+const ButtonEffects = styled.div`
+cursor: pointer;
+`
 
 const Whitespace = styled.div`
   margin-bottom: 2.5rem;
@@ -141,8 +146,9 @@ export default function FriendsTab({
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <TopButtons>
-        <FaSearch size={25} onClick={openUserSearchHandler} />
-        <FaTimes size={25} onClick={closeTabHandler} />
+        <ButtonEffects><FaSearch size={25} onClick={openUserSearchHandler} /></ButtonEffects>
+        <ButtonEffects><FaTimes size={25} onClick={closeTabHandler} /></ButtonEffects>
+        
       </TopButtons>
       <Whitespace />
       <Cabinet
