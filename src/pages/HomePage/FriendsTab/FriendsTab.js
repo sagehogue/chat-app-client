@@ -28,7 +28,7 @@ const FriendsTabStyle = styled.section`
   grid-column: 1 / 2;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   background-color: ${Theme.backgroundColorDark};
   transition: all ${Theme.navTransitionDuration} ease-in;

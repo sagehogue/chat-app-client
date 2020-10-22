@@ -24,7 +24,7 @@ const RoomsTabStyle = styled.section`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: ${Theme.backgroundColorDark};
   transition: all ${Theme.navTransitionDuration} ease-in;

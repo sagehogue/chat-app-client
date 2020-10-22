@@ -81,6 +81,7 @@ export default function FriendsCabinet({
             deleteSelfHandler={console.log("")}
             dmHandler={openDMHandler}
             key={Friend.id}
+            avatar={Friend.avatar}
           ></UserBar>
         ))
       );
@@ -97,6 +98,7 @@ export default function FriendsCabinet({
             id={Friend.id}
             deleteHandler={deleteFriend}
             dmHandler={openDMHandler}
+            avatar={Friend.avatar}
             key={Friend.id}
             deleteSelf={() => {
               let newFriends = friendsUserbars.filter(
@@ -117,6 +119,7 @@ export default function FriendsCabinet({
           <FriendRequest
             displayName={Friend.displayName}
             clientID={clientID}
+            avatar={Friend.avatar}
             requesterID={Friend.id}
             handleAccept={handleAccept}
             handleDecline={handleDecline}
@@ -141,6 +144,7 @@ export default function FriendsCabinet({
         sentFriendRequests.map((Friend) => (
           <UserBar
             displayName={Friend.displayName}
+            avatar={Friend.avatar}
             key={Friend.id}
             clientID={clientID}
             id={Friend.id}

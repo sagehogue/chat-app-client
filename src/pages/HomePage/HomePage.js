@@ -473,6 +473,8 @@ export default function HomePage() {
     ></UserProfile>
   );
 
+  console.log(avatar)
+
   return (
     <>
       <HomePageGrid>

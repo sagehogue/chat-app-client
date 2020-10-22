@@ -27,6 +27,7 @@ const SearchBarWrapper = styled.div`
 
   & .ais-SearchBox {
     margin: 1em 0;
+    
   }
   .ais-Hits-item {
     &:nth-of-type(even) {
@@ -35,16 +36,19 @@ const SearchBarWrapper = styled.div`
     &:nth-of-type(odd) {
       background-color: ${Theme.colors.accentExtraLight};
     }
+    
   }
 `;
 
 const Styles = styled.div`
   padding: 1rem;
   margin: 0 auto auto auto;
+  
 `;
 
 const SearchAndResults = styled.div`
   margin: 1rem auto 0 auto;
+  
 `;
 
 const SearchHeading = styled.h1`
