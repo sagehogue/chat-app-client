@@ -113,11 +113,9 @@ const NoFavorites = styled.div`
 
 //restyle
 const GrayBG = styled.div`
-
   background-color: rgba(211, 211, 211, 0.35);
   border-radius: ${Theme.borderRadiusBtnL};
   padding: 0.25rem;
-  
 `;
 const Label = styled.label`
   display: block;
@@ -144,7 +142,6 @@ const SearchAndNewRoom = styled.div`
 const CreateRoomButton = styled(FaPlusCircle)`
   color: white;
 
-  
   cursor: pointer;
   transition: all 0.1s;
   border-radius: 50%;
@@ -153,9 +150,8 @@ const CreateRoomButton = styled(FaPlusCircle)`
   &:hover {
     opacity: 1;
     scale: 1.075;
-  
-    box-shadow: 0 0 60px 3px #fff, 0 0 100px 6px #f0f,
-       0 0 140px 9px #0ff;
+
+    box-shadow: 0 0 60px 3px #fff, 0 0 100px 6px #f0f, 0 0 140px 9px #0ff;
   }
   &:active {
     opacity: 0.8;
@@ -164,24 +160,24 @@ const CreateRoomButton = styled(FaPlusCircle)`
 `;
 
 const CloseButton = styled(FaTimes)`
-
   transition: all 0.1s;
   margin-bottom: 4rem;
   border-radius: 50%;
   cursor: pointer;
-  
 
   &:hover {
-    
     opacity: 1;
     scale: 1.075;
-    background: radial-gradient(circle farthest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-background-repeat: no-repeat;
+    background: radial-gradient(
+      circle farthest-side,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.2)
+    );
+    background-repeat: no-repeat;
 
     box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
-    0 0 10px 3px rgba(255, 0, 255, 0.15),
-    0 0 14px 6px rgba(0, 255, 255, 0.15),
-    0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
+      0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
+      0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
 
     // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
     //   /* middle magenta */ 0 0 140px 9px #0ff;
@@ -193,29 +189,32 @@ background-repeat: no-repeat;
 `;
 
 const SearchButton = styled(FaSearch)`
-transition: all 0.1s;
-margin-bottom: 4rem;
-border-radius: 50%;
-cursor: pointer;
+  transition: all 0.1s;
+  margin-bottom: 4rem;
+  border-radius: 50%;
+  cursor: pointer;
 
-&:hover {
-  opacity: 1;
-  scale: 1.075;
-  background: radial-gradient(circle farthest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-background-repeat: no-repeat;
+  &:hover {
+    opacity: 1;
+    scale: 1.075;
+    background: radial-gradient(
+      circle farthest-side,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.2)
+    );
+    background-repeat: no-repeat;
 
-  box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
-  0 0 10px 3px rgba(255, 0, 255, 0.15),
-  0 0 14px 6px rgba(0, 255, 255, 0.15),
-  0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
+    box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
+      0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
+      0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
 
-  // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
-  //   /* middle magenta */ 0 0 140px 9px #0ff;
-}
-&:active {
-  opacity: 0.8;
-  transform: translateY(2px);
-}
+    // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+    //   /* middle magenta */ 0 0 140px 9px #0ff;
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
 `;
 
 export default function RoomsTab({
@@ -228,6 +227,8 @@ export default function RoomsTab({
   user,
   openRoomSearchHandler,
 }) {
+  console.log(rooms);
+
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons, savedRooms;
   if (rooms) {

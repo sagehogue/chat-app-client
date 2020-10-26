@@ -274,9 +274,9 @@ export default function HomePage() {
 
   //remove saved room
 
-  const handleRmvSavedRoom = (id, roomID) => {
+  const handleRemoveSavedRoom = (id, roomID) => {
     console.log("removed " + id + " " + roomID);
-    socket.emit("rmv-saved-room", { id, roomID });
+    socket.emit("remove-saved-room", { id, roomID });
   };
 
   //favorite room
@@ -286,9 +286,9 @@ export default function HomePage() {
   };
 
   //rmv favorite room
-  const handleRmvFavoriteRoom = (id, roomID) => {
+  const handleRemoveFavoriteRoom = (id, roomID) => {
     console.log("removed " + id + " " + roomID);
-    socket.emit("rmv-favorite-room", { id, roomID });
+    socket.emit("remove-favorite-room", { id, roomID });
   };
 
   const handleAddFriend = (uid, friendUID, displayName) => {
@@ -473,7 +473,7 @@ export default function HomePage() {
     ></UserProfile>
   );
 
-  console.log(avatar)
+  console.log(avatar);
 
   return (
     <>
@@ -544,9 +544,9 @@ export default function HomePage() {
             userRooms={userRooms}
             avatar={avatar.url}
             handleAddSavedRoom={handleAddSavedRoom}
-            handleRmvSavedRoom={handleRmvSavedRoom}
+            handleRemoveSavedRoom={handleRemoveSavedRoom}
             handleAddFavoriteRoom={handleAddFavoriteRoom}
-            handleRmvFavoriteRoom={handleRmvFavoriteRoom}
+            handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
           />
         ) : (
           <Join
