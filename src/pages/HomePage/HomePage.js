@@ -557,6 +557,8 @@ export default function HomePage() {
         )}
         <RoomsTab
           joinHandler={handleJoinRoom}
+          addFavorite={handleAddFavoriteRoom}
+          removeFavorite={handleRemoveFavoriteRoom}
           pageOnDisplay={display}
           closeTabHandler={handleCloseRoomsTab}
           createRoomHandler={handleShowCreateRoomModal}

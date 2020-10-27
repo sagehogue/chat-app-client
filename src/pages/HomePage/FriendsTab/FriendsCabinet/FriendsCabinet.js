@@ -1,33 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import Drawer from "./Drawer/Drawer.js";
+import Cabinet from "../../../../components/UI/Cabinet/Cabinet";
+import Drawer from "../../../../components/UI/Cabinet/Drawer";
 import UserBar from "../../../../components/UI/UserSystem/UserBar/UserBar";
 import FriendRequest from "../../../../components/UI/UserSystem/FriendRequest/FriendRequest";
-
-const FavoriteFriends = styled.ul`
-  width: 91%;
-  padding: 0.5rem 2px;
-  margin: 0 auto;
-  min-height: 1rem;
-  text-align: center;
-  border-radius: 15%;
-`;
 
 const NoFavorites = styled.div`
   margin-top: 1rem;
   border-radius: 15%;
   font-size: 0.75rem;
-`;
-
-const DrawerFrame = styled.div`
-display: flex;
-flex-direction: column;
-height: 100%
-overflow-y: scroll;
-max-height: 90vh;
-max-width: 20vw;
-
 `;
 
 const FavoritesDrawer = styled(Drawer)``;
@@ -164,15 +146,15 @@ export default function FriendsCabinet({
   }, [sentFriendRequests]);
 
   return (
-    <DrawerFrame>
+    <Cabinet>
       <FavoritesDrawer name={"Favorites"}>
-        {/* {favoriteFriends ? (
-            favoriteFriendsUserbars
-          ) : (
-            <NoFavorites>
-              Adding friends to your favorites will pin them here.
-            </NoFavorites>
-          )} */}
+        {favoriteFriends ? (
+          favoriteFriendsUserbars
+        ) : (
+          <NoFavorites>
+            Adding friends to your favorites will pin them here.
+          </NoFavorites>
+        )}
       </FavoritesDrawer>
       <FriendsDrawer name={"Friends"}>
         {friends ? (
@@ -187,6 +169,6 @@ export default function FriendsCabinet({
       <SentRequestDrawer name={"Sent"}>
         {sentFriendRequestUserbars}
       </SentRequestDrawer>
-    </DrawerFrame>
+    </Cabinet>
   );
 }

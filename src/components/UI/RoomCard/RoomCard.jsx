@@ -45,6 +45,7 @@ export default function RoomCard({
   joinHandler,
   id,
   user,
+  isFavorite,
 }) {
   return (
     <Styles

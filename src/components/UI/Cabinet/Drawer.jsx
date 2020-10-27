@@ -33,7 +33,6 @@ const Label = styled.span`
     scale: 1.1;
   }
 `;
-
 const Contents = styled.div`
   z-index: 4;
 `;

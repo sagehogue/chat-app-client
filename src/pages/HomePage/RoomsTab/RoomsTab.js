@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { FaPlusCircle, FaSearch, FaTimes } from "react-icons/fa";
 
 import Theme from "../../../util/Theme/Theme";
+
+import RoomCabinet from "./RoomCabinet/RoomCabinet";
 import Toolbox from "./Toolbox/Toolbox";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
@@ -223,7 +225,10 @@ export default function RoomsTab({
   rooms = null,
   closeTabHandler,
   createRoomHandler,
+  addFavorite,
+  removeFavorite,
   joinHandler,
+  deleteHandler,
   user,
   openRoomSearchHandler,
 }) {
@@ -260,10 +265,6 @@ export default function RoomsTab({
       ></RoomCard>
     ));
   }
-  console.log(rooms);
-  console.log(
-    `\n Saved Rooms: ${savedRooms}\n Favorite Rooms: ${favoriteRooms}`
-  );
 
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
@@ -273,31 +274,14 @@ export default function RoomsTab({
         <SearchButton size={25} onClick={openRoomSearchHandler} />
       </Controls>
 
-      <RoomsList>
-        <FavoriteRooms>
-          <GrayBG>
-            {favoriteRooms ? (
-              favRoomButtons
-            ) : (
-              <NoFavorites>
-                Add some rooms to your favorites to see them displayed here.
-              </NoFavorites>
-            )}
-          </GrayBG>
-        </FavoriteRooms>
-        <Rooms>
-          <Stylishhr />
-          <GrayBG>
-            {rooms ? (
-              roomButtons
-            ) : (
-              <NoFavorites>
-                Save some rooms to find them displayed here.
-              </NoFavorites>
-            )}
-          </GrayBG>
-        </Rooms>
-      </RoomsList>
+      <RoomCabinet
+        rooms={rooms}
+        user={user}
+        joinHandler={joinHandler}
+        deleteHandler={deleteHandler}
+        addFavorite={addFavorite}
+        removeFavorite={removeFavorite}
+      ></RoomCabinet>
       {/* <Toolbox /> */}
     </RoomsTabStyle>
   );
