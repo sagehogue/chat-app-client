@@ -50,6 +50,8 @@ export default {
   textColorLight: "#fff;",
   textColorDark: "black",
 
+  
+
   fontSizeS: "1rem",
   fontSizeM: "1.5rem",
   fontSizeL: "2rem",

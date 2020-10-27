@@ -70,11 +70,14 @@ export default function FriendRequest({
   handleDecline,
   clientID,
   requesterID,
-  deleteSelf
+  deleteSelf,
+  
 }) {
   let pic;
+  
   if (avatar) {
-    pic = <Avatar src={avatar} />;
+    
+    pic = <Avatar src={avatar.url} />;
   } else {
     pic = <FaUserSecret size={30} />;
   }

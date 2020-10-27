@@ -28,7 +28,7 @@ const FriendsTabStyle = styled.section`
   grid-column: 1 / 2;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 
   background-color: ${Theme.backgroundColorDark};
   transition: all ${Theme.navTransitionDuration} ease-in;
@@ -103,7 +103,36 @@ const CloseButton = styled.button`
 const TopButtons = styled.div`
   display: flex;
   justify-content: space-between;
+  
 `;
+
+const ButtonEffects = styled.div`
+transition: all 0.1s;
+// margin-bottom: 4rem;
+border-radius: 50%;
+cursor: pointer;
+
+
+&:hover {
+  
+  opacity: 1;
+  scale: 1.075;
+  background: radial-gradient(circle farthest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
+background-repeat: no-repeat;
+
+  box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
+  0 0 10px 3px rgba(255, 0, 255, 0.15),
+  0 0 14px 6px rgba(0, 255, 255, 0.15),
+  0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
+
+  // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+  //   /* middle magenta */ 0 0 140px 9px #0ff;
+}
+&:active {
+  opacity: 0.8;
+  transform: translateY(2px);
+}
+`
 
 const Whitespace = styled.div`
   margin-bottom: 2.5rem;
@@ -141,8 +170,9 @@ export default function FriendsTab({
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <TopButtons>
-        <FaSearch size={25} onClick={openUserSearchHandler} />
-        <FaTimes size={25} onClick={closeTabHandler} />
+        <ButtonEffects><FaSearch size={25} onClick={openUserSearchHandler} /></ButtonEffects>
+        <ButtonEffects><FaTimes size={25} onClick={closeTabHandler} /></ButtonEffects>
+        
       </TopButtons>
       <Whitespace />
       <Cabinet

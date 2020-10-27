@@ -78,15 +78,20 @@ export default function UserBar({
   handleCancelFriendRequest,
   type = false,
   deleteSelf,
-}) {
+  
+}) 
+
+{ console.log(avatar)
   if (type) {
     if (type == "SENTREQUEST") {
       console.log(id + clientID);
+      
       return (
         <Bar>
           <Avatar>
             {avatar ? (
-              <img src={avatar} alt={"User Picture"} />
+              
+              <img src={avatar.url} alt={"User Picture"} />
             ) : (
               <FaUserSecret size={35} />
             )}
@@ -112,7 +117,7 @@ export default function UserBar({
       <Bar>
         <Avatar>
           {avatar ? (
-            <img src={avatar} alt={"User Picture"} />
+            <img src={avatar.url} alt={"User Picture"} />
           ) : (
             <FaUserSecret size={35} />
           )}

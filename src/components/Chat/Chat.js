@@ -72,9 +72,9 @@ const Chat = ({
   handleRemoveFriend,
   userRooms,
   handleAddSavedRoom,
-  handleRmvSavedRoom,
+  handleRemoveSavedRoom,
   handleAddFavoriteRoom,
-  handleRmvFavoriteRoom,
+  handleRemoveFavoriteRoom,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -214,9 +214,9 @@ const Chat = ({
           isUserSavedRoom={isSavedRoom}
           isFavoriteRoom={isFavoriteRoom}
           handleAddSavedRoom={handleAddSavedRoom}
-          handleRmvSavedRoom={handleRmvSavedRoom}
+          handleRemoveSavedRoom={handleRemoveSavedRoom}
           handleAddFavoriteRoom={handleAddFavoriteRoom}
-          handleRmvFavoriteRoom={handleRmvFavoriteRoom}
+          handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
         />
         <Messages messages={messages} name={username} avatar={avatar} />
         <Input
