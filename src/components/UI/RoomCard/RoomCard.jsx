@@ -15,6 +15,7 @@ const Styles = styled.div`
   padding: 0.5rem 1rem;
   min-height: 6rem;
   min-width: 10rem;
+  margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

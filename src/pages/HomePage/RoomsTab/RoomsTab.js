@@ -203,7 +203,7 @@ export default function RoomsTab({
   if (rooms) {
     favoriteRooms = rooms.filter((room) => room.isFavorite);
   }
-  if (favoriteRooms) {
+  if (favoriteRooms && favoriteRooms.length > 0) {
     favRoomButtons = favoriteRooms.map((room) => (
       <RoomCard
         roomPic={room.pic}
@@ -215,7 +215,10 @@ export default function RoomsTab({
     ));
   }
   if (rooms) {
-    savedRooms = rooms.filter((room) => room.isFavorite == false);
+    rooms.map((room) => console.log(room));
+    savedRooms = rooms.filter(
+      (room) => room.isFavorite == false || room.isFavorite == undefined
+    );
     roomButtons = savedRooms.map((room) => (
       <RoomCard
         roomPic={room.pic}
@@ -226,6 +229,10 @@ export default function RoomsTab({
       ></RoomCard>
     ));
   }
+  console.log(rooms);
+  console.log(
+    `\n Saved Rooms: ${savedRooms}\n Favorite Rooms: ${favoriteRooms}`
+  );
 
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>

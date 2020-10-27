@@ -68,6 +68,18 @@ const SearchResults = styled.ul`
   }
 `;
 
+const CenterContent = styled.div`
+  margin-top: auto;
+  & .ais-Pagination-list {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    text-align: center;
+    justify-content: space-around;
+  }
+`;
+
 const client = algoliasearch("333WBDSI2L", "402eef045334263775aa43830a7952d5");
 
 export default function UserSearchBar({ visible, closeHandler, joinHandler }) {
@@ -114,7 +126,9 @@ export default function UserSearchBar({ visible, closeHandler, joinHandler }) {
             <Stats />
             <CustomHits />
             {/* <Hits hitComponent={hitComponent} /> */}
-            <Pagination />
+            <CenterContent>
+              <Pagination />
+            </CenterContent>
           </SearchAndResults>
         </InstantSearch>
       </Styles>

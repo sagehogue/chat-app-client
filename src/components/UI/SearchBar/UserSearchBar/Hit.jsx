@@ -60,7 +60,6 @@ const Controls = styled.div`
 `;
 
 export default function Hit({ hit }) {
-  console.log(hit);
   let avatar;
   if (hit.avatar) {
     avatar = (
