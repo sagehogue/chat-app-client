@@ -228,7 +228,7 @@ export default function RoomsTab({
   addFavorite,
   removeFavorite,
   joinHandler,
-  deleteHandler,
+  handleRemoveSavedRoom,
   user,
   openRoomSearchHandler,
 }) {
@@ -277,7 +277,7 @@ export default function RoomsTab({
         user={user}
         clientID={user.id}
         joinHandler={joinHandler}
-        deleteHandler={deleteHandler}
+        handleRemoveSavedRoom={handleRemoveSavedRoom}
         addFavorite={addFavorite}
         removeFavorite={removeFavorite}
       ></RoomCabinet>

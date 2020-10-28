@@ -15,7 +15,7 @@ export default function RoomCabinet({
   addFavorite,
   clientID,
   joinHandler,
-  deleteHandler,
+  handleRemoveSavedRoom,
 }) {
   const [favoriteRoomIcons, setFavoriteRoomIcons] = useState([]);
   const [savedRoomIcons, setSavedRoomIcons] = useState([]);
@@ -34,7 +34,7 @@ export default function RoomCabinet({
               id={favorite.id}
               userID={clientID}
               joinHandler={joinHandler}
-              deleteHandler={deleteHandler}
+              handleRemoveSavedRoom={handleRemoveSavedRoom}
               removeFavorite={removeFavorite}
               isFavorite
             ></RoomCard>
@@ -49,7 +49,7 @@ export default function RoomCabinet({
               id={room.id}
               userID={clientID}
               joinHandler={joinHandler}
-              deleteHandler={deleteHandler}
+              handleRemoveSavedRoom={handleRemoveSavedRoom}
               addFavorite={addFavorite}
               removeFavorite={removeFavorite}
             ></RoomCard>

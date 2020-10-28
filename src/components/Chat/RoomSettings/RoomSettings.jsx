@@ -21,20 +21,30 @@ const Heading = styled.h1`
 const Options = styled.ul`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1rem 10rem;
 `;
 
 const Setting = styled.li`
+  width: 100%;
   display: flex;
   margin: 1rem auto;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
-const Preview = styled.div``;
+const Preview = styled.div`
+  max-width: 15rem;
+  font-size: 10rem;
+`;
 
 const Controls = styled.span`
   max-width: 75%;
-  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.35rem;
+
+  // justify-content: flex-end;
 `;
 
 const Description = styled.span`
@@ -117,7 +127,7 @@ export default function RoomSettings({
       <Options>
         <Setting>
           <Preview>
-            <FaDoorOpen size={100} />
+            <FaDoorOpen />
           </Preview>
           <Controls>
             <Description>Upload a new image to use as room avatar</Description>

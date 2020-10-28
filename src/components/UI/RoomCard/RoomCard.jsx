@@ -100,7 +100,7 @@ export default function RoomCard({
   joinHandler,
   addFavorite,
   removeFavorite,
-  deleteHandler,
+  handleRemoveSavedRoom,
 }) {
   console.log(userID);
   return (
@@ -140,7 +140,7 @@ export default function RoomCard({
           size={20}
           onClick={(e) => {
             e.stopPropagation();
-            deleteHandler(userID, id);
+            handleRemoveSavedRoom(userID, id);
           }}
         />
       </Content>
