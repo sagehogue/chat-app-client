@@ -9,10 +9,9 @@ import { firebaseController } from "../../App";
 import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
 
-import CurrentUser from "../../App.js";
+import CurrentUser, { getStorageRef } from "../../App.js";
 
 import uuid from "react-uuid";
-import { getStorageRef } from "../../App";
 
 // import FileUploader from "react-firebase-file-uploader";
 
@@ -253,7 +252,6 @@ export default function UserProfile({
         socket.emit("change-avatar", { id, image: { id: imageUuid, url } });
         setProfilePic(url);
       });
-      console.log(profilePicRef.getDownloadURL());
     });
   };
   console.log(profilePicURL + "\n" + profilePic);
