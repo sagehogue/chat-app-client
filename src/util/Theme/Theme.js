@@ -1,4 +1,18 @@
 export default {
+  font: {
+    type: {
+      heading: "Helvetica",
+      body: "Helvetica",
+    },
+    color: {
+      heading: "rgb(3, 3, 3)",
+      body: "rgb(3, 3, 3)",
+    },
+    size: {
+      headingDesktop: "2rem",
+      bodyDesktop: "1.1rem",
+    },
+  },
   navColorInactive: "rgba(43, 43, 43, 1)",
   navColorActive: "rgba(255, 255, 255, 0)",
   navTransitionDuration: ".35s",
@@ -49,8 +63,6 @@ export default {
 
   textColorLight: "#fff;",
   textColorDark: "black",
-
-  
 
   fontSizeS: "1rem",
   fontSizeM: "1.5rem",

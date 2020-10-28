@@ -232,8 +232,6 @@ export default function RoomsTab({
   user,
   openRoomSearchHandler,
 }) {
-  console.log(rooms);
-
   // Attach event listeners to these that take you to corresponding room
   let roomButtons, favRoomButtons, savedRooms;
   if (rooms) {

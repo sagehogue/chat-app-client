@@ -9,6 +9,7 @@ import {
   FaMinus,
   FaStar,
   FaRegStar,
+  FaEllipsisH,
 } from "react-icons/fa";
 
 import onlineIcon from "../../../icons/onlineIcon.png";
@@ -120,6 +121,7 @@ const InfoBar = ({
   handleRemoveSavedRoom,
   handleAddFavoriteRoom,
   handleRemoveFavoriteRoom,
+  handleOpenRoomSettings,
 }) => {
   const [optionMenuHovered, setOptionMenuHovered] = useState(false);
 
@@ -185,6 +187,10 @@ const InfoBar = ({
             <Text>
               {isFavoriteRoom ? "Remove from favorites" : "Add to favorites"}
             </Text>
+          </Option>
+          <Option>
+            <FaEllipsisH onClick={handleOpenRoomSettings} />
+            <Text>Additional Settings</Text>
           </Option>
         </OptionsMenu>
       </CenterRightContainer>

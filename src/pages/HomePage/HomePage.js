@@ -145,6 +145,8 @@ export default function HomePage() {
   let [userRooms, setUserRooms] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
+  // whether or not roomSettings is visible to user
+  const [showRoomSettings, setShowRoomSettings] = useState(false);
   let userAuth = useContext(AuthContext);
   let user = userAuth;
   let name, email, photoUrl, uid, emailVerified;
@@ -369,9 +371,6 @@ export default function HomePage() {
     state(true);
   };
 
-  const setStateFalse = (state) => {
-    state(false);
-  };
   const manualDisconnect = () => {
     socket.disconnect();
   };
@@ -421,9 +420,16 @@ export default function HomePage() {
     setShowUsers(false);
     setDisplayUserSearch(false);
     setDisplayRoomSearch(false);
+    setShowRoomSettings(false);
   };
+
   const openBackdrop = () => {
     setShowBackdrop(true);
+  };
+
+  const handleOpenRoomSettings = () => {
+    openBackdrop();
+    setShowRoomSettings(true);
   };
 
   const handleShowCreateRoomModal = () => {
@@ -547,6 +553,9 @@ export default function HomePage() {
             handleRemoveSavedRoom={handleRemoveSavedRoom}
             handleAddFavoriteRoom={handleAddFavoriteRoom}
             handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
+            handleOpenRoomSettings={handleOpenRoomSettings}
+            handleCloseRoomSettings={closeBackdrop}
+            showRoomSettings={showRoomSettings}
           />
         ) : (
           <Join

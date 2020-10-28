@@ -8,6 +8,7 @@ import TextContainer from "./TextContainer/TextContainer";
 import Messages from "../Messages/Messages";
 import InfoBar from "./InfoBar/InfoBar";
 import Input from "../UI/Input/Input";
+import RoomSettings from "./RoomSettings/RoomSettings";
 import Theme from "../../util/Theme/Theme";
 
 import { getCurrentTime, sortByDate } from "../../util/helpers/helpers.js";
@@ -52,13 +53,6 @@ const Container = styled.div`
   //       }
 `;
 
-const UserListContainer = styled(Container)`
-  z-index: ${(props) => (props.showUsers ? Theme.zIndex.modal : "0")};
-  position: absolute;
-  height: 75vh;
-  width: 50vw;
-`;
-
 const Chat = ({
   avatar,
   room = false,
@@ -75,6 +69,9 @@ const Chat = ({
   handleRemoveSavedRoom,
   handleAddFavoriteRoom,
   handleRemoveFavoriteRoom,
+  handleOpenRoomSettings,
+  handleCloseRoomSettings,
+  showRoomSettings,
 }) => {
   const [username, setUsername] = useState(user.displayName);
   // Controls which chat room is displayed on screen
@@ -217,6 +214,7 @@ const Chat = ({
           handleRemoveSavedRoom={handleRemoveSavedRoom}
           handleAddFavoriteRoom={handleAddFavoriteRoom}
           handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
+          handleOpenRoomSettings={handleOpenRoomSettings}
         />
         <Messages messages={messages} name={username} avatar={avatar} />
         <Input
@@ -225,15 +223,18 @@ const Chat = ({
           sendMessage={sendMessage}
         />
       </Container>
-      <UserListContainer showUsers={showUsers}>
-        <UserList
-          users={users}
-          location={currentRoom.roomName}
-          userID={user.uid}
-          handleAddFriend={handleAddFriend}
-          handleRemoveFriend={handleRemoveFriend}
-        />
-      </UserListContainer>
+      <UserList
+        users={users}
+        location={currentRoom.roomName}
+        userID={user.uid}
+        handleAddFriend={handleAddFriend}
+        handleRemoveFriend={handleRemoveFriend}
+        shouldDisplay={showUsers}
+      />
+      <RoomSettings
+        shouldDisplay={showRoomSettings}
+        handleCloseRoomSettings={handleCloseRoomSettings}
+      ></RoomSettings>
     </OuterContainer>
   );
 };

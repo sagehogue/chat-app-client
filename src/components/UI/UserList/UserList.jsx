@@ -3,13 +3,9 @@ import styled from "styled-components";
 
 import UserBar from "./UserBar/UserBar";
 
-// needs an icon, and some indicator that you can click this for a list of users
+import Modal from "../Modal/NewModal";
 
-const DisplayBox = styled.section`
-  margin: auto;
-  min-height: 75vh;
-  min-width: 50vw;
-`;
+// needs an icon, and some indicator that you can click this for a list of users
 
 const UserListHeading = styled.h3`
   margin-bottom: 0.5rem;
@@ -46,6 +42,7 @@ const UserList = ({
   handleRemoveFriend,
   addFavoriteHandler,
   removeFavoriteHandler,
+  shouldDisplay,
 }) => {
   console.log(users);
   let onlineUsers;
@@ -115,14 +112,14 @@ const UserList = ({
     }
   }
   return (
-    <DisplayBox>
+    <Modal shouldDisplay={shouldDisplay}>
       <TopOfWindow>
         <UserListHeading>Active Users in {location}</UserListHeading>
         <UserListSearchInput type="text" />
         <StyledHR />
       </TopOfWindow>
       <OnlineUsersList>{onlineUsers}</OnlineUsersList>
-    </DisplayBox>
+    </Modal>
   );
 };
 
