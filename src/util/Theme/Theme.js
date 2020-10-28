@@ -42,8 +42,10 @@ export default {
     accentExtraLightNew: "",
     accentMedium: `rgb(73, 227, 181)`,
     brightAccentRed: "#F51444",
+    mostlyTransparentBlack: `rgba(3, 3, 3, 0.15)`,
   },
   animations: {
+    buttonHoverEffectTransition: "all .3s",
     transition: "all .3s",
   },
   ui: {

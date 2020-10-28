@@ -275,6 +275,7 @@ export default function RoomsTab({
       <RoomCabinet
         rooms={rooms}
         user={user}
+        clientID={user.id}
         joinHandler={joinHandler}
         deleteHandler={deleteHandler}
         addFavorite={addFavorite}

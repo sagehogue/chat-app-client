@@ -3,25 +3,15 @@ import React from "react";
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
-// TODOS:
-// Implement event handler to join room
-//
+import {
+  FaMinus,
+  FaStar,
+  FaRegStar,
+  FaEllipsisH,
+  FaDoorOpen,
+} from "react-icons/fa";
 
-const Styles = styled.div`
-  position: relative;
-  background-color: ${Theme.offWhite};
-  //   padding: 3rem 5rem;
-  border-radius: 7px;
-  padding: 0.5rem 1rem;
-  min-height: 6rem;
-  min-width: 10rem;
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  color: ${Theme.offWhite};
-  margin-left: 2rem;
-`;
+const Styles = styled.div``;
 
 const UserCountStyles = styled.span`
   position: absolute;
@@ -39,25 +29,134 @@ const RoomNameStyles = styled.span`
   font-size: 1.65rem;
 `;
 
+const Card = styled.div`
+  position: relative;
+  background-color: ${Theme.offWhite};
+  //   padding: 3rem 5rem;
+  border-radius: 7px;
+  padding: 0.25rem;
+  min-height: 6.25rem;
+  min-width: 6rem;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  color: ${Theme.offWhite};
+  &:hover {
+    & svg {
+      z-index: 5;
+      color: ${Theme.colors.primary};
+    }
+  }
+`;
+
+const Avatar = styled.img`
+  min-height: 4rem;
+  max-height: 6rem;
+  min-width: 6rem;
+  max-width: 9rem;
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+  color: ${Theme.colors.primary};
+
+  & > svg:nth-of-type(2) {
+    margin-left: auto;
+  }
+  & svg {
+    transition: ${Theme.animations.buttonHoverEffectTransition};
+    color: ${Theme.offWhite};
+  }
+`;
+
+const RoomName = styled.span`
+  padding: 0.35rem;
+  display: inline-block;
+  width: 100%;
+  font-size: 1.25rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  font-weight: 500;
+  background-color: ${Theme.colors.mostlyTransparentBlack};
+  vertical-align: middle;
+`;
+
+const Center = styled.div`
+  color: ${Theme.colors.accentMedium};
+
+  display: flex;
+  justify-content: center;
+`;
+
 export default function RoomCard({
   roomName,
   usercount,
-  joinHandler,
   id,
-  user,
+  userID,
+  avatar = false,
   isFavorite,
+  joinHandler,
+  addFavorite,
+  removeFavorite,
+  deleteHandler,
 }) {
+  console.log(userID);
   return (
-    <Styles
+    <Card
       onClick={(e) => {
-        console.log(user);
         joinHandler({ roomName, id });
       }}
     >
-      <RoomNameStyles>{roomName}</RoomNameStyles>
-      {usercount ? (
-        <UserCountStyles>Online: {usercount}</UserCountStyles>
-      ) : null}
-    </Styles>
+      {avatar ? (
+        <Avatar src={avatar.url} />
+      ) : (
+        <Center>
+          <FaDoorOpen size={60} color={Theme.colors.accentMedium} />
+        </Center>
+      )}
+      <Content>
+        <FaEllipsisH size={20} />
+        <RoomName>{roomName}</RoomName>
+        {isFavorite ? (
+          <FaRegStar
+            onClick={(e) => {
+              e.stopPropagation();
+              removeFavorite(userID, id);
+            }}
+            size={20}
+          />
+        ) : (
+          <FaStar
+            onClick={(e) => {
+              e.stopPropagation();
+              addFavorite(userID, id);
+            }}
+            size={20}
+          />
+        )}
+        <FaMinus
+          size={20}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteHandler(userID, id);
+          }}
+        />
+      </Content>
+    </Card>
   );
+  // (
+  //   <Styles
+  //     onClick={(e) => {
+  //       console.log(user);
+  //       joinHandler({ roomName, id });
+  //     }}
+  //   >
+  //     <RoomNameStyles>{roomName}</RoomNameStyles>
+  //     {usercount ? (
+  //       <UserCountStyles>Online: {usercount}</UserCountStyles>
+  //     ) : null}
+  //   </Styles>
+  // );
 }

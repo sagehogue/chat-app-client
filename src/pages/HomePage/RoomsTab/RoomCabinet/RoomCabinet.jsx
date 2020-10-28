@@ -21,7 +21,7 @@ export default function RoomCabinet({
   const [savedRoomIcons, setSavedRoomIcons] = useState([]);
 
   useEffect(() => {
-    console.log(rooms);
+    console.log(clientID);
     if (rooms) {
       // check for favorite rooms
       const favs = rooms.filter((room) => room.isFavorite);
@@ -51,6 +51,7 @@ export default function RoomCabinet({
               joinHandler={joinHandler}
               deleteHandler={deleteHandler}
               addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
             ></RoomCard>
           ))
       );
