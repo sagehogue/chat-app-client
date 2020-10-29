@@ -28,6 +28,7 @@ const Username = styled.span`
 `;
 
 const UserAvatar = styled.span`
+
   font-size: 1.75rem;
   margin-left: 1rem;
 `;

@@ -20,6 +20,11 @@ const RequestDrawer = styled(Drawer)``;
 
 const SentRequestDrawer = styled(Drawer)``;
 
+const FriendsAvatar = styled.img`
+  height: 10px;
+  width: 10px;
+`;
+
 export default function FriendsCabinet({
   favoriteFriends = null,
   friends = null,

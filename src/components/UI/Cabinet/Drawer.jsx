@@ -35,6 +35,7 @@ const Label = styled.span`
 `;
 const Contents = styled.div`
   z-index: 4;
+ 
 `;
 
 const Triangle = styled(GoTriangleDown)`
