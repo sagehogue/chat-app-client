@@ -514,6 +514,7 @@ export default function HomePage() {
         ></FriendsTab>
         <CreateRoomModal
           visible={showCreateRoomModal}
+          shouldDisplay={showCreateRoomModal}
           closeHandler={closeBackdrop}
           submitHandler={handleRoomCreation}
           user={user}

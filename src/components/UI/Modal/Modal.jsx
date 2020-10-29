@@ -7,11 +7,11 @@ const Styles = styled.div`
   margin: auto;
   height: 60vh;
   width: 50vw;
-  background-color: ${Theme.textColorLight};
+  background-color: ${Theme.colors.offWhite};
   z-index: ${(props) => (props.visible ? Theme.zIndex.modal : "-1")};
-  position: absolute;
   top: 15%;
   left: 25%;
+
   @media screen and (min-width: 800px) {
     min-height: 75vh;
   }

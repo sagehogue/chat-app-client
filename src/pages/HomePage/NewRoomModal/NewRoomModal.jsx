@@ -3,40 +3,47 @@ import styled from "styled-components";
 
 import Uuid from "react-uuid";
 import Theme from "../../../util/Theme/Theme";
-import Modal from "../../../components/UI/Modal/Modal";
+import Modal from "../../../components/UI/Modal/NewModal";
 
 // [TODOS]
 
 // Create a way to invite users to room as soon as it is created.
 
 const Styles = styled(Modal)`
+  & input {
+    max-width: 5rem;
+  }
+`;
+
+const Position = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  background-color: ${Theme.textColorLight};
+  margin: 1rem auto auto auto;
 `;
 
 const Heading = styled.h3`
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: center;
-  background-color: ${Theme.textColorLight};
+
+  margin: 2rem auto 5rem auto;
 `;
 
 const Label = styled.label`
   text-align: center;
   display: block;
-  margin-top: 1.25rem;
-  background-color: ${Theme.textColorLight};
+  max-width: 75%;
+  margin: 1.25rem auto 0 auto;
 `;
 
 const CreateRoomForm = styled.form`
+  min-width: 25rem;
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   height: 75%;
-  background-color: ${Theme.textColorLight};
 `;
 
 const FormInput = styled.input`
@@ -52,11 +59,10 @@ const FormInput = styled.input`
 `;
 
 const SubmitButton = styled.button`
-  width: 25%;
+  width: 50%;
   border: none;
   border-radius: ${Theme.borderRadiusBtn};
   margin: 0 auto;
-  margin-top: 30%;
   cursor: pointer;
   padding: 1rem;
   background-color: ${Theme.colorHighlight};
@@ -65,6 +71,7 @@ const SubmitButton = styled.button`
 `;
 
 const ConfirmPasswordInput = styled(FormInput)`
+  margin-bottom: 3rem;
   &::after {
     content: ${(props) =>
       props.passwordMatch ? "" : "Passwords do not match"};
@@ -141,57 +148,59 @@ export default function NewRoomModal({
     clearInputs();
   }
   return (
-    <Styles visible={visible}>
-      <Heading>Create New Room</Heading>
-      <CreateRoomForm>
-        <Label>
-          Name:
-          <FormInput
-            type="text"
-            value={name}
-            name={"roomName"}
-            onChange={handleChange}
-            centered
-          />
-        </Label>
-        <Label>
-          Password Protected?
-          <FormInput
-            name="isPasswordProtected"
-            type="checkbox"
-            checked={passwordProtected}
-            onChange={handleChange}
-          />
-        </Label>
-        {passwordProtected ? (
+    <Modal shouldDisplay={visible}>
+      <Position>
+        <Heading>Create New Room</Heading>
+        <CreateRoomForm>
           <Label>
-            Password:
+            Name:
             <FormInput
-              name="password"
-              type="password"
-              value={password}
+              type="text"
+              value={name}
+              name={"roomName"}
               onChange={handleChange}
               centered
             />
           </Label>
-        ) : null}
-        {passwordProtected ? (
           <Label>
-            Confirm Password:
-            <ConfirmPasswordInput
-              name="confirmPassword"
-              type="password"
-              value={confirmPassword}
+            Password Protected?
+            <FormInput
+              name="isPasswordProtected"
+              type="checkbox"
+              checked={passwordProtected}
               onChange={handleChange}
-              centered
-              passwordMatch={passwordsMatch}
             />
           </Label>
-        ) : null}
-        <SubmitButton type="submit" onClick={handleSubmit}>
-          Submit
-        </SubmitButton>
-      </CreateRoomForm>
-    </Styles>
+          {passwordProtected ? (
+            <Label>
+              Password:
+              <FormInput
+                name="password"
+                type="password"
+                value={password}
+                onChange={handleChange}
+                centered
+              />
+            </Label>
+          ) : null}
+          {passwordProtected ? (
+            <Label>
+              Confirm Password:
+              <ConfirmPasswordInput
+                name="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={handleChange}
+                centered
+                passwordMatch={passwordsMatch}
+              />
+            </Label>
+          ) : null}
+          <SubmitButton type="submit" onClick={handleSubmit}>
+            Submit
+          </SubmitButton>
+        </CreateRoomForm>
+      </Position>
+    </Modal>
   );
 }
