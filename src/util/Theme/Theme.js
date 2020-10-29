@@ -43,6 +43,7 @@ export default {
     accentMedium: `rgb(73, 227, 181)`,
     brightAccentRed: "#F51444",
     mostlyTransparentBlack: `rgba(3, 3, 3, 0.15)`,
+    offWhite: "#f8f8ff",
   },
   animations: {
     buttonHoverEffectTransition: "all .3s",

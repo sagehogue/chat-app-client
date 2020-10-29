@@ -18,23 +18,30 @@ const Heading = styled.h1`
   font-size: ${Theme.font.size.headingDesktop};
 `;
 
-const Options = styled.ul`
+const Options = styled.form`
   display: flex;
   flex-direction: column;
   padding: 1rem 10rem;
+  @media (max-width: 1400px) {
+    padding: 1rem 8rem;
+  }
+  @media (max-width: 1200px) {
+    padding: 1rem 6rem;
+  }
+  @media (max-width: 1000px) {
+    padding: 1rem 4rem;
+  }
+  @media (max-width: 800px) {
+    padding: 1rem 0.5rem;
+  }
 `;
 
-const Setting = styled.li`
+const Setting = styled.div`
   width: 100%;
   display: flex;
   margin: 1rem auto;
   justify-content: space-evenly;
   align-items: center;
-`;
-
-const Preview = styled.div`
-  max-width: 15rem;
-  font-size: 10rem;
 `;
 
 const Controls = styled.span`
@@ -43,29 +50,9 @@ const Controls = styled.span`
   flex-direction: column;
   align-items: center;
   font-size: 1.35rem;
+  height: 16rem;
 
   // justify-content: flex-end;
-`;
-
-const Description = styled.span`
-  word-wrap: wrap;
-  text-align: center;
-  max-width: 75%;
-  display: inline-block;
-`;
-
-const AvatarInput = styled.input`
-  border: none;
-  background: ${Theme.backgroundColorLigjtGray};
-  color: ${Theme.textColorLight};
-  display: block;
-  cursor: pointer;
-  min-width: 3rem;
-  max-width: 6rem;
-  min-height: 2rem;
-  max-height: 4rem;
-  margin: 1rem auto;
-  vertical-align: middle;
 `;
 
 const CloseButton = styled.button`
@@ -91,11 +78,71 @@ const CloseButton = styled.button`
   }
 `;
 
+const Preview = styled.div`
+  max-width: 15rem;
+  font-size: 13rem;
+  height: 16rem;
+  display: flex;
+  overflow: hidden;
+`;
+
+const Avatar = styled.img``;
+
+const VerticalCenter = styled.div`
+  margin: auto;
+`;
+
+const Description = styled.span`
+  word-wrap: wrap;
+  text-align: center;
+  max-width: 75%;
+  display: inline-block;
+  display: block;
+  margin: auto;
+`;
+
+const FormButton = styled.button`
+  text-align: center;
+  text-transform: uppercase;
+  color: ${Theme.colors.offWhite};
+  letter-spacing: 2px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7rem 2.5rem;
+  background-color: ${Theme.colors.brightAccentRed};
+`;
+
+const InputButton = styled(FormButton)`
+  position: relative;
+  display: block;
+  margin: 1rem auto auto auto;
+  background-color: ${Theme.colors.accentMedium};
+`;
+
+const SubmitButton = styled(FormButton)`
+  width: 15rem;
+  margin: 5rem auto auto auto;
+`;
+
+const AvatarInput = styled.input`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+`;
+
 export default function RoomSettings({
   shouldDisplay,
   avatarData = false,
+  changeAvatarHandler,
   socket,
   id,
+  roomID,
   handleCloseRoomSettings,
 }) {
   const [avatar, setAvatar] = useState(avatarData);
@@ -109,12 +156,25 @@ export default function RoomSettings({
 
   const storageRef = getStorageRef();
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("SUBMITTED");
+    if (fileRef.current) {
+      uploadNewRoomAvatar();
+    }
+  };
+
   const uploadNewRoomAvatar = () => {
     const imageUuid = uuid();
     const newAvatarRef = storageRef.child(`images/${imageUuid}`);
     newAvatarRef.put(fileRef.current.files[0]).then(function (snapshot) {
       newAvatarRef.getDownloadURL().then((url) => {
-        socket.emit("change-avatar", { id, image: { id: imageUuid, url } });
+        console.log(roomID);
+        console.log(`AVATAR OBJECT: ${{ id: imageUuid, url }}`);
+        socket.emit("change-room-avatar", {
+          id: roomID,
+          avatar: { id: imageUuid, url },
+        });
         setAvatar({ id: imageUuid, url });
       });
     });
@@ -122,18 +182,28 @@ export default function RoomSettings({
 
   return (
     <Modal shouldDisplay={shouldDisplay}>
-      <CloseButton onClick={handleCloseRoomSettings}></CloseButton>
+      {/* <CloseButton onClick={handleCloseRoomSettings}></CloseButton> */}
       <Heading>Room Settings</Heading>
-      <Options>
+      <Options onSubmit={submitHandler}>
         <Setting>
           <Preview>
-            <FaDoorOpen />
+            <VerticalCenter>
+              {avatar ? <Avatar src={avatar.url} /> : <FaDoorOpen />}
+            </VerticalCenter>
           </Preview>
           <Controls>
-            <Description>Upload a new image to use as room avatar</Description>
-            <AvatarInput type="file" name="file" ref={fileRef} />
+            <VerticalCenter>
+              <Description>
+                Upload a new image to use as room avatar
+              </Description>
+              <InputButton type="button">
+                Select
+                <AvatarInput type="file" name="file" ref={fileRef} />
+              </InputButton>
+            </VerticalCenter>
           </Controls>
         </Setting>
+        <SubmitButton type="submit">submit</SubmitButton>
       </Options>
     </Modal>
   );

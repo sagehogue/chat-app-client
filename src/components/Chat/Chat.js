@@ -232,6 +232,9 @@ const Chat = ({
         shouldDisplay={showUsers}
       />
       <RoomSettings
+        socket={socket}
+        id={user.uid}
+        roomID={currentRoom.id}
         shouldDisplay={showRoomSettings}
         handleCloseRoomSettings={handleCloseRoomSettings}
       ></RoomSettings>

@@ -146,17 +146,4 @@ export default function RoomCard({
       </Content>
     </Card>
   );
-  // (
-  //   <Styles
-  //     onClick={(e) => {
-  //       console.log(user);
-  //       joinHandler({ roomName, id });
-  //     }}
-  //   >
-  //     <RoomNameStyles>{roomName}</RoomNameStyles>
-  //     {usercount ? (
-  //       <UserCountStyles>Online: {usercount}</UserCountStyles>
-  //     ) : null}
-  //   </Styles>
-  // );
 }
