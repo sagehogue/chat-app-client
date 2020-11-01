@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 import UserBar from "./UserBar/UserBar";
@@ -31,12 +31,14 @@ const OnlineUsersList = styled.div`
   margin: 1rem 2rem;
 `;
 
+
+
 // users is users in current room, location is room name, friends is any friends the user might have,
 // userID is the ID of the actual user in session
 const UserList = ({
-  users,
+  users=[],
   location,
-  friends = false,
+  friends = [],
   userID,
   handleAddFriend,
   handleRemoveFriend,
@@ -44,81 +46,172 @@ const UserList = ({
   removeFavoriteHandler,
   shouldDisplay,
 }) => {
-  console.log(users);
-  let onlineUsers;
-  // creates list of userbars from users prop
-  if (users) {
-    let isFriend = false;
-    if (friends) {
-      onlineUsers = users.map((user) => {
-        console.log(`client user: ${userID}\n user in room: ${user.id}`);
-        let profilePic = user.avatar || "default";
-        if (user.id == userID) {
-          return (
-            <UserBar
-              avatar={profilePic}
-              username={user.displayName}
-              friend={isFriend}
-              id={userID}
-              isUser
-            />
-          );
-        } else {
-          let i;
-          for (i of friends) {
-            if (i.id == user.id) isFriend = i.isFriend;
-          }
+let isFriend = false
+let userJsx;
 
-          return (
-            <UserBar
-              avatar={profilePic}
-              username={user.displayName}
-              friend={isFriend}
-              id={user.id}
-              clientID={userID}
-              addFriendHandler={handleAddFriend}
-              removeFriendHandler={handleRemoveFriend}
-            />
-          );
-        }
-      });
-    } else {
-      onlineUsers = users.map((user) => {
-        let profilePic = user.avatar || "default";
-        if (user.id == userID) {
-          return (
-            <UserBar
-              avatar={profilePic}
-              username={user.displayName}
-              friend={isFriend}
-              id={userID}
-              isUser
-            />
-          );
-        } else {
-          return (
-            <UserBar
-              avatar={profilePic}
-              username={user.displayName}
-              friend={isFriend}
-              id={user.id}
-              clientID={userID}
-              addFriendHandler={handleAddFriend}
-              removeFriendHandler={handleRemoveFriend}
-            />
-          );
-        }
-      });
-    }
+const generateJSX = (results) => {
+  let JSX;
+  JSX = results.map((result)=> {
+    let profilePic = result.avatar || "default";
+    // case "user profile belongs to client"
+    if (result.id == userID) {
+      return (
+        <UserBar
+          avatar={profilePic}
+          username={result.displayName}
+          friend={isFriend}
+          id={userID}
+          isUser
+        /> )
   }
+  else {
+    let i;
+    for (i of friends) {
+      if (i.id == result.id) isFriend = i.isFriend;
+    }
+
+    return (
+      <UserBar
+        avatar={profilePic}
+        username={result.displayName}
+        friend={isFriend}
+        id={result.id}
+        clientID={userID}
+        addFriendHandler={handleAddFriend}
+        removeFriendHandler={handleRemoveFriend}
+      />
+    );
+  } 
+ })
+return JSX
+}
+  const [userSearchTerm, setUserSearchTerm] = useState("")
+  const [userBars, setUserBars] = useState(generateJSX(users))
+  const handleChange = (e) => {
+    console.log(e.target.value)
+setUserSearchTerm(e.target.value)
+  }
+
+  useEffect(() => {
+    if (userSearchTerm === "") {
+      // Set results to be all users
+      return setUserBars(generateJSX(users))
+    } else {
+    const results = users.filter((user)=>{
+return user.displayName.toLowerCase().includes(userSearchTerm.toLowerCase())
+    }) 
+    console.log(results)
+    const userJsx = generateJSX(results)
+   setUserBars(userJsx)
+  }
+  // else {
+  //   userJsx = users.map((user) => {
+  //     let profilePic = user.avatar || "default";
+  //     if (user.id == userID) {
+  //       return (
+  //         <UserBar
+  //           avatar={profilePic}
+  //           username={user.displayName}
+  //           friend={isFriend}
+  //           id={userID}
+  //           isUser
+  //         />
+  //       );
+  //     } else {
+  //       return (
+  //         <UserBar
+  //           avatar={profilePic}
+  //           username={user.displayName}
+  //           friend={isFriend}
+  //           id={user.id}
+  //           clientID={userID}
+  //           addFriendHandler={handleAddFriend}
+  //           removeFriendHandler={handleRemoveFriend}
+  //         />
+  //       );
+  //     }
+  //   });
+  //   setUserBars(userJsx)
+  // }
+  
+  }, [userSearchTerm, users])
+
+  // console.log(users);
+  // let onlineUsers;
+  // // creates list of userbars from users prop
+  // if (users) {
+  //   let isFriend = false;
+  //   if (friends) {
+  //     onlineUsers = users.map((user) => {
+        
+  //       let profilePic = user.avatar || "default";
+  //       if (user.id == userID) {
+  //         return (
+  //           <UserBar
+  //             avatar={profilePic}
+  //             username={user.displayName}
+  //             friend={isFriend}
+  //             id={userID}
+  //             isUser
+  //           />)
+
+      
+  //       } else {
+  //         let i;
+  //         for (i of friends) {
+  //           if (i.id == user.id) isFriend = i.isFriend;
+  //         }
+
+  //         return (
+  //           <UserBar
+  //             avatar={profilePic}
+  //             username={user.displayName}
+  //             friend={isFriend}
+  //             id={user.id}
+  //             clientID={userID}
+  //             addFriendHandler={handleAddFriend}
+  //             removeFriendHandler={handleRemoveFriend}
+  //           />
+  //         );
+  //       }
+  //     });
+  //   } else {
+  //     onlineUsers = users.map((user) => {
+  //       let profilePic = user.avatar || "default";
+  //       if (user.id == userID) {
+  //         return (
+  //           <UserBar
+  //             avatar={profilePic}
+  //             username={user.displayName}
+  //             friend={isFriend}
+  //             id={userID}
+  //             isUser
+  //           />
+  //         );
+  //       } else {
+  //         return (
+  //           <UserBar
+  //             avatar={profilePic}
+  //             username={user.displayName}
+  //             friend={isFriend}
+  //             id={user.id}
+  //             clientID={userID}
+  //             addFriendHandler={handleAddFriend}
+  //             removeFriendHandler={handleRemoveFriend}
+  //           />
+  //         );
+  //       }
+  //     });
+  //   }
+  // }
   return (
     <Modal shouldDisplay={shouldDisplay}>
       <TopOfWindow>
         <UserListHeading>Active Users in {location}</UserListHeading>
-        <UserListSearchInput type="text" />
+        <UserListSearchInput type="text"  onChange={handleChange}/>
         <StyledHR />
       </TopOfWindow>
-      <OnlineUsersList>{onlineUsers}</OnlineUsersList>
+      <OnlineUsersList>{userBars}</OnlineUsersList>
     </Modal>
   );
 };

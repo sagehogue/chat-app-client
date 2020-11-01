@@ -18,6 +18,8 @@ const Bar = styled.div`
   // background-color: ${(props) => props.color}
   // display: flex;
   min-height: 1.5rem;
+  max-height: 3rem;
+  
   &:hover {
     // padding: 0.6rem 0.5rem;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.75);
@@ -31,7 +33,17 @@ const Avatar = styled.div`
   grid-row: 1 / 3;
   grid-column: 1 / 2;
   vertical-align: center;
+  overflow: hidden;
+  
 `;
+
+const AvatarIMG = styled.img`
+min-height: 1.5rem;
+max-height: 3rem;
+min-width: 1.5rem;
+max-width: 3rem;
+
+`
 
 const DisplayName = styled.span`
   grid-row: 1 / 2;
@@ -91,7 +103,8 @@ export default function UserBar({
           <Avatar>
             {avatar ? (
               
-              <img src={avatar.url} alt={"User Picture"} />
+              <AvatarIMG src={avatar.url} alt={"User Picture"} />
+              
             ) : (
               <FaUserSecret size={35} />
             )}
@@ -117,7 +130,7 @@ export default function UserBar({
       <Bar>
         <Avatar>
           {avatar ? (
-            <img src={avatar.url} alt={"User Picture"} />
+            <AvatarIMG src={avatar.url} alt={"User Picture"} />
           ) : (
             <FaUserSecret size={35} />
           )}

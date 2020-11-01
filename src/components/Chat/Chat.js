@@ -77,7 +77,7 @@ const Chat = ({
   // Controls which chat room is displayed on screen
   const [currentRoom, setRoom] = useState(room);
   // Users in current room, self and others
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
   // A count of the above data
   const [onlineUserCount, setOnlineUserCount] = useState(0);
   // Message  you are currently typing, yet to be sent to server/other users
