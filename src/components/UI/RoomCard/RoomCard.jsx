@@ -40,6 +40,9 @@ const Card = styled.div`
   margin-top: 0.5rem;
   overflow: hidden;
   color: ${Theme.offWhite};
+  flex-grow: 0.25;
+  flex-shrink: 1;
+  margin: 0.5rem;
   &:hover {
     & svg {
       z-index: 5;
@@ -78,6 +81,7 @@ const RoomName = styled.span`
   text-align: center;
   position: absolute;
   bottom: 0;
+  word-wrap: break-word;
   font-weight: 500;
   background-color: ${Theme.colors.mostlyTransparentBlack};
   vertical-align: middle;
@@ -101,10 +105,34 @@ export default function RoomCard({
   addFavorite,
   removeFavorite,
   handleRemoveSavedRoom,
+  noButton = false,
+  small = false,
 }) {
-  console.log(userID);
+  const alternateButtonlessDesign = (
+    <Card
+      small={small}
+      onClick={(e) => {
+        joinHandler({ roomName, id });
+      }}
+    >
+      {avatar ? (
+        <Avatar src={avatar.url} />
+      ) : (
+        <Center>
+          <FaDoorOpen size={60} color={Theme.colors.accentMedium} />
+        </Center>
+      )}
+      <Content>
+        <RoomName>{roomName}</RoomName>
+      </Content>
+    </Card>
+  );
+  if (noButton) {
+    return alternateButtonlessDesign;
+  }
   return (
     <Card
+      small={small}
       onClick={(e) => {
         joinHandler({ roomName, id });
       }}

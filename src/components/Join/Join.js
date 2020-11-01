@@ -133,6 +133,8 @@ const PublicRoomListHeader = styled.h3`
 const PublicRoomList = styled.section`
   margin-top: 5vh;
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const ArrowDown = styled(AiOutlineArrowDown)`
@@ -164,6 +166,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
       usercount={room.online}
       joinHandler={joinHandler}
       user={user}
+      noButton
     />
   ));
   return (

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import styled from "styled-components";
 
+import Theme from "../../../util/Theme/Theme";
+
 const DrawerFrame = styled.div`
   transition: all 0.5s;
   background-color: rgba(211, 211, 211, 0.35);
   // original background-color: #c78989;
-  max-height: ${(props) => (props.isOpen ? "40vh" : "2.5rem")};
+  max-height: ${(props) =>
+    props.isOpen ? `${Theme.drawer.frameOpen}` : `${Theme.drawer.frameClosed}`};
   overflow: hidden;
   cursor: pointer;
   padding: 0 0.75rem 0.75rem 0.75rem;
@@ -35,6 +38,14 @@ const Label = styled.span`
 `;
 const Contents = styled.div`
   z-index: 4;
+  overflow-y: scroll;
+  max-height: ${Theme.drawer.height};
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
 
 const Triangle = styled(GoTriangleDown)`

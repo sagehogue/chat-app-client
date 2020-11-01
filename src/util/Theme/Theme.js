@@ -13,6 +13,11 @@ export default {
       bodyDesktop: "1.1rem",
     },
   },
+  drawer: {
+    height: "22.5vh",
+    frameOpen: "25rem",
+    frameClosed: "2.5rem",
+  },
   navColorInactive: "rgba(43, 43, 43, 1)",
   navColorActive: "rgba(255, 255, 255, 0)",
   navTransitionDuration: ".35s",
