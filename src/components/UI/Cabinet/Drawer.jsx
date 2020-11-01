@@ -38,7 +38,6 @@ const Label = styled.span`
 `;
 const Contents = styled.div`
   z-index: 4;
-<<<<<<< HEAD
   overflow-y: scroll;
   max-height: ${Theme.drawer.height};
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -47,9 +46,6 @@ const Contents = styled.div`
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-=======
- 
->>>>>>> 1cde896cc1549c7753f7413391e02a84bbe8d947
 `;
 
 const Triangle = styled(GoTriangleDown)`

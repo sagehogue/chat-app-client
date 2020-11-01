@@ -34,7 +34,12 @@ const RequestOption = styled.button`
   }
 `;
 
-const Avatar = styled.img``;
+const Avatar = styled.img`
+  min-height: 1.5rem;
+  max-height: 3rem;
+  min-width: 1.5rem;
+  max-width: 3rem;
+`;
 
 const Top = styled.div`
   padding-bottom: 0.25rem;
@@ -61,6 +66,8 @@ const Frame = styled.div`
   //   display: inline-block;
   z-index: 2;
   position: absolute;
+  top: 25%;
+  left: 0;
 `;
 
 export default function FriendRequest({
@@ -71,12 +78,10 @@ export default function FriendRequest({
   clientID,
   requesterID,
   deleteSelf,
-  
 }) {
   let pic;
-  
+
   if (avatar) {
-    
     pic = <Avatar src={avatar.url} />;
   } else {
     pic = <FaUserSecret size={30} />;

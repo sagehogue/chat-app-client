@@ -156,6 +156,8 @@ export default function FriendsTab({
   handleDeleteFriend,
   handleCancelFriendRequest,
   openUserSearchHandler,
+  handleAddFavorite,
+  handleRemoveFavorite
 }) {
   const deleteFriendHandler = (uid, friendUID) => {
     // later I should allow multiple deletes with one confirmation
@@ -185,6 +187,8 @@ export default function FriendsTab({
         handleDecline={handleDecline}
         deleteFriend={deleteFriendHandler}
         handleCancelFriendRequest={handleCancelFriendRequest}
+        addFavorite={handleAddFavorite}
+  removeFavorite={handleRemoveFavorite}
       />
       {/* <Toolbox /> */}
     </FriendsTabStyle>

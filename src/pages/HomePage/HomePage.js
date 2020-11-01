@@ -354,6 +354,21 @@ export default function HomePage() {
     }
   };
 
+  //favorite user
+
+  const handleAddFavoriteUser = (clientID, recipientID) => {
+    console.log(`ADDING FAVORITE!!!! ${clientID} ${recipientID}`);
+    socket.emit("add-favorite-user", { id: clientID, recipientID });
+  };
+
+  //rmv favorite user
+  const handleRemoveFavoriteUser = (clientID, recipientID) => {
+    console.log(
+      "removed favorite of" + clientID + ", recipient: " + recipientID
+    );
+    socket.emit("remove-favorite-user", { id: clientID, recipientID });
+  };
+
   const requestFetchFriends = (uid) => {
     socket.emit("fetch-friend", { uid });
   };
@@ -505,6 +520,8 @@ export default function HomePage() {
           clientID={uid}
           handleAccept={acceptFriendRequest}
           handleDecline={declineFriendRequest}
+          handleAddFavorite={handleAddFavoriteUser}
+          handleRemoveFavorite={handleRemoveFavoriteUser}
           handleDeleteFriend={handleRemoveFriend}
           handleCancelFriendRequest={handleCancelFriendRequest}
           openUserSearchHandler={() => {

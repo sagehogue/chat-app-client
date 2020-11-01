@@ -64,10 +64,10 @@ export default function Hit({ hit }) {
   if (hit.avatar) {
     avatar = (
       <img
-        src={hit.avatar}
+        src={hit.avatar.url}
         className="hit-avatar"
         align="left"
-        alt={hit.displayName}
+        alt={`${hit.displayName}'s profile picture`}
       />
     );
   } else {
@@ -76,7 +76,7 @@ export default function Hit({ hit }) {
         size={25}
         className="hit-avatar"
         align="left"
-        alt={hit.displayName}
+        alt={`${hit.displayName}'s default profile picture`}
       />
     );
   }
