@@ -1,22 +1,23 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import Theme from "../../../../util/Theme/Theme";
-import { FaUserSecret, FaEnvelope } from "react-icons/fa";
-import { AuthContext } from "../../../../App";
 
-import { emitJoin } from "../../../../pages/HomePage/HomePage";
-
+import { FaUserSecret, FaEnvelope, FaDoorOpen } from "react-icons/fa";
 import { Highlight } from "react-instantsearch-dom";
+import { RoomCard } from "../../RoomCard/RoomCard";
+
+import { AuthContext } from "../../../../App";
+import { emitJoin } from "../../../../pages/HomePage/HomePage";
 
 const Card = styled.div`
   transition: transform 0.5s, color 0.2s;
   position: relative;
   // transform-style: preserve-3d;
-  min-height: 4rem;
+  min-height: 6rem;
   min-width: 4rem;
-  max-width: 4rem
-  margin: 1rem;
+  // max-width: 6rem;
+  // margin: 1rem;
   border-radius: 8px;
   border: 1px solid ${Theme.blueButtonColor};
   overflow: hidden;
@@ -35,25 +36,28 @@ const Card = styled.div`
 
 const Container = styled.div`
   margin: 0.5rem 0;
-  perspective: 1000;
-  max-width: 8rem;
+  // perspective: 1000;
   cursor: pointer;
-  padding: 0.25rem;
-  transition: all .2s;
+  // padding: 0.25rem;
+  transition: all 0.2s;
   &:hover {
     scale: 1.1;
-    
   }
 `;
 
 const Name = styled.span`
+  font-size: 0.9rem;
+  font-weight: 600;
+  // background-color: rgba(50, 50, 50, 0.4);
+`;
+
+const TextBackground = styled.span`
   display: inline-block;
   width: 100%;
   text-align: center;
-  min-height: 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  height: 2.7rem;
   background-color: rgba(50, 50, 50, 0.4);
+  overflow: hidden;
 `;
 
 const RoomCreatorName = styled.span`
@@ -63,7 +67,7 @@ const RoomCreatorName = styled.span`
   min-height: 0.75rem;
   font-weight: 400;
   margin-top: auto;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
 `;
 
 const Controls = styled.div`
@@ -82,7 +86,37 @@ const Face = styled.div`
   justify-content: space-between;
 `;
 
-const FrontFace = styled(Face)``;
+const FrontFace = styled(Face)`
+  position: relative;
+`;
+
+const Placeholder = styled.div`
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  min-height: 5rem;
+  min-width: 5rem;
+  // max-width: 6rem;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 0.25rem;
+  & svg {
+    margin: auto;
+  }
+`;
+
+const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
 // const BackFace = styled(Face)`
 //   transform: ${(props) =>
 //     props.flipCard ? "rotateX(0deg)" : "rotateX(180deg)"};
@@ -92,17 +126,22 @@ const FrontFace = styled(Face)``;
 // `;
 
 export default function Hit({ hit, handleClientJoin, closeHandler }) {
-  let avatar;
-  if (hit.avatar) {
-    avatar = (
-      <img
-        src={hit.avatar}
-        className="hit-avatar"
-        align="left"
-        alt={hit.displayName}
-      />
-    );
-  }
+  let placeholder = (
+    <Placeholder>
+      <FaDoorOpen size={50} color={Theme.colors.accentMedium} />
+    </Placeholder>
+  );
+  // let avatar;
+  // if (hit.avatar) {
+  //   avatar = (
+  //     <img
+  //       src={hit.avatar}
+  //       className="hit-avatar"
+  //       align="left"
+  //       alt={hit.displayName}
+  //     />
+  //   );
+  // }
   //   const [flipCard, setFlipCard] = useState(false);
   //   const hoverOn = () => {
   //     setFlipCard(true);
@@ -135,29 +174,16 @@ export default function Hit({ hit, handleClientJoin, closeHandler }) {
     >
       <Card>
         <FrontFace
-          //   flipCard={flipCard}
-          avatar={hit.avatar ? hit.avatar : "default"}
+        //   flipCard={flipCard}
         >
-          <Name className="hit-roomName">
-            <Highlight attribute="roomName" hit={hit} />
-          </Name>
-          <RoomCreatorName>{`Created by ${hit.creator}`}</RoomCreatorName>
-          {/* <h4>
-            Owned By: <Highlight attribute={"creator"} hit={hit} />
-          </h4> */}
+          {hit.avatar ? <Avatar src={hit.avatar.url} /> : placeholder}
+          <TextBackground>
+            <Name className="hit-roomName">
+              <Highlight attribute="roomName" hit={hit} />
+            </Name>
+            <RoomCreatorName>{`Created by ${hit.creator}`}</RoomCreatorName>
+          </TextBackground>
         </FrontFace>
-        {/* <BackFace flipCard={flipCard}>
-          <h5>Members: {hit.members.length}</h5>
-        </BackFace> */}
-
-        {/* //   <UserPicture>{avatar}</UserPicture>
-    //   
-    //   <UserDetails className="hit-description">
-    //     <Highlight attribute="description" hit={hit} />
-    //   </UserDetails>
-    //   <Controls>
-    //     <FaEnvelope size={15} />
-    //   </Controls> */}
       </Card>
     </Container>
   );

@@ -23,11 +23,16 @@ const SearchBarWrapper = styled.div`
   z-index: ${Theme.zIndex.modal};
   background-color: ${Theme.backgroundColorLight};
   font-family: sans-serif;
-  padding: 0 1rem;
-
-  & .ais-SearchBox {
-    margin: 1em 0;
-    
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow-y: scroll;
+  & .ais-SearchBox,
+  .ais-Stats {
+    text-align: center;
   }
   .ais-Hits-item {
     &:nth-of-type(even) {
@@ -36,19 +41,16 @@ const SearchBarWrapper = styled.div`
     &:nth-of-type(odd) {
       background-color: ${Theme.colors.accentExtraLight};
     }
-    
   }
 `;
 
 const Styles = styled.div`
   padding: 1rem;
   margin: 0 auto auto auto;
-  
 `;
 
 const SearchAndResults = styled.div`
   margin: 1rem auto 0 auto;
-  
 `;
 
 const SearchHeading = styled.h1`
@@ -63,19 +65,19 @@ const SearchResults = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  min-height: 10rem;
+  // min-height: 10rem;
   // min-width: 35rem;
   & > div {
     flex-shrink: 1;
     flex-grow: 1;
-    margin: 0.25rem;
+    margin: 0.5rem;
   }
 `;
 
 const CenterContent = styled.div`
   margin-top: auto;
   & .ais-Pagination-list {
-    width: 50%;
+    width: 25%;
     display: flex;
     flex-direction: row;
     margin: auto;
@@ -123,7 +125,7 @@ export default function UserSearchBar({ visible, closeHandler, joinHandler }) {
           translate={{ placeholder: "Search for rooms..." }}
           onChange={searchChanged}
         >
-          <Configure hitsPerPage={10} />
+          <Configure hitsPerPage={20} />
           {/* </div> */}
           <SearchAndResults className="right-panel">
             <SearchBox autofocus />
