@@ -512,6 +512,7 @@ export default function HomePage() {
           <FaRegComments onClick={handleDisplayRooms} />
         </Navigation>
         <FriendsTab
+          socket={socket}
           pageOnDisplay={display}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
@@ -583,6 +584,7 @@ export default function HomePage() {
           />
         )}
         <RoomsTab
+          socket={socket}
           joinHandler={handleJoinRoom}
           handleRemoveSavedRoom={handleRemoveSavedRoom}
           addFavorite={handleAddFavoriteRoom}

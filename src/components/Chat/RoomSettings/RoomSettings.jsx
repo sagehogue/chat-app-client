@@ -5,9 +5,13 @@ import uuid from "react-uuid";
 import { FaDoorOpen } from "react-icons/fa";
 import CurrentUser, { getStorageRef } from "../../../App";
 
-import Modal from "../../UI/Modal/NewModal";
+import { Modal } from "../../UI/Modal/NewModal";
 
 import Theme from "../../../util/Theme/Theme";
+
+const SettingsModal = styled(Modal)`
+  flex-direction: column;
+`;
 
 const Heading = styled.h1`
   display: block;
@@ -79,14 +83,17 @@ const CloseButton = styled.button`
 `;
 
 const Preview = styled.div`
-  max-width: 15rem;
-  font-size: 13rem;
-  height: 16rem;
+  width: 15rem;
+  height: 15rem;
   display: flex;
   overflow: hidden;
 `;
 
-const Avatar = styled.img``;
+const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+`;
 
 const VerticalCenter = styled.div`
   margin: auto;
@@ -142,10 +149,12 @@ export default function RoomSettings({
   changeAvatarHandler,
   socket,
   id,
-  roomID,
+  room,
   handleCloseRoomSettings,
 }) {
+  const roomID = room.id;
   const [avatar, setAvatar] = useState(avatarData);
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     setAvatar(avatarData);
@@ -180,16 +189,32 @@ export default function RoomSettings({
     });
   };
 
+  const previewAvatar = (e) => {
+    console.log(e.target.files[0]);
+    const avatar = e.target.files[0];
+    const imgReader = new FileReader();
+    imgReader.onload = (e) => {
+      setPreview(e.target.result);
+    };
+    imgReader.readAsDataURL(avatar);
+  };
+
   return (
-    <Modal shouldDisplay={shouldDisplay}>
+    <SettingsModal shouldDisplay={shouldDisplay}>
       {/* <CloseButton onClick={handleCloseRoomSettings}></CloseButton> */}
       <Heading>Room Settings</Heading>
       <Options onSubmit={submitHandler}>
         <Setting>
           <Preview>
-            <VerticalCenter>
-              {avatar ? <Avatar src={avatar.url} /> : <FaDoorOpen />}
-            </VerticalCenter>
+            {avatar ? (
+              <Avatar src={avatar.url} />
+            ) : preview ? (
+              <Avatar src={preview} />
+            ) : (
+              <VerticalCenter>
+                <FaDoorOpen size={150} />
+              </VerticalCenter>
+            )}
           </Preview>
           <Controls>
             <VerticalCenter>
@@ -198,13 +223,18 @@ export default function RoomSettings({
               </Description>
               <InputButton type="button">
                 Select
-                <AvatarInput type="file" name="file" ref={fileRef} />
+                <AvatarInput
+                  type="file"
+                  name="file"
+                  ref={fileRef}
+                  onChange={previewAvatar}
+                />
               </InputButton>
             </VerticalCenter>
           </Controls>
         </Setting>
         <SubmitButton type="submit">submit</SubmitButton>
       </Options>
-    </Modal>
+    </SettingsModal>
   );
 }

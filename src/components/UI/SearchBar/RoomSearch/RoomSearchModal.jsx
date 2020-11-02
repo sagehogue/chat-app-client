@@ -18,6 +18,7 @@ import Hit from "./Hit";
 
 const SearchBarWrapper = styled.div`
   display: ${(props) => (props.visible ? "flex" : "none")};
+
   grid-column: ${Theme.gridColChat};
   grid-row: ${Theme.gridRowChat};
   z-index: ${Theme.zIndex.modal};

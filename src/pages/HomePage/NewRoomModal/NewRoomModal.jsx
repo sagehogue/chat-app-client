@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Uuid from "react-uuid";
 import Theme from "../../../util/Theme/Theme";
-import Modal from "../../../components/UI/Modal/NewModal";
+import { Modal } from "../../../components/UI/Modal/NewModal";
 
 // [TODOS]
 

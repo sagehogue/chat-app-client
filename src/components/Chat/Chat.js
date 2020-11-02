@@ -198,31 +198,33 @@ const Chat = ({
     console.log("error");
   }
   return (
-    <OuterContainer>
-      <Container showUsers={showUsers}>
-        <InfoBar
-          user={user}
-          room={currentRoom.roomName}
-          roomID={currentRoom.id}
-          userCount={onlineUserCount}
-          showUserList={showUserDisplay}
-          closeChatHandler={() => closeChatHandler(currentRoom)}
-          userRooms={userRooms}
-          isUserSavedRoom={isSavedRoom}
-          isFavoriteRoom={isFavoriteRoom}
-          handleAddSavedRoom={handleAddSavedRoom}
-          handleRemoveSavedRoom={handleRemoveSavedRoom}
-          handleAddFavoriteRoom={handleAddFavoriteRoom}
-          handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
-          handleOpenRoomSettings={handleOpenRoomSettings}
-        />
-        <Messages messages={messages} name={username} avatar={avatar} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
-      </Container>
+    <>
+      <OuterContainer>
+        <Container showUsers={showUsers}>
+          <InfoBar
+            user={user}
+            room={currentRoom.roomName}
+            roomID={currentRoom.id}
+            userCount={onlineUserCount}
+            showUserList={showUserDisplay}
+            closeChatHandler={() => closeChatHandler(currentRoom)}
+            userRooms={userRooms}
+            isUserSavedRoom={isSavedRoom}
+            isFavoriteRoom={isFavoriteRoom}
+            handleAddSavedRoom={handleAddSavedRoom}
+            handleRemoveSavedRoom={handleRemoveSavedRoom}
+            handleAddFavoriteRoom={handleAddFavoriteRoom}
+            handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
+            handleOpenRoomSettings={handleOpenRoomSettings}
+          />
+          <Messages messages={messages} name={username} avatar={avatar} />
+          <Input
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+          />
+        </Container>
+      </OuterContainer>
       <UserList
         users={users}
         location={currentRoom.roomName}
@@ -234,11 +236,12 @@ const Chat = ({
       <RoomSettings
         socket={socket}
         id={user.uid}
-        roomID={currentRoom.id}
+        room={currentRoom}
+        avatarData={currentRoom.avatar ? currentRoom.avatar : false}
         shouldDisplay={showRoomSettings}
         handleCloseRoomSettings={handleCloseRoomSettings}
       ></RoomSettings>
-    </OuterContainer>
+    </>
   );
 };
 

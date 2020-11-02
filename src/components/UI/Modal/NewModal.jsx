@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
-const DisplayBox = styled.section`
+export const Modal = styled.section`
   z-index: ${(props) => (props.shouldDisplay ? Theme.zIndex.modal : "0")};
   background-color: ${Theme.offWhite};
   font-family: ${Theme.font.type.body};
@@ -13,7 +13,3 @@ const DisplayBox = styled.section`
   height: 100%;
   width: 100%;
 `;
-
-export default function NewModal({ children, shouldDisplay }) {
-  return <DisplayBox shouldDisplay={shouldDisplay}>{children}</DisplayBox>;
-}
