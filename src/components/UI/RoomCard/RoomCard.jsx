@@ -34,9 +34,10 @@ const Card = styled.div`
   background-color: ${Theme.offWhite};
   //   padding: 3rem 5rem;
   border-radius: 7px;
-  padding: 0.25rem;
+  margin: 1rem;
+  padding: 0.325rem;
   min-height: 6.25rem;
-  min-width: 6rem;
+  min-width: 11rem;
   margin-top: 0.5rem;
   overflow: hidden;
   color: ${Theme.offWhite};
