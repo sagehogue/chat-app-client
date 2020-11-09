@@ -174,17 +174,38 @@ export default function RoomSettings({
   };
 
   const uploadNewRoomAvatar = () => {
+    let oldAvatarRef;
+    // check for existing avatar
+    if (avatar) {
+      oldAvatarRef = storageRef.child(`images/${avatar.id}`);
+      oldAvatarRef
+        .delete()
+        .then(() => {
+          // file deleted successfully
+          console.log(`SUCCESS! DELETED IMG: ${avatar.id}`);
+        })
+        .catch((err) => {
+          // error occurred
+          console.log(`ERROR: ${err}`);
+        });
+    }
+    // if old avatar: delete old avatar
+
+    // create new ID
     const imageUuid = uuid();
+    // create ref to future storage location of image
     const newAvatarRef = storageRef.child(`images/${imageUuid}`);
+    // save image to storage location
     newAvatarRef.put(fileRef.current.files[0]).then(function (snapshot) {
       newAvatarRef.getDownloadURL().then((url) => {
         console.log(roomID);
-        console.log(`AVATAR OBJECT: ${{ id: imageUuid, url }}`);
+        const avatarObject = { id: imageUuid, url };
+        console.log(`AVATAR URL: ${avatarObject.url}`);
         socket.emit("change-room-avatar", {
           id: roomID,
-          avatar: { id: imageUuid, url },
+          avatar: avatarObject,
         });
-        setAvatar({ id: imageUuid, url });
+        setAvatar(avatarObject);
       });
     });
   };

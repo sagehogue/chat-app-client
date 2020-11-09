@@ -150,6 +150,7 @@ export default function Hit({ hit, handleClientJoin, closeHandler }) {
   //     setFlipCard(false);
   //   };
   let user = useContext(AuthContext);
+  // console.log(hit.avatar);
   return (
     <Container
       onClick={() => {

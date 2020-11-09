@@ -551,7 +551,8 @@ export default function HomePage() {
             setDisplayRoomSearch(false);
           }}
           joinHandler={(roomObj) => {
-            setCurrentRoom(roomObj);
+            // Need a system to contact backend when FE changes rooms.
+            // setCurrentRoom(roomObj);
           }}
         />
         ;

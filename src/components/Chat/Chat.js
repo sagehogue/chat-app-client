@@ -88,7 +88,6 @@ const Chat = ({
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
-  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     // OLD LOGIC - Fetches username, room from url. Convert to state.
@@ -106,7 +105,7 @@ const Chat = ({
     //         alert(error);
     //     }
     // });
-  }, [ENDPOINT, currentRoom]);
+  }, [currentRoom]);
 
   useEffect(() => {
     socket.on("message", (message) => {
