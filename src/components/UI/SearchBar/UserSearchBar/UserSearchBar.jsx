@@ -31,7 +31,7 @@ const SearchBarWrapper = styled.div`
     margin: 1em 0;
   }
   & .ais-Hits {
-    // min-height: 10rem;
+    min-height: 31.5rem;
   }
   & .ais-InstantSearch {
   }

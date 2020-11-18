@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Theme from "../../../../util/Theme/Theme";
-import { FaUserSecret, FaEnvelope } from "react-icons/fa";
+import { FaUserSecret, FaEnvelope, FaUserPlus } from "react-icons/fa";
 
 import { Highlight } from "react-instantsearch-dom";
 
@@ -115,6 +115,9 @@ const InteractiveButtons = styled.div`
   display: flex;
   justify-content: center;
   background-color: inherit;
+  & svg {
+    margin: 0 1rem;
+  }
 `;
 
 export default function Hit({ hit }) {
@@ -159,6 +162,7 @@ export default function Hit({ hit }) {
       </NewName>
       <InteractiveButtons>
         <FaEnvelope size={20} />
+        <FaUserPlus size={20} />
       </InteractiveButtons>
     </NewCard>
   );
