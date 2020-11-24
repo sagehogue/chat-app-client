@@ -21,16 +21,16 @@ Maybe look for some kind of package that can handle pagination
 */
 
 const FriendsTabStyle = styled.section`
+  grid-row: 1 / -1;
+  grid-column: 1 / 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  grid-row: 1 / -1;
-  grid-column: 1 / 2;
   overflow: hidden;
   width: 100%;
   height: 100vh;
 
-  background-color: ${Theme.backgroundColorDark};
+  background-color: ${Theme.theme3.color5};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>
@@ -103,36 +103,36 @@ const CloseButton = styled.button`
 const TopButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  
 `;
 
 const ButtonEffects = styled.div`
-transition: all 0.1s;
-// margin-bottom: 4rem;
-border-radius: 50%;
-cursor: pointer;
+  transition: all 0.1s;
+  // margin-bottom: 4rem;
+  border-radius: 50%;
+  cursor: pointer;
 
+  &:hover {
+    opacity: 1;
+    scale: 1.075;
+    background: radial-gradient(
+      circle farthest-side,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.2)
+    );
+    background-repeat: no-repeat;
 
-&:hover {
-  
-  opacity: 1;
-  scale: 1.075;
-  background: radial-gradient(circle farthest-side, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-background-repeat: no-repeat;
+    box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
+      0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
+      0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
 
-  box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
-  0 0 10px 3px rgba(255, 0, 255, 0.15),
-  0 0 14px 6px rgba(0, 255, 255, 0.15),
-  0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
-
-  // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
-  //   /* middle magenta */ 0 0 140px 9px #0ff;
-}
-&:active {
-  opacity: 0.8;
-  transform: translateY(2px);
-}
-`
+    // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+    //   /* middle magenta */ 0 0 140px 9px #0ff;
+  }
+  &:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
+`;
 
 const Whitespace = styled.div`
   margin-bottom: 2.5rem;
@@ -157,7 +157,7 @@ export default function FriendsTab({
   handleCancelFriendRequest,
   openUserSearchHandler,
   handleAddFavorite,
-  handleRemoveFavorite
+  handleRemoveFavorite,
 }) {
   const deleteFriendHandler = (uid, friendUID) => {
     // later I should allow multiple deletes with one confirmation
@@ -172,9 +172,12 @@ export default function FriendsTab({
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <TopButtons>
-        <ButtonEffects><FaSearch size={25} onClick={openUserSearchHandler} /></ButtonEffects>
-        <ButtonEffects><FaTimes size={25} onClick={closeTabHandler} /></ButtonEffects>
-        
+        <ButtonEffects>
+          <FaSearch size={25} onClick={openUserSearchHandler} />
+        </ButtonEffects>
+        <ButtonEffects>
+          <FaTimes size={25} onClick={closeTabHandler} />
+        </ButtonEffects>
       </TopButtons>
       <Whitespace />
       <Cabinet
@@ -188,7 +191,7 @@ export default function FriendsTab({
         deleteFriend={deleteFriendHandler}
         handleCancelFriendRequest={handleCancelFriendRequest}
         addFavorite={handleAddFavorite}
-  removeFavorite={handleRemoveFavorite}
+        removeFavorite={handleRemoveFavorite}
       />
       {/* <Toolbox /> */}
     </FriendsTabStyle>

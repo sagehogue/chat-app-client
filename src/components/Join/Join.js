@@ -38,25 +38,28 @@ const JoinInnerContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: ${Theme.textColorDark};
+  color: ${Theme.theme3.font.lightcolor};
   justify-self: flex-start;
-  font-size: 2.5rem;
-  padding-bottom: 10px;
+  font-size: 2.75rem;
+  font-weight: 900;
+  padding-bottom: 2rem;
   border-bottom: 2px solid white;
-  margin-top: 0;
+  max-width: 35vw;
+  margin: 0 auto 2rem auto;
+
   @media (min-width: 600px) and (max-height: 450px) {
     font-size: 2.25rem;
   }
 `;
 
 const Directive = styled.h3`
-  color: ${Theme.textColorDark};
+  color: ${Theme.theme3.font.lightcolor};
   margin-top: 1.5rem;
-  margin-bottom: 3rem;
-  font-size: 1.75rem;
+  // margin-bottom: 1rem;
+  font-size: 1.5rem;
   @media (min-width: 600px) and (max-height: 450px) {
     margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    // margin-bottom: 0.75rem;
     font-size: 1.25rem;
   }
 `;
@@ -73,7 +76,7 @@ const JoinInput = styled.input`
 `;
 
 const JoinModal = styled.div`
-  margin: 1rem auto auto auto;
+  margin: 1rem auto 1rem auto;
 `;
 
 const SignInButton = styled.button`
@@ -104,29 +107,29 @@ const SignInButton = styled.button`
   }
 `;
 
-const Animation = styled.div`
-  transition: 0.5s;
-  /* example for move item */
-  z-index: ${({ state }) =>
-    state === "entering" || state === "entered" ? 1 : 0};
-  /* change opacity*/
-  opacity: ${({ state }) => {
-    switch (state) {
-      case "entering":
-        return "1";
-      case "entered":
-        return "1";
-      case "exiting":
-        return "0";
-      case "exited":
-        return "0";
-    }
-  }};
-  display: ${({ state }) => (state === "exited" ? "none" : "block")};
-`;
+// const Animation = styled.div`
+//   transition: 0.5s;
+//   /* example for move item */
+//   z-index: ${({ state }) =>
+//     state === "entering" || state === "entered" ? 1 : 0};
+//   /* change opacity*/
+//   opacity: ${({ state }) => {
+//     switch (state) {
+//       case "entering":
+//         return "1";
+//       case "entered":
+//         return "1";
+//       case "exiting":
+//         return "0";
+//       case "exited":
+//         return "0";
+//     }
+//   }};
+//   display: ${({ state }) => (state === "exited" ? "none" : "block")};
+// `;
 
 const PublicRoomListHeader = styled.h3`
-  margin-top: 15vh;
+  margin-top: 5vh;
   color: ${Theme.textColorDark};
 `;
 

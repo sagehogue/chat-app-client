@@ -1,4 +1,29 @@
 export default {
+  // pink
+  theme1: {
+    color1: "#523946",
+    color2: "#943B6A",
+    color3: "#E65EA6",
+    color4: "#E6459B",
+    color5: "#BD7199",
+  },
+  // gap blue
+  theme2: {
+    color1: "#42618A",
+    color2: "#CACBCC",
+    color3: "#708EB5",
+    color4: "#16519E",
+    color5: "#546378",
+  },
+  // purple
+  theme3: {
+    color1: "#BD3EF7",
+    color2: "#7B04B3",
+    color3: "#BE67E6",
+    color4: "#C450FA",
+    color5: "#4C026E",
+    font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
+  },
   font: {
     type: {
       heading: "Helvetica",
@@ -49,6 +74,10 @@ export default {
     brightAccentRed: "#F51444",
     mostlyTransparentBlack: `rgba(3, 3, 3, 0.15)`,
     offWhite: "#f8f8ff",
+    callToActionRed: "#F51444",
+    scheme1: {
+      callToAction: "#F51444",
+    },
   },
   animations: {
     buttonHoverEffectTransition: "all .3s",
@@ -74,7 +103,8 @@ export default {
 
   fontSizeS: "1rem",
   fontSizeM: "1.5rem",
-  fontSizeL: "2rem",
+  fontSizeL: "2.25rem",
+  fontSizeXL: "2.75rem",
   borderRadiusBtn: "3px",
   borderRadiusBtnL: "5px",
   borderRadius: "1rem",

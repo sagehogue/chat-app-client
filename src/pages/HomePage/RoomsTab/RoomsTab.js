@@ -28,7 +28,7 @@ const RoomsTabStyle = styled.section`
   overflow: hidden;
   height: 100vh;
   width: 100%;
-  background-color: ${Theme.backgroundColorDark};
+  background-color: ${Theme.theme3.color5};
   transition: all ${Theme.navTransitionDuration} ease-in;
   transform: translateX(
     ${(props) =>

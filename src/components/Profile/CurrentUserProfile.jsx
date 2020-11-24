@@ -28,6 +28,8 @@ const ProfileContainer = styled.div`
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
   z-index: 5;
+  align-self: flex-start;
+  transform: translateY(1.5rem);
 `;
 
 const ProfilePicContainer = styled.div`
