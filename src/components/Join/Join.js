@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
 import { AiOutlineArrowDown } from "react-icons/ai";
+import { MdExpandMore } from "react-icons/md";
+import { FaTimes } from "react-icons/fa";
+
 import RoomCard from "../UI/RoomCard/RoomCard";
 // import AnimateComponent from "../UI/Animations/AnimateComponent/AnimateComponent";
 
@@ -36,18 +40,39 @@ const JoinInnerContainer = styled.div`
   width: 55vw;
   margin: auto;
 `;
+const BottomToTop = keyframes`
+  0% {
+    transform: translateY(-100vh); 
+  }
+  100% {
+    transform: translateY(-0vh);
+  }
+  `;
 
-const HeaderContainer = styled.div`
+const HeaderCardContainer = styled.div`
   display: inline-block;
+
+  position: relative;
   width: 50%;
   margin: 0 auto;
   border: 2px solid ${Theme.colorHighlight};
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
-  padding: 1rem;
+  padding: 1.5rem;
   margin-bottom: 5rem;
   box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
+  transition: ${Theme.transitionSpeed};
+  max-height: ${(props) => (props.showFullBanner ? "25rem" : "14rem")};
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  animation: ${BottomToTop} 1.5s;
 `;
+
+// const HeaderCardInner = styled.div``;
+
+// const CardFaceFront = styled.div``;
+// const CardFaceBack = styled.div``;
 
 const Header = styled.h1`
   color: ${Theme.textColorDark};
@@ -63,6 +88,34 @@ const Title = styled.h1`
   -webkit-text-fill-color: transparent;
   font-weight: 600;
   font-size: 4rem;
+`;
+
+const ExpandCardIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: ${Theme.colorLightishGray};
+
+  transition: ${Theme.transitionSpeed};
+  transform: rotate(${(props) => (props.showFullBanner ? "180" : "0")}deg);
+  &:hover {
+    scale: 1.5;
+    color: ${Theme.backgroundColorDarkGray};
+  }
+`;
+
+const BannerInfo = styled.span`
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: center;
+  padding-top: 0.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: ${Theme.backgroundColorDarkGray};
 `;
 
 // const Animation = styled.div`
@@ -111,6 +164,14 @@ const NoRooms = styled.div`
 //some of this code below is unnecessary and exists as a consequence of the initial chat app, not our production.
 
 export default function JoinInternals({ user, joinHandler, previewedRooms }) {
+  const [showFullBanner, setShowFullBanner] = useState(false);
+  const handleShowFullBanner = () => {
+    setShowFullBanner(true);
+  };
+  const handleCloseFullBanner = () => {
+    setShowFullBanner(false);
+  };
+
   const [room, setRoom] = useState("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -129,13 +190,36 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
       user={user}
     />
   ));
+  // const [displayHeadingCard, setDisplayHeadingCard] = useState(true);
+
+  // const handleCloseDisplayHeadingCard = () => {
+  //   setDisplayHeadingCard(false);
+  // };
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
-        <HeaderContainer>
+        <HeaderCardContainer showFullBanner={showFullBanner}>
           <Header>Welcome to </Header>
-          <Title> ChatAppName</Title>
-        </HeaderContainer>
+          <Title>ChatAppName</Title>
+          <ExpandCardIcon showFullBanner={showFullBanner}>
+            <MdExpandMore
+              onClick={() => {
+                if (showFullBanner) {
+                  handleCloseFullBanner();
+                } else {
+                  handleShowFullBanner();
+                }
+              }}
+            ></MdExpandMore>
+          </ExpandCardIcon>
+          <BannerInfo>
+            This is a bunch of info about the app. lorem ipsum blah blah This is
+            a bunch of info about the app. lorem ipsum blah blah This is a bunch
+            of info about the app. lorem ipsum blah blah This is a bunch of info
+            about the app. lorem ipsum blah blah
+          </BannerInfo>
+        </HeaderCardContainer>
+
         <PublicRoomListHeader>
           Jump into a conversation in an active public chat room.
         </PublicRoomListHeader>

@@ -41,10 +41,13 @@ const Card = styled.div`
   margin-top: 0.5rem;
   overflow: hidden;
   color: ${Theme.offWhite};
+  cursor: pointer;
   &:hover {
     & svg {
       z-index: 5;
       color: ${Theme.colors.primary};
+      cursor: pointer;
+      
     }
   }
 `;

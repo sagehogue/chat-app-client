@@ -62,6 +62,7 @@ export default {
   // backgroundColorDark: "#506e67",
   // backgroundColorLight: "#6A948B;",
   backgroundColorLight: "#DAE7E6",
+  colorLightishGray: "#7d7d7d",
   backgroundColorDarkGray: "#333",
   backgroundColorDarkerGray: "rgba(43, 43, 43, 1)",
   backgroundColorDarkerGrayOpaque: "rgba(43, 43, 43, .1)",
