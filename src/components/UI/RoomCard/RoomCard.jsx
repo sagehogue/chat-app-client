@@ -46,7 +46,7 @@ const Card = styled.div`
   &:hover {
     & svg {
       z-index: 5;
-      color: ${Theme.colors.primary};
+      // color: ${Theme.colors.primary};
     }
   }
 `;
@@ -119,7 +119,7 @@ export default function RoomCard({
         <Avatar src={avatar.url} />
       ) : (
         <Center>
-          <FaDoorOpen size={60} color={Theme.colors.accentMedium} />
+          <FaDoorOpen size={60} color={Theme.theme3.color1} />
         </Center>
       )}
       <Content>
@@ -141,7 +141,7 @@ export default function RoomCard({
         <Avatar src={avatar.url} />
       ) : (
         <Center>
-          <FaDoorOpen size={60} color={Theme.colors.accentMedium} />
+          <FaDoorOpen size={60} color={Theme.theme3.color1} />
         </Center>
       )}
       <Content>

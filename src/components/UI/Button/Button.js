@@ -12,7 +12,7 @@ export default styled.button`
   color: #fff;
   outline: none;
   &:hover {
-    transform: scale(1.1);
+    // transform: scale(1.1);
     box-shadow: 0 8px 6px rgba(3, 3, 3, 0.5);
   }
   &:focus {
@@ -20,7 +20,7 @@ export default styled.button`
     border: none;
   }
   &:active {
-    transform: scale(1.1) translateY(-0.25rem);
+    transform: translateY(-0.25rem);
     outline: none;
     border: none;
   }

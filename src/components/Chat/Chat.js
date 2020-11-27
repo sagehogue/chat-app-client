@@ -22,6 +22,8 @@ import { getCurrentTime, sortByDate } from "../../util/helpers/helpers.js";
 const OuterContainer = styled.div`
   display: flex;
   position: relative;
+  height: 100%;
+  width: 100%;
   grid-row: ${Theme.layout.gridRowChat};
   grid-column: ${Theme.layout.gridColChat};
   justify-content: center;
@@ -223,23 +225,23 @@ const Chat = ({
             sendMessage={sendMessage}
           />
         </Container>
+        <UserList
+          users={users}
+          location={currentRoom.roomName}
+          userID={user.uid}
+          handleAddFriend={handleAddFriend}
+          handleRemoveFriend={handleRemoveFriend}
+          shouldDisplay={showUsers}
+        />
+        <RoomSettings
+          socket={socket}
+          id={user.uid}
+          room={currentRoom}
+          avatarData={currentRoom.avatar ? currentRoom.avatar : false}
+          shouldDisplay={showRoomSettings}
+          handleCloseRoomSettings={handleCloseRoomSettings}
+        ></RoomSettings>
       </OuterContainer>
-      <UserList
-        users={users}
-        location={currentRoom.roomName}
-        userID={user.uid}
-        handleAddFriend={handleAddFriend}
-        handleRemoveFriend={handleRemoveFriend}
-        shouldDisplay={showUsers}
-      />
-      <RoomSettings
-        socket={socket}
-        id={user.uid}
-        room={currentRoom}
-        avatarData={currentRoom.avatar ? currentRoom.avatar : false}
-        shouldDisplay={showRoomSettings}
-        handleCloseRoomSettings={handleCloseRoomSettings}
-      ></RoomSettings>
     </>
   );
 };

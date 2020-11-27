@@ -19,7 +19,8 @@ const InfoBarStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #2979ff;
+  // background: #2979ff;
+  background-color: ${Theme.theme3.color4};
   border-radius: 4px 4px 0 0;
   min-height: 3rem;
   width: 100%;
@@ -76,7 +77,7 @@ const OptionsMenu = styled.div`
   position: absolute;
   top: 2rem;
   left: -4.5rem;
-  background-color: ${Theme.backgroundColorDarkGray};
+  background-color: ${Theme.theme3.color5};
   border-radius: ${Theme.borderRadiusBtn};
   display: flex;
   flex-direction: column;

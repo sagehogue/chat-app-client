@@ -22,6 +22,13 @@ export default {
     color3: "#BE67E6",
     color4: "#C450FA",
     color5: "#4C026E",
+    color2AccentA: "#B934F7",
+    color2AccentB: "#B66FD6",
+    highlight: "#E7EB02",
+    highlight2: "#ffd700",
+    glow: "#DEE051",
+    black: "#030301",
+    // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
   },
   font: {
@@ -66,10 +73,10 @@ export default {
   },
   colors: {
     primary: "#588982",
-    accentLight: `rgba(211, 211, 211, 0.8)`,
+    accentLight: `rgba(211, 211, 211, 0.65)`,
     accentExtraLight: `rgba(211, 211, 211, 0.35)`,
     accentLightNew: `rgba(238, 252, 247)`,
-    accentExtraLightNew: "",
+    // accentExtraLightNew: "",
     accentMedium: `rgb(73, 227, 181)`,
     brightAccentRed: "#F51444",
     mostlyTransparentBlack: `rgba(3, 3, 3, 0.15)`,
@@ -83,8 +90,13 @@ export default {
     buttonHoverEffectTransition: "all .3s",
     transition: "all .3s",
   },
+  chat: {
+    modalHeight: "85%",
+    modalWidth: "85%",
+  },
   ui: {
-    tabs: {},
+    modalHeight: "85%",
+    modalWidth: "85%",
   },
   colorHighlight: "#F51444;",
 

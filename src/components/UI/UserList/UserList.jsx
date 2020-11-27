@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import Theme from "../../../util/Theme/Theme";
 import UserBar from "./UserBar/UserBar";
 
 import { Modal } from "../Modal/NewModal";
@@ -36,6 +37,15 @@ const UserListModal = styled(Modal)`
   height: 30vh;
   padding: 1rem;
   display: ${(props) => (props.shouldDisplay ? "flex" : "none")};
+  position: absolute;
+  // top: auto;
+  // bottom: auto;
+  // left: auto;
+  // right: auto;
+  // min-width: 35vw;
+  // min-height: 60vh;
+  height: ${Theme.chat.modalHeight};
+  width: ${Theme.chat.modalWidth};
   flex-direction: column !important;
 `;
 // users is users in current room, location is room name, friends is any friends the user might have,

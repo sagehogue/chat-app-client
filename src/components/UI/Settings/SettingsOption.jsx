@@ -7,17 +7,17 @@ width: 60%;
   text align: center;
 margin: auto;
 cursor: pointer;
-border: none;
+border: 1px transparent solid;
 background-color: ${Theme.backgroundColorDarkGray};
 font-size: ${Theme.fontSizeS};
 color: ${Theme.textColorLight};
-transition-all: 0.3s;
+transition: all 0.2s;
 &:hover{
-    scale: 1.1;
-    
-    
+    // scale: 1.1;
+    color: ${Theme.theme3.highlight2};
+    border: 1px ${Theme.theme3.highlight2} solid;
 }
 &:active{
     scale: 1;
-    
+    transform: translateY(2px);
 }`;

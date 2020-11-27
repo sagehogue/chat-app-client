@@ -13,24 +13,17 @@ import { emitJoin } from "../../../../pages/HomePage/HomePage";
 const Card = styled.div`
   transition: transform 0.5s, color 0.2s;
   position: relative;
-  // transform-style: preserve-3d;
   min-height: 6rem;
   min-width: 4rem;
-  // max-width: 6rem;
-  // margin: 1rem;
   border-radius: 8px;
-  border: 1px solid ${Theme.blueButtonColor};
+  // border: 1px solid ${Theme.blueButtonColor};
   overflow: hidden;
-  //   &:hover {
-  //     max-height: 4rem;
-  //     transform: rotateY(180deg);
-  //     box-shadow: -5px 5px 5px #aaa;
-  //   }
+  background-color: ${Theme.offWhite};
   &:nth-of-type(even) {
-    background-color: ${Theme.colors.accentLight};
+    // background-color: ${Theme.theme3.color2AccentA};
   }
   &:nth-of-type(odd) {
-    background-color: ${Theme.colors.accentExtraLight};
+    // background-color: ${Theme.theme3.color2AccentB};
   }
 `;
 
@@ -47,16 +40,18 @@ const Container = styled.div`
 
 const Name = styled.span`
   font-size: 0.9rem;
+  color: ${Theme.offWhite};
   font-weight: 600;
   // background-color: rgba(50, 50, 50, 0.4);
 `;
 
 const TextBackground = styled.span`
   display: inline-block;
+  color: ${Theme.offWhite};
   width: 100%;
   text-align: center;
   height: 2.7rem;
-  background-color: rgba(50, 50, 50, 0.4);
+  background-color: rgba(50, 50, 50, 0.75);
   overflow: hidden;
 `;
 
@@ -97,13 +92,13 @@ const Placeholder = styled.div`
   min-height: 5rem;
   min-width: 5rem;
   // max-width: 6rem;
-  top: 50%;
+  top: 60%;
   left: 0;
   z-index: 1;
   display: flex;
   flex-shrink: 1;
   flex-grow: 1;
-  margin: 0.25rem;
+  margin: auto;
   & svg {
     margin: auto;
   }
@@ -128,7 +123,7 @@ const Avatar = styled.img`
 export default function Hit({ hit, handleClientJoin, closeHandler }) {
   let placeholder = (
     <Placeholder>
-      <FaDoorOpen size={50} color={Theme.colors.accentMedium} />
+      <FaDoorOpen size={45} color={Theme.theme3.color1} />
     </Placeholder>
   );
   // let avatar;

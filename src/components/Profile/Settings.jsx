@@ -13,7 +13,7 @@ const SettingsElementMain = styled.div`
   width: 20rem;
   display: ${(props) => (props.settingsActive ? "flex" : "none")};
   z-index: 1;
-  background-color: ${Theme.backgroundColorDarkGray};
+  background-color: ${Theme.theme3.black};
   border-radius: 1rem;
   justify-content: center;
   text-align: center;
@@ -60,7 +60,7 @@ const BackArrow = styled.div`
   padding-left: .125rem;
   height: 2rem;
   
-  &&& svg {
+  & svg {
     margin: 0;
     cursor: pointer;
     
@@ -92,10 +92,16 @@ const LogOutButton = styled(button)`
   width: 50%;
   margin: 0 auto;
   margin-bottom: 2rem;
-
+  transition: all 0.2s;
   cursor: pointer;
   &:hover {
     background-color: ${Theme.backgroundColorDarkerGray};
+    color: ${Theme.theme3.highlight2};
+    border: 1px solid ${Theme.theme3.highlight2};
+    transform: scale(1) translateY(-2px);
+  }
+  &:active {
+    transform: translateY(1px);
   }
 `;
 

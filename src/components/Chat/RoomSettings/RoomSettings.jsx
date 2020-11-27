@@ -11,6 +11,10 @@ import Theme from "../../../util/Theme/Theme";
 
 const SettingsModal = styled(Modal)`
   flex-direction: column;
+  position: absolute;
+  height: ${Theme.ui.modalHeight};
+  width: ${Theme.ui.modalWidth};
+  background-color: ${Theme.theme3.color2};
 `;
 
 const Heading = styled.h1`
@@ -18,7 +22,8 @@ const Heading = styled.h1`
   text-align: center;
   margin: 2rem 0;
   font-family: ${Theme.font.type.heading};
-  color: ${Theme.font.color.heading};
+  // color: ${Theme.font.color.heading};
+  color: ${Theme.offWhite}
   font-size: ${Theme.font.size.headingDesktop};
 `;
 
@@ -125,12 +130,14 @@ const InputButton = styled(FormButton)`
   position: relative;
   display: block;
   margin: 1rem auto auto auto;
-  background-color: ${Theme.colors.accentMedium};
+  background-color: ${Theme.theme3.color2AccentB};
 `;
 
 const SubmitButton = styled(FormButton)`
   width: 15rem;
   margin: 5rem auto auto auto;
+  background-color: ${Theme.theme3.highlight2};
+  color: ${Theme.theme3.black};
 `;
 
 const AvatarInput = styled.input`
@@ -233,7 +240,7 @@ export default function RoomSettings({
               <Avatar src={preview} />
             ) : (
               <VerticalCenter>
-                <FaDoorOpen size={150} />
+                <FaDoorOpen size={150} color={Theme.theme3.color2AccentB} />
               </VerticalCenter>
             )}
           </Preview>

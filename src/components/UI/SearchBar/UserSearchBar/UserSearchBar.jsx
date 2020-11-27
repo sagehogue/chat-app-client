@@ -17,16 +17,17 @@ import Hit from "./Hit";
 
 const SearchBarWrapper = styled.div`
   display: ${(props) => (props.visible ? "flex" : "none")};
-  grid-column: ${Theme.gridColChat};
-  grid-row: ${Theme.gridRowChat};
+  grid-column: ${Theme.layout.gridColChat};
+  grid-row: ${Theme.layout.gridRowChat};
   grid-row: 2 / 12;
   // for some reason the theme grid row wasnt full screen?
   z-index: ${Theme.zIndex.modal};
-  background-color: ${Theme.colors.primary};
+  background-color: ${Theme.theme3.color2};
   font-family: sans-serif;
   padding: 0 1rem;
-  height: 100%;
-  width: 100%;
+  height: ${Theme.ui.modalHeight};
+  width: ${Theme.ui.modalWidth};
+  margin: auto;
   & .ais-SearchBox {
     margin: 1em 0;
   }
@@ -43,23 +44,17 @@ const SearchBarWrapper = styled.div`
   .ais-Hits-item {
     &:nth-of-type(even) {
       & div {
-        background-color: #d7faf5;
+        // background-color: ${Theme.theme3.color3};
+        background-color: ${Theme.theme3.color2AccentB};
       }
-      background-color: #d7faf5;
-      // background-color: ${Theme.colors.accentLight}; OLD COLORS
+      // background-color: ${Theme.theme3.color3};
     }
     &:nth-of-type(odd) {
       & div {
-        background-color: #a3d4cc;
+        background-color: ${Theme.theme3.color2AccentA};
+        // background-color: ${Theme.theme3.color4};
       }
-      // background-color: ${Theme.colors.accentExtraLight}; OLD COLORS
     }
-    // &:nth-of-type(even) {
-    //   background-color: ${Theme.colors.accentLight};
-    // }
-    // &:nth-of-type(odd) {
-    //   background-color: ${Theme.colors.accentExtraLight};
-    // }
   }
 `;
 
@@ -82,6 +77,7 @@ const SearchAndResults = styled.div`
 const SearchHeading = styled.h1`
   text-align: center;
   // margin-bottom: 1.5rem;
+  color: ${Theme.colors.offWhite};
   @media screen and (min-width: 700px) {
     margin-bottom: 3rem;
   }
