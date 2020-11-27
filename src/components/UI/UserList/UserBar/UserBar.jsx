@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Theme from "../../../../util/Theme/Theme";
 
 import {
   FaUserSecret,
@@ -17,18 +18,22 @@ const UserBarStyle = styled.li`
   padding: 0.5rem 0.25rem;
   margin: 1rem 0;
   background-color: offwhite;
-  border: solid medium rgba(46, 49, 49, 0.6);
+  transition: all 0.2s;
+  border: solid 2px ${Theme.theme3.color2AccentB};
   text-align: center;
   align-items: center;
+  color: ${Theme.offWhite};
+  &:hover {
+    border: solid 2px ${Theme.theme3.highlight2};
+  }
 `;
 
 const Username = styled.span`
-  color: lightslategray;
+  color: ${Theme.offWhite};
   margin-left: 2rem;
 `;
 
 const UserAvatar = styled.span`
-
   font-size: 1.75rem;
   margin-left: 1rem;
 `;

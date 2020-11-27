@@ -10,6 +10,7 @@ import { Modal } from "../Modal/NewModal";
 
 const UserListHeading = styled.h3`
   margin-bottom: 0.5rem;
+  color: ${Theme.offWhite};
 `;
 
 const TopOfWindow = styled.div`
@@ -44,8 +45,9 @@ const UserListModal = styled(Modal)`
   // right: auto;
   // min-width: 35vw;
   // min-height: 60vh;
-  height: ${Theme.chat.modalHeight};
-  width: ${Theme.chat.modalWidth};
+  height: ${Theme.ui.modalHeight};
+  width: ${Theme.ui.modalWidth};
+  background-color: ${Theme.theme3.color2};
   flex-direction: column !important;
 `;
 // users is users in current room, location is room name, friends is any friends the user might have,
