@@ -21,6 +21,9 @@ const Nav = styled.nav`
   & svg {
     transition: all ${Theme.navTransitionDuration};
     height: inherit;
+    &:hover {
+      color: ${Theme.theme3.highlight2};
+    }
   }
   & svg:first-child {
     margin-left: 1rem;
@@ -56,6 +59,10 @@ const UserNameDisplay = styled.span`
   /* Rules below not implemented in browsers yet */
   -o-user-select: none;
   user-select: none;
+  transition: all 0.2s;
+  &:hover {
+    color: ${Theme.theme3.highlight2};
+  }
 `;
 
 export default function Navigation({
