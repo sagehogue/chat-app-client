@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import Theme from "../../../util/Theme/Theme";
 
+// Implement border glow on hover
+
 const DrawerFrame = styled.div`
   transition: all 0.5s;
   background-color: rgba(211, 211, 211, 0.35);
@@ -33,7 +35,7 @@ const Label = styled.span`
   transition: all 0.3s;
   &:hover {
     font-weight: 500;
-    scale: 1.1;
+    // scale: 1.1;
   }
 `;
 const Contents = styled.div`

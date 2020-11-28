@@ -97,6 +97,7 @@ export default {
   ui: {
     modalHeight: "85%",
     modalWidth: "85%",
+    iconSize: "2rem",
   },
 
   lightColorHighlight: "#f58ea4",
