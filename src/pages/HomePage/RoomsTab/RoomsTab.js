@@ -10,6 +10,7 @@ import Toolbox from "./Toolbox/Toolbox";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
 import RoomCard from "../../../components/UI/RoomCard/RoomCard";
+import XIcon from "../../../components/UI/Icons/X";
 
 /* TODOS:
 * The hover effects need to be finished - they're missing 1-2 inset box shadows to complete the effect. Since the SVG isn't the same size as their box I need to
@@ -267,7 +268,8 @@ export default function RoomsTab({
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
       <Controls>
-        <CloseButton size={25} onClick={closeTabHandler} />
+        <XIcon onClick={closeTabHandler} />
+        {/* <CloseButton size={25} onClick={closeTabHandler} /> */}
         <CreateRoomButton size={25} onClick={createRoomHandler} />
         <SearchButton size={25} onClick={openRoomSearchHandler} />
       </Controls>
