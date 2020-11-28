@@ -28,7 +28,7 @@ const ProfileContainer = styled.div`
   cursor: default;
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
-  z-index: 5;
+  z-index: 14;
   align-self: flex-start;
   transform: translateY(1.5rem);
 `;

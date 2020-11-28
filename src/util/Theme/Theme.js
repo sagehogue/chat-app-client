@@ -68,6 +68,7 @@ export default {
     chat: "10",
     nav: "11",
     tabs: "12",
+    homeBanner: "12",
     backdrop: "20",
     modal: "25",
   },

@@ -55,7 +55,7 @@ const HeaderCardContainer = styled.div`
 `;
 const HeaderCard = styled.div`
   display: inline-block;
-  z-index: 12;
+  z-index: ${Theme.zIndex.homeBanner};
   position: relative;
   width: 50%;
   margin: 0 auto;
