@@ -36,7 +36,7 @@ const JoinInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 0.8rem;
-  // height: 83vh;
+
   width: 55vw;
   margin: auto;
 `;
@@ -48,10 +48,14 @@ const BottomToTop = keyframes`
     transform: translateY(-0vh);
   }
   `;
-
 const HeaderCardContainer = styled.div`
+  min-height: 40rem;
+  width: 100%;
+  background-color: transparent;
+`;
+const HeaderCard = styled.div`
   display: inline-block;
-
+  z-index: 12;
   position: relative;
   width: 50%;
   margin: 0 auto;
@@ -59,13 +63,14 @@ const HeaderCardContainer = styled.div`
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
   padding: 1.5rem;
-  margin-bottom: 5rem;
   box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
   transition: ${Theme.transitionSpeed};
-  max-height: ${(props) => (props.showFullBanner ? "25rem" : "14rem")};
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+  max-height: ${(props) => (props.showFullBanner ? "40rem" : "14rem")};
+  // overflow-y: scroll;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
+  overflow: hidden;
   animation: ${BottomToTop} 1.5s;
 `;
 
@@ -160,7 +165,7 @@ const ArrowDown = styled(AiOutlineArrowDown)`
 const NoRooms = styled.div`
   color: ${Theme.textColorDark};
   text-align: center;
-  margin: 5rem auto 0 auto;
+  margin: 5rem 5rem; 0 auto;
 `;
 //some of this code below is unnecessary and exists as a consequence of the initial chat app, not our production.
 
@@ -200,26 +205,28 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
   return (
     <JoinOuterContainer>
       <JoinInnerContainer>
-        <HeaderCardContainer showFullBanner={showFullBanner}>
-          <Header>Welcome to </Header>
-          <Title>ChatAppName</Title>
-          <ExpandCardIcon showFullBanner={showFullBanner}>
-            <MdExpandMore
-              onClick={() => {
-                if (showFullBanner) {
-                  handleCloseFullBanner();
-                } else {
-                  handleShowFullBanner();
-                }
-              }}
-            ></MdExpandMore>
-          </ExpandCardIcon>
-          <BannerInfo>
-            This is a bunch of info about the app. lorem ipsum blah blah This is
-            a bunch of info about the app. lorem ipsum blah blah This is a bunch
-            of info about the app. lorem ipsum blah blah This is a bunch of info
-            about the app. lorem ipsum blah blah
-          </BannerInfo>
+        <HeaderCardContainer>
+          <HeaderCard showFullBanner={showFullBanner}>
+            <Header>Welcome to </Header>
+            <Title>ChatAppName</Title>
+            <ExpandCardIcon showFullBanner={showFullBanner}>
+              <MdExpandMore
+                onClick={() => {
+                  if (showFullBanner) {
+                    handleCloseFullBanner();
+                  } else {
+                    handleShowFullBanner();
+                  }
+                }}
+              ></MdExpandMore>
+            </ExpandCardIcon>
+            <BannerInfo>
+              This is a bunch of info about the app. lorem ipsum blah blah This
+              is a bunch of info about the app. lorem ipsum blah blah This is a
+              bunch of info about the app. lorem ipsum blah blah This is a bunch
+              of info about the app. lorem ipsum blah blah
+            </BannerInfo>
+          </HeaderCard>
         </HeaderCardContainer>
 
         <PublicRoomListHeader>
