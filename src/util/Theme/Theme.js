@@ -98,6 +98,8 @@ export default {
     modalHeight: "85%",
     modalWidth: "85%",
   },
+
+  lightColorHighlight: "#f58ea4",
   colorHighlight: "#F51444;",
 
   blueButtonColor: "#2979ff",
@@ -106,12 +108,15 @@ export default {
   // backgroundColorDark: "#506e67",
   // backgroundColorLight: "#6A948B;",
   backgroundColorLight: "#DAE7E6",
+  colorLightishGray: "#7d7d7d",
   backgroundColorDarkGray: "#333",
   backgroundColorDarkerGray: "rgba(43, 43, 43, 1)",
+  backgroundColorDarkerGrayOpaque: "rgba(43, 43, 43, .1)",
   backgroundColorLightGray: "#B4C2BF;",
+  backgroundColorLighterGray: "#ddedea",
 
   textColorLight: "#fff;",
-  textColorDark: "black",
+  textColorDark: "rgba(43, 43, 43, 1)",
 
   fontSizeS: "1rem",
   fontSizeM: "1.5rem",
@@ -121,5 +126,6 @@ export default {
   borderRadiusBtnL: "5px",
   borderRadius: "1rem",
   borderRadiusL: "15%",
+  borderRadiusXL: "2rem",
   transitionSpeed: ".3s",
 };
