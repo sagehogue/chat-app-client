@@ -22,6 +22,8 @@ import { getCurrentTime, sortByDate } from "../../util/helpers/helpers.js";
 const OuterContainer = styled.div`
   display: flex;
   position: relative;
+  height: 100%;
+  width: 100%;
   grid-row: ${Theme.layout.gridRowChat};
   grid-column: ${Theme.layout.gridColChat};
   justify-content: center;
@@ -88,7 +90,6 @@ const Chat = ({
   // PROD
   // const ENDPOINT = "https://react-chat-network-app.herokuapp.com/";
   // TESTING
-  const ENDPOINT = "localhost:5000";
 
   useEffect(() => {
     // OLD LOGIC - Fetches username, room from url. Convert to state.
@@ -106,7 +107,7 @@ const Chat = ({
     //         alert(error);
     //     }
     // });
-  }, [ENDPOINT, currentRoom]);
+  }, [currentRoom]);
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -198,47 +199,50 @@ const Chat = ({
     console.log("error");
   }
   return (
-    <OuterContainer>
-      <Container showUsers={showUsers}>
-        <InfoBar
-          user={user}
-          room={currentRoom.roomName}
-          roomID={currentRoom.id}
-          userCount={onlineUserCount}
-          showUserList={showUserDisplay}
-          closeChatHandler={() => closeChatHandler(currentRoom)}
-          userRooms={userRooms}
-          isUserSavedRoom={isSavedRoom}
-          isFavoriteRoom={isFavoriteRoom}
-          handleAddSavedRoom={handleAddSavedRoom}
-          handleRemoveSavedRoom={handleRemoveSavedRoom}
-          handleAddFavoriteRoom={handleAddFavoriteRoom}
-          handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
-          handleOpenRoomSettings={handleOpenRoomSettings}
+    <>
+      <OuterContainer>
+        <Container showUsers={showUsers}>
+          <InfoBar
+            user={user}
+            room={currentRoom.roomName}
+            roomID={currentRoom.id}
+            userCount={onlineUserCount}
+            showUserList={showUserDisplay}
+            closeChatHandler={() => closeChatHandler(currentRoom)}
+            userRooms={userRooms}
+            isUserSavedRoom={isSavedRoom}
+            isFavoriteRoom={isFavoriteRoom}
+            handleAddSavedRoom={handleAddSavedRoom}
+            handleRemoveSavedRoom={handleRemoveSavedRoom}
+            handleAddFavoriteRoom={handleAddFavoriteRoom}
+            handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
+            handleOpenRoomSettings={handleOpenRoomSettings}
+          />
+          <Messages messages={messages} name={username} avatar={avatar} />
+          <Input
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+          />
+        </Container>
+        <UserList
+          users={users}
+          location={currentRoom.roomName}
+          userID={user.uid}
+          handleAddFriend={handleAddFriend}
+          handleRemoveFriend={handleRemoveFriend}
+          shouldDisplay={showUsers}
         />
-        <Messages messages={messages} name={username} avatar={avatar} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
-      </Container>
-      <UserList
-        users={users}
-        location={currentRoom.roomName}
-        userID={user.uid}
-        handleAddFriend={handleAddFriend}
-        handleRemoveFriend={handleRemoveFriend}
-        shouldDisplay={showUsers}
-      />
-      <RoomSettings
-        socket={socket}
-        id={user.uid}
-        roomID={currentRoom.id}
-        shouldDisplay={showRoomSettings}
-        handleCloseRoomSettings={handleCloseRoomSettings}
-      ></RoomSettings>
-    </OuterContainer>
+        <RoomSettings
+          socket={socket}
+          id={user.uid}
+          room={currentRoom}
+          avatarData={currentRoom.avatar ? currentRoom.avatar : false}
+          shouldDisplay={showRoomSettings}
+          handleCloseRoomSettings={handleCloseRoomSettings}
+        ></RoomSettings>
+      </OuterContainer>
+    </>
   );
 };
 

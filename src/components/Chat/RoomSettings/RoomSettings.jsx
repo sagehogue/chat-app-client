@@ -5,16 +5,25 @@ import uuid from "react-uuid";
 import { FaDoorOpen } from "react-icons/fa";
 import CurrentUser, { getStorageRef } from "../../../App";
 
-import Modal from "../../UI/Modal/NewModal";
+import { Modal } from "../../UI/Modal/NewModal";
 
 import Theme from "../../../util/Theme/Theme";
+
+const SettingsModal = styled(Modal)`
+  flex-direction: column;
+  position: absolute;
+  height: ${Theme.ui.modalHeight};
+  width: ${Theme.ui.modalWidth};
+  background-color: ${Theme.theme3.color2};
+`;
 
 const Heading = styled.h1`
   display: block;
   text-align: center;
   margin: 2rem 0;
   font-family: ${Theme.font.type.heading};
-  color: ${Theme.font.color.heading};
+  // color: ${Theme.font.color.heading};
+  color: ${Theme.offWhite}
   font-size: ${Theme.font.size.headingDesktop};
 `;
 
@@ -79,14 +88,17 @@ const CloseButton = styled.button`
 `;
 
 const Preview = styled.div`
-  max-width: 15rem;
-  font-size: 13rem;
-  height: 16rem;
+  width: 15rem;
+  height: 15rem;
   display: flex;
   overflow: hidden;
 `;
 
-const Avatar = styled.img``;
+const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+`;
 
 const VerticalCenter = styled.div`
   margin: auto;
@@ -118,12 +130,14 @@ const InputButton = styled(FormButton)`
   position: relative;
   display: block;
   margin: 1rem auto auto auto;
-  background-color: ${Theme.colors.accentMedium};
+  background-color: ${Theme.theme3.color2AccentB};
 `;
 
 const SubmitButton = styled(FormButton)`
   width: 15rem;
   margin: 5rem auto auto auto;
+  background-color: ${Theme.theme3.highlight2};
+  color: ${Theme.theme3.black};
 `;
 
 const AvatarInput = styled.input`
@@ -142,10 +156,12 @@ export default function RoomSettings({
   changeAvatarHandler,
   socket,
   id,
-  roomID,
+  room,
   handleCloseRoomSettings,
 }) {
+  const roomID = room.id;
   const [avatar, setAvatar] = useState(avatarData);
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     setAvatar(avatarData);
@@ -165,31 +181,68 @@ export default function RoomSettings({
   };
 
   const uploadNewRoomAvatar = () => {
+    let oldAvatarRef;
+    // check for existing avatar
+    if (avatar) {
+      oldAvatarRef = storageRef.child(`images/${avatar.id}`);
+      oldAvatarRef
+        .delete()
+        .then(() => {
+          // file deleted successfully
+          console.log(`SUCCESS! DELETED IMG: ${avatar.id}`);
+        })
+        .catch((err) => {
+          // error occurred
+          console.log(`ERROR: ${err}`);
+        });
+    }
+    // if old avatar: delete old avatar
+
+    // create new ID
     const imageUuid = uuid();
+    // create ref to future storage location of image
     const newAvatarRef = storageRef.child(`images/${imageUuid}`);
+    // save image to storage location
     newAvatarRef.put(fileRef.current.files[0]).then(function (snapshot) {
       newAvatarRef.getDownloadURL().then((url) => {
         console.log(roomID);
-        console.log(`AVATAR OBJECT: ${{ id: imageUuid, url }}`);
+        const avatarObject = { id: imageUuid, url };
+        console.log(`AVATAR URL: ${avatarObject.url}`);
         socket.emit("change-room-avatar", {
           id: roomID,
-          avatar: { id: imageUuid, url },
+          avatar: avatarObject,
         });
-        setAvatar({ id: imageUuid, url });
+        setAvatar(avatarObject);
       });
     });
   };
 
+  const previewAvatar = (e) => {
+    console.log(e.target.files[0]);
+    const avatar = e.target.files[0];
+    const imgReader = new FileReader();
+    imgReader.onload = (e) => {
+      setPreview(e.target.result);
+    };
+    imgReader.readAsDataURL(avatar);
+  };
+
   return (
-    <Modal shouldDisplay={shouldDisplay}>
+    <SettingsModal shouldDisplay={shouldDisplay}>
       {/* <CloseButton onClick={handleCloseRoomSettings}></CloseButton> */}
       <Heading>Room Settings</Heading>
       <Options onSubmit={submitHandler}>
         <Setting>
           <Preview>
-            <VerticalCenter>
-              {avatar ? <Avatar src={avatar.url} /> : <FaDoorOpen />}
-            </VerticalCenter>
+            {avatar ? (
+              <Avatar src={avatar.url} />
+            ) : preview ? (
+              <Avatar src={preview} />
+            ) : (
+              <VerticalCenter>
+                <FaDoorOpen size={150} color={Theme.theme3.color2AccentB} />
+              </VerticalCenter>
+            )}
           </Preview>
           <Controls>
             <VerticalCenter>
@@ -198,13 +251,18 @@ export default function RoomSettings({
               </Description>
               <InputButton type="button">
                 Select
-                <AvatarInput type="file" name="file" ref={fileRef} />
+                <AvatarInput
+                  type="file"
+                  name="file"
+                  ref={fileRef}
+                  onChange={previewAvatar}
+                />
               </InputButton>
             </VerticalCenter>
           </Controls>
         </Setting>
         <SubmitButton type="submit">submit</SubmitButton>
       </Options>
-    </Modal>
+    </SettingsModal>
   );
 }

@@ -3,16 +3,18 @@ import styled from "styled-components";
 
 import Uuid from "react-uuid";
 import Theme from "../../../util/Theme/Theme";
-import Modal from "../../../components/UI/Modal/NewModal";
+import { Modal } from "../../../components/UI/Modal/NewModal";
 
 // [TODOS]
 
 // Create a way to invite users to room as soon as it is created.
 
 const Styles = styled(Modal)`
-  & input {
-    max-width: 5rem;
-  }
+  background-color: ${Theme.theme3.color2};
+  color: ${Theme.offWhite};
+  // & input {
+  //   max-width: 5rem;
+  // }
 `;
 
 const Position = styled.div`
@@ -27,7 +29,7 @@ const Position = styled.div`
 const Heading = styled.h3`
   margin-top: 1rem;
   text-align: center;
-
+  // color: ${Theme.offWhite};
   margin: 2rem auto 5rem auto;
 `;
 
@@ -65,9 +67,12 @@ const SubmitButton = styled.button`
   margin: 0 auto;
   cursor: pointer;
   padding: 1rem;
-  background-color: ${Theme.colorHighlight};
+  // background-color: ${Theme.colorHighlight};
+  background-color: ${Theme.theme3.highlight2};
+  color: ${Theme.theme3.black};
   font-size: ${Theme.fontSizeM};
-  color: ${Theme.textColorLight};
+  // color: ${Theme.textColorLight};
+  font-weight: 500;
 `;
 
 const ConfirmPasswordInput = styled(FormInput)`
@@ -148,7 +153,7 @@ export default function NewRoomModal({
     clearInputs();
   }
   return (
-    <Modal shouldDisplay={visible}>
+    <Styles shouldDisplay={visible}>
       <Position>
         <Heading>Create New Room</Heading>
         <CreateRoomForm>
@@ -201,6 +206,6 @@ export default function NewRoomModal({
           </SubmitButton>
         </CreateRoomForm>
       </Position>
-    </Modal>
+    </Styles>
   );
 }

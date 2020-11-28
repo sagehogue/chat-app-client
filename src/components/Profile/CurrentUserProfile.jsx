@@ -22,19 +22,23 @@ const ProfileContainer = styled.div`
   height: 35rem;
   width: 20rem;
   margin-top: 4rem;
-  background-color: ${Theme.backgroundColorDarkGray};
+  // background-color: ${Theme.backgroundColorDarkGray};
+  background-color: ${Theme.theme3.black};
   border-radius: ${Theme.borderRadius};
   cursor: default;
   display: ${(props) => (props.profileDisplayState == true ? "flex" : "none")};
   flex-direction: column;
   z-index: 5;
+  align-self: flex-start;
+  transform: translateY(1.5rem);
 `;
 
 const ProfilePicContainer = styled.div`
   position: relative;
   height: 15rem;
   width: 100%;
-  background-color: ${Theme.backgroundColorLightGray};
+  // background-color: ${Theme.backgroundColorLightGray};
+  background-color: ${Theme.theme3.black};
   border-top-left-radius: ${Theme.borderRadius};
   border-top-right-radius: ${Theme.borderRadius};
   display: flex;
@@ -71,7 +75,7 @@ const PicLabel = styled.label`
 
 const PicInput = styled.input`
   border: none;
-  background: ${Theme.backgroundColorLigjtGray};
+  // background: ${Theme.backgroundColorLigjtGray};
   color: ${Theme.textColorLight};
   width: 80%;
   margin-left: 3rem;
@@ -81,7 +85,7 @@ const PicInput = styled.input`
 
 const SubmitPic = styled.button`
   border: none;
-  background: ${Theme.backgroundColorDarkGray};
+  // background: ${Theme.backgroundColorDarkGray};
   color: ${Theme.textColorLight};
   padding: 0.15rem;
   border-radius: ${Theme.borderRadiusBtn};
@@ -91,9 +95,10 @@ const SubmitPic = styled.button`
   margin-bottom: 3rem;
   margin-top: 1rem;
   cursor: pointer;
-  transition-all: ${Theme.transitionSpeed};
+  transition: all ${Theme.transitionSpeed};
   &:hover {
-    scale: 1.1;
+    // scale: 1.1;
+    color: ${Theme.theme3.gold};
   }
 `;
 
@@ -175,7 +180,6 @@ const StatusCircle = styled.div`
 //   display: inline-block;
 //   font-size: 0.7125rem;
 //   padding: 0.25rem;
-//   background-color: ${Theme.backgroundColorLightGray};
 //   letter-spacing: 1px;
 //   cursor: pointer;
 //   border-radius: 2px;
@@ -197,9 +201,9 @@ const SettingsButton = styled.div`
   width: 40%;
   padding-top: 8rem;
   margin-right: 4rem;
-  transition: ${Theme.transitionSpeed};
+  transition: all ${Theme.transitionSpeed};
   &:hover {
-    padding-top: 7.75rem;
+    // padding-top: 7.75rem;
     scale: 1.075;
   }
 `;

@@ -141,7 +141,7 @@ const BannerInfo = styled.span`
 // `;
 
 const PublicRoomListHeader = styled.h3`
-  margin-top: 15vh;
+  margin-top: 5vh;
   color: ${Theme.textColorDark};
 `;
 
@@ -189,6 +189,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
       usercount={room.online}
       joinHandler={joinHandler}
       user={user}
+      noButton
     />
   ));
   // const [displayHeadingCard, setDisplayHeadingCard] = useState(true);

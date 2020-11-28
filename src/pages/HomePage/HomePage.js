@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
-import { FaUserFriends, FaRegComments, FaHome } from "react-icons/fa";
 import styled from "styled-components";
 
 import * as firebase from "firebase/app";
@@ -10,6 +9,7 @@ import firebaseConfig from "../../firebaseConfig";
 import { firebaseController } from "../../App";
 import { socket } from "../../App";
 
+import Navigation from "../../components/Navigation/Navigation";
 import FriendsTab from "./FriendsTab/FriendsTab";
 import RoomsTab from "./RoomsTab/RoomsTab";
 import Chat from "../../components/Chat/Chat";
@@ -46,58 +46,7 @@ const HomePageGrid = styled.main`
   height: 100vh;
   max-width: 100vw;
   overflow: hidden;
-  background: ${Theme.backgroundColorLight};
-`;
-
-const Navigation = styled.nav`
-  font-size: ${Theme.fontSizeL};
-  display: flex;
-  height: 10vh;
-  justify-content: space-between;
-  grid-row: ${Theme.layout.gridRowNav};
-  width: 100%;
-  grid-column: ${Theme.layout.gridColNav};
-  z-index: ${Theme.zIndex.nav};
-  padding-top: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  & svg {
-    transition: all ${Theme.navTransitionDuration};
-  }
-  & svg:first-child {
-    margin-left: 1rem;
-    color: ${(props) =>
-      props.pageOnDisplay == "friends"
-        ? `${Theme.navColorInactive}`
-        : `${Theme.navColorInactive}`};
-        cursor: pointer;
-  }
-  & svg:last-child {
-    margin-right: 1rem;
-    color: ${(props) =>
-      props.pageOnDisplay == "rooms"
-        ? `${Theme.navColorActive}`
-        : `${Theme.navColorInactive}`};
-        cursor: pointer;
-  }
-      @media screen and (min-width: 1200px) {
-        font-size: 2.25rem;
-        & svg:first-child {
-          margin-left: 3rem;
-        }
-        & svg:last-child {
-          margin-right: 3rem;
-        }
-        }
-        @media screen and (min-width: 1600px) {
-          font-size: 2.5rem;
-          & svg:first-child {
-            margin-left: 4.5rem;
-          }
-          & svg:last-child {
-            margin-right: 4.5rem;
-          }
-          }
-          }
+  background: ${Theme.theme3.color2};
 `;
 
 const HomeAndUser = styled.div`
@@ -105,11 +54,11 @@ const HomeAndUser = styled.div`
   justify-content: center;
   cursor: pointer;
   z-index: 1;
+  transform: translateX(-2rem);
 `;
 
 const UserNameDisplay = styled.div`
   font-size: ${Theme.fontSizeL};
-  color: ${Theme.textColorDark};
   padding-left: 1rem;
   z-index: 1;
 `;
@@ -354,6 +303,21 @@ export default function HomePage() {
     }
   };
 
+  //favorite user
+
+  const handleAddFavoriteUser = (clientID, recipientID) => {
+    console.log(`ADDING FAVORITE!!!! ${clientID} ${recipientID}`);
+    socket.emit("add-favorite-user", { id: clientID, recipientID });
+  };
+
+  //rmv favorite user
+  const handleRemoveFavoriteUser = (clientID, recipientID) => {
+    console.log(
+      "removed favorite of" + clientID + ", recipient: " + recipientID
+    );
+    socket.emit("remove-favorite-user", { id: clientID, recipientID });
+  };
+
   const requestFetchFriends = (uid) => {
     socket.emit("fetch-friend", { uid });
   };
@@ -456,28 +420,20 @@ export default function HomePage() {
     db = firebase.app().firestore();
   }
 
-  const IsCurrentUserProfile = (
-    <CurrentUserProfile
-      id={uid}
-      socket={socket}
-      profileDisplayState={displayProfile}
-      handleCloseProfile={closeProfileHandler}
-      logoutHandler={firebaseController.logout}
-      user={user}
-      profilePicURL={avatar.url}
-    ></CurrentUserProfile>
-  );
+  // const IsCurrentUserProfile = (
 
-  const OtherUser = (
-    <UserProfile
-      id={uid}
-      socket={socket}
-      profileDisplayState={displayProfile}
-      handleCloseProfile={closeProfileHandler}
-      logoutHandler={firebaseController.logout}
-      user={user}
-    ></UserProfile>
-  );
+  // );
+
+  // const OtherUser = (
+  //   <UserProfile
+  //     id={uid}
+  //     socket={socket}
+  //     profileDisplayState={displayProfile}
+  //     handleCloseProfile={closeProfileHandler}
+  //     logoutHandler={firebaseController.logout}
+  //     user={user}
+  //   ></UserProfile>
+  // );
 
   console.log(avatar);
 
@@ -485,18 +441,30 @@ export default function HomePage() {
     <>
       <HomePageGrid>
         <GlobalStyle />
-        <Navigation pageOnDisplay={display}>
-          <FaUserFriends onClick={handleDisplayFriendsTab} />
+        <Navigation
+          pageOnDisplay={display}
+          handleDisplayRooms={handleDisplayRooms}
+          handleDisplayProfile={handleDisplayProfile}
+          handleRevertDefault={handleRevertDefault}
+          handleDisplayFriendsTab={handleDisplayFriendsTab}
+          user={user}
+          socket={socket}
+          firebaseController={firebaseController}
+          avatar={avatar}
+          displayProfile={displayProfile}
+          closeProfileHandler={closeProfileHandler}
+        >
+          {/* <FaUserFriends/>
           <HomeAndUser>
-            <FaHome onClick={handleRevertDefault} /> {/* Link to homepage */}
-            <UserNameDisplay onClick={handleDisplayProfile}>
+            <FaHome /> {/* Link to homepage 
               {user.displayName}
             </UserNameDisplay>
             {isCurrentUser ? IsCurrentUserProfile : OtherUser}
           </HomeAndUser>
-          <FaRegComments onClick={handleDisplayRooms} />
+          <FaRegComments onClick={} /> */}
         </Navigation>
         <FriendsTab
+          socket={socket}
           pageOnDisplay={display}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
@@ -505,6 +473,8 @@ export default function HomePage() {
           clientID={uid}
           handleAccept={acceptFriendRequest}
           handleDecline={declineFriendRequest}
+          handleAddFavorite={handleAddFavoriteUser}
+          handleRemoveFavorite={handleRemoveFavoriteUser}
           handleDeleteFriend={handleRemoveFriend}
           handleCancelFriendRequest={handleCancelFriendRequest}
           openUserSearchHandler={() => {
@@ -533,7 +503,8 @@ export default function HomePage() {
             setDisplayRoomSearch(false);
           }}
           joinHandler={(roomObj) => {
-            setCurrentRoom(roomObj);
+            // Need a system to contact backend when FE changes rooms.
+            // setCurrentRoom(roomObj);
           }}
         />
         ;
@@ -566,6 +537,7 @@ export default function HomePage() {
           />
         )}
         <RoomsTab
+          socket={socket}
           joinHandler={handleJoinRoom}
           handleRemoveSavedRoom={handleRemoveSavedRoom}
           addFavorite={handleAddFavoriteRoom}

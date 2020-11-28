@@ -26,10 +26,7 @@ const FriendsAvatar = styled.img`
 `;
 
 export default function FriendsCabinet({
-  favoriteFriends = null,
   friends = null,
-  pendingFriends = null,
-  sentFriendRequests = null,
   handleAccept,
   handleDecline,
   deleteFriend,
@@ -39,70 +36,150 @@ export default function FriendsCabinet({
   openDMHandler,
   handleCancelFriendRequest,
 }) {
-  console.log(
-    `Friends:${JSON.stringify(
-      friends
-    )}\npendingFriendRequests: ${JSON.stringify(
-      pendingFriends
-    )}\nsentFriendRequests: ${JSON.stringify(sentFriendRequests)}`
-  );
+  const [favoriteFriends, setFavoriteFriends] = useState([]);
+  const [filteredFriends, setFilteredFriends] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [sentFriendRequests, setSentFriendRequests] = useState([]);
 
-  const [favoriteFriendsUserbars, setFavoriteFriendsUserbars] = useState([]);
-  const [friendsUserbars, setFriendsUserbars] = useState([]);
-  const [friendRequestUserbars, setFriendRequestUserbars] = useState([]);
-  const [sentFriendRequestUserbars, setSentFriendRequestUserbars] = useState(
-    []
-  );
-
-  // Attach event listeners to these that take you to corresponding Friend
-  let FriendBars, friendRequestBars, favFriendBars, sentFriendRequestBars;
   useEffect(() => {
-    if (favoriteFriends) {
-      setFavoriteFriendsUserbars(
-        favoriteFriends.map((Friend) => (
-          <UserBar
-            displayName={Friend.displayName}
-            clientID={clientID}
-            id={Friend.id}
-            deleteHandler={deleteFriend}
-            deleteSelfHandler={console.log("")}
-            dmHandler={openDMHandler}
-            key={Friend.id}
-            avatar={Friend.avatar}
-          ></UserBar>
-        ))
-      );
+    console.log(friends);
+    let favorites = [],
+      sent = [],
+      requests = [],
+      friendsList = [];
+    // mapping through all friends to identify what kind of JSX they need
+    friends.map((friend) => {
+      console.log(friend);
+      if (friend.isFriend) {
+        console.log("FRIEND.isFRIEND");
+        if (friend.isFavorite) {
+          console.log("FRIEND.isFav");
+          // case: is a favorite friend
+          favorites.push(friend);
+        } else if (friend.isFriend === "sent") {
+          // case: sent friend request
+          sent.push(friend);
+        } else if (friend.isFriend === "pending") {
+          // case: received friend request
+          requests.push(friend);
+        } else if (friend.isFriend === true && friend.isFavorite === false) {
+          console.log("PUSH TO FIREND LIUST");
+          // case: is a friend
+          friendsList.push(friend);
+        }
+      }
+    });
+    if (favorites && favorites != favoriteFriends) {
+      setFavoriteFriends(favorites);
     }
-  }, [favoriteFriends]);
-
-  useEffect(() => {
-    if (friends) {
-      setFriendsUserbars(
-        friends.map((Friend) => (
-          <UserBar
-            displayName={Friend.displayName}
-            clientID={clientID}
-            id={Friend.id}
-            deleteHandler={deleteFriend}
-            dmHandler={openDMHandler}
-            avatar={Friend.avatar}
-            key={Friend.id}
-            deleteSelf={() => {
-              let newFriends = friendsUserbars.filter(
-                (userbar) => userbar.key !== Friend.id
-              );
-              setFriendsUserbars(newFriends);
-            }}
-          ></UserBar>
-        ))
-      );
+    if (sent && sent != sentFriendRequests) {
+      setSentFriendRequests(sent);
+    }
+    if (requests && requests != friendRequests) {
+      setFriendRequests(requests);
+    }
+    if (friendsList) {
+      console.log("WE HAVE FRIENDS LIST");
+      if (friendsList !== filteredFriends) {
+        console.log("AND IT DOES NOT MATCH THE OLD FRIENDS");
+        console.log(friendsList);
+        console.log(filteredFriends);
+      }
+    }
+    if (friendsList && friendsList !== filteredFriends) {
+      setFilteredFriends(friendsList);
     }
   }, [friends]);
 
-  useEffect(() => {
-    if (pendingFriends) {
-      setFriendRequestUserbars(
-        pendingFriends.map((Friend) => (
+  // Attach event listeners to these that take you to corresponding Friend
+  let FriendBars, friendRequestBars, favFriendBars, sentFriendRequestBars;
+  // useEffect(() => {
+  //   if (favoriteFriends) {
+  //     setFavoriteFriendsUserbars(
+
+  //     );
+  //   }
+  // }, [favoriteFriends]);
+
+  // useEffect(() => {
+  //   if (friends) {
+  //     setFriendsUserbars(
+
+  //     );
+  //   }
+  // }, [friends]);
+
+  // useEffect(() => {
+  //   if (pendingFriends) {
+  //     setFriendRequestUserbars(
+
+  //     );
+  //   }
+  // }, [pendingFriends]);
+
+  // useEffect(() => {
+  //   if (sentFriendRequests) {
+  //     setSentFriendRequestUserbars(
+
+  //     );
+  //     // setSentFriendRequestUserbars(sentFriendRequestBars);
+  //   }
+  // }, [sentFriendRequests]);
+
+  return (
+    <Cabinet>
+      <FavoritesDrawer name={"Favorites"}>
+        {favoriteFriends ? (
+          favoriteFriends.map((Friend) => (
+            <UserBar
+              displayName={Friend.displayName}
+              clientID={clientID}
+              id={Friend.id}
+              deleteHandler={deleteFriend}
+              // deleteSelfHandler={console.log("")}
+              dmHandler={openDMHandler}
+              addFavoriteHandler={addFavorite}
+              removeFavoriteHandler={removeFavorite}
+              key={Friend.id}
+              avatar={Friend.avatar}
+              isFavorite
+            ></UserBar>
+          ))
+        ) : (
+          <NoFavorites>
+            Adding friends to your favorites will pin them here.
+          </NoFavorites>
+        )}
+      </FavoritesDrawer>
+      <FriendsDrawer name={"Friends"}>
+        {friends ? (
+          filteredFriends.map((Friend) => (
+            <UserBar
+              displayName={Friend.displayName}
+              addFavoriteHandler={addFavorite}
+              removeFavoriteHandler={removeFavorite}
+              clientID={clientID}
+              id={Friend.id}
+              deleteHandler={deleteFriend}
+              dmHandler={openDMHandler}
+              avatar={Friend.avatar}
+              key={Friend.id}
+              deleteSelf={() => {
+                let newFriends = filteredFriends.filter(
+                  (userbar) => userbar.key !== Friend.id
+                );
+                setFilteredFriends(newFriends);
+              }}
+            ></UserBar>
+          ))
+        ) : (
+          <NoFavorites>
+            Save some Friends to find them displayed here.
+          </NoFavorites>
+        )}
+      </FriendsDrawer>
+      <RequestDrawer name={"Requests"}>
+        {friendRequests.map((Friend) => (
           <FriendRequest
             displayName={Friend.displayName}
             clientID={clientID}
@@ -112,23 +189,18 @@ export default function FriendsCabinet({
             handleDecline={handleDecline}
             key={Friend.id}
             deleteSelf={() => {
-              let newUserBars = friendRequestUserbars.filter(
+              let newUserBars = friendRequests.filter(
                 (userbar) => userbar.key !== Friend.id
               );
-              setFriendRequestUserbars(newUserBars);
+              setFriendRequests(newUserBars);
             }}
           >
             {Friend.displayName}
           </FriendRequest>
-        ))
-      );
-    }
-  }, [pendingFriends]);
-
-  useEffect(() => {
-    if (sentFriendRequests) {
-      setSentFriendRequestUserbars(
-        sentFriendRequests.map((Friend) => (
+        ))}
+      </RequestDrawer>
+      <SentRequestDrawer name={"Sent"}>
+        {sentFriendRequests.map((Friend) => (
           <UserBar
             displayName={Friend.displayName}
             avatar={Friend.avatar}
@@ -138,41 +210,13 @@ export default function FriendsCabinet({
             type="SENTREQUEST"
             handleCancelFriendRequest={handleCancelFriendRequest}
             deleteSelf={() => {
-              let newSentFriendRequests = sentFriendRequestUserbars.filter(
+              let newSentFriendRequests = sentFriendRequests.filter(
                 (userbar) => userbar.key !== Friend.id
               );
-              setSentFriendRequestUserbars(newSentFriendRequests);
+              setSentFriendRequests(newSentFriendRequests);
             }}
           ></UserBar>
-        ))
-      );
-      // setSentFriendRequestUserbars(sentFriendRequestBars);
-    }
-  }, [sentFriendRequests]);
-
-  return (
-    <Cabinet>
-      <FavoritesDrawer name={"Favorites"}>
-        {favoriteFriends ? (
-          favoriteFriendsUserbars
-        ) : (
-          <NoFavorites>
-            Adding friends to your favorites will pin them here.
-          </NoFavorites>
-        )}
-      </FavoritesDrawer>
-      <FriendsDrawer name={"Friends"}>
-        {friends ? (
-          friendsUserbars
-        ) : (
-          <NoFavorites>
-            Save some Friends to find them displayed here.
-          </NoFavorites>
-        )}
-      </FriendsDrawer>
-      <RequestDrawer name={"Requests"}>{friendRequestUserbars}</RequestDrawer>
-      <SentRequestDrawer name={"Sent"}>
-        {sentFriendRequestUserbars}
+        ))}
       </SentRequestDrawer>
     </Cabinet>
   );
