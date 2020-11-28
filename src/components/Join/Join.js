@@ -96,6 +96,7 @@ const ExpandCardIcon = styled.div`
   margin-top: 1rem;
   font-size: 1.25rem;
   cursor: pointer;
+  padding-top: 1rem;
   color: ${Theme.colorLightishGray};
 
   transition: ${Theme.transitionSpeed};
