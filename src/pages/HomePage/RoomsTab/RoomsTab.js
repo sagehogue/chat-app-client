@@ -268,7 +268,7 @@ export default function RoomsTab({
   return (
     <RoomsTabStyle pageOnDisplay={pageOnDisplay}>
       <Controls>
-        <XIcon onClick={closeTabHandler} />
+        <XIcon click={closeTabHandler} />
         {/* <CloseButton size={25} onClick={closeTabHandler} /> */}
         <CreateRoomButton size={25} onClick={createRoomHandler} />
         <SearchButton size={25} onClick={openRoomSearchHandler} />

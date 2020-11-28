@@ -12,6 +12,7 @@ import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import UserSearchBar from "../../../components/UI/SearchBar/UserSearchBar/UserSearchBar.jsx";
 import button from "../../../components/UI/Button/Button";
 import XIcon from "../../../components/UI/Icons/X";
+import SearchIcon from "../../../components/UI/Icons/Search";
 
 export const oldFriendsTab = styled.section``;
 // import Toolbox from './Toolbox/Toolbox'
@@ -173,12 +174,13 @@ export default function FriendsTab({
   return (
     <FriendsTabStyle pageOnDisplay={pageOnDisplay}>
       <TopButtons>
-        <ButtonEffects>
+        <SearchIcon click={openUserSearchHandler} />
+        {/* <ButtonEffects>
           <FaSearch size={25} onClick={openUserSearchHandler} />
-        </ButtonEffects>
+        </ButtonEffects> */}
 
         {/* <FaTimes size={25} onClick={closeTabHandler} /> */}
-        <XIcon size={25} onClick={closeTabHandler} />
+        <XIcon size={25} click={closeTabHandler} />
       </TopButtons>
       <Whitespace />
       <Cabinet
