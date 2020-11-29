@@ -7,7 +7,7 @@ import Theme from "../../../util/Theme/Theme";
 // Implement border glow on hover
 
 const DrawerFrame = styled.div`
-  transition: all 0.5s;
+  transition: max-height 0.5s ease, border 0.2s, box-shadow 0.2s;
   background-color: rgba(211, 211, 211, 0.35);
   // original background-color: #c78989;
   max-height: ${(props) =>
@@ -18,6 +18,11 @@ const DrawerFrame = styled.div`
   &:nth-child(odd) {
     background-color: rgba(211, 211, 211, 0.65);
     // original background-color: #edcece;
+  }
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid ${Theme.theme3.highlight2};
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
   }
 `;
 const Label = styled.span`
@@ -32,10 +37,11 @@ const Label = styled.span`
   padding: 0.2rem;
   font-size: 1rem;
   font-weight: 400;
-  transition: all 0.3s;
+  transition: all 0.2s;
   &:hover {
     font-weight: 500;
     // scale: 1.1;
+    color: ${Theme.theme3.highlight2};
   }
 `;
 const Contents = styled.div`
