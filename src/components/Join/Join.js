@@ -59,7 +59,7 @@ const HeaderCard = styled.div`
   position: relative;
   width: 50%;
   margin: 0 auto;
-  border: 2px solid ${Theme.colorHighlight};
+  border: 2px solid ${Theme.theme3.color2};
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
   padding: 1.5rem;
@@ -88,7 +88,15 @@ const Header = styled.h1`
 `;
 
 const Title = styled.h1`
-  background: -webkit-linear-gradient(#f58ea4, #f51444);
+  // background: -webkit-linear-gradient(
+  //   ${Theme.theme3.color5},
+  //   ${Theme.theme3.color3}
+  // );
+  background: linear-gradient(
+    to bottom right,
+    ${Theme.theme3.color5},
+    ${Theme.theme3.color3}
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 600;
@@ -108,7 +116,7 @@ const ExpandCardIcon = styled.div`
   transform: rotate(${(props) => (props.showFullBanner ? "180" : "0")}deg);
   &:hover {
     scale: 1.5;
-    color: ${Theme.backgroundColorDarkGray};
+    color: ${Theme.theme3.highlight2};
   }
 `;
 
