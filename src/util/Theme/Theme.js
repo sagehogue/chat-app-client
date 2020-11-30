@@ -15,18 +15,55 @@ export default {
     color4: "#16519E",
     color5: "#546378",
   },
-  // purple
+  // purple/pink
   theme3: {
-    color1: "#BD3EF7",
-    color2: "#7B04B3",
-    color3: "#BE67E6",
-    color4: "#C450FA",
-    color5: "#4C026E",
-    color2AccentA: "#B934F7",
-    color2AccentB: "#B66FD6",
-    highlight: "#E7EB02",
+    // blue yonder
+    color1: "#4174AA",
+    // tufts blue
+    color2: "#4D8DD0",
+    // light steel blue
+    color3: "#B0C6DE",
+    // shadow blue - unused?
+    color4: "#8298B0",
+    // bright navy blue
+    color5: "#3D76B3",
+    // 'baby blue eyes'
+    color2AccentA: "#96BBE3",
+    // 'baby blue eyes'
+    color2AccentB: "#A1CBF7",
+    // xanthic
+    highlight: "#4D8DD0",
+    // gold web golden
     highlight2: "#ffd700",
+    // maximum green yellow
     glow: "#DEE051",
+    // rich black fogra 39
+    black: "#030301",
+    // highlight: "#F2F551",
+    font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
+  },
+  theme4: {
+    // electric purple
+    color1: "#BD3EF7",
+    // violet ryb
+    color2: "#7B04B3",
+    // medium orchid
+    color3: "#BE67E6",
+    // more saturated medium orchid
+    color4: "#C450FA",
+    // indigo
+    color5: "#4C026E",
+    // electric purple
+    color2AccentA: "#B934F7",
+    // lavender floral
+    color2AccentB: "#B66FD6",
+    // xanthic
+    highlight: "#E7EB02",
+    // gold web golden
+    highlight2: "#ffd700",
+    // maximum green yellow
+    glow: "#DEE051",
+    // rich black fogra 39
     black: "#030301",
     // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
