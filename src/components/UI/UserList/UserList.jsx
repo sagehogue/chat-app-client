@@ -21,6 +21,11 @@ const TopOfWindow = styled.div`
 const UserListSearchInput = styled.input`
   padding: 0.25rem;
   margin-bottom: 0.5rem;
+  border: none;
+
+  &hover{
+    border: none;
+  }
 `;
 
 const StyledHR = styled.hr`

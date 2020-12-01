@@ -11,6 +11,8 @@ import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import closeIcon from "../../../icons/closeIcon.png";
 import RoomCard from "../../../components/UI/RoomCard/RoomCard";
 import XIcon from "../../../components/UI/Icons/X";
+import PlusIcon from "../../../components/UI/Icons/Plus";
+import SearchIcon from "../../../components/UI/Icons/Search";
 
 /* TODOS:
 * The hover effects need to be finished - they're missing 1-2 inset box shadows to complete the effect. Since the SVG isn't the same size as their box I need to
@@ -75,6 +77,10 @@ const RoomsTabStyle = styled.section`
   }
 `;
 
+const Whitespace = styled.div`
+  margin-bottom: ${Theme.util.whiteSpace};
+`;
+
 const RoomsList = styled.div`
   display: flex;
   flex-direction: column;
@@ -101,6 +107,7 @@ const FavoriteRooms = styled.ul`
   width: 91%;
   padding: 0.5rem 2px;
   margin: 0 auto;
+
   min-height: 1rem;
   text-align: center;
   border-radius: ${Theme.borderRadiusL};
@@ -137,88 +144,94 @@ const Stylishhr = styled.hr`
 const Controls = styled.div`
   display: flex;
   justify-content: space-between;
+  & > :nth-child(1) {
+    margin-right: auto;
+  }
+  & > :nth-child(2) {
+    margin-right: 1rem;
+  }
 `;
 const SearchAndNewRoom = styled.div`
   display: flex;
 `;
 
-const CreateRoomButton = styled(FaPlusCircle)`
-  color: white;
+// const CreateRoomButton = styled(FaPlusCircle)`
+//   color: white;
 
-  cursor: pointer;
-  transition: all 0.1s;
-  border-radius: 50%;
-  margin: 0 1.25rem 0 auto;
-  opacity: 0.9;
-  &:hover {
-    opacity: 1;
-    scale: 1.075;
+//   cursor: pointer;
+//   transition: all 0.1s;
+//   border-radius: 50%;
+//   margin: 0 1.25rem 0 auto;
+//   opacity: 0.9;
+//   &:hover {
+//     opacity: 1;
+//     scale: 1.075;
 
-    box-shadow: 0 0 60px 3px #fff, 0 0 100px 6px #f0f, 0 0 140px 9px #0ff;
-  }
-  &:active {
-    opacity: 0.8;
-    transform: translateY(2px);
-  }
-`;
+//     box-shadow: 0 0 60px 3px #fff, 0 0 100px 6px #f0f, 0 0 140px 9px #0ff;
+//   }
+//   &:active {
+//     opacity: 0.8;
+//     transform: translateY(2px);
+//   }
+// `;
 
-const CloseButton = styled(FaTimes)`
-  transition: all 0.1s;
-  margin-bottom: 4rem;
-  border-radius: 50%;
-  cursor: pointer;
+// const CloseButton = styled(FaTimes)`
+//   transition: all 0.1s;
+//   margin-bottom: 4rem;
+//   border-radius: 50%;
+//   cursor: pointer;
 
-  &:hover {
-    opacity: 1;
-    scale: 1.075;
-    background: radial-gradient(
-      circle farthest-side,
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0.2)
-    );
-    background-repeat: no-repeat;
+//   &:hover {
+//     opacity: 1;
+//     scale: 1.075;
+//     background: radial-gradient(
+//       circle farthest-side,
+//       rgba(255, 255, 255, 1),
+//       rgba(255, 255, 255, 0.2)
+//     );
+//     background-repeat: no-repeat;
 
-    box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
-      0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
-      0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
+//     box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
+//       0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
+//       0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
 
-    // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
-    //   /* middle magenta */ 0 0 140px 9px #0ff;
-  }
-  &:active {
-    opacity: 0.8;
-    transform: translateY(2px);
-  }
-`;
+//     // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+//     //   /* middle magenta */ 0 0 140px 9px #0ff;
+//   }
+//   &:active {
+//     opacity: 0.8;
+//     transform: translateY(2px);
+//   }
+// `;
 
-const SearchButton = styled(FaSearch)`
-  transition: all 0.1s;
-  margin-bottom: 4rem;
-  border-radius: 50%;
-  cursor: pointer;
+// const SearchButton = styled(FaSearch)`
+//   transition: all 0.1s;
+//   margin-bottom: 4rem;
+//   border-radius: 50%;
+//   cursor: pointer;
 
-  &:hover {
-    opacity: 1;
-    scale: 1.075;
-    background: radial-gradient(
-      circle farthest-side,
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0.2)
-    );
-    background-repeat: no-repeat;
+//   &:hover {
+//     opacity: 1;
+//     scale: 1.075;
+//     background: radial-gradient(
+//       circle farthest-side,
+//       rgba(255, 255, 255, 1),
+//       rgba(255, 255, 255, 0.2)
+//     );
+//     background-repeat: no-repeat;
 
-    box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
-      0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
-      0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
+//     box-shadow: 0 0 8px 5px rgba(255, 255, 255, 0.2),
+//       0 0 10px 3px rgba(255, 0, 255, 0.15), 0 0 14px 6px rgba(0, 255, 255, 0.15),
+//       0 0 100px 100px rgba(255, 255, 255, 0.1) inset;
 
-    // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
-    //   /* middle magenta */ 0 0 140px 9px #0ff;
-  }
-  &:active {
-    opacity: 0.8;
-    transform: translateY(2px);
-  }
-`;
+//     // box-shadow: 0 0 60px 3px #fff, /* inner white */ 0 0 100px 6px #f0f,
+//     //   /* middle magenta */ 0 0 140px 9px #0ff;
+//   }
+//   &:active {
+//     opacity: 0.8;
+//     transform: translateY(2px);
+//   }
+// `;
 
 export default function RoomsTab({
   pageOnDisplay,
@@ -270,9 +283,10 @@ export default function RoomsTab({
       <Controls>
         <XIcon click={closeTabHandler} />
         {/* <CloseButton size={25} onClick={closeTabHandler} /> */}
-        <CreateRoomButton size={25} onClick={createRoomHandler} />
-        <SearchButton size={25} onClick={openRoomSearchHandler} />
+        <PlusIcon click={createRoomHandler} />
+        <SearchIcon click={openRoomSearchHandler} />
       </Controls>
+      <Whitespace />
 
       <RoomCabinet
         rooms={rooms}

@@ -7,6 +7,7 @@ const Container = styled.div`
   width: ${Theme.ui.iconSize};
   height: ${Theme.ui.iconSize};
   position: relative;
+  cursor: pointer;
   color: ${(props) =>
     props.hover ? Theme.theme3.hightlight2 : Theme.offBlack};
 `;

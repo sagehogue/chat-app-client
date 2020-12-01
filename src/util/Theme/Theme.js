@@ -72,6 +72,7 @@ export default {
     type: {
       heading: "Helvetica",
       body: "Helvetica",
+      button: "Oxygen Mono",
     },
     color: {
       heading: "rgb(3, 3, 3)",
@@ -137,6 +138,9 @@ export default {
     modalWidth: "85%",
     iconSize: "2rem",
   },
+  util: {
+    whiteSpace: "2.5rem",
+  },
 
   lightColorHighlight: "#f58ea4",
   colorHighlight: "#F51444;",
@@ -158,6 +162,7 @@ export default {
   textColorDark: "rgba(43, 43, 43, 1)",
 
   fontSizeS: "1rem",
+  fontSizeSM: "1.25rem",
   fontSizeM: "1.5rem",
   fontSizeL: "2.25rem",
   fontSizeXL: "2.75rem",
@@ -166,5 +171,5 @@ export default {
   borderRadius: "1rem",
   borderRadiusL: "15%",
   borderRadiusXL: "2rem",
-  transitionSpeed: ".3s",
+  transitionSpeed: ".2s",
 };

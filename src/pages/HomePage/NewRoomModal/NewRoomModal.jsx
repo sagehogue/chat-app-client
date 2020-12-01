@@ -23,7 +23,8 @@ const Position = styled.div`
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin: 1rem auto auto auto;
+  margin: auto;
+  height: 100%;
 `;
 
 const Heading = styled.h3`
@@ -42,10 +43,15 @@ const Label = styled.label`
 
 const CreateRoomForm = styled.form`
   min-width: 25rem;
-  margin-top: 1.5rem;
+  // margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 75%;
+  height: 100%;
+  & >:last-child {
+align-self: flex-end;
+margin-top: auto;
+  }
+  
 `;
 
 const FormInput = styled.input`
@@ -64,24 +70,37 @@ const SubmitButton = styled.button`
   width: 50%;
   border: none;
   border-radius: ${Theme.borderRadiusBtn};
-  margin: 0 auto;
+  margin: 2rem auto;
   cursor: pointer;
   padding: 1rem;
+  align-self: flex-end;
   // background-color: ${Theme.colorHighlight};
-  background-color: ${Theme.theme3.highlight2};
+  background-color: ${Theme.offWhite};
   color: ${Theme.theme3.black};
   font-size: ${Theme.fontSizeM};
   // color: ${Theme.textColorLight};
-  font-weight: 500;
+  transition: all ${Theme.transitionSpeed};
+  font-family: ${Theme.font.button};
+  font-weight: bold;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  &:hover {
+    background-color: ${Theme.theme3.highlight2};
+  }
 `;
 
 const ConfirmPasswordInput = styled(FormInput)`
-  margin-bottom: 3rem;
+  
   &::after {
     content: ${(props) =>
       props.passwordMatch ? "" : "Passwords do not match"};
   }
 `;
+
+const PlaceHolder = styled.div`
+height: 10rem;
+
+`
 
 const ErrorBox = styled.div`
   color: red;
@@ -200,7 +219,7 @@ export default function NewRoomModal({
                 passwordMatch={passwordsMatch}
               />
             </Label>
-          ) : null}
+          ) : <PlaceHolder />}
           <SubmitButton type="submit" onClick={handleSubmit}>
             Submit
           </SubmitButton>

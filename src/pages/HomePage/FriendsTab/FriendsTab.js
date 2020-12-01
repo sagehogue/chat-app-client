@@ -137,7 +137,7 @@ const ButtonEffects = styled.div`
 `;
 
 const Whitespace = styled.div`
-  margin-bottom: 2.5rem;
+  margin-bottom: ${Theme.util.whiteSpace};
 `;
 
 FriendsTab.propTypes = {

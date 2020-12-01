@@ -59,7 +59,7 @@ const HeaderCard = styled.div`
   position: relative;
   width: 50%;
   margin: 0 auto;
-  border: 2px solid ${Theme.theme3.color2};
+  border: 2px solid ${Theme.theme4.highlight2};
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
   padding: 1.5rem;
@@ -88,17 +88,7 @@ const Header = styled.h1`
 `;
 
 const Title = styled.h1`
-  // background: -webkit-linear-gradient(
-  //   ${Theme.theme3.color5},
-  //   ${Theme.theme3.color3}
-  // );
-  background: linear-gradient(
-    to bottom right,
-    ${Theme.theme3.color5},
-    ${Theme.theme3.color3}
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: ${Theme.theme3.color5};
   font-weight: 600;
   font-size: 4rem;
 `;
@@ -116,7 +106,7 @@ const ExpandCardIcon = styled.div`
   transform: rotate(${(props) => (props.showFullBanner ? "180" : "0")}deg);
   &:hover {
     scale: 1.5;
-    color: ${Theme.theme3.highlight2};
+    color: ${Theme.theme3.black};
   }
 `;
 
@@ -167,7 +157,7 @@ const PublicRoomList = styled.section`
 const ArrowDown = styled(AiOutlineArrowDown)`
   margin: 1rem auto 0 auto;
   display: block;
-  color: ${Theme.colorHighlight};
+  color: ${Theme.theme4.highlight2};
 `;
 
 const NoRooms = styled.div`
