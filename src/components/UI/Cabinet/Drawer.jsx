@@ -41,7 +41,7 @@ const Label = styled.span`
   &:hover {
     font-weight: 500;
     // scale: 1.1;
-    color: ${Theme.theme3.highlight2};
+    // color: ${Theme.theme3.highlight2};
   }
 `;
 const Contents = styled.div`

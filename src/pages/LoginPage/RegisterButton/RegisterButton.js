@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../../../components/UI/Button/Button";
-
+import Button from "../../../components/UI/Buttons/Button";
 
 const RegisterButtonStyle = styled(Button)`
   margin-top: 2.5rem;
@@ -11,5 +10,7 @@ const RegisterButtonStyle = styled(Button)`
 `;
 
 export default function RegisterButton({ clickHandler }) {
-  return <RegisterButtonStyle onClick={clickHandler}>Register</RegisterButtonStyle>;
+  return (
+    <RegisterButtonStyle onClick={clickHandler}>Register</RegisterButtonStyle>
+  );
 }

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 export const Modal = styled.section`
   z-index: ${(props) => (props.shouldDisplay ? Theme.zIndex.modal : "0")};
+  height: ${Theme.ui.modalHeight};
+ width: ${Theme.ui.modalWidth};
   background-color: ${Theme.offWhite};
   font-family: ${Theme.font.type.body};
   color: ${Theme.font.color.body};
@@ -10,6 +12,5 @@ export const Modal = styled.section`
   display: ${(props) => (props.shouldDisplay ? "flex" : "none")};
   grid-column: 2 / 3;
   grid-row: 2 / 10;
-  height: 100%;
-  width: 100%;
+ margin: auto;
 `;

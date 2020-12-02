@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Uuid from "react-uuid";
 import Theme from "../../../util/Theme/Theme";
 import { Modal } from "../../../components/UI/Modal/NewModal";
+import SubmitButton from "../../../components/UI/Buttons/SubmitButton";
 
 // [TODOS]
 
@@ -66,28 +67,7 @@ const FormInput = styled.input`
   border: 1px solid ${Theme.backgroundColorLight};
 `;
 
-const SubmitButton = styled.button`
-  width: 50%;
-  border: none;
-  border-radius: ${Theme.borderRadiusBtn};
-  margin: 2rem auto;
-  cursor: pointer;
-  padding: 1rem;
-  align-self: flex-end;
-  // background-color: ${Theme.colorHighlight};
-  background-color: ${Theme.offWhite};
-  color: ${Theme.theme3.black};
-  font-size: ${Theme.fontSizeM};
-  // color: ${Theme.textColorLight};
-  transition: all ${Theme.transitionSpeed};
-  font-family: ${Theme.font.button};
-  font-weight: bold;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  &:hover {
-    background-color: ${Theme.theme3.highlight2};
-  }
-`;
+
 
 const ConfirmPasswordInput = styled(FormInput)`
   
@@ -222,7 +202,7 @@ export default function NewRoomModal({
           ) : <PlaceHolder />}
           <SubmitButton type="submit" onClick={handleSubmit}>
             Submit
-          </SubmitButton>
+          </SubmitButton  >
         </CreateRoomForm>
       </Position>
     </Styles>

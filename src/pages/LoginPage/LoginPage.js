@@ -11,7 +11,7 @@ import * as EmailValidator from "email-validator";
 
 import background from "../../img/background.jpg";
 import styled from "styled-components";
-import { SubmitButton } from "../../components/UI/Button/Button";
+import { SubmitButton } from "../../components/UI/Buttons/Button";
 import SignInButton from "./SignInButton/SignInButton";
 import LoginForm from "./LoginForm/LoginForm";
 import RegisterButton from "./RegisterButton/RegisterButton";

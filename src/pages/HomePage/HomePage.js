@@ -19,6 +19,7 @@ import RoomSearch from "../../components/UI/SearchBar/RoomSearch/RoomSearchModal
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import CreateRoomModal from "./NewRoomModal/NewRoomModal";
 import CurrentUserProfile from "../../components/Profile/CurrentUserProfile.jsx";
+import UserProfileModal from "../../components/Profile/UserProfileModal.jsx";
 import UserProfile from "../../components/Profile/UserProfile.jsx";
 
 import { AuthContext } from "../../App";
@@ -385,6 +386,7 @@ export default function HomePage() {
     setDisplayUserSearch(false);
     setDisplayRoomSearch(false);
     setShowRoomSettings(false);
+    setDisplayProfile(false);
   };
 
   const openBackdrop = () => {
@@ -402,12 +404,13 @@ export default function HomePage() {
   };
 
   const handleDisplayProfile = () => {
-    console.log("test");
+    openBackdrop();
     setDisplayProfile(true);
   };
 
   const closeProfileHandler = () => {
     setDisplayProfile(false);
+    closeBackdrop();
   };
 
   let firebaseDoesNotExist, db;
@@ -506,6 +509,18 @@ export default function HomePage() {
             // Need a system to contact backend when FE changes rooms.
             // setCurrentRoom(roomObj);
           }}
+        />
+        <UserProfileModal
+          id={uid}
+          socket={socket}
+          profileDisplayState={displayProfile}
+          handleCloseProfile={() => {
+            closeProfileHandler();
+            closeBackdrop();
+          }}
+          logoutHandler={firebaseController.logout}
+          user={user}
+          profilePicURL={avatar.url}
         />
         ;
         {currentRoom ? (

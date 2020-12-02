@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from "react";
 import styled from "styled-components";
 import Theme from "../../util/Theme/Theme";
 import { TiArrowBack } from "react-icons/ti";
-import button from "../UI/Button/Button";
+import button from "../UI/Buttons/Button";
 import SettingsOption from "../../components/UI/Settings/SettingsOption";
 import uuid from "react-uuid";
 import { getStorageRef } from "../../App";

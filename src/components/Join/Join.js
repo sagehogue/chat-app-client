@@ -59,7 +59,7 @@ const HeaderCard = styled.div`
   position: relative;
   width: 50%;
   margin: 0 auto;
-  border: 2px solid ${Theme.theme4.highlight2};
+  border: 1px solid ${Theme.theme3.highlight};
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
   padding: 1.5rem;
@@ -97,7 +97,7 @@ const ExpandCardIcon = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.325rem;
   cursor: pointer;
   padding-top: 1rem;
   color: ${Theme.colorLightishGray};
@@ -106,7 +106,7 @@ const ExpandCardIcon = styled.div`
   transform: rotate(${(props) => (props.showFullBanner ? "180" : "0")}deg);
   &:hover {
     scale: 1.5;
-    color: ${Theme.theme3.black};
+    color: ${Theme.theme3.highlight2};
   }
 `;
 
@@ -157,7 +157,7 @@ const PublicRoomList = styled.section`
 const ArrowDown = styled(AiOutlineArrowDown)`
   margin: 1rem auto 0 auto;
   display: block;
-  color: ${Theme.theme4.highlight2};
+  color: ${Theme.theme3.highlight};
 `;
 
 const NoRooms = styled.div`
@@ -230,7 +230,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
         <PublicRoomListHeader>
           Jump into a conversation in an active public chat room.
         </PublicRoomListHeader>
-        <ArrowDown size={44} />
+        <ArrowDown size={60} />
         <PublicRoomList>
           {!!previewedRooms[0] == true ? (
             PublicRooms

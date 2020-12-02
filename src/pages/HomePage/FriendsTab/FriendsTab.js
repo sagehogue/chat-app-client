@@ -10,7 +10,7 @@ import Cabinet from "./FriendsCabinet/FriendsCabinet";
 import closeIcon from "../../../icons/closeIcon.png";
 import SearchBar from "../../../components/UI/SearchBar/SearchBar";
 import UserSearchBar from "../../../components/UI/SearchBar/UserSearchBar/UserSearchBar.jsx";
-import button from "../../../components/UI/Button/Button";
+import button from "../../../components/UI/Buttons/Button";
 import XIcon from "../../../components/UI/Icons/X";
 import SearchIcon from "../../../components/UI/Icons/Search";
 

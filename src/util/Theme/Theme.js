@@ -27,12 +27,14 @@ export default {
     color4: "#8298B0",
     // bright navy blue
     color5: "#3D76B3",
+
     // 'baby blue eyes'
     color2AccentA: "#96BBE3",
     // 'baby blue eyes'
     color2AccentB: "#A1CBF7",
-    // xanthic
-    highlight: "#4D8DD0",
+    // light green
+    highlight: "#0afcd8",
+
     // gold web golden
     highlight2: "#ffd700",
     // maximum green yellow

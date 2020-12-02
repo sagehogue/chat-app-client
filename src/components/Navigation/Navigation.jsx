@@ -98,7 +98,7 @@ export default function Navigation({
         >
           {user.displayName}
         </UserNameDisplay>
-        <CurrentUserProfile
+        {/* <CurrentUserProfile
           id={uid}
           socket={socket}
           profileDisplayState={displayProfile}
@@ -106,7 +106,7 @@ export default function Navigation({
           logoutHandler={firebaseController.logout}
           user={user}
           profilePicURL={avatar.url}
-        ></CurrentUserProfile>
+        ></CurrentUserProfile> */}
       </HomeAndUser>
       <FaRegComments onClick={handleDisplayRooms} />
     </Nav>
