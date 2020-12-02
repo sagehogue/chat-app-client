@@ -63,7 +63,7 @@ const HeaderCard = styled.div`
   border-radius: ${Theme.borderRadiusXL};
   background-color: ${Theme.backgroundColorLighterGray};
   padding: 1.5rem;
-  box-shadow: 0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4);
+  box-shadow: ${Theme.theme3.boxShadow};
   transition: ${Theme.transitionSpeed};
 
   max-height: ${(props) => (props.showFullBanner ? "40rem" : "14rem")};

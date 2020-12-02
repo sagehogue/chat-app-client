@@ -13,7 +13,7 @@ import CurrentUser, { getStorageRef } from "../../App.js";
 
 import uuid from "react-uuid";
 
-// import FileUploader from "react-firebase-file-uploader";
+import FileUploader from "react-firebase-file-uploader";
 
 import Settings from "./Settings";
 
@@ -75,7 +75,7 @@ const PicLabel = styled.label`
 
 const PicInput = styled.input`
   border: none;
-  // background: ${Theme.backgroundColorLigjtGray};
+  // background: ${Theme.backgroundColorLightGray};
   color: ${Theme.textColorLight};
   width: 80%;
   margin-left: 3rem;
