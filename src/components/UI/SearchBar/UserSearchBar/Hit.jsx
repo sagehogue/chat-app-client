@@ -14,6 +14,7 @@ const Style = styled.div`
   max-height: 2.5rem;
   overflow: hidden;
   padding: 0.25rem;
+
   &:hover {
     max-height: 4rem;
   }
@@ -72,7 +73,10 @@ const NewCard = styled.div`
   max-height: 3rem;
   overflow: hidden;
   padding: 0.25rem 0;
+  border: 1px solid transparent;
   &:hover {
+    border: 1px solid ${Theme.theme3.highlight2};
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
     max-height: 4.5rem;
   }
 `;
