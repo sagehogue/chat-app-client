@@ -43,6 +43,8 @@ export default {
     black: "#030301",
     // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
+
+    boxShadow: "0.2rem 0.2rem 1.4rem rgba(0, 0, 0, 0.4)",
   },
   theme4: {
     // electric purple
