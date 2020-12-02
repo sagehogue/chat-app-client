@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Theme from "../../../../util/Theme/Theme";
 
-import { FaUserSecret, FaEnvelope, FaDoorOpen } from "react-icons/fa";
+import {
+  FaUserSecret,
+  FaEnvelope,
+  FaDoorOpen,
+  FaMinus,
+  FaStar,
+  FaRegStar,
+} from "react-icons/fa";
 import { Highlight } from "react-instantsearch-dom";
 import { RoomCard } from "../../RoomCard/RoomCard";
 
@@ -11,19 +18,29 @@ import { AuthContext } from "../../../../App";
 import { emitJoin } from "../../../../pages/HomePage/HomePage";
 
 const Card = styled.div`
-  transition: transform 0.5s, color 0.2s;
   position: relative;
-  min-height: 6rem;
-  min-width: 4rem;
-  border-radius: 8px;
-  // border: 1px solid ${Theme.blueButtonColor};
-  overflow: hidden;
   background-color: ${Theme.offWhite};
-  &:nth-of-type(even) {
-    // background-color: ${Theme.theme3.color2AccentA};
-  }
-  &:nth-of-type(odd) {
-    // background-color: ${Theme.theme3.color2AccentB};
+  transition: all ${Theme.transitionSpeed};
+  //   padding: 3rem 5rem;
+  border-radius: 7px;
+  margin: 1rem;
+  padding: 0.325rem;
+  min-height: 6rem;
+  min-width: 8rem;
+  max-width: 20rem;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  color: ${Theme.offWhite};
+  flex-grow: 0.25;
+  flex-shrink: 1;
+  margin: 0.5rem;
+  border: 1px transparent solid inset;
+  &:hover {
+    border: 1px solid ${Theme.theme3.highlight2} inset;
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
+    & svg {
+      color: ${Theme.theme3.color2};
+    }
   }
 `;
 
@@ -112,6 +129,47 @@ const Avatar = styled.img`
   left: 0;
   z-index: 1;
 `;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  color: ${Theme.colors.primary};
+
+  & > svg:nth-of-type(2) {
+    margin-left: auto;
+  }
+  & svg {
+    transition: ${Theme.animations.buttonHoverEffectTransition};
+    z-index: 3;
+    color: transparent;
+  }
+`;
+
+const RoomName = styled.span`
+  min-height: 1.5rem;
+  padding: 0.15rem 0.25rem 0.15rem 0.25rem;
+  // border: 1px solid ${Theme.colors.mostlyTransparentBlack};
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 1.25rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  word-wrap: break-word;
+  font-weight: 600;
+  background-color: ${Theme.colors.mostlyTransparentBlack};
+  vertical-align: middle;
+`;
+
+const Center = styled.div`
+  color: ${Theme.colors.accentMedium};
+
+  display: flex;
+  justify-content: center;
+`;
+
 // const BackFace = styled(Face)`
 //   transform: ${(props) =>
 //     props.flipCard ? "rotateX(0deg)" : "rotateX(180deg)"};
@@ -126,28 +184,29 @@ export default function Hit({ hit, handleClientJoin, closeHandler }) {
       <FaDoorOpen size={45} color={Theme.theme3.color1} />
     </Placeholder>
   );
-  // let avatar;
-  // if (hit.avatar) {
-  //   avatar = (
-  //     <img
-  //       src={hit.avatar}
-  //       className="hit-avatar"
-  //       align="left"
-  //       alt={hit.displayName}
-  //     />
-  //   );
-  // }
-  //   const [flipCard, setFlipCard] = useState(false);
-  //   const hoverOn = () => {
-  //     setFlipCard(true);
-  //   };
-  //   const hoverOff = () => {
-  //     setFlipCard(false);
-  //   };
+
   let user = useContext(AuthContext);
   // console.log(hit.avatar);
+  const oldDesign = (
+    <Container>
+      <Card>
+        <FrontFace
+        //   flipCard={flipCard}
+        >
+          {hit.avatar ? <Avatar src={hit.avatar.url} /> : placeholder}
+          <TextBackground>
+            <Name className="hit-roomName">
+              <Highlight attribute="roomName" hit={hit} />
+            </Name>
+            <RoomCreatorName>{`Created by ${hit.creator}`}</RoomCreatorName>
+          </TextBackground>
+        </FrontFace>
+      </Card>
+    </Container>
+  );
+
   return (
-    <Container
+    <Card
       onClick={() => {
         emitJoin({
           room: {
@@ -168,20 +227,46 @@ export default function Hit({ hit, handleClientJoin, closeHandler }) {
         closeHandler();
       }}
     >
-      <Card>
-        <FrontFace
-        //   flipCard={flipCard}
-        >
-          {hit.avatar ? <Avatar src={hit.avatar.url} /> : placeholder}
-          <TextBackground>
-            <Name className="hit-roomName">
-              <Highlight attribute="roomName" hit={hit} />
-            </Name>
-            <RoomCreatorName>{`Created by ${hit.creator}`}</RoomCreatorName>
-          </TextBackground>
-        </FrontFace>
-      </Card>
-    </Container>
+      {hit.avatar ? (
+        <Avatar src={hit.avatar.url} />
+      ) : (
+        <Center>
+          <FaDoorOpen size={60} color={Theme.theme3.color1} />
+        </Center>
+      )}
+      <Content>
+        {/* <FaEllipsisH size={20} /> */}
+        <RoomName>
+          <Name className="hit-roomName">
+            <Highlight attribute="roomName" hit={hit} />
+          </Name>
+        </RoomName>
+        {/* {hit.isFavorite ? (
+          <FaRegStar
+            onClick={(e) => {
+              e.stopPropagation();
+              removeFavorite(userID, id);
+            }}
+            size={20}
+          />
+        ) : (
+          <FaStar
+            onClick={(e) => {
+              e.stopPropagation();
+              addFavorite(userID, id);
+            }}
+            size={20}
+          />
+        )}
+        <FaMinus
+          size={20}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRemoveSavedRoom(userID, id);
+          }}
+        /> */}
+      </Content>
+    </Card>
   );
 }
 

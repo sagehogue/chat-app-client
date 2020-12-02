@@ -11,27 +11,10 @@ import {
   FaDoorOpen,
 } from "react-icons/fa";
 
-const Styles = styled.div``;
-
-const UserCountStyles = styled.span`
-  position: absolute;
-  top: -1.2rem;
-  left: 0;
-  text-align: center;
-`;
-
-const RoomNameStyles = styled.span`
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
-  background-color: rgba(3, 3, 3, 0.7);
-  display: block;
-  margin-top: auto;
-  font-size: 1.65rem;
-`;
-
 const Card = styled.div`
   position: relative;
   background-color: ${Theme.offWhite};
+  transition: all ${Theme.transitionSpeed};
   //   padding: 3rem 5rem;
   border-radius: 7px;
   margin: 1rem;
@@ -44,10 +27,12 @@ const Card = styled.div`
   flex-grow: 0.25;
   flex-shrink: 1;
   margin: 0.5rem;
+  border: 1px transparent solid inset;
   &:hover {
+    border: 1px solid ${Theme.theme3.highlight1} inset;
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight1};
     & svg {
-      z-index: 5;
-      // color: ${Theme.colors.primary};
+      color: ${Theme.theme3.color2};
     }
   }
 `;
@@ -70,12 +55,14 @@ const Content = styled.div`
   }
   & svg {
     transition: ${Theme.animations.buttonHoverEffectTransition};
-    color: ${Theme.offWhite};
+    z-index: 3;
+    color: transparent;
   }
 `;
 
 const RoomName = styled.span`
   padding: 0.35rem;
+  // border: 1px solid ${Theme.colors.mostlyTransparentBlack};
   display: inline-block;
   width: 100%;
   font-size: 1.25rem;
@@ -107,11 +94,9 @@ export default function RoomCard({
   removeFavorite,
   handleRemoveSavedRoom,
   noButton = false,
-  small = false,
 }) {
   const alternateButtonlessDesign = (
     <Card
-      small={small}
       onClick={(e) => {
         joinHandler({ roomName, id });
       }}
@@ -133,7 +118,6 @@ export default function RoomCard({
   }
   return (
     <Card
-      small={small}
       onClick={(e) => {
         joinHandler({ roomName, id });
       }}
@@ -146,7 +130,7 @@ export default function RoomCard({
         </Center>
       )}
       <Content>
-        <FaEllipsisH size={20} />
+        {/* <FaEllipsisH size={20} /> */}
         <RoomName>{roomName}</RoomName>
         {isFavorite ? (
           <FaRegStar
