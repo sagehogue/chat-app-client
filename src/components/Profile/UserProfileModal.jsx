@@ -18,7 +18,7 @@ const ProfileContainer = styled(Modal)`
   cursor: default;
   flex-direction: column;
   align-self: flex-start;
-  transform: translateY(.03rem);
+  
 `;
 const ProfilePicContainer = styled.div`
   position: relative;
@@ -72,6 +72,13 @@ const IMG = styled.img`
   height: 100%;
   width: 100%;
 `;
+
+const Submit = styled(SubmitButton)`
+height: 4rem;
+width: 11rem;
+
+`
+
 const SettingsContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -84,8 +91,8 @@ const SettingsButton = styled.div`
   margin-right: 4rem;
   transition: all ${Theme.transitionSpeed};
   &:hover {
-    // padding-top: 7.75rem;
-    scale: 1.075;
+    color: ${Theme.theme3.highlight2};
+    cursor: pointer;
   }
 `;
 
@@ -153,7 +160,7 @@ export default function UserProfileModal({profileDisplayState,
               <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
               <PicInput type="file" name="file" ref={fileRef} />
             </PicLabel>
-            <SubmitButton type="submit">submit</SubmitButton>
+            <Submit type="submit">submit</Submit>
           </PicFormStyle>
         </ProfilePicContainer>
       )}
