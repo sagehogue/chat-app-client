@@ -44,6 +44,8 @@ export default {
     cabinetOdd: "#96BBE3",
     cabinetEven: "#A1CBF7",
 
+    //opaque black
+    opaqueBlack: "rgba(3, 3, 1, .1)",
     // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
 
