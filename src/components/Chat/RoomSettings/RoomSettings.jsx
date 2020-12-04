@@ -4,8 +4,9 @@ import uuid from "react-uuid";
 
 import { FaDoorOpen } from "react-icons/fa";
 import CurrentUser, { getStorageRef } from "../../../App";
-
 import { Modal } from "../../UI/Modal/NewModal";
+import Submit from "../../UI/Buttons/SubmitButton";
+import { RoomSettingsSelect } from "../../UI/Buttons/Select";
 
 import Theme from "../../../util/Theme/Theme";
 
@@ -111,33 +112,6 @@ const Description = styled.span`
   display: inline-block;
   display: block;
   margin: auto;
-`;
-
-const FormButton = styled.button`
-  text-align: center;
-  text-transform: uppercase;
-  color: ${Theme.colors.offWhite};
-  letter-spacing: 2px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  border: none;
-  border-radius: 5px;
-  padding: 0.7rem 2.5rem;
-  background-color: ${Theme.colors.brightAccentRed};
-`;
-
-const InputButton = styled(FormButton)`
-  position: relative;
-  display: block;
-  margin: 1rem auto auto auto;
-  background-color: ${Theme.theme3.color2AccentB};
-`;
-
-const SubmitButton = styled(FormButton)`
-  width: 15rem;
-  margin: 5rem auto auto auto;
-  background-color: ${Theme.theme3.highlight2};
-  color: ${Theme.theme3.black};
 `;
 
 const AvatarInput = styled.input`
@@ -249,7 +223,7 @@ export default function RoomSettings({
               <Description>
                 Upload a new image to use as room avatar
               </Description>
-              <InputButton type="button">
+              <RoomSettingsSelect type="button">
                 Select
                 <AvatarInput
                   type="file"
@@ -257,11 +231,11 @@ export default function RoomSettings({
                   ref={fileRef}
                   onChange={previewAvatar}
                 />
-              </InputButton>
+              </RoomSettingsSelect>
             </VerticalCenter>
           </Controls>
         </Setting>
-        <SubmitButton type="submit">submit</SubmitButton>
+        <Submit type="submit">submit</Submit>
       </Options>
     </SettingsModal>
   );

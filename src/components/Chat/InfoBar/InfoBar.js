@@ -90,11 +90,16 @@ const Option = styled.div`
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
+  transition: all ${Theme.transitionSpeed};
+  border: 1px transparent solid;
+  padding: 0.25rem;
   &:last-of-type {
     margin-bottom: 0;
   }
   &:hover {
     cursor: pointer;
+    border: 1px solid ${Theme.theme3.highlight2};
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
   }
 `;
 const Text = styled.span`
@@ -169,28 +174,31 @@ const InfoBar = ({
               {isUserSavedRoom ? "Remove from saved" : "Add to saved"}
             </Text>
           </Option>
-          <Option>
-            {isFavoriteRoom ? (
-              <FaStar
-                onClick={() => {
-                  console.log("fave");
-                  handleRemoveFavoriteRoom(user.uid, roomID);
-                }}
-              />
-            ) : (
-              <FaRegStar
-                onClick={() => {
-                  console.log("not fave");
-                  handleAddFavoriteRoom(user.uid, roomID);
-                }}
-              />
-            )}
-            <Text>
-              {isFavoriteRoom ? "Remove from favorites" : "Add to favorites"}
-            </Text>
-          </Option>
-          <Option>
-            <FaEllipsisH onClick={handleOpenRoomSettings} />
+
+          {isFavoriteRoom ? (
+            <Option
+              onClick={() => {
+                console.log("fave");
+                handleRemoveFavoriteRoom(user.uid, roomID);
+              }}
+            >
+              <FaStar />
+              <Text>Remove from favorites</Text>
+            </Option>
+          ) : (
+            <Option
+              onClick={() => {
+                console.log("not fave");
+                handleAddFavoriteRoom(user.uid, roomID);
+              }}
+            >
+              <FaRegStar />
+              <Text>Add to favorites</Text>
+            </Option>
+          )}
+
+          <Option onClick={handleOpenRoomSettings}>
+            <FaEllipsisH />
             <Text>Additional Settings</Text>
           </Option>
         </OptionsMenu>
