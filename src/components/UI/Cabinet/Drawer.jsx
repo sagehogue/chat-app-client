@@ -8,7 +8,7 @@ import Theme from "../../../util/Theme/Theme";
 
 const DrawerFrame = styled.div`
   transition: max-height 0.5s ease, border 0.2s, box-shadow 0.2s;
-  background-color: rgba(211, 211, 211, 0.35);
+  background-color: ${Theme.theme3.cabinetEven};
   // original background-color: #c78989;
   max-height: ${(props) =>
     props.isOpen ? `${Theme.drawer.frameOpen}` : `${Theme.drawer.frameClosed}`};
@@ -16,7 +16,7 @@ const DrawerFrame = styled.div`
   cursor: pointer;
   padding: 0 0.75rem 0.75rem 0.75rem;
   &:nth-child(odd) {
-    background-color: rgba(211, 211, 211, 0.65);
+    background-color: ${Theme.theme3.cabinetOdd};
     // original background-color: #edcece;
   }
   border: 1px solid transparent;

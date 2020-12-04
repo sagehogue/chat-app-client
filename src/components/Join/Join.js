@@ -206,7 +206,7 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
         <HeaderCardContainer>
           <HeaderCard showFullBanner={showFullBanner}>
             <Header>Welcome to </Header>
-            <Title>ChatAppName</Title>
+            <Title>Harmony</Title>
             <ExpandCardIcon showFullBanner={showFullBanner}>
               <MdExpandMore
                 onClick={() => {
@@ -219,10 +219,11 @@ export default function JoinInternals({ user, joinHandler, previewedRooms }) {
               ></MdExpandMore>
             </ExpandCardIcon>
             <BannerInfo>
-              This is a bunch of info about the app. lorem ipsum blah blah This
-              is a bunch of info about the app. lorem ipsum blah blah This is a
-              bunch of info about the app. lorem ipsum blah blah This is a bunch
-              of info about the app. lorem ipsum blah blah
+              {`Harmony is a group chat app constructed and powered entirely by
+              the collaborative spirit of Sage Hogue and Will Lucas. \nHarmony
+              allows users to join rooms to chat with other users, also allowing
+              them the ability to send and accept friend requests as well as
+              save rooms for easy reference later. Users and existing rooms are searchable as well.`}
             </BannerInfo>
           </HeaderCard>
         </HeaderCardContainer>

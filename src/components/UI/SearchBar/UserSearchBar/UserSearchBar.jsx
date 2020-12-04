@@ -45,13 +45,15 @@ const SearchBarWrapper = styled.div`
     &:nth-of-type(even) {
       & div {
         // background-color: ${Theme.theme3.color3};
-        background-color: ${Theme.theme3.color2AccentB};
+        // background-color: ${Theme.theme3.color2AccentB};
+        background-color: ${Theme.theme3.cabinetEven};
       }
       // background-color: ${Theme.theme3.color3};
     }
     &:nth-of-type(odd) {
       & div {
-        background-color: ${Theme.theme3.color2AccentA};
+        // background-color: ${Theme.theme3.color2AccentA};
+        background-color: ${Theme.theme3.cabinetOdd};
         // background-color: ${Theme.theme3.color4};
       }
     }

@@ -41,6 +41,9 @@ export default {
     glow: "#DEE051",
     // rich black fogra 39
     black: "#030301",
+    cabinetOdd: "#96BBE3",
+    cabinetEven: "#A1CBF7",
+
     // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
 
