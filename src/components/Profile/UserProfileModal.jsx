@@ -8,7 +8,7 @@ import { FaNapster, FaUserCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
 import CurrentUser, { getStorageRef } from "../../App.js";
 import uuid from "react-uuid";
-import Settings from "./Settings";
+import SettingsModal from "./SettingsModal";
 import { firebaseController } from "../../App";
 
 const ProfileContainer = styled(Modal)`
@@ -18,6 +18,7 @@ const ProfileContainer = styled(Modal)`
   cursor: default;
   flex-direction: column;
   align-self: flex-start;
+  position: relative;
   
 `;
 const ProfilePicContainer = styled.div`
@@ -36,7 +37,7 @@ const ProfilePicContainer = styled.div`
 const PicFormStyle = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   text-align: center;
   height: 90%;
   width: 90%;
@@ -44,9 +45,10 @@ const PicFormStyle = styled.form`
 `;
 
 const PicLabel = styled.label`
-  color: ${Theme.backgroundColorDarkGray};
+  color: ${Theme.offWhite};
   display: flex;
   margin-top: 3rem;
+  
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -60,35 +62,64 @@ const PicLabel = styled.label`
 `;
 
 const PicInput = styled.input`
-  border: none;
-  // background: ${Theme.backgroundColorLightGray};
-  color: ${Theme.textColorLight};
-  width: 80%;
-  margin-left: 3rem;
-  margin-top: 0.5rem;
-  cursor: pointer;
+  display: none;
 `;
+
+const PicInputLabel = styled.label`
+margin-top: 2.5rem;
+cursor: pointer;
+color: ${Theme.offWhite};
+border: none;
+&:hover {
+  color: ${Theme.theme3.highlight2};
+}
+`
+
 const IMG = styled.img`
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  width: 38%;
+  border-radius: 50%;
 `;
 
 const Submit = styled(SubmitButton)`
-height: 4rem;
-width: 11rem;
+height: 3.5rem;
+width: 10rem;
+
+`
+
+const ProfileInfoContainer = styled.div`
+height: 60%; 
+width: 100%;
+display: flex;
+justify-content: center;
+
 
 `
 
 const SettingsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  padding-top: 5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 12rem;
+  background-color: ${Theme.theme3.opaqueBlack};
+  border-radius: ${Theme.borderRadiusBtn};
+transition: ${Theme.transitionSpeed};
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  
+  margin: auto;
+  &:hover {
+    border: 1px solid ${Theme.theme3.highlight2};
+    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
+  }
 `;
 const SettingsButton = styled.div`
-  position: relative;
-  width: 40%;
-  padding-top: 8rem;
-  margin-right: 4rem;
+  
+  
+  
   transition: all ${Theme.transitionSpeed};
   &:hover {
     color: ${Theme.theme3.highlight2};
@@ -139,14 +170,14 @@ export default function UserProfileModal({profileDisplayState,
         console.log(profilePicURL + "\n" + profilePic);
     return (
         <ProfileContainer  shouldDisplay={profileDisplayState}>
-            <Settings
+            <SettingsModal
         settingsActive={displaySettings}
         handleRevertToProfile={handleRevertToProfile}
         logoutHandler={firebaseController.logout}
         socket={socket}
         id={id}
         profilePicURL={profilePicURL}
-      ></Settings>
+      ></SettingsModal>
             {profilePic ? (
         <ProfilePicContainer>
           <IMG src={profilePic}></IMG>
@@ -156,19 +187,22 @@ export default function UserProfileModal({profileDisplayState,
           <PicFormStyle onSubmit={submitHandler}>
             <PicLabel>
               {/* {" "} */}
-              Upload Profile Pic
-              <FaNapster size={100} color={"rgba(43, 43, 43, 1)"}></FaNapster>
-              <PicInput type="file" name="file" ref={fileRef} />
+              
+              <FaNapster size={150} color={`${Theme.offWhite}`}></FaNapster>
+              <PicInput type="file" name="file" id="files" ref={fileRef} />
+              <PicInputLabel for="files">Browse for Profile Picture</PicInputLabel>
             </PicLabel>
             <Submit type="submit">submit</Submit>
           </PicFormStyle>
         </ProfilePicContainer>
       )}
-      <SettingsContainer>
-          <SettingsButton onClick={handleSettings}>
-            <BsGearFill size={40} color={"#fff"}></BsGearFill>
+      <ProfileInfoContainer>
+      <SettingsContainer onClick={handleSettings}>
+          <SettingsButton >
+            <BsGearFill size={40} color={`${Theme.offWhite}`}></BsGearFill>
           </SettingsButton>
         </SettingsContainer>
+        </ProfileInfoContainer>
         </ProfileContainer>
     )
 }

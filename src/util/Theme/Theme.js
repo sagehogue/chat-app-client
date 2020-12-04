@@ -41,6 +41,8 @@ export default {
     glow: "#DEE051",
     // rich black fogra 39
     black: "#030301",
+    //opaque black
+    opaqueBlack: "rgba(3, 3, 1, .1)",
     // highlight: "#F2F551",
     font: { lightcolor: "#f0f0f0", darkcolor: "#090909" },
 
