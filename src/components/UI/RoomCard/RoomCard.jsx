@@ -11,6 +11,24 @@ import {
   FaDoorOpen,
 } from "react-icons/fa";
 
+const Styles = styled.div``;
+
+const UserCountStyles = styled.span`
+  position: absolute;
+  top: -1.2rem;
+  left: 0;
+  text-align: center;
+`;
+
+const RoomNameStyles = styled.span`
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: rgba(3, 3, 3, 0.7);
+  display: block;
+  margin-top: auto;
+  font-size: 1.65rem;
+`;
+
 const Card = styled.div`
   position: relative;
   background-color: ${Theme.offWhite};
