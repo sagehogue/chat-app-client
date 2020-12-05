@@ -4,7 +4,7 @@ import Theme from '../../util/Theme/Theme'
 import { Modal } from "../../components/UI/Modal/NewModal";
 
 import SubmitButton from '../../components/UI/Buttons/SubmitButton'
-import { FaNapster, FaUserCircle } from "react-icons/fa";
+import { FaUserSecret, FaUserCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
 import CurrentUser, { getStorageRef } from "../../App.js";
 import uuid from "react-uuid";
@@ -70,14 +70,20 @@ margin-top: 2.5rem;
 cursor: pointer;
 color: ${Theme.offWhite};
 border: none;
+border-radius: ${Theme.borderRadiusBtn};
+background-color: ${Theme.theme3.opaqueBlack};
+padding: .5rem;
+border: 1px solid transparent;
+transition: all ${Theme.transitionSpeed};
 &:hover {
-  color: ${Theme.theme3.highlight2};
-}
-`
+  border: 1px solid ${Theme.theme3.highlight2};
+  box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
+  cursor: pointer;
+}`
 
 const IMG = styled.img`
-  height: 90%;
-  width: 38%;
+  height: 100%;
+  width: 100%;
   border-radius: 50%;
 `;
 
@@ -91,9 +97,47 @@ const ProfileInfoContainer = styled.div`
 height: 60%; 
 width: 100%;
 display: flex;
-justify-content: center;
+padding: 2rem;
+flex-direction: column;
+margin: 0 auto;
 
+`
 
+const Bio = styled.span`
+width: 70%;
+height: 30%;
+display: flex;
+align-items: center;
+text-align: center;
+margin: 2.5rem auto 0 auto;
+padding: .5rem;
+font-size: 1.5rem;
+background-color: ${Theme.theme3.opaqueBlack};
+
+border-radius: ${Theme.borderRadius};
+
+color: ${Theme.theme3.font.lightcolor};
+
+`
+
+const EmailAndDateJoinedContainer = styled.div`
+width: 70%;
+height: 15%;
+display: flex;
+align-items: center;
+background-color: transparent;
+font-size: 1.5rem;
+margin: 2.5rem auto 0 auto;
+justify-content: space-between;
+
+`
+
+const Email = styled.div`
+margin-left: 2rem;
+`
+
+const DateJoined = styled.div`
+margin-right: 2rem;
 `
 
 const SettingsContainer = styled.div`
@@ -108,23 +152,32 @@ const SettingsContainer = styled.div`
 transition: ${Theme.transitionSpeed};
   cursor: pointer;
   position: absolute;
-  bottom: 1rem;
+  bottom: 2rem;
+  margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
   
-  margin: auto;
+  
   &:hover {
     border: 1px solid ${Theme.theme3.highlight2};
     box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
   }
 `;
 const SettingsButton = styled.div`
+  display: flex;
+  justify-content: center;
+ margin-top: auto;
+ 
   
   
-  
+  & svg {color: ${Theme.offWhite};
   transition: all ${Theme.transitionSpeed};
+  margin: auto;
   &:hover {
     color: ${Theme.theme3.highlight2};
     cursor: pointer;
-  }
+  }}
 `;
 
 export default function UserProfileModal({profileDisplayState,
@@ -188,7 +241,7 @@ export default function UserProfileModal({profileDisplayState,
             <PicLabel>
               {/* {" "} */}
               
-              <FaNapster size={150} color={`${Theme.offWhite}`}></FaNapster>
+              <FaUserSecret size={150} color={`${Theme.offWhite}`}></FaUserSecret>
               <PicInput type="file" name="file" id="files" ref={fileRef} />
               <PicInputLabel for="files">Browse for Profile Picture</PicInputLabel>
             </PicLabel>
@@ -197,11 +250,17 @@ export default function UserProfileModal({profileDisplayState,
         </ProfilePicContainer>
       )}
       <ProfileInfoContainer>
-      <SettingsContainer onClick={handleSettings}>
-          <SettingsButton >
-            <BsGearFill size={40} color={`${Theme.offWhite}`}></BsGearFill>
+        <Bio>I am a developer. Look! I wrote a bio. You can write one too, but you gotta make an account first. My bio is cool, don't you want a cool bio.</Bio>
+        <EmailAndDateJoinedContainer>
+<Email>Will.email@gmail.com</Email>
+<DateJoined>Joined: 11/15/1996</DateJoined>
+
+        </EmailAndDateJoinedContainer>
+      {/* <SettingsContainer onClick={handleSettings}> */}
+          <SettingsButton onClick={handleSettings}>
+            <BsGearFill size={40} ></BsGearFill>
           </SettingsButton>
-        </SettingsContainer>
+        {/* </SettingsContainer> */}
         </ProfileInfoContainer>
         </ProfileContainer>
     )
