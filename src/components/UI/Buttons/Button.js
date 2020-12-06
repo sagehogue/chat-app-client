@@ -10,7 +10,6 @@ export default styled.button`
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-
   letter-spacing: 2px;
   font-size: 1.25rem;
   font-weight: 700;
