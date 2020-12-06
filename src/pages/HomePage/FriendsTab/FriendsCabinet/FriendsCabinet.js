@@ -26,7 +26,7 @@ const FriendsAvatar = styled.img`
 `;
 
 export default function FriendsCabinet({
-  friends = null,
+  friends = [],
   handleAccept,
   handleDecline,
   deleteFriend,
@@ -35,61 +35,66 @@ export default function FriendsCabinet({
   clientID,
   openDMHandler,
   handleCancelFriendRequest,
+  sentRequests = [],
+  pendingFriends = [],
+  favoriteFriendsList = [],
 }) {
-  const [favoriteFriends, setFavoriteFriends] = useState([]);
-  const [filteredFriends, setFilteredFriends] = useState([]);
-  const [friendRequests, setFriendRequests] = useState([]);
-  const [sentFriendRequests, setSentFriendRequests] = useState([]);
-
-  useEffect(() => {
-    console.log(friends);
-    let favorites = [],
-      sent = [],
-      requests = [],
-      friendsList = [];
-    // mapping through all friends to identify what kind of JSX they need
-    friends.map((friend) => {
-      console.log(friend);
-      if (friend.isFriend) {
-        console.log("FRIEND.isFRIEND");
-        if (friend.isFavorite) {
-          console.log("FRIEND.isFav");
-          // case: is a favorite friend
-          favorites.push(friend);
-        } else if (friend.isFriend === "sent") {
-          // case: sent friend request
-          sent.push(friend);
-        } else if (friend.isFriend === "pending") {
-          // case: received friend request
-          requests.push(friend);
-        } else if (friend.isFriend === true && friend.isFavorite === false) {
-          console.log("PUSH TO FIREND LIUST");
-          // case: is a friend
-          friendsList.push(friend);
-        }
-      }
-    });
-    if (favorites && favorites != favoriteFriends) {
-      setFavoriteFriends(favorites);
-    }
-    if (sent && sent != sentFriendRequests) {
-      setSentFriendRequests(sent);
-    }
-    if (requests && requests != friendRequests) {
-      setFriendRequests(requests);
-    }
-    if (friendsList) {
-      console.log("WE HAVE FRIENDS LIST");
-      if (friendsList !== filteredFriends) {
-        console.log("AND IT DOES NOT MATCH THE OLD FRIENDS");
-        console.log(friendsList);
-        console.log(filteredFriends);
-      }
-    }
-    if (friendsList && friendsList !== filteredFriends) {
-      setFilteredFriends(friendsList);
-    }
-  }, [friends]);
+  const [favoriteFriends, setFavoriteFriends] = useState(favoriteFriendsList);
+  const [filteredFriends, setFilteredFriends] = useState(
+    friends.filter((friend) => !friend.isFavorite)
+  );
+  const [friendRequests, setFriendRequests] = useState(pendingFriends);
+  const [sentFriendRequests, setSentFriendRequests] = useState(sentRequests);
+  console.log(sentFriendRequests);
+  // useEffect(() => {
+  //   console.log(friends);
+  //   let favorites = [],
+  //     sent = [],
+  //     requests = [],
+  //     friendsList = [];
+  //   // mapping through all friends to identify what kind of JSX they need
+  //   friends.map((friend) => {
+  //     console.log(friend);
+  //     if (friend.isFriend) {
+  //       console.log("FRIEND.isFRIEND");
+  //       if (friend.isFavorite) {
+  //         console.log("FRIEND.isFav");
+  //         // case: is a favorite friend
+  //         favorites.push(friend);
+  //       } else if (friend.isFriend === "sent") {
+  //         // case: sent friend request
+  //         sent.push(friend);
+  //       } else if (friend.isFriend === "pending") {
+  //         // case: received friend request
+  //         requests.push(friend);
+  //       } else if (friend.isFriend === true && friend.isFavorite === false) {
+  //         console.log("PUSH TO FIREND LIUST");
+  //         // case: is a friend
+  //         friendsList.push(friend);
+  //       }
+  //     }
+  //   });
+  //   if (favorites && favorites != favoriteFriends) {
+  //     setFavoriteFriends(favorites);
+  //   }
+  //   if (sent && sent != sentFriendRequests) {
+  //     setSentFriendRequests(sent);
+  //   }
+  //   if (requests && requests != friendRequests) {
+  //     setFriendRequests(requests);
+  //   }
+  //   if (friendsList) {
+  //     console.log("WE HAVE FRIENDS LIST");
+  //     if (friendsList !== filteredFriends) {
+  //       console.log("AND IT DOES NOT MATCH THE OLD FRIENDS");
+  //       console.log(friendsList);
+  //       console.log(filteredFriends);
+  //     }
+  //   }
+  //   if (friendsList && friendsList !== filteredFriends) {
+  //     setFilteredFriends(friendsList);
+  //   }
+  // }, [friends]);
 
   // Attach event listeners to these that take you to corresponding Friend
   let FriendBars, friendRequestBars, favFriendBars, sentFriendRequestBars;

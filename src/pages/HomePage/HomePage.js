@@ -154,6 +154,7 @@ export default function HomePage() {
           return;
       }
     });
+    console.log(friendsRequested);
     setUserFriends(friends);
     setUserPendingFriends(pendingFriends);
     setUserSentFriendRequests(friendsRequested);
