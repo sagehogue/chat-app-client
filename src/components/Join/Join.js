@@ -66,7 +66,7 @@ const HeaderCard = styled.div`
   box-shadow: ${Theme.theme3.boxShadow};
   transition: ${Theme.transitionSpeed};
 
-  max-height: ${(props) => (props.showFullBanner ? "40rem" : "14rem")};
+  max-height: ${(props) => (props.showFullBanner ? "4rem" : "14rem")};
   // overflow-y: scroll;
   // -ms-overflow-style: none;
   // scrollbar-width: none;
@@ -117,7 +117,7 @@ const BannerInfo = styled.span`
   justify-content: center;
   padding-top: 0.25rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  padding-bottom: 2rem;
   font-size: 1.5rem;
   color: ${Theme.backgroundColorDarkGray};
 `;
