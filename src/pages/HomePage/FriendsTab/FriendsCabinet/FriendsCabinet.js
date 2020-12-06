@@ -26,7 +26,7 @@ const FriendsAvatar = styled.img`
 `;
 
 export default function FriendsCabinet({
-  friends = null,
+  friends = [],
   handleAccept,
   handleDecline,
   deleteFriend,
@@ -35,6 +35,9 @@ export default function FriendsCabinet({
   clientID,
   openDMHandler,
   handleCancelFriendRequest,
+  sentRequests = [],
+  pendingFriends = [],
+  favoriteFriendsList = [],
 }) {
   const [favoriteFriends, setFavoriteFriends] = useState([]);
   const [filteredFriends, setFilteredFriends] = useState([]);
