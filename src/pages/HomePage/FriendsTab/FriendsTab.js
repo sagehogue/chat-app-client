@@ -147,10 +147,7 @@ FriendsTab.propTypes = {
 
 export default function FriendsTab({
   pageOnDisplay,
-  favoriteFriends = null,
   friends = null,
-  pendingFriends = null,
-  sentFriendRequests = null,
   closeTabHandler,
   clientID,
   handleAccept,
@@ -184,10 +181,7 @@ export default function FriendsTab({
       </TopButtons>
       <Whitespace />
       <Cabinet
-        favoriteFriends={favoriteFriends}
         friends={friends}
-        pendingFriends={pendingFriends}
-        sentFriendRequests={sentFriendRequests}
         clientID={clientID}
         handleAccept={handleAccept}
         handleDecline={handleDecline}

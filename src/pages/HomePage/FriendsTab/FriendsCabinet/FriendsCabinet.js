@@ -62,7 +62,7 @@ export default function FriendsCabinet({
         } else if (friend.isFriend === "pending") {
           // case: received friend request
           requests.push(friend);
-        } else if (friend.isFriend === true && friend.isFavorite === false) {
+        } else if (friend.isFriend === true) {
           console.log("PUSH TO FIREND LIUST");
           // case: is a friend
           friendsList.push(friend);
@@ -90,7 +90,7 @@ export default function FriendsCabinet({
       setFilteredFriends(friendsList);
     }
   }, [friends]);
-
+  console.log(filteredFriends);
   // Attach event listeners to these that take you to corresponding Friend
   let FriendBars, friendRequestBars, favFriendBars, sentFriendRequestBars;
   // useEffect(() => {

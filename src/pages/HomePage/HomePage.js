@@ -92,6 +92,7 @@ export default function HomePage() {
   let [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   let [isCurrentUser, setIsCurrentUser] = useState(true);
   let [avatar, setAvatar] = useState(false);
+  let [friendsListAvatars, setFriendsListAvatars] = useState([]);
   let [userRooms, setUserRooms] = useState(false);
   let [populatedRooms, setPopulatedRooms] = useState([]);
   let [newRoomData, setNewRoomData] = useState({});
@@ -138,25 +139,12 @@ export default function HomePage() {
 
   socket.on("userFriends", (userFriends) => {
     console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
-    const friends = [];
-    const friendsRequested = [];
-    const pendingFriends = [];
-    userFriends.map((friend) => {
-      switch (friend.isFriend) {
-        case "pending":
-          pendingFriends.push(friend);
-          return;
-        case "sent":
-          friendsRequested.push(friend);
-          return;
-        case true:
-          friends.push(friend);
-          return;
-      }
-    });
-    setUserFriends(friends);
-    setUserPendingFriends(pendingFriends);
-    setUserSentFriendRequests(friendsRequested);
+
+    setUserFriends(userFriends);
+  });
+
+  socket.on("userFriendsAvatars", (avatarArray) => {
+    setFriendsListAvatars(avatarArray);
   });
 
   socket.on("new-avatar", (avatar) => {
@@ -471,8 +459,7 @@ export default function HomePage() {
           pageOnDisplay={display}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
-          pendingFriends={userPendingFriends}
-          sentFriendRequests={userSentFriendRequests}
+          friendsListAvatars={friendsListAvatars}
           clientID={uid}
           handleAccept={acceptFriendRequest}
           handleDecline={declineFriendRequest}
