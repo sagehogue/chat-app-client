@@ -11,13 +11,13 @@ import * as EmailValidator from "email-validator";
 
 import background from "../../img/background.jpg";
 import styled from "styled-components";
-import { SubmitButton } from "../../components/UI/Buttons/Button";
-import SignInButton from "./SignInButton/SignInButton";
+import SignInButton from "../../components/UI/Buttons/SubmitButton";
+// import SignInButton from "./SignInButton/SignInButton";
 import LoginForm from "./LoginForm/LoginForm";
-import RegisterButton from "./RegisterButton/RegisterButton";
+import { Register } from "../../components/UI/Buttons/Register";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import GlobalStyle from "../../util/GlobalStyles/GlobalStyles";
-import { fadeIn } from "../../components/UI/Animations/Animations";
+import Theme from "../../util/Theme/Theme";
 
 import { Redirect } from "react-router";
 
@@ -38,8 +38,7 @@ const OuterFormContainer = styled.div`
   text-align: center;
   height: 100vh;
   align-items: center;
-  background: url(${background});
-  background-size: cover;
+  background: ${Theme.theme3.color2};
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
@@ -47,7 +46,7 @@ const OuterFormContainer = styled.div`
 const FormStyleContainer = styled.div`
   height: 65%;
   width: 65%;
-  background-color: rgba(51, 51, 51, 0.75);
+  background-color: ${Theme.theme3.color5};
   border-radius: 2%;
   @media screen and (min-width: 800px) {
     max-width: 45vw;
@@ -59,7 +58,7 @@ const FormStyleContainer = styled.div`
     max-width: 25vw;
   }
   @media screen and (min-width: 1600px) {
-    max-width: 20vw;
+    width: 50vw;
   }
 `;
 const InnerFormContainer = styled.div`
@@ -79,13 +78,13 @@ const InnerFormContainer = styled.div`
   }
 
   @media screen and (min-width: 1600px) {
-    width: 60%;
+    width: 25rem;
   }
 `;
 
 const Heading = styled.h1`
   color: white;
-  font-size: 3rem;
+  font-size: ${Theme.font.size.largeHeading};
   font-family: "Josefin Sans", sans-serif;
   padding-bottom: 10px;
   margin-top: 1rem;
@@ -115,7 +114,8 @@ const PasswordInput = styled.input`
 export default function LoginPage({ socket }) {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [heading, setHeading] = useState("Chatter");
+  // formerly "Chatter"
+  const [heading, setHeading] = useState("Harmony");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
@@ -236,10 +236,10 @@ export default function LoginPage({ socket }) {
             />
 
             <AuthButtons>
-              <SignInButton type="submit" value="Sign In" />
-              <RegisterButton
-                clickHandler={() => handleDisplayRegisterForm()}
-              />
+              <SignInButton>Sign In</SignInButton>
+              <Register onClick={() => handleDisplayRegisterForm()}>
+                Register
+              </Register>
             </AuthButtons>
           </LoginForm>
           <RegisterForm

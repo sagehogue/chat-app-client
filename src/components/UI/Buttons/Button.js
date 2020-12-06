@@ -1,28 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 
+import Theme from "../../../util/Theme/Theme";
+
 export default styled.button`
   display: inline-block;
-  padding: 0.6rem;
-  text-transform: uppercase;
+  cursor: pointer;
+
   text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border: none;
   border-radius: 5px;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-  color: #fff;
+  padding: 0.7rem 1.25rem;
+  font-family: ${Theme.font.type.button};
+  color: ${Theme.colors.offWhite};
+  background-color: ${Theme.theme3.color2};
+  transition: all ${Theme.transitionSpeed};
+
   outline: none;
+  border: none;
   &:hover {
+    background-color: ${Theme.theme3.highlight};
+    color: ${Theme.offBlack};
     // transform: scale(1.1);
-    box-shadow: 0 8px 6px rgba(3, 3, 3, 0.5);
+    // box-shadow: 0 8px 6px rgba(3, 3, 3, 0.5);
   }
   &:focus {
-    outline: none;
-    border: none;
   }
   &:active {
-    transform: translateY(-0.25rem);
-    outline: none;
-    border: none;
+    transform: translateY(0.25rem);
   }
 `;
 

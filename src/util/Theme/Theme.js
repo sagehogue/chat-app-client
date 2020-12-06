@@ -90,6 +90,7 @@ export default {
     size: {
       headingDesktop: "2rem",
       bodyDesktop: "1.1rem",
+      largeHeading: "4rem",
     },
   },
   drawer: {
