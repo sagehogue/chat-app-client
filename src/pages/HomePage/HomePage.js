@@ -139,35 +139,12 @@ export default function HomePage() {
 
   socket.on("userFriends", (userFriends) => {
     console.log(`FRIEND DATA ${JSON.stringify(userFriends)}`);
-<<<<<<< HEAD
-    const friends = [];
-    const friendsRequested = [];
-    const pendingFriends = [];
-    userFriends.map((friend) => {
-      switch (friend.isFriend) {
-        case "pending":
-          pendingFriends.push(friend);
-          return;
-        case "sent":
-          friendsRequested.push(friend);
-          return;
-        case true:
-          friends.push(friend);
-          return;
-      }
-    });
-    console.log(friendsRequested);
-    setUserFriends(friends);
-    setUserPendingFriends(pendingFriends);
-    setUserSentFriendRequests(friendsRequested);
-=======
 
     setUserFriends(userFriends);
   });
 
   socket.on("userFriendsAvatars", (avatarArray) => {
     setFriendsListAvatars(avatarArray);
->>>>>>> 937a66dcd0e06fa64c1af9c3f216bd78f45c785e
   });
 
   socket.on("new-avatar", (avatar) => {

@@ -181,14 +181,7 @@ export default function FriendsTab({
       </TopButtons>
       <Whitespace />
       <Cabinet
-<<<<<<< HEAD
-        favoriteFriendsList={favoriteFriends}
         friends={friends}
-        pendingFriends={pendingFriends}
-        sentRequests={sentFriendRequests}
-=======
-        friends={friends}
->>>>>>> 937a66dcd0e06fa64c1af9c3f216bd78f45c785e
         clientID={clientID}
         handleAccept={handleAccept}
         handleDecline={handleDecline}
