@@ -4,13 +4,14 @@ import Theme from '../../util/Theme/Theme'
 import { Modal } from "../../components/UI/Modal/NewModal";
 
 import SubmitButton from '../../components/UI/Buttons/SubmitButton'
-import { FaUserSecret, FaUserCircle } from "react-icons/fa";
+import { FaUserSecret, FaCircle } from "react-icons/fa";
 import { BsGearFill, BsToggleOff } from "react-icons/bs";
 import CurrentUser, { getStorageRef } from "../../App.js";
 import uuid from "react-uuid";
 import SettingsModal from "./SettingsModal";
 import { firebaseController } from "../../App";
 
+//styles for entire profile component
 const ProfileContainer = styled(Modal)`
   height: 87vh;
   background-color: ${Theme.theme3.color5};
@@ -21,6 +22,8 @@ const ProfileContainer = styled(Modal)`
   position: relative;
   
 `;
+
+//styles for top portion of profile component
 const ProfilePicContainer = styled.div`
   position: relative;
   height: 40%;
@@ -29,6 +32,7 @@ const ProfilePicContainer = styled.div`
   border-top-left-radius: ${Theme.borderRadius};
   border-top-right-radius: ${Theme.borderRadius};
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -82,17 +86,56 @@ transition: all ${Theme.transitionSpeed};
 }`
 
 const IMG = styled.img`
-  height: 100%;
-  width: 100%;
+ height: 15rem;
+  width: 15rem;
   border-radius: 50%;
 `;
 
+const UserName = styled.div`
+font-size: 2.55rem;
+color: ${Theme.theme3.font.lightcolor};
+border-bottom: 3px solid ${Theme.theme3.font.lightcolor};
+`
 const Submit = styled(SubmitButton)`
 height: 3.5rem;
 width: 10rem;
 
 `
 
+const StatusContainer = styled.div`
+  @media screen and (min-width: 1px) {
+    &&& svg {
+      margin: 0;
+      cursor: default;
+      color: ${(props) => (props.online ? "lightgreen" : "red")};
+    }
+  }
+
+  display: flex;
+  justify-content: center;
+  
+  width: 30%;
+  font-size: ${Theme.fontSizeM};
+  color: ${Theme.theme3.font.lightcolor};
+  margin-top: 1rem;
+  margin-left: 1rem;
+`;
+
+const StatusOnline = styled.div`
+  display: ${(props) => (props.online ? "inline-block" : "none")};
+`;
+
+const StatusOffline = styled.div`
+  display: ${(props) => (props.online ? "none" : "inline-block")};
+`;
+
+const StatusCircle = styled.div`
+  margin-right: 3px;
+  transform: translateY(-4px);
+`;
+
+
+//styles for bottom portion of profile component
 const ProfileInfoContainer = styled.div`
 height: 60%; 
 width: 100%;
@@ -181,7 +224,7 @@ const SettingsButton = styled.div`
 `;
 
 export default function UserProfileModal({profileDisplayState,
-    handleCloseProfile, profilePicURL, id, socket}) {const [displaySettings, setDisplaySettings] = useState(false); // Responsible for whether or not settings are shown
+    handleCloseProfile, profilePicURL, id, socket, user}) {const [displaySettings, setDisplaySettings] = useState(false); // Responsible for whether or not settings are shown
 
         const handleSettings = () => {
           setDisplaySettings(true);
@@ -234,6 +277,14 @@ export default function UserProfileModal({profileDisplayState,
             {profilePic ? (
         <ProfilePicContainer>
           <IMG src={profilePic}></IMG>
+          <UserName>{user.displayName}</UserName>
+          <StatusContainer online>
+          <StatusCircle>
+            <FaCircle size={10}></FaCircle>
+          </StatusCircle>
+          <StatusOnline online>Online</StatusOnline>
+          <StatusOffline online>Offline</StatusOffline>
+        </StatusContainer>
         </ProfilePicContainer>
       ) : (
         <ProfilePicContainer>
@@ -247,6 +298,14 @@ export default function UserProfileModal({profileDisplayState,
             </PicLabel>
             <Submit type="submit">submit</Submit>
           </PicFormStyle>
+          <UserName>{user.displayName}</UserName>
+          <StatusContainer online>
+          <StatusCircle>
+            <FaCircle size={10}></FaCircle>
+          </StatusCircle>
+          <StatusOnline online>Online</StatusOnline>
+          <StatusOffline online>Offline</StatusOffline>
+        </StatusContainer>
         </ProfilePicContainer>
       )}
       <ProfileInfoContainer>

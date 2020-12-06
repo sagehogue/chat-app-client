@@ -498,6 +498,7 @@ export default function HomePage() {
           }}
         />
         <UserProfileModal
+          user={user}
           id={uid}
           socket={socket}
           profileDisplayState={displayProfile}
