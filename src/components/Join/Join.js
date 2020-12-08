@@ -66,7 +66,7 @@ const HeaderCard = styled.div`
   box-shadow: ${Theme.theme3.boxShadow};
   transition: ${Theme.transitionSpeed};
 
-  max-height: ${(props) => (props.showFullBanner ? "4rem" : "14rem")};
+  max-height: ${(props) => (props.showFullBanner ? "40rem" : "14rem")};
   // overflow-y: scroll;
   // -ms-overflow-style: none;
   // scrollbar-width: none;

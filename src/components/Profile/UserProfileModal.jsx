@@ -28,6 +28,8 @@ const ProfilePicContainer = styled.div`
   position: relative;
   height: 40%;
   width: 100%;
+  padding: 1rem;
+  padding-top: 0;
   background-color: ${Theme.theme3.color2};
   border-top-left-radius: ${Theme.borderRadius};
   border-top-right-radius: ${Theme.borderRadius};
@@ -70,7 +72,8 @@ const PicInput = styled.input`
 `;
 
 const PicInputLabel = styled.label`
-margin-top: 2.5rem;
+margin-top: 2rem;
+margin-bottom: 1rem;
 cursor: pointer;
 color: ${Theme.offWhite};
 border: none;
@@ -293,10 +296,11 @@ export default function UserProfileModal({profileDisplayState,
               {/* {" "} */}
               
               <FaUserSecret size={150} color={`${Theme.offWhite}`}></FaUserSecret>
-              <PicInput type="file" name="file" id="files" ref={fileRef} />
-              <PicInputLabel for="files">Browse for Profile Picture</PicInputLabel>
+              <PicInput type="file" name="file" id="files" ref={fileRef} onChange={submitHandler} />
+              <PicInputLabel for="files" >Browse for Profile Picture</PicInputLabel>
+              {/* <Submit>submit</Submit> */}
             </PicLabel>
-            <Submit type="submit">submit</Submit>
+            
           </PicFormStyle>
           <UserName>{user.displayName}</UserName>
           <StatusContainer online>
