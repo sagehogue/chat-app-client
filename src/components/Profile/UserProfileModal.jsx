@@ -92,6 +92,8 @@ const IMG = styled.img`
  height: 15rem;
   width: 15rem;
   border-radius: 50%;
+  border: 3px solid ${Theme.offWhite};
+  margin-bottom: .25rem;
 `;
 
 const UserName = styled.div`
