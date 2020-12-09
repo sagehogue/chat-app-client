@@ -323,7 +323,7 @@ export default function UserProfileModal({profileDisplayState,
       <ProfileInfoContainer>
         <Bio type="text" placeholder="create a bio!"></Bio>
         <EmailAndDateJoinedContainer>
-<Email>Will.email@gmail.com</Email>
+<Email>{user.email}</Email>
 <DateJoined>Joined: 11/15/1996</DateJoined>
 
         </EmailAndDateJoinedContainer>
