@@ -226,6 +226,7 @@ const Chat = ({
           />
         </Container>
         <UserList
+          socket={socket}
           users={users}
           location={currentRoom.roomName}
           userID={user.uid}

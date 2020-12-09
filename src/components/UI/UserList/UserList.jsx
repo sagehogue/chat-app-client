@@ -67,6 +67,7 @@ const UserList = ({
   addFavoriteHandler,
   removeFavoriteHandler,
   shouldDisplay,
+  socket
 }) => {
   let isFriend = false;
   let userJsx;
@@ -128,104 +129,27 @@ const UserList = ({
       const userJsx = generateJSX(results);
       setUserBars(userJsx);
     }
-    // else {
-    //   userJsx = users.map((user) => {
-    //     let profilePic = user.avatar || "default";
-    //     if (user.id == userID) {
-    //       return (
-    //         <UserBar
-    //           avatar={profilePic}
-    //           username={user.displayName}
-    //           friend={isFriend}
-    //           id={userID}
-    //           isUser
-    //         />
-    //       );
-    //     } else {
-    //       return (
-    //         <UserBar
-    //           avatar={profilePic}
-    //           username={user.displayName}
-    //           friend={isFriend}
-    //           id={user.id}
-    //           clientID={userID}
-    //           addFriendHandler={handleAddFriend}
-    //           removeFriendHandler={handleRemoveFriend}
-    //         />
-    //       );
-    //     }
-    //   });
-    //   setUserBars(userJsx)
-    // }
   }, [userSearchTerm, users]);
 
-  // console.log(users);
-  // let onlineUsers;
-  // // creates list of userbars from users prop
-  // if (users) {
-  //   let isFriend = false;
-  //   if (friends) {
-  //     onlineUsers = users.map((user) => {
+ 
+  useEffect(() => {
+    console.log(users)
+    socket.emit('fetch-avatars', {users, socketEventString: "userlist-avatars"})
+    // create list of IDs
+    // get all documents for IDs on BE
+    // attach avatars to IDs in array
+    // return to FE and store in new state
+    // on render, iterate through avatar list on each user to locate corresponding avatar url
+  }, [users])
 
-  //       let profilePic = user.avatar || "default";
-  //       if (user.id == userID) {
-  //         return (
-  //           <UserBar
-  //             avatar={profilePic}
-  //             username={user.displayName}
-  //             friend={isFriend}
-  //             id={userID}
-  //             isUser
-  //           />)
+// 1) Get hook to socket - done
+// 2) Get a list of users - done
+// 3) Send to backend
+// 4) Get avatars from users
+// 5) Return to FE and re-render
 
-  //       } else {
-  //         let i;
-  //         for (i of friends) {
-  //           if (i.id == user.id) isFriend = i.isFriend;
-  //         }
 
-  //         return (
-  //           <UserBar
-  //             avatar={profilePic}
-  //             username={user.displayName}
-  //             friend={isFriend}
-  //             id={user.id}
-  //             clientID={userID}
-  //             addFriendHandler={handleAddFriend}
-  //             removeFriendHandler={handleRemoveFriend}
-  //           />
-  //         );
-  //       }
-  //     });
-  //   } else {
-  //     onlineUsers = users.map((user) => {
-  //       let profilePic = user.avatar || "default";
-  //       if (user.id == userID) {
-  //         return (
-  //           <UserBar
-  //             avatar={profilePic}
-  //             username={user.displayName}
-  //             friend={isFriend}
-  //             id={userID}
-  //             isUser
-  //           />
-  //         );
-  //       } else {
-  //         return (
-  //           <UserBar
-  //             avatar={profilePic}
-  //             username={user.displayName}
-  //             friend={isFriend}
-  //             id={user.id}
-  //             clientID={userID}
-  //             addFriendHandler={handleAddFriend}
-  //             removeFriendHandler={handleRemoveFriend}
-  //           />
-  //         );
-  //       }
-  //     });
-  //   }
-  // }
+
   return (
     <UserListModal shouldDisplay={shouldDisplay}>
       <TopOfWindow>

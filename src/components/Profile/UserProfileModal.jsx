@@ -79,6 +79,7 @@ color: ${Theme.offWhite};
 border: none;
 border-radius: ${Theme.borderRadiusBtn};
 background-color: ${Theme.theme3.opaqueBlack};
+
 padding: .5rem;
 border: 1px solid transparent;
 transition: all ${Theme.transitionSpeed};
@@ -101,11 +102,13 @@ font-size: 2.55rem;
 color: ${Theme.theme3.font.lightcolor};
 border-bottom: 3px solid ${Theme.theme3.font.lightcolor};
 `
-const Submit = styled(SubmitButton)`
-height: 3.5rem;
-width: 10rem;
 
-`
+//submit button no longer necessary
+// const Submit = styled(SubmitButton)`
+// height: 3.5rem;
+// width: 10rem;
+
+// `
 
 const StatusContainer = styled.div`
   @media screen and (min-width: 1px) {
@@ -151,7 +154,7 @@ margin: 0 auto;
 
 `
 
-const Bio = styled.span`
+const Bio = styled.input`
 width: 70%;
 height: 30%;
 display: flex;
@@ -160,9 +163,11 @@ text-align: center;
 margin: 2.5rem auto 0 auto;
 padding: .5rem;
 font-size: 1.5rem;
-background-color: ${Theme.theme3.opaqueBlack};
 
+background-color: ${Theme.theme3.opaqueBlack};
+border: 3px solid ${Theme.offWhite};
 border-radius: ${Theme.borderRadius};
+
 
 color: ${Theme.theme3.font.lightcolor};
 
@@ -187,31 +192,32 @@ margin-left: 2rem;
 const DateJoined = styled.div`
 margin-right: 2rem;
 `
+//old settings button
 
-const SettingsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  width: 12rem;
-  background-color: ${Theme.theme3.opaqueBlack};
-  border-radius: ${Theme.borderRadiusBtn};
-transition: ${Theme.transitionSpeed};
-  cursor: pointer;
-  position: absolute;
-  bottom: 2rem;
-  margin-left: auto;
-margin-right: auto;
-left: 0;
-right: 0;
+// const SettingsContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   height: 3rem;
+//   width: 12rem;
+//   background-color: ${Theme.theme3.opaqueBlack};
+//   border-radius: ${Theme.borderRadiusBtn};
+// transition: ${Theme.transitionSpeed};
+//   cursor: pointer;
+//   position: absolute;
+//   bottom: 2rem;
+//   margin-left: auto;
+// margin-right: auto;
+// left: 0;
+// right: 0;
   
   
-  &:hover {
-    border: 1px solid ${Theme.theme3.highlight2};
-    box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
-  }
-`;
+//   &:hover {
+//     border: 1px solid ${Theme.theme3.highlight2};
+//     box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
+//   }
+// `;
 const SettingsButton = styled.div`
   display: flex;
   justify-content: center;
@@ -297,7 +303,7 @@ export default function UserProfileModal({profileDisplayState,
             <PicLabel>
               {/* {" "} */}
               
-              <FaUserSecret size={150} color={`${Theme.offWhite}`}></FaUserSecret>
+              <FaUserSecret size={135} color={`${Theme.offWhite}`}></FaUserSecret>
               <PicInput type="file" name="file" id="files" ref={fileRef} onChange={submitHandler} />
               <PicInputLabel for="files" >Browse for Profile Picture</PicInputLabel>
               {/* <Submit>submit</Submit> */}
@@ -315,7 +321,7 @@ export default function UserProfileModal({profileDisplayState,
         </ProfilePicContainer>
       )}
       <ProfileInfoContainer>
-        <Bio>I am a developer. Look! I wrote a bio. You can write one too, but you gotta make an account first. My bio is cool, don't you want a cool bio.</Bio>
+        <Bio type="text" placeholder="create a bio!"></Bio>
         <EmailAndDateJoinedContainer>
 <Email>Will.email@gmail.com</Email>
 <DateJoined>Joined: 11/15/1996</DateJoined>
@@ -323,7 +329,7 @@ export default function UserProfileModal({profileDisplayState,
         </EmailAndDateJoinedContainer>
       {/* <SettingsContainer onClick={handleSettings}> */}
           <SettingsButton onClick={handleSettings}>
-            <BsGearFill size={40} ></BsGearFill>
+            <BsGearFill size={43} ></BsGearFill>
           </SettingsButton>
         {/* </SettingsContainer> */}
         </ProfileInfoContainer>
