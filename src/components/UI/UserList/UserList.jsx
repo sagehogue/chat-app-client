@@ -67,12 +67,12 @@ const UserList = ({
   addFavoriteHandler,
   removeFavoriteHandler,
   shouldDisplay,
-  socket
 }) => {
   let isFriend = false;
   let userJsx;
 
   const generateJSX = (results) => {
+    console.log(results)
     let JSX;
     JSX = results.map((result) => {
       let profilePic = result.avatar || "default";
@@ -109,6 +109,7 @@ const UserList = ({
     return JSX;
   };
   const [userSearchTerm, setUserSearchTerm] = useState("");
+  console.log(users)
   const [userBars, setUserBars] = useState(generateJSX(users));
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -132,21 +133,16 @@ const UserList = ({
   }, [userSearchTerm, users]);
 
  
-  useEffect(() => {
-    console.log(users)
-    socket.emit('fetch-avatars', {users, socketEventString: "userlist-avatars"})
-    // create list of IDs
-    // get all documents for IDs on BE
-    // attach avatars to IDs in array
-    // return to FE and store in new state
-    // on render, iterate through avatar list on each user to locate corresponding avatar url
-  }, [users])
+
+
+
 
 // 1) Get hook to socket - done
 // 2) Get a list of users - done
-// 3) Send to backend
-// 4) Get avatars from users
+// 3) Send to backend - done
+// 4) Get avatars from users - done
 // 5) Return to FE and re-render
+
 
 
 

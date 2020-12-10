@@ -11,6 +11,7 @@ import uuid from "react-uuid";
 import SettingsModal from "./SettingsModal";
 import { firebaseController } from "../../App";
 
+
 //styles for entire profile component
 const ProfileContainer = styled(Modal)`
   height: 87vh;
@@ -165,11 +166,15 @@ padding: .5rem;
 font-size: 1.5rem;
 
 background-color: ${Theme.theme3.opaqueBlack};
-border: 3px solid ${Theme.offWhite};
+border: none;
 border-radius: ${Theme.borderRadius};
 
 
 color: ${Theme.theme3.font.lightcolor};
+&:focus {
+  //removes default styling
+  outline: none;
+}
 
 `
 
@@ -275,6 +280,7 @@ export default function UserProfileModal({profileDisplayState,
           });
         };
         console.log(profilePicURL + "\n" + profilePic);
+        
     return (
         <ProfileContainer  shouldDisplay={profileDisplayState}>
             <SettingsModal

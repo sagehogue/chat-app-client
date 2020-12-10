@@ -27,6 +27,7 @@ const FriendsAvatar = styled.img`
 
 export default function FriendsCabinet({
   friends = [],
+  friendsAvatars = [],
   handleAccept,
   handleDecline,
   deleteFriend,
@@ -45,7 +46,20 @@ export default function FriendsCabinet({
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
 
   useEffect(() => {
+    if (friendsAvatars.length) {
+      sortFriends(friendsAvatars);
+    }
+    console.log(friendsAvatars);
+  }, [friendsAvatars]);
+
+  useEffect(() => {
     console.log(friends);
+    sortFriends(friends);
+  }, [friends]);
+
+  console.log(filteredFriends);
+
+  const sortFriends = (friends) => {
     let favorites = [],
       sent = [],
       requests = [],
@@ -54,9 +68,7 @@ export default function FriendsCabinet({
     friends.map((friend) => {
       console.log(friend);
       if (friend.isFriend) {
-        console.log("FRIEND.isFRIEND");
         if (friend.isFavorite) {
-          console.log("FRIEND.isFav");
           // case: is a favorite friend
           favorites.push(friend);
         } else if (friend.isFriend === "sent") {
@@ -66,7 +78,6 @@ export default function FriendsCabinet({
           // case: received friend request
           requests.push(friend);
         } else if (friend.isFriend === true) {
-          console.log("PUSH TO FIREND LIUST");
           // case: is a friend
           friendsList.push(friend);
         }
@@ -82,9 +93,7 @@ export default function FriendsCabinet({
       setFriendRequests(requests);
     }
     if (friendsList) {
-      console.log("WE HAVE FRIENDS LIST");
       if (friendsList !== filteredFriends) {
-        console.log("AND IT DOES NOT MATCH THE OLD FRIENDS");
         console.log(friendsList);
         console.log(filteredFriends);
       }
@@ -92,42 +101,7 @@ export default function FriendsCabinet({
     if (friendsList && friendsList !== filteredFriends) {
       setFilteredFriends(friendsList);
     }
-  }, [friends]);
-  console.log(filteredFriends);
-  // Attach event listeners to these that take you to corresponding Friend
-  let FriendBars, friendRequestBars, favFriendBars, sentFriendRequestBars;
-  // useEffect(() => {
-  //   if (favoriteFriends) {
-  //     setFavoriteFriendsUserbars(
-
-  //     );
-  //   }
-  // }, [favoriteFriends]);
-
-  // useEffect(() => {
-  //   if (friends) {
-  //     setFriendsUserbars(
-
-  //     );
-  //   }
-  // }, [friends]);
-
-  // useEffect(() => {
-  //   if (pendingFriends) {
-  //     setFriendRequestUserbars(
-
-  //     );
-  //   }
-  // }, [pendingFriends]);
-
-  // useEffect(() => {
-  //   if (sentFriendRequests) {
-  //     setSentFriendRequestUserbars(
-
-  //     );
-  //     // setSentFriendRequestUserbars(sentFriendRequestBars);
-  //   }
-  // }, [sentFriendRequests]);
+  };
 
   return (
     <Cabinet>

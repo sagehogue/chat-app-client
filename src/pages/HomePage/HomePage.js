@@ -459,7 +459,7 @@ export default function HomePage() {
           pageOnDisplay={display}
           closeTabHandler={handleCloseFriends}
           friends={userFriends}
-          friendsListAvatars={friendsListAvatars}
+          friendsAvatars={friendsListAvatars}
           clientID={uid}
           handleAccept={acceptFriendRequest}
           handleDecline={declineFriendRequest}

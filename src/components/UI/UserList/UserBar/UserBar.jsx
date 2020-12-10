@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Theme from "../../../../util/Theme/Theme";
 
+import Thumbnail from '../../Thumbnail/Thumbnail';
+
 import {
   FaUserSecret,
   FaUserSlash,
@@ -53,7 +55,7 @@ const UserActionIcons = styled.span`
 // Tooltips over the icons would be useful
 
 export default function UserBar({
-  avatar = "default",
+  avatar=false,
   isUser,
   username,
   friend,
@@ -64,9 +66,7 @@ export default function UserBar({
   id,
   clientID,
 }) {
-  if (avatar == "default") {
-    avatar = <FaUserSecret />;
-  }
+  console.log(avatar)
   let friendOperation = (
     <FaUserPlus
       onClick={() => {
@@ -88,11 +88,13 @@ export default function UserBar({
   // } else {
   // display FaUserPlus
   //   }
+const ThumbnailPlaceholder = (<UserAvatar>
+  <FaUserSecret />
+</UserAvatar>)
+
   let clientUserBar = (
     <UserBarStyle>
-      <UserAvatar>
-        <FaUserSecret />
-      </UserAvatar>
+      {avatar && avatar != "default" ? <Thumbnail imageURL={avatar.url}/> : ThumbnailPlaceholder}
       <Username>{username}</Username>
       <UserActionIcons></UserActionIcons>
     </UserBarStyle>
@@ -101,9 +103,7 @@ export default function UserBar({
     clientUserBar
   ) : (
     <UserBarStyle>
-      <UserAvatar>
-        <FaUserSecret />
-      </UserAvatar>
+      {avatar && avatar != "default" ? <Thumbnail imageURL={avatar.url}/>: ThumbnailPlaceholder}
       <Username>{username}</Username>
       <UserActionIcons>
         <FaEnvelope />

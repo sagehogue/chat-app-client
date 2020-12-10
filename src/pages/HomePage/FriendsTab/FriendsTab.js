@@ -148,6 +148,7 @@ FriendsTab.propTypes = {
 export default function FriendsTab({
   pageOnDisplay,
   friends = null,
+  friendsAvatars,
   closeTabHandler,
   clientID,
   handleAccept,
@@ -182,6 +183,7 @@ export default function FriendsTab({
       <Whitespace />
       <Cabinet
         friends={friends}
+        friendsAvatars={friendsAvatars}
         clientID={clientID}
         handleAccept={handleAccept}
         handleDecline={handleDecline}

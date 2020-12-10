@@ -15,9 +15,7 @@ import { getCurrentTime, sortByDate } from "../../util/helpers/helpers.js";
 
 // TODOS:
 
-// Create component to display users in room
-// Make chat window draggable for users who wanna write textwalls
-// Create roomDisconnect event to fire when user clicks X on chat window, thus leaving the chat.
+// Make chat window scrollable for users who wanna write textwalls
 
 const OuterContainer = styled.div`
   display: flex;
@@ -81,6 +79,8 @@ const Chat = ({
   // Users in current room, self and others
   const [users, setUsers] = useState([]);
   // A count of the above data
+  const [usersAndAvatars, setUsersAndAvatars] = useState([]);
+
   const [onlineUserCount, setOnlineUserCount] = useState(0);
   // Message  you are currently typing, yet to be sent to server/other users
   const [message, setMessage] = useState("");
@@ -92,14 +92,7 @@ const Chat = ({
   // TESTING
 
   useEffect(() => {
-    // OLD LOGIC - Fetches username, room from url. Convert to state.
-    // const { name, room } = queryString.parse(location.search);
-
-    /* socket = io(ENDPOINT); */
-    // Sets state equal to current room, stores Username
     setRoom(currentRoom);
-    // setUsername(username);
-    console.log("CURRENT ROOM" + JSON.stringify(currentRoom));
     // Fires socket.io "join" event when room state changes.
     //
     // socket.emit("join", { name: username, room: currentRoom }, (error) => {
@@ -112,6 +105,11 @@ const Chat = ({
   useEffect(() => {
     socket.on("message", (message) => {
       setMessages((messages) => [...messages, message]);
+    });
+
+    socket.on("user-avatars", (userArray) => {
+      console.log(userArray);
+      setUsersAndAvatars(userArray);
     });
 
     // Message history of room you are currently in, retrieved from server
@@ -134,6 +132,23 @@ const Chat = ({
       console.log(users);
     });
   }, []);
+
+  // intended to fetch avatars on user change
+  useEffect(() => {
+    console.log(users);
+    if (users.length > 0) {
+      socket.emit("fetch-avatars", {
+        users,
+        socketEventString: "user-avatars",
+      });
+    }
+
+    // create list of IDs
+    // get all documents for IDs on BE
+    // attach avatars to IDs in array
+    // return to FE and store in new state
+    // on render, iterate through avatar list on each user to locate corresponding avatar url
+  }, [users]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -227,7 +242,7 @@ const Chat = ({
         </Container>
         <UserList
           socket={socket}
-          users={users}
+          users={usersAndAvatars}
           location={currentRoom.roomName}
           userID={user.uid}
           handleAddFriend={handleAddFriend}
