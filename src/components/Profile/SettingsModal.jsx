@@ -9,14 +9,14 @@ import uuid from "react-uuid";
 import { getStorageRef } from "../../App";
 
 const SettingsContainer = styled(Modal)`
-  height: 87vh;
+position: relative;
+  height: 100%;
+  width: 100%;
   display: ${(props) => (props.settingsActive ? "flex" : "none")};
   background-color: ${Theme.theme3.color5};
   border-radius: ${Theme.borderRadius};
   cursor: default;
   flex-direction: column;
-  align-self: flex-start;
-  z-index: 1;
   justify-content: center;
   text-align: center;
   text-decoration: underline;
@@ -32,9 +32,9 @@ const SettingsElementOptions = styled.div`
 
   height: 87vh;
   
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  background-color: transparent;
   border-radius: 1rem;
   justify-content: center;
   text-align: center;

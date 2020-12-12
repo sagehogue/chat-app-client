@@ -34,7 +34,7 @@ const ProfilePicContainer = styled.div`
   background-color: ${Theme.theme3.color2};
   border-top-left-radius: ${Theme.borderRadius};
   border-top-right-radius: ${Theme.borderRadius};
-  display: flex;
+  display: ${(props) => (props.displaySettings ? "none" : "flex")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -148,7 +148,7 @@ const StatusCircle = styled.div`
 const ProfileInfoContainer = styled.div`
 height: 60%; 
 width: 100%;
-display: flex;
+display: ${(props) => (props.displaySettings ? "none" : "flex")};
 padding: 2rem;
 flex-direction: column;
 margin: 0 auto;
@@ -223,6 +223,9 @@ margin-right: 2rem;
 //     box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};
 //   }
 // `;
+
+
+
 const SettingsButton = styled.div`
   display: flex;
   justify-content: center;
@@ -292,7 +295,7 @@ export default function UserProfileModal({profileDisplayState,
         profilePicURL={profilePicURL}
       ></SettingsModal>
             {profilePic ? (
-        <ProfilePicContainer>
+        <ProfilePicContainer displaySettings={displaySettings}>
           <IMG src={profilePic}></IMG>
           <UserName>{user.displayName}</UserName>
           <StatusContainer online>
@@ -304,7 +307,7 @@ export default function UserProfileModal({profileDisplayState,
         </StatusContainer>
         </ProfilePicContainer>
       ) : (
-        <ProfilePicContainer>
+        <ProfilePicContainer displaySettings={displaySettings}>
           <PicFormStyle onSubmit={submitHandler}>
             <PicLabel>
               {/* {" "} */}
@@ -326,7 +329,7 @@ export default function UserProfileModal({profileDisplayState,
         </StatusContainer>
         </ProfilePicContainer>
       )}
-      <ProfileInfoContainer>
+      <ProfileInfoContainer displaySettings={displaySettings}>
         <Bio type="text" placeholder="create a bio!"></Bio>
         <EmailAndDateJoinedContainer>
 <Email>{user.email}</Email>
