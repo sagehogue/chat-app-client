@@ -24,6 +24,11 @@ position: relative;
   
 `;
 
+const SettingsHeader = styled.div`
+font-size: 3rem;
+color: ${Theme.offWhite};
+`
+
 
 
 const SettingsElementOptions = styled.div`
@@ -61,8 +66,8 @@ const BackArrow = styled.div`
   z-index: 2;
   top: 0;
   left: 0;
-  padding-top: 3rem;
-  padding-left: .125rem;
+  padding-top: 1.125rem;
+  padding-left: 1.125rem;
   height: 2rem;
   
   & svg {
@@ -89,25 +94,8 @@ const SettingsOptionTest2 = styled(SettingsOption)``;
 const SettingsOptionTest3 = styled(SettingsOption)``;
 const SettingsOptionTest4 = styled(SettingsOption)``;
 
-const LogOutButton = styled(button)`
-  color: ${Theme.textColorLight};
-  border: 1px #fff solid;
-  background-color: ${Theme.backgroundColorDarkGray};
-  color: ${Theme.textColorLight};
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 2rem;
-  transition: all 0.2s;
-  cursor: pointer;
-  &:hover {
-    background-color: ${Theme.backgroundColorDarkerGray};
-    color: ${Theme.theme3.highlight2};
-    border: 1px solid ${Theme.theme3.highlight2};
-    transform: scale(1) translateY(-2px);
-  }
-  &:active {
-    transform: translateY(1px);
-  }
+const LogOutButton = styled(SettingsOption)`
+  
 `;
 
 const ProfilePicContainer = styled.div`
@@ -221,8 +209,9 @@ export default function Settings({
 
   const settingsOptions = (
     <SettingsElementOptions>
+      <SettingsHeader>Settings</SettingsHeader>
       <BackArrow onClick={handleRevertToProfile}>
-        <TiArrowBack size={25} color={"#fff"}></TiArrowBack>
+        <TiArrowBack size={35} color={"#fff"}></TiArrowBack>
       </BackArrow>
       <DisplayStatus>display status</DisplayStatus>
       <SettingsOptionTest>font size</SettingsOptionTest>
@@ -235,8 +224,6 @@ export default function Settings({
       </ChangeProPic>
       <SettingsOptionTest2>test</SettingsOptionTest2>
       <SettingsOptionTest2>test</SettingsOptionTest2>
-      <SettingsOptionTest3>testies</SettingsOptionTest3>
-      <SettingsOptionTest4>more test</SettingsOptionTest4>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
     </SettingsElementOptions>
   );
