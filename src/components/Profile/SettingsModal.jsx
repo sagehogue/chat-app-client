@@ -29,7 +29,7 @@ position: relative;
 const SettingsElementOptions = styled.div`
   position: absolute;
   padding-top: 1rem;
-
+width: 100%;
   height: 87vh;
   
   margin: 0 auto;
