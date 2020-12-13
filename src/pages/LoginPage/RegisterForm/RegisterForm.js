@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import styled, { keyframes, css } from "styled-components";
 
-import { SubmitButton } from "../../../components/UI/Buttons/Button";
+import Register from "../../../components/UI/Buttons/SubmitButton";
 import LoginButton from "../SignInButton/SignInButton";
 import RegisterButton from "../RegisterButton/RegisterButton";
 
@@ -117,12 +117,6 @@ const PasswordInputConfirm = styled.input`
   border-radius: 5px;
 `;
 
-const CreateButton = styled(SubmitButton)`
-  background: #157f1f;
-  border: none;
-  width: 75%;
-  margin-top: 1.5rem;
-`;
 export default function RegisterForm({
   showRegisterForm,
   heading,
@@ -174,7 +168,7 @@ export default function RegisterForm({
         onChange={(event) => handlePasswordConfirmation(event)}
       />
 
-      <CreateButton type="submit" value="Create" />
+      <Register type="submit">Create</Register>
     </RegisterFormStyle>
   );
 }
