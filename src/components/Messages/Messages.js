@@ -16,7 +16,7 @@ const MessagesStyle = styled.div`
   min-height: 70vh;
   overflow-y: scroll;
 `;
-const Messages = ({ messages, name, avatar }) => {
+const Messages = ({ messages, name, avatar, users }) => {
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +39,8 @@ const Messages = ({ messages, name, avatar }) => {
               key={i}
               message={message}
               user={name}
-              avatar={avatar}
+              clientAvatar={avatar}
+              avatar={users.find((user) => user.id == message.uid).avatar}
               shouldDisplayUsername={
                 (differentUser || lastUserToSendMessage === undefined) &&
                 message.user !== "admin"

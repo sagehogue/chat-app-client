@@ -84,6 +84,7 @@ export default function Message({
   user,
   shouldDisplayUsername = false,
   avatar = false,
+  clientAvatar = false,
 }) {
   let text, author, timeSent, profilePic;
   timeSent = message.time;
@@ -91,8 +92,11 @@ export default function Message({
   author = message.user;
   const sentByUser = author == user ? true : false;
   let messagePic = <FaRegSmileBeam />;
-  if (sentByUser && avatar) {
-    messagePic = <Avatar src={avatar} alt="User Picture" />;
+  console.log(`CLIENT AVATAR: ${clientAvatar}\n AVATAR: ${avatar.url}`);
+  if (sentByUser && clientAvatar) {
+    messagePic = <Avatar src={clientAvatar} alt="User Picture" />;
+  } else if (!sentByUser && avatar) {
+    messagePic = <Avatar src={avatar.url} alt="User Picture" />;
   }
   return (
     <MessageWrapper showProfile={shouldDisplayUsername} sentByUser={sentByUser}>

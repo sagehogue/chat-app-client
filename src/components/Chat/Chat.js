@@ -115,12 +115,25 @@ const Chat = ({
     // Message history of room you are currently in, retrieved from server
     socket.on("messageHistory", (messageHistory) => {
       if (messageHistory) {
+        let foundIDs = [];
+        let arrayOfMessageSenderIDs = [];
         sortByDate(messageHistory);
         messageHistory.forEach((msg) => {
           if (msg.time) {
             setMessages((messages) => [...messages, msg]);
           }
+          if (!foundIDs.includes(msg.uid)) {
+            arrayOfMessageSenderIDs.push({ id: msg.uid });
+            foundIDs.push(msg.uid);
+          }
         });
+        console.log(arrayOfMessageSenderIDs);
+        if (arrayOfMessageSenderIDs.length > 0) {
+          socket.emit("fetch-avatars", {
+            users: arrayOfMessageSenderIDs,
+            socketEventString: "user-avatars",
+          });
+        }
       }
     });
 
@@ -233,7 +246,12 @@ const Chat = ({
             handleRemoveFavoriteRoom={handleRemoveFavoriteRoom}
             handleOpenRoomSettings={handleOpenRoomSettings}
           />
-          <Messages messages={messages} name={username} avatar={avatar} />
+          <Messages
+            messages={messages}
+            name={username}
+            avatar={avatar}
+            users={usersAndAvatars}
+          />
           <Input
             message={message}
             setMessage={setMessage}
