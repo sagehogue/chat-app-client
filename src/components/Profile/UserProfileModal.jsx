@@ -242,7 +242,7 @@ const SettingsButton = styled.div`
   }}
 `;
 
-export default function UserProfileModal({profileDisplayState,
+export default function UserProfileModal({ profileDisplayState,
     handleCloseProfile, profilePicURL, id, socket, user}) {const [displaySettings, setDisplaySettings] = useState(false); // Responsible for whether or not settings are shown
 
         const handleSettings = () => {

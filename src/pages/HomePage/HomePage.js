@@ -100,6 +100,7 @@ export default function HomePage() {
   const [showRoomSettings, setShowRoomSettings] = useState(false);
   let userAuth = useContext(AuthContext);
   let user = userAuth;
+  console.log(user)
   let name, email, photoUrl, uid, emailVerified;
   name = user.displayName;
   uid = user.uid;

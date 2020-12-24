@@ -31,7 +31,7 @@ color: ${Theme.offWhite};
 
 
 
-const SettingsElementOptions = styled.div`
+const SettingsComponent = styled.div`
   position: absolute;
   padding-top: 1rem;
 width: 100%;
@@ -207,8 +207,9 @@ export default function Settings({
     });
   };
 
-  const settingsOptions = (
-    <SettingsElementOptions>
+  const settings = (
+   
+    <SettingsComponent>
       <SettingsHeader>Settings</SettingsHeader>
       <BackArrow onClick={handleRevertToProfile}>
         <TiArrowBack size={35} color={"#fff"}></TiArrowBack>
@@ -225,7 +226,8 @@ export default function Settings({
       <SettingsOptionTest2>test</SettingsOptionTest2>
       <SettingsOptionTest2>test</SettingsOptionTest2>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
-    </SettingsElementOptions>
+    </SettingsComponent>
+ 
   );
 
   const changeAvatarOptionForm = (
@@ -254,7 +256,7 @@ export default function Settings({
           <div>Not profile JSX</div>
         )
       ) : (
-        settingsOptions
+        settings
       )}
     </SettingsContainer>
   );

@@ -29,27 +29,6 @@ const SocketProvider = SocketContext.Provider;
 export const SocketConsumer = SocketContext.Consumer;
 socket = io(ENDPOINT, { query: "displayName=``" });
 // Listen for auth events
-function onAuthStateChange(callback) {
-  return firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log("Socket.io connecting displayName " + user.displayName);
-      socket.query = { displayName: user.displayName, id: user.uid };
-      // socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
-      callback({
-        loggedIn: true,
-        displayName: user.displayName,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        photoURL: user.photoURL,
-        isAnonymous: user.isAnonymous,
-        uid: user.uid,
-      });
-    } else {
-      callback({ loggedIn: false });
-    }
-  });
-}
-
 function login(username, password) {
   firebase.auth().signInWithEmailAndPassword(username, password);
 }
@@ -94,7 +73,44 @@ const App = () => {
       unsubscribe();
     };
   }, []);
+
   const [user, setUser] = useState({ loggedIn: null });
+
+  // listens for user authentication
+  function onAuthStateChange(callback) {
+    return firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user)
+        if (!user.displayName) {
+  fetchUserData(user.uid)
+        } else {
+          console.log("Socket.io connecting displayName " + user.displayName);
+          socket.query = { displayName: user.displayName, id: user.uid };
+          // socket = io(ENDPOINT, { query: `displayName=${user.displayName}` });
+          callback({
+            loggedIn: true,
+            displayName: user.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            photoURL: user.photoURL,
+            isAnonymous: user.isAnonymous,
+            uid: user.uid,
+          });
+        }
+      } else {
+        callback({ loggedIn: false });
+      }
+    });
+  }
+
+  const fetchUserData = (uid) => {
+    socket.emit("fetch-user-data", {id: uid})
+  }
+
+  socket.on("user-data", ({data}) => {
+    console.log(data)
+    setUser({...data, loggedIn: true,})
+  })
 
   //  Maybe check if null, false, or true and display loading, loggedout, loggedin.
 
@@ -109,6 +125,7 @@ const App = () => {
   //     </UserContext.Consumer>)
   //   }
   // </ThemeContext.Consumer>
+  console.log(`USER------------ ${user}`)
   return (
     <Router>
       <SocketProvider value={socket}>

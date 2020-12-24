@@ -124,8 +124,6 @@ export default function LoginPage({ socket }) {
   if (userAuth.loggedIn) {
     return <Redirect to="/" />;
   }
-  console.log(socket);
-
   // socket.emit("on-login-page");
 
   const handleDisplayRegisterForm = () => {
@@ -172,11 +170,6 @@ export default function LoginPage({ socket }) {
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
           const user = firebase.auth().currentUser;
-          socket.emit("register-user", {
-            uid: user.uid,
-            displayName: username,
-            email,
-          });
           // This is how you update properties on the profile.
           user
             .updateProfile({
@@ -190,7 +183,13 @@ export default function LoginPage({ socket }) {
             .catch(function (error) {
               return alert("Error! Account failed to update. Error: " + error);
             });
-          setHeading("Chatter");
+
+          socket.emit("register-user", {
+            uid: user.uid,
+            displayName: username,
+            email,
+          });
+          setHeading("Harmony");
         });
       // .catch(function (error) {
       //   // Handle Errors here.
