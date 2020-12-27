@@ -212,8 +212,8 @@ export default function Settings({
         <TiArrowBack size={35}></TiArrowBack>
       </BackArrow>
       <SettingsElementOptions>
-      <DisplayStatus>display status</DisplayStatus>
-      <SettingsOptionTest>font size</SettingsOptionTest>
+      <DisplayStatus>Display Status</DisplayStatus>
+      <SettingsOptionTest>Font Size</SettingsOptionTest>
       <ChangeProPic
         onClick={() => {
           handleOpenSettingForm("profile");
@@ -221,8 +221,8 @@ export default function Settings({
       >
         Change Profile Picture
       </ChangeProPic>
-      <SettingsOptionTest2>placeholder</SettingsOptionTest2>
-      <SettingsOptionTest2>placeholder</SettingsOptionTest2>
+      <SettingsOptionTest2>Placeholder</SettingsOptionTest2>
+      <SettingsOptionTest2>Placeholder</SettingsOptionTest2>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </SettingsElementOptions>
     </SettingsComponent>

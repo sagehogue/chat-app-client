@@ -3,9 +3,9 @@ import styled from "styled-components";
 import Theme from "../../../util/Theme/Theme";
 
 export default styled.button`
-width: 50%;
+width: 45%;
   text align: center;
-margin: 1.325rem auto;
+margin: .875rem auto;
 padding: 10px;
 cursor: pointer;
 color: ${Theme.offWhite};
