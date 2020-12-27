@@ -5,7 +5,7 @@ import Theme from "../../../util/Theme/Theme";
 export default styled.button`
 width: 50%;
   text align: center;
-margin: auto;
+margin: 1.325rem auto;
 padding: 10px;
 cursor: pointer;
 color: ${Theme.offWhite};

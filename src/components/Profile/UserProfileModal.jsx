@@ -27,7 +27,7 @@ const ProfileContainer = styled(Modal)`
 //styles for top portion of profile component
 const ProfilePicContainer = styled.div`
   position: relative;
-  height: 40%;
+  height: 45%;
   width: 100%;
   padding: 1rem;
   padding-top: 0;
@@ -146,7 +146,7 @@ const StatusCircle = styled.div`
 
 //styles for bottom portion of profile component
 const ProfileInfoContainer = styled.div`
-height: 60%; 
+height: 55%; 
 width: 100%;
 display: ${(props) => (props.displaySettings ? "none" : "flex")};
 padding: 2rem;

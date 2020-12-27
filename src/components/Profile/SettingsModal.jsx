@@ -27,6 +27,10 @@ position: relative;
 const SettingsHeader = styled.div`
 font-size: 3rem;
 color: ${Theme.offWhite};
+padding: .25rem;
+width: 40%;
+margin: 0 auto;
+border-bottom: 2px solid ${Theme.offWhite};
 `
 
 
@@ -46,19 +50,12 @@ width: 100%;
   font-size: ${Theme.fontSizeM};
 `;
 
-const SettingElementOption = styled.div`
-  position: absolute;
-  padding-top: 3rem;
-  display: ${(props) => (props.settingsActive ? "flex" : "none")};
-  height: 35rem;
-  width: 20rem;
-  display: flex;
-  flex-direction: column;
-  background-color: ${Theme.backgroundColorDarkGray};
-  border-radius: 1rem;
-  justify-content: center;
-  text-align: center;
-  font-size: ${Theme.fontSizeM};
+const SettingsElementOptions = styled.div`
+margin-top: 2rem;
+display: flex;
+flex-direction: column;
+height: 65vh;
+
 `;
 
 const BackArrow = styled.div`
@@ -69,19 +66,19 @@ const BackArrow = styled.div`
   padding-top: 1.125rem;
   padding-left: 1.125rem;
   height: 2rem;
+  transition: ${Theme.transitionSpeed};
+  display: flex;
+  justify-content: flex-end;
+  color: ${Theme.offWhite};
   
   & svg {
     margin: 0;
     cursor: pointer;
     
   }
-  opacity: 0.8;
-  display: flex;
-  justify-content: flex-end;
+
   &:hover {
-    opacity: 1;
-    transform: translateY(-1px);
-    
+    color: ${Theme.theme3.highlight2};
   }
 }`;
 
@@ -212,8 +209,9 @@ export default function Settings({
     <SettingsComponent>
       <SettingsHeader>Settings</SettingsHeader>
       <BackArrow onClick={handleRevertToProfile}>
-        <TiArrowBack size={35} color={"#fff"}></TiArrowBack>
+        <TiArrowBack size={35}></TiArrowBack>
       </BackArrow>
+      <SettingsElementOptions>
       <DisplayStatus>display status</DisplayStatus>
       <SettingsOptionTest>font size</SettingsOptionTest>
       <ChangeProPic
@@ -223,9 +221,10 @@ export default function Settings({
       >
         Change Profile Picture
       </ChangeProPic>
-      <SettingsOptionTest2>test</SettingsOptionTest2>
-      <SettingsOptionTest2>test</SettingsOptionTest2>
+      <SettingsOptionTest2>placeholder</SettingsOptionTest2>
+      <SettingsOptionTest2>placeholder</SettingsOptionTest2>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
+      </SettingsElementOptions>
     </SettingsComponent>
  
   );
