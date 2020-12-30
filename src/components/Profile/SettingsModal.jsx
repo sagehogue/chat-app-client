@@ -20,7 +20,6 @@ position: relative;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  text-decoration: underline;
   text-transform: capitalize;
   
 `;
@@ -124,13 +123,13 @@ const PicFormStyle = styled.form`
 `;
 
 const PicLabel = styled.label`
-  color: ${Theme.backgroundColorDarkGray};
+  color: ${Theme.offWhite};
   display: flex;
   margin-top: 3rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: ${Theme.fontSizeL};
 
   @media screen and (min-width: 1px) {
     &&& svg {
@@ -145,9 +144,10 @@ const PicInput = styled.input`
   border: none;
   background: ${Theme.backgroundColorLigjtGray};
   color: ${Theme.textColorLight};
-  width: 80%;
-  margin-left: 3rem;
-  margin-top: 0.5rem;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
   cursor: pointer;
 `;
 
