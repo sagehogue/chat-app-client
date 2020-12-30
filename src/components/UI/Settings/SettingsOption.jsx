@@ -9,7 +9,7 @@ padding: 15px;
 margin: 0 auto;
 cursor: pointer;
 color: ${Theme.offWhite};
-background-color: ${Theme.theme3.opaqueBlack};
+background-color: ${Theme.theme3.cabinetOdd};
 border: 1px solid transparent;
 transition: all ${Theme.transitionSpeed};
 font-size: 1.5rem;

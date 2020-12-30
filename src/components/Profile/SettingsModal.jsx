@@ -85,16 +85,20 @@ const BackArrow = styled.div`
   }
 }`;
 
+const SettingsOptionEven = styled(SettingsOption)`
+background-color: ${Theme.theme3.cabinetEven}
+`
+
 const DisplayStatus = styled(SettingsOption)``;
 const ChangeProPic = styled(SettingsOption)``;
 
-const SettingsOptionTest = styled(SettingsOption)``;
+const FontSize = styled(SettingsOptionEven)``;
 const SettingsOptionTest1 = styled(SettingsOption)``;
-const SettingsOptionTest2 = styled(SettingsOption)``;
+const SettingsOptionTest2 = styled(SettingsOptionEven)``;
 const SettingsOptionTest3 = styled(SettingsOption)``;
 const SettingsOptionTest4 = styled(SettingsOption)``;
 
-const LogOutButton = styled(SettingsOption)`
+const LogOutButton = styled(SettingsOptionEven)`
   
 `;
 
@@ -204,7 +208,7 @@ export default function Settings({
       </BackArrow>
       <SettingsElementOptions>
       <DisplayStatus>Display Status</DisplayStatus>
-      <SettingsOptionTest>Font Size</SettingsOptionTest>
+      <FontSize>Font Size</FontSize>
       <ChangeProPic
         onClick={() => {
           handleOpenSettingForm("profile");
@@ -213,7 +217,7 @@ export default function Settings({
         Change Profile Picture
       </ChangeProPic>
       <SettingsOptionTest2>Placeholder</SettingsOptionTest2>
-      <SettingsOptionTest2>Placeholder</SettingsOptionTest2>
+      <SettingsOptionTest3>Placeholder</SettingsOptionTest3>
       <LogOutButton onClick={() => logoutHandler()}>Log Out</LogOutButton>
       </SettingsElementOptions>
     </SettingsComponent>
