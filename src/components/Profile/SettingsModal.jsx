@@ -190,6 +190,7 @@ export default function Settings({
         setProfilePic(url);
       });
       console.log(profilePicRef.getDownloadURL());
+      handleCloseSettingForm()
     });
   };
 
