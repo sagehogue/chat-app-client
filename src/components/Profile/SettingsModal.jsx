@@ -58,6 +58,7 @@ display: flex;
 flex-direction: column;
 height: 65vh;
 
+
 `;
 
 const BackArrow = styled.div`

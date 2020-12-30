@@ -5,11 +5,10 @@ import Theme from "../../../util/Theme/Theme";
 export default styled.button`
 width: 45%;
   text align: center;
-margin: .875rem auto;
-padding: 10px;
+padding: 15px;
+margin: 0 auto;
 cursor: pointer;
 color: ${Theme.offWhite};
-border-radius: ${Theme.borderRadiusBtn};
 background-color: ${Theme.theme3.opaqueBlack};
 border: 1px solid transparent;
 transition: all ${Theme.transitionSpeed};
