@@ -12,7 +12,8 @@ color: ${Theme.offWhite};
 background-color: ${Theme.theme3.cabinetOdd};
 border: 1px solid transparent;
 transition: all ${Theme.transitionSpeed};
-font-size: 1.5rem;
+font-size: ${Theme.fontSizeM};
+font-weight: 600;
 &:hover {
   border: 1px solid ${Theme.theme3.highlight2};
   box-shadow: 0 0 8px 2px ${Theme.theme3.highlight2};

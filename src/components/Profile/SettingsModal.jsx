@@ -130,11 +130,11 @@ const PicFormStyle = styled.form`
 const PicLabel = styled.label`
   color: ${Theme.offWhite};
   display: flex;
-  margin-top: 3rem;
+  margin-top: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: ${Theme.fontSizeL};
+  font-size: ${Theme.fontSizeXL};
 
   @media screen and (min-width: 1px) {
     &&& svg {
