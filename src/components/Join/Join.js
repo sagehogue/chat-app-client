@@ -67,10 +67,9 @@ const HeaderCard = styled.div`
   transition: ${Theme.transitionSpeed};
 
   max-height: ${(props) => (props.showFullBanner ? "40rem" : "14rem")};
-  // overflow-y: scroll;
-  // -ms-overflow-style: none;
-  // scrollbar-width: none;
-  overflow: hidden;
+  overflow-y: ${(props) => (props.showFullBanner ? "scroll" : "hidden")};
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   animation: ${BottomToTop} 1.5s;
 `;
 
