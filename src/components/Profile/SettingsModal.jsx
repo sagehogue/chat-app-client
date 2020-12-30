@@ -4,6 +4,7 @@ import Theme from '../../util/Theme/Theme'
 import { Modal } from "../../components/UI/Modal/NewModal";
 import { TiArrowBack } from "react-icons/ti";
 import button from "../UI/Buttons/Button";
+import Submit from "../UI/Buttons/SubmitButton";
 import SettingsOption from "../../components/UI/Settings/SettingsOption";
 import uuid from "react-uuid";
 import { getStorageRef } from "../../App";
@@ -50,6 +51,8 @@ width: 100%;
   font-size: ${Theme.fontSizeM};
 `;
 
+
+
 const SettingsElementOptions = styled.div`
 margin-top: 2rem;
 display: flex;
@@ -95,11 +98,13 @@ const LogOutButton = styled(SettingsOption)`
   
 `;
 
+//styling for changing profile picture settings option below
+
 const ProfilePicContainer = styled.div`
   position: relative;
-  height: 15rem;
+  height: 87vh;
   width: 100%;
-  background-color: ${Theme.backgroundColorLightGray};
+  background-color: ${Theme.theme3.color5};
   border-top-left-radius: ${Theme.borderRadius};
   border-top-right-radius: ${Theme.borderRadius};
   display: flex;
@@ -134,23 +139,7 @@ const PicLabel = styled.label`
   }
 `;
 
-const SubmitPic = styled.button`
-  border: none;
-  background: ${Theme.backgroundColorDarkGray};
-  color: ${Theme.textColorLight};
-  padding: 0.15rem;
-  border-radius: ${Theme.borderRadiusBtn};
-  border: 1px solid ${Theme.backgroundColorDarkerGray};
-  width: 30%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition-all: ${Theme.transitionSpeed};
-  &:hover {
-    scale: 1.1;
-  }
-`;
+
 
 const PicInput = styled.input`
   border: none;
@@ -232,7 +221,7 @@ export default function Settings({
   const changeAvatarOptionForm = (
     <>
       <BackArrow onClick={handleCloseSettingForm}>
-        <TiArrowBack size={25}></TiArrowBack>
+        <TiArrowBack size={35}></TiArrowBack>
       </BackArrow>
       <ProfilePicContainer>
         <PicFormStyle onSubmit={submitHandler}>
@@ -240,7 +229,7 @@ export default function Settings({
             Change Profile Pic
             <PicInput type="file" name="file" ref={fileRef} />
           </PicLabel>
-          <SubmitPic type="submit">submit</SubmitPic>
+          <Submit type="submit">submit</Submit>
         </PicFormStyle>
       </ProfilePicContainer>
     </>

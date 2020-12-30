@@ -24,7 +24,7 @@ const Heading = styled.h1`
   margin: 2rem 0;
   font-family: ${Theme.font.type.heading};
   // color: ${Theme.font.color.heading};
-  color: ${Theme.offWhite}
+  color: ${Theme.offWhite};
   font-size: ${Theme.font.size.headingDesktop};
 `;
 
